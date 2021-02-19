@@ -13,14 +13,6 @@ public class GridTile : MonoBehaviour
     private BoxCollider2D _boxCollider;
     private TextMeshProUGUI _lifeTimeText;
 
-    // Position sur la grille, assignee par le GridManager
-    [HideInInspector] public int tileX;
-    [HideInInspector] public int tileY;
-
-    // Type de tuile en int, assigné par le GridManager
-    [HideInInspector] public int tileType;
-    [HideInInspector] public Vector2 tileDimensions;
-
     // Propriétés des tuiles
     [Header("Life settings")]
     public bool liveForever;
@@ -29,6 +21,19 @@ public class GridTile : MonoBehaviour
     [Header("Damage settings")]
     public float shipDPS;
     public float planetDPS;
+
+    // Position sur la grille, assignee par le GridManager
+    [HideInInspector] public int tileX;
+    [HideInInspector] public int tileY;
+
+    // Type de tuile en int, assigné par le GridManager
+    [HideInInspector] public int tileType;
+    [HideInInspector] public Vector2 tileDimensions;
+
+    // Liste d'objets statics qui se trouvent dans la tuile
+    [SerializeField] private List<GridStaticObject> _currentObjectsInTile = new List<GridStaticObject>();
+    // Propriété qui retourne une référence à la liste d'objets
+    public List<GridStaticObject> CurrentObjectsInTile { get { return _currentObjectsInTile; } }
 
     private void Awake()
     {
@@ -65,6 +70,34 @@ public class GridTile : MonoBehaviour
         this.gameObject.SetActive(false);
         //_spriteRenderer.enabled = false;
         //_boxCollider.enabled = false;
+
+        foreach (var obj in _currentObjectsInTile)
+        {
+            obj.gridObjectPositionRemoved -= RemoveObjectFromTile;
+        }
+
+        _currentObjectsInTile.Clear();
+    }
+
+    public void AddObjectToTile(GridStaticObject obj)
+    {
+        _currentObjectsInTile.Add(obj);
+        obj.gridObjectPositionRemoved += RemoveObjectFromTile;
+    }
+
+    public void RemoveObjectFromTile(GridStaticObject obj)
+    {
+        _currentObjectsInTile.Remove(obj);
+    }
+
+    public void TransferObjectList(List<GridStaticObject> objList)
+    {
+        _currentObjectsInTile = new List<GridStaticObject>(objList);
+        foreach (var obj in _currentObjectsInTile)
+        {
+            Debug.Log("Found : " + obj.gameObject.name);
+            obj.gridObjectPositionRemoved += RemoveObjectFromTile;
+        }
     }
 
     private IEnumerator LifeTimer()
@@ -87,6 +120,7 @@ public class GridTile : MonoBehaviour
                 tileLifeOver(this);
         }
     }
+
 
     private void UpdateDebugText(float time)
     {

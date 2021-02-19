@@ -1730,6 +1730,9 @@ MonoBehaviour:
     type: 3}
   anomaly2Prefab: {fileID: 328405606139326222, guid: e254ec53e7e74bf4e97c2b2816f95b4c,
     type: 3}
+  deployPointPrefab: {fileID: 6504984134038671548, guid: 5a7a9efcc7ff0624fad0243acd1993ed,
+    type: 3}
+  deployStartCoordinates: {x: 3.2, y: 2.7}
 --- !u!4 &2077457742
 Transform:
   m_ObjectHideFlags: 0

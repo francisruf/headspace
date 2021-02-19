@@ -12,15 +12,23 @@ public class GridManager : MonoBehaviour
     public static GridManager instance;
 
     // Paramètres de la grille
+    [Header("Grid settings")]
     public int mapSizeX;
     public int mapSizeY;
     public float mapWidth;
 
-    // Prefabs de tuiles
+    [Header("Tile prefabs")]
+    // Prefabs de tuiles et objets
     public GameObject emptyCellPrefab;
     public GameObject anomaly0Prefab;
     public GameObject anomaly1Prefab;
     public GameObject anomaly2Prefab;
+
+    [Header("Object prefabs")]
+    public GameObject deployPointPrefab;
+
+    [Header("Deploy point settings")]
+    public Vector2 deployStartCoordinates;
 
     // La grille
     private int[,] _gameGrid;   // Array2D d'ints pour génération initiale et pathfinding
@@ -29,16 +37,18 @@ public class GridManager : MonoBehaviour
     // Informations de la grille actuelle (voir Struct en bas de cette classe)
     private GridInfo _currentGridInfo;
 
-    // Subscription à l'ACTION tileLifeOver de la classe GridTile
+    // Subscription aux ACTIONS d'autres classes
     private void OnEnable()
     {
         GridTile.tileLifeOver += OnTileLifeOver;
+        GridStaticObject.gridObjectPositionAdded += OnGridObjectPositionAdded;
     }
 
-    // Unsubscription à l'ACTION tileLifeOver de la classe GridTile
+    // Unsubscription
     private void OnDisable()
     {
         GridTile.tileLifeOver -= OnTileLifeOver;
+        GridStaticObject.gridObjectPositionAdded -= OnGridObjectPositionAdded;
     }
 
     private void Awake()
@@ -65,6 +75,7 @@ public class GridManager : MonoBehaviour
 
             GenerateMapData();
             GenerateMapTiles();
+            GenerateStartingObjects();
         }
     }
 
@@ -140,6 +151,21 @@ public class GridManager : MonoBehaviour
 
         if (newGameGrid != null)
             newGameGrid(_currentGridInfo);
+    }
+
+    // Fonction qui génère les premiers objets sur la grille (points de déploiement / planètes(TBD))
+    private void GenerateStartingObjects()
+    {
+        GameObject go = Instantiate(deployPointPrefab);
+
+        // TEMP Instantiation sous le DebugManager
+        if (DebugManager.instance != null)
+        {
+            go.transform.SetParent(DebugManager.instance.gridDebug.transform);
+        }
+
+        GridStaticObject obj = go.GetComponent<GridStaticObject>();
+        obj.PlaceGridObject(deployStartCoordinates);
     }
 
     // Fonction utilitaire qui donne le bon prefab de tuile, selon le int dans l'array2D
@@ -231,11 +257,30 @@ public class GridManager : MonoBehaviour
         gt.tileType = newTileType;
         gt.InitializeTile(deadTile.tileDimensions);
 
+        gt.TransferObjectList(deadTile.CurrentObjectsInTile);
+
         // Remplacement de la tuile dans les arrays2D
         _gameGrid[deadTile.tileX, deadTile.tileY] = newTileType;
         _gameGridTiles[deadTile.tileX, deadTile.tileY] = gt;
 
         deadTile.DisableTile();
+    }
+
+    private void OnGridObjectPositionAdded(GridStaticObject obj)
+    {
+        if (obj.ParentTile.tileX < 0 || obj.ParentTile.tileX >= _currentGridInfo.gameGridSize.x)
+        {
+            Debug.Log("INVALID OBJECT X POSITION");
+            return;
+        }
+
+        if (obj.ParentTile.tileY < 0 || obj.ParentTile.tileY >= _currentGridInfo.gameGridSize.y)
+        {
+            Debug.Log("INVALID OBJECT Y POSITION");
+            return;
+        }
+
+        _gameGridTiles[obj.ParentTile.tileX, obj.ParentTile.tileY].AddObjectToTile(obj);
     }
 
     // Fonction DEBUG qui change une tuile au hasard par une anomalie
@@ -280,6 +325,18 @@ public struct GridInfo
     public static bool operator !=(GridInfo op1, GridInfo op2)
     {
         return !op1.Equals(op2);
+    }
+}
+
+public struct TileCoordinates
+{
+    public int tileX;
+    public int tileY;
+
+    public TileCoordinates(int tileX, int tileY)
+    {
+        this.tileX = tileX;
+        this.tileY = tileY;
     }
 }
 

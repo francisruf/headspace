@@ -128,6 +128,35 @@ public class GridCoords : MonoBehaviour
         return worldCoords;
     }
 
+    // Convertir des coordonnées de grille en coordonnées de la TUILE qui contient ces coordonnées
+    public static TileCoordinates FromGridToTile(Vector2 gridCoords)
+    {
+        int tileX = Mathf.FloorToInt(gridCoords.x);
+        int tileY = Mathf.FloorToInt(gridCoords.y);
+
+        return new TileCoordinates(tileX, tileY);
+    }
+
+    // Convertir des coordonnées de grille en coordonnées de la TUILE qui contient ces coordonnées
+    public static TileCoordinates FromGridToTile(Vector2 gridCoords, out bool validCoords)
+    {
+        validCoords = true;
+
+        if (gridCoords.x < -0.001f)
+            validCoords = false;
+
+        if (gridCoords.x > _currentGridInfo.gameGridSize.x)
+            validCoords = false;
+
+        if (gridCoords.y < -0.001f)
+            validCoords = false;
+
+        if (gridCoords.y > _currentGridInfo.gameGridSize.y)
+            validCoords = false;
+
+        return FromGridToTile(gridCoords);
+    }
+
     public static Vector2 RoundCoords(Vector2 coords)
     {
         Vector2 roundedCoords = coords;

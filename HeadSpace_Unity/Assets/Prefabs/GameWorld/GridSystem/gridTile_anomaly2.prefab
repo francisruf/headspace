@@ -70,8 +70,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 713987835
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 68af0bed142bc5b49b010d48713fbfa4, type: 3}
   m_Color: {r: 0.9245283, g: 0.030526895, b: 0.056786124, a: 1}
@@ -122,14 +122,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0a81c2aee81ee24e93b439cfaca305c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileX: 0
-  tileY: 0
-  tileType: 0
-  tileDimensions: {x: 0, y: 0}
   liveForever: 1
   lifeTime: 0
   shipDPS: 0
   planetDPS: 0
+  tileX: 0
+  tileY: 0
+  tileType: 0
+  tileDimensions: {x: 0, y: 0}
+  _currentObjectsInTile: []
 --- !u!1 &792759034991735327
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,8 +321,8 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 713987835
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &3155168487670221465
 MonoBehaviour:
@@ -352,7 +353,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2734248958338031911}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
