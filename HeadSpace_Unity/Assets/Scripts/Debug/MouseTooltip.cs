@@ -38,7 +38,7 @@ public class MouseTooltip : MonoBehaviour
     private void Update()
     {
         // Si gridInfo n'a pas été assigné encore, arrêter l'exécution
-        if (_currentGridInfo == default)
+        if (_currentGridInfo == null)
             return;
 
         Vector3 mousePos = Vector3.zero;

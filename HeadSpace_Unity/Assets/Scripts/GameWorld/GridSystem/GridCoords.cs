@@ -157,6 +157,20 @@ public class GridCoords : MonoBehaviour
         return FromGridToTile(gridCoords);
     }
 
+    // Convertir des coordonnées de grille en coordonnées de la TUILE qui contient ces coordonnées
+    public static TileCoordinates FromWorldToTile(Vector2 worldCoords)
+    {
+        Vector2 gridCoords = FromWorldToGrid(worldCoords);
+
+        int tileX = Mathf.FloorToInt(gridCoords.x);
+        int tileY = Mathf.FloorToInt(gridCoords.y);
+
+        tileX = Mathf.Clamp(tileX, 0, _currentGridInfo.gameGridTiles.GetLength(0) - 1);
+        tileY = Mathf.Clamp(tileY, 0, _currentGridInfo.gameGridTiles.GetLength(1) - 1);
+
+        return new TileCoordinates(tileX, tileY);
+    }
+
     public static Vector2 RoundCoords(Vector2 coords)
     {
         Vector2 roundedCoords = coords;

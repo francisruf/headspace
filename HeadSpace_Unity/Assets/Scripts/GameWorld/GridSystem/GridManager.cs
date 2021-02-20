@@ -17,6 +17,9 @@ public class GridManager : MonoBehaviour
     public int mapSizeY;
     public float mapWidth;
 
+    [Header("Anomaly settings")]
+    public int[] newSegmentAfterCount;
+
     [Header("Tile prefabs")]
     // Prefabs de tuiles et objets
     public GameObject emptyCellPrefab;
@@ -27,8 +30,8 @@ public class GridManager : MonoBehaviour
     [Header("Object prefabs")]
     public GameObject deployPointPrefab;
 
-    [Header("Deploy point settings")]
-    public Vector2 deployStartCoordinates;
+    //[Header("Deploy point settings")]
+    //public Vector2 deployStartCoordinates;
 
     // La grille
     private int[,] _gameGrid;   // Array2D d'ints pour génération initiale et pathfinding
@@ -37,17 +40,24 @@ public class GridManager : MonoBehaviour
     // Informations de la grille actuelle (voir Struct en bas de cette classe)
     private GridInfo _currentGridInfo;
 
+    // Liste d'objets faisant partie de la grille
+    private List<GridStaticObject> _allStaticObjects = new List<GridStaticObject>();
+
+    // Segments de l'anomalie
+    private List<AnomalySegment> _allAnomalySegments = new List<AnomalySegment>();
+    private int _anomalyCompletedTileCount;
+
     // Subscription aux ACTIONS d'autres classes
     private void OnEnable()
     {
-        GridTile.tileLifeOver += OnTileLifeOver;
+        GridTile.anomalyTileComplete += OnNewAnomalyTileComplete;
         GridStaticObject.gridObjectPositionAdded += OnGridObjectPositionAdded;
     }
 
     // Unsubscription
     private void OnDisable()
     {
-        GridTile.tileLifeOver -= OnTileLifeOver;
+        GridTile.anomalyTileComplete -= OnNewAnomalyTileComplete;
         GridStaticObject.gridObjectPositionAdded -= OnGridObjectPositionAdded;
     }
 
@@ -75,7 +85,12 @@ public class GridManager : MonoBehaviour
 
             GenerateMapData();
             GenerateMapTiles();
+
+            if (newGameGrid != null)
+                newGameGrid(_currentGridInfo);
+
             GenerateStartingObjects();
+            Array.Sort(newSegmentAfterCount);
         }
     }
 
@@ -86,6 +101,18 @@ public class GridManager : MonoBehaviour
         {
             Destroy(gridTile.gameObject);
         }
+
+        foreach (var obj in _allStaticObjects)
+        {
+            obj.DisableGridObject();
+        }
+
+        foreach (var obj in _allStaticObjects)
+        {
+            Destroy(obj.gameObject);
+        }
+
+        _allStaticObjects.Clear();
     }
 
     // Fonction qui génère la grille d'entiers
@@ -148,14 +175,13 @@ public class GridManager : MonoBehaviour
         // Assignation des informations de la grille et appel de l'ACTION de nouvelle grille
         Bounds newBounds = new Bounds(Vector3.zero, new Vector3(mapWidth, tileWidth * mapSizeY, 0f));
         _currentGridInfo = new GridInfo(_gameGridTiles, new Vector2(mapSizeX, mapSizeY), newBounds);
-
-        if (newGameGrid != null)
-            newGameGrid(_currentGridInfo);
     }
 
     // Fonction qui génère les premiers objets sur la grille (points de déploiement / planètes(TBD))
     private void GenerateStartingObjects()
     {
+        // ------ DEPLOY POINTS -------
+
         GameObject go = Instantiate(deployPointPrefab);
 
         // TEMP Instantiation sous le DebugManager
@@ -164,8 +190,81 @@ public class GridManager : MonoBehaviour
             go.transform.SetParent(DebugManager.instance.gridDebug.transform);
         }
 
+        // Placer le Deploy point en fonction d'un cadran aléatoire
         GridStaticObject obj = go.GetComponent<GridStaticObject>();
-        obj.PlaceGridObject(deployStartCoordinates);
+        GridQuadrants.QuadrantMatch quadrantMatch = _currentGridInfo.gameGridQuadrants.GetRandomQuadrantMatch(out _currentGridInfo.positiveQuadrantIndex);
+        
+        Vector3 spawnPos = RandomPointInBounds(quadrantMatch.positiveQuadrant);
+        spawnPos = GridCoords.FromWorldToGrid(spawnPos);
+
+        obj.PlaceGridObject(spawnPos);
+
+        // ------ ANOMALY ------
+
+        // Placer l'anomalie selon un point au hasard dans le cadran opposé
+        Vector3 randomAnomalyPoint = RandomPointInBounds(quadrantMatch.negativeQuadrant);
+        Debug.Log("RANDOM NEGATIVE POINT : " + randomAnomalyPoint);
+        TileCoordinates startTile = GridCoords.FromWorldToTile(randomAnomalyPoint);
+
+        InstantiateAnomalySegment(startTile);
+    }
+
+    private void InstantiateAnomalySegment(TileCoordinates startTile)
+    {
+        Debug.Log("X : " + startTile.tileX + "Y : " + startTile.tileY);
+        GridTile tileToReplace = _gameGridTiles[startTile.tileX, startTile.tileY];
+        GridTile newTile;
+        ReplaceTile(tileToReplace, 1, out newTile);
+
+        AnomalySegment segment = new AnomalySegment();
+        _allAnomalySegments.Add(segment);
+        segment.AssignActiveTile(newTile);
+    }
+
+    private void InstantiateAnomalySegment(int positiveQuadrantIndex)
+    {
+        TileCoordinates newAnomalyCoords = default;
+        List<GridTile> candidates = new List<GridTile>();
+        List<Bounds> otherQuadrants = new List<Bounds>(_currentGridInfo.gameGridQuadrants.GetOtherBounds(_currentGridInfo.positiveQuadrantIndex));
+
+        bool foundPosition = false;
+        while (!foundPosition)
+        {
+            if (otherQuadrants.Count > 0)
+            {
+                int randomIndex = UnityEngine.Random.Range(0, otherQuadrants.Count);
+                Bounds candidateBounds = otherQuadrants[randomIndex];
+                otherQuadrants.Remove(candidateBounds);
+
+                candidates = GetGridTilesInBounds(candidateBounds);
+                foreach (var candidate in candidates)
+                {
+                    if (candidate.tileType == 0)
+                    {
+                        newAnomalyCoords.tileX = candidate.tileX;
+                        newAnomalyCoords.tileY = candidate.tileY;
+                        foundPosition = true;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                foundPosition = true;
+                Debug.Log("NO MORE POSSIBLE TILES TO SPAWN ANOMALY");
+                return;
+            }
+
+        }
+
+        Debug.Log("X : " + newAnomalyCoords.tileX + "Y : " + newAnomalyCoords.tileY);
+        GridTile tileToReplace = _gameGridTiles[newAnomalyCoords.tileX, newAnomalyCoords.tileY];
+        GridTile newTile;
+        ReplaceTile(tileToReplace, 1, out newTile);
+
+        AnomalySegment segment = new AnomalySegment();
+        _allAnomalySegments.Add(segment);
+        segment.AssignActiveTile(newTile);
     }
 
     // Fonction utilitaire qui donne le bon prefab de tuile, selon le int dans l'array2D
@@ -200,40 +299,7 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    // Fonction qui gère le passage d'une tuile à une autre, quand son temps de vie est écoulé.
-    private void OnTileLifeOver(GridTile deadTile)
-    {
-        switch (deadTile.tileType)
-        {
-            case 0:
-                {
-                    break;
-                }
-
-            case 1:
-                {
-                    ReplaceTile(deadTile, 2);
-                    break;
-                }
-
-            case 2:
-                {
-                    ReplaceTile(deadTile, 3);
-                    break;
-                }
-
-            case 3:
-                {
-                    break;
-                }
-
-            default:
-                break;
-        }
-    }
-
-    // Fonction qui remplace une tuile existante par un nouveau type de tuile
-    private void ReplaceTile(GridTile deadTile, int newTileType)
+    public void ReplaceTile(GridTile deadTile, int newTileType)
     {
         float tileWidth = deadTile.tileDimensions.x;
 
@@ -255,7 +321,7 @@ public class GridManager : MonoBehaviour
         gt.tileX = deadTile.tileX;
         gt.tileY = deadTile.tileY;
         gt.tileType = newTileType;
-        gt.InitializeTile(deadTile.tileDimensions);
+        gt.InitializeTile(deadTile.tileDimensions, _currentGridInfo);
 
         gt.TransferObjectList(deadTile.CurrentObjectsInTile);
 
@@ -263,9 +329,98 @@ public class GridManager : MonoBehaviour
         _gameGrid[deadTile.tileX, deadTile.tileY] = newTileType;
         _gameGridTiles[deadTile.tileX, deadTile.tileY] = gt;
 
+        deadTile.TriggerNeighbourTilesUpdates();
         deadTile.DisableTile();
     }
 
+    // Fonction qui remplace une tuile existante par un nouveau type de tuile
+    public void ReplaceTile(GridTile deadTile, int newTileType, out GridTile newTile)
+    {
+        float tileWidth = deadTile.tileDimensions.x;
+
+        // Assignation du bon prefab et spawnPos
+        GameObject tilePrefab = GetTileFromID(newTileType);
+        Vector3 spawnPos = deadTile.transform.position;
+
+        // Instantiation
+        GameObject go = Instantiate(tilePrefab, spawnPos, Quaternion.identity);
+
+        // TEMP Instantiation sous le DebugManager
+        if (DebugManager.instance != null)
+        {
+            go.transform.SetParent(DebugManager.instance.gridDebug.transform);
+        }
+
+        // Assignation des paramètres sur les OBJETS de tuile
+        newTile = go.GetComponent<GridTile>();
+        newTile.tileX = deadTile.tileX;
+        newTile.tileY = deadTile.tileY;
+        newTile.tileType = newTileType;
+        newTile.InitializeTile(deadTile.tileDimensions, _currentGridInfo);
+
+        newTile.TransferObjectList(deadTile.CurrentObjectsInTile);
+
+        // Remplacement de la tuile dans les arrays2D
+        _gameGrid[deadTile.tileX, deadTile.tileY] = newTileType;
+        _gameGridTiles[deadTile.tileX, deadTile.tileY] = newTile;
+
+        deadTile.TriggerNeighbourTilesUpdates();
+        deadTile.DisableTile();
+    }
+
+    // Fonction qui remplace une tuile existante par un nouveau type de tuile
+    public void ReplaceTile(TileCoordinates deadTileCoords, int newTileType, out GridTile newTile)
+    {
+        GridTile deadTile = _gameGridTiles[deadTileCoords.tileX, deadTileCoords.tileY];
+        float tileWidth = deadTile.tileDimensions.x;
+
+        // Assignation du bon prefab et spawnPos
+        GameObject tilePrefab = GetTileFromID(newTileType);
+        Vector3 spawnPos = deadTile.transform.position;
+
+        // Instantiation
+        GameObject go = Instantiate(tilePrefab, spawnPos, Quaternion.identity);
+
+        // TEMP Instantiation sous le DebugManager
+        if (DebugManager.instance != null)
+        {
+            go.transform.SetParent(DebugManager.instance.gridDebug.transform);
+        }
+
+        // Assignation des paramètres sur les OBJETS de tuile
+        newTile = go.GetComponent<GridTile>();
+        newTile.tileX = deadTile.tileX;
+        newTile.tileY = deadTile.tileY;
+        newTile.tileType = newTileType;
+        newTile.InitializeTile(deadTile.tileDimensions, _currentGridInfo);
+
+        newTile.TransferObjectList(deadTile.CurrentObjectsInTile);
+
+        // Remplacement de la tuile dans les arrays2D
+        _gameGrid[deadTile.tileX, deadTile.tileY] = newTileType;
+        _gameGridTiles[deadTile.tileX, deadTile.tileY] = newTile;
+
+        deadTile.TriggerNeighbourTilesUpdates();
+        deadTile.DisableTile();
+    }
+
+    // Fonction qui track la quantité de tuiles d'anomalie et qui trigger le spawn des prochains segments
+    public void OnNewAnomalyTileComplete(GridTile tile)
+    {
+        _anomalyCompletedTileCount++;
+
+        int anomalyStepCount = newSegmentAfterCount.Length;
+        if (_allAnomalySegments.Count <= anomalyStepCount)
+        {
+            if (_anomalyCompletedTileCount == newSegmentAfterCount[_allAnomalySegments.Count - 1])
+            {
+                InstantiateAnomalySegment(_currentGridInfo.positiveQuadrantIndex);
+            }
+        }
+    }
+
+    // Fonction appelée par l'action dans la classe GridStaticObject
+    // Permet d'ajouter un objet à la liste et ajouter à la tuile qui le contient
     private void OnGridObjectPositionAdded(GridStaticObject obj)
     {
         if (obj.ParentTile.tileX < 0 || obj.ParentTile.tileX >= _currentGridInfo.gameGridSize.x)
@@ -280,7 +435,18 @@ public class GridManager : MonoBehaviour
             return;
         }
 
+        // Ajout de l'objet à la liste et subscribe à son Action Remove
+        _allStaticObjects.Add(obj);
+        obj.gridObjectPositionRemoved += OnGridObjectPositionRemoved;
+
+        // Ajout de l'objet aux données de la tuile qui le contient
         _gameGridTiles[obj.ParentTile.tileX, obj.ParentTile.tileY].AddObjectToTile(obj);
+    }
+
+    // Enlever un objet de la liste d'objets
+    private void OnGridObjectPositionRemoved(GridStaticObject obj)
+    {
+        obj.gridObjectPositionRemoved -= OnGridObjectPositionRemoved;
     }
 
     // Fonction DEBUG qui change une tuile au hasard par une anomalie
@@ -291,43 +457,35 @@ public class GridManager : MonoBehaviour
 
         ReplaceTile(_gameGridTiles[tileX, tileY], 1);
     }
+
+    // Fonction utilitaire pour obtenir un point au hasard à l'intérieur de BOUNDS
+    public Vector3 RandomPointInBounds(Bounds bounds)
+    {
+        return new Vector3(
+            UnityEngine.Random.Range(bounds.min.x, bounds.max.x),
+            UnityEngine.Random.Range(bounds.min.y, bounds.max.y),
+            bounds.center.z
+        );
+    }
+
+    public List<GridTile> GetGridTilesInBounds(Bounds bounds)
+    {
+        List<GridTile> tilesInBounds = new List<GridTile>();
+        foreach (var gridTile in _gameGridTiles)
+        {
+            if (bounds.Contains(gridTile.transform.position))
+            {
+                tilesInBounds.Add(gridTile);
+            }
+        }
+        return tilesInBounds;
+    }
 }
 
-/* STRUCT : GridInfo
+/* STRUCT : 
  * - Un struct est une STRUCTURE de données semblable à une classe.
  * - Ce struct permet de mémoriser plusieurs variables dans un même contenant.
- * -- Dans ce cas, les informations de la grille actuelle.
  */
-
-public struct GridInfo
-{
-    // Variables
-    public GridTile[,] gameGridTiles;
-    public Vector2 gameGridSize;
-    public Bounds gameGridWorldBounds;
-
-    // CONSTRUCTEUR : Fonction qui sert à déclarer un nouvel objet de type GridInfo (avec new GridInfo(...))
-    // - Et d'assigner les valeurs des variables, à l'aide des paramètres en appel (dans les parenthèses)
-    public GridInfo(GridTile[,] gameGridTiles, Vector2 gameGridSize, Bounds gameGridWorldBounds)
-    {
-        this.gameGridTiles = gameGridTiles;
-        this.gameGridSize = gameGridSize;
-        this.gameGridWorldBounds = gameGridWorldBounds;
-    }
-
-
-    // Complicated stuff
-    public static bool operator ==(GridInfo op1, GridInfo op2)
-    {
-        return op1.Equals(op2);
-    }
-
-    public static bool operator !=(GridInfo op1, GridInfo op2)
-    {
-        return !op1.Equals(op2);
-    }
-}
-
 public struct TileCoordinates
 {
     public int tileX;
