@@ -9,20 +9,28 @@ public class DebugManager : MonoBehaviour
     public static DebugManager instance;
 
     // Sections de debug
+    [Header("Debug references")]
     public GameObject buttonsPanel;
     public GameObject timePanel;
+    public GameObject objectsPanel;
     public GameObject mouseToolTip;
     public GameObject gridDebug;
 
     // Time stuff
+    [Header("Text references")]
     public TextMeshProUGUI pauseButtonText;
     public TextMeshProUGUI timeScaleText;
+
+    // Texte d'instructions
+    public TextMeshProUGUI debugText;
+
+    // Prefabs
+    [Header("Prefabs")]
+    public GameObject genericDocumentPrefab;
 
     private float _timeScaleBeforePause;
     private bool _timePaused;
 
-    // Texte d'instructions
-    public TextMeshProUGUI debugText;
 
     private void Awake()
     {
@@ -41,6 +49,7 @@ public class DebugManager : MonoBehaviour
     {
         buttonsPanel.SetActive(false);
         timePanel.SetActive(false);
+        objectsPanel.SetActive(false);
         debugText.enabled = true;
         UpdateTimeScaleText();
     }
@@ -51,6 +60,7 @@ public class DebugManager : MonoBehaviour
         {
             buttonsPanel.SetActive(!buttonsPanel.activeSelf);
             timePanel.SetActive(!timePanel.activeSelf);
+            objectsPanel.SetActive(!objectsPanel.activeSelf);
             debugText.enabled = !buttonsPanel.activeSelf;
         }
     }
@@ -147,5 +157,17 @@ public class DebugManager : MonoBehaviour
             timeScaleText.text = "TimeScale : " + Time.timeScale;
         }
     }
+    #endregion
+
+    #region Object management
+
+    public void SpawnDocument()
+    {
+        Vector3 spawnPos = Camera.main.transform.position;
+        spawnPos.z = 0f;
+
+        GameObject doc = Instantiate(genericDocumentPrefab, spawnPos, Quaternion.identity);
+    }
+
     #endregion
 }

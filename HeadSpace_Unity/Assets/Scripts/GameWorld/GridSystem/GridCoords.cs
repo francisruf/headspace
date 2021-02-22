@@ -7,6 +7,7 @@ public class GridCoords : MonoBehaviour
     // Static Variables
     private static GridInfo _currentGridInfo;  // Stock les informations de la grille actuelle
 
+    [Header("Test coordinates with Z or X input")]
     public Vector2 TestCoords;
     public Vector2 TestWorldCoords;
 
