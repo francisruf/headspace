@@ -41,3 +41,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: UnderDesk
+    uniqueID: 99819359
+    locked: 0
+  - name: Desk
+    uniqueID: 523574019
+    locked: 0
+  - name: Map
+    uniqueID: 713987835
+    locked: 0
+  - name: MapObjects
+    uniqueID: 2245417097
+    locked: 0
+  - name: DeskObjects
+    uniqueID: 1351713243
+    locked: 0
+  - name: Tools
+    uniqueID: 3081615327
+    locked: 0
