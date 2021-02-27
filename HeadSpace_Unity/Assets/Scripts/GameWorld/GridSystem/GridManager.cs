@@ -74,24 +74,34 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        GenerateNewGrid();
+    }
+
     private void Update()
     {
 
         // TEMP : Génération de nouvelle grille on KeyDown
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (_gameGridTiles != null)
-                DestroyMapData();
-
-            GenerateMapData();
-            GenerateMapTiles();
-
-            if (newGameGrid != null)
-                newGameGrid(_currentGridInfo);
-
-            GenerateStartingObjects();
-            Array.Sort(newSegmentAfterCount);
+            GenerateNewGrid();
         }
+    }
+
+    private void GenerateNewGrid()
+    {
+        if (_gameGridTiles != null)
+            DestroyMapData();
+
+        GenerateMapData();
+        GenerateMapTiles();
+
+        if (newGameGrid != null)
+            newGameGrid(_currentGridInfo);
+
+        GenerateStartingObjects();
+        Array.Sort(newSegmentAfterCount);
     }
 
     // Fonction qui détruit l'ancienne grille, si elle existe
