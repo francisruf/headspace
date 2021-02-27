@@ -13,6 +13,7 @@ public class GridInfo
     // Variables
     public GridTile[,] gameGridTiles;
     public Vector2 gameGridSize;
+    public int tileCount;
     public Bounds gameGridWorldBounds;
     public GridQuadrants gameGridQuadrants;
     public int positiveQuadrantIndex;
@@ -23,8 +24,10 @@ public class GridInfo
     {
         this.gameGridTiles = gameGridTiles;
         this.gameGridSize = gameGridSize;
+        this.tileCount = (int)gameGridSize.x * (int)gameGridSize.y;
         this.gameGridWorldBounds = gameGridWorldBounds;
         this.gameGridQuadrants = new GridQuadrants(gameGridWorldBounds);
+        Debug.Log("New grid with " + tileCount + " tiles");
     }
 }
 
@@ -144,8 +147,8 @@ public class GridQuadrants
                 negativeQuadrant = BottomLeft;
                 break;
         }
-        Debug.Log("Positive : " + positiveQuadrant);
-        Debug.Log("Negative : " + negativeQuadrant);
+        //Debug.Log("Positive : " + positiveQuadrant);
+        //Debug.Log("Negative : " + negativeQuadrant);
         return new QuadrantMatch(positiveQuadrant, negativeQuadrant);
     }
 

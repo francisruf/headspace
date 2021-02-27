@@ -101,7 +101,6 @@ public class AnomalySegment
     private void AddTileToSegment(GridTile tile)
     {
         _allSegmentTiles.Add(tile);
-        Debug.Log("Tile count : " + _allSegmentTiles.Count);
     }
 
     private void RemoveTileFromSegment(GridTile tile)

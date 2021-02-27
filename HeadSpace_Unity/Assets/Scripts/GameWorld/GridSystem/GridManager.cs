@@ -7,6 +7,8 @@ public class GridManager : MonoBehaviour
 {
     // ACTION / EVENT qui est appelé à chaque fois qu'une grille est créée, qui envoie les informations de cette grille
     public static Action<GridInfo> newGameGrid;
+    public static Action firstAnomalyTile;
+    public static Action totalGridAnomaly;
 
     // Singleton
     public static GridManager instance;
@@ -123,6 +125,8 @@ public class GridManager : MonoBehaviour
         }
 
         _allStaticObjects.Clear();
+        _allAnomalySegments.Clear();
+        _anomalyCompletedTileCount = 0;
     }
 
     // Fonction qui génère la grille d'entiers
@@ -229,6 +233,9 @@ public class GridManager : MonoBehaviour
         AnomalySegment segment = new AnomalySegment();
         _allAnomalySegments.Add(segment);
         segment.AssignActiveTile(newTile);
+
+        if (firstAnomalyTile != null)
+            firstAnomalyTile();
     }
 
     private void InstantiateAnomalySegment(int positiveQuadrantIndex)
@@ -267,7 +274,7 @@ public class GridManager : MonoBehaviour
 
         }
 
-        Debug.Log("X : " + newAnomalyCoords.tileX + "Y : " + newAnomalyCoords.tileY);
+        //Debug.Log("X : " + newAnomalyCoords.tileX + "Y : " + newAnomalyCoords.tileY);
         GridTile tileToReplace = _gameGridTiles[newAnomalyCoords.tileX, newAnomalyCoords.tileY];
         GridTile newTile;
         ReplaceTile(tileToReplace, 1, out newTile);
@@ -426,6 +433,12 @@ public class GridManager : MonoBehaviour
             {
                 InstantiateAnomalySegment(_currentGridInfo.positiveQuadrantIndex);
             }
+        }
+
+        if (_anomalyCompletedTileCount >= _currentGridInfo.tileCount)
+        {
+            if (totalGridAnomaly != null)
+                totalGridAnomaly();
         }
     }
 
