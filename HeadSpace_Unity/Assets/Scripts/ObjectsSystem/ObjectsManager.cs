@@ -39,6 +39,7 @@ public class ObjectsManager : MonoBehaviour
     {
         InteractableObject.objectEnabled += OnObjectEnabled;
         InteractableObject.objectDisabled += OnObjectDisabled;
+        MovableObject.movableObjectSelected += OnMovableObjectSelected;
     }
 
     // Unsubscription
@@ -46,6 +47,7 @@ public class ObjectsManager : MonoBehaviour
     {
         InteractableObject.objectEnabled -= OnObjectEnabled;
         InteractableObject.objectDisabled -= OnObjectDisabled;
+        MovableObject.movableObjectSelected -= OnMovableObjectSelected;
     }
 
     // TEMP : Envoyer cette fonctionnalité dans le playerStateMachine
@@ -57,10 +59,16 @@ public class ObjectsManager : MonoBehaviour
         }
     }
 
+    private void OnMovableObjectSelected(MovableObject obj)
+    {
+        Debug.Log("Object selected : " + obj.gameObject.name);
+    }
+
     // Fonction qui sera appellée par le playerStateMachine
     private void SelectObjectOnMouseDown()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Debug.DrawRay(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.up, Color.red, 5f);
 
         RaycastHit2D[] hitsInfo = Physics2D.GetRayIntersectionAll(ray, Mathf.Infinity, objectLayers);
 
@@ -69,6 +77,7 @@ public class ObjectsManager : MonoBehaviour
 
         foreach (var hit in hitsInfo)
         {
+            Debug.Log("HIT : " + hit.collider.gameObject.name);
             candidateObject = hit.collider.GetComponent<InteractableObject>();
 
             if (candidateObject != null)
