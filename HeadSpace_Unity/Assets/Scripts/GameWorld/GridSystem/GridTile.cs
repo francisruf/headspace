@@ -142,6 +142,20 @@ public class GridTile : MonoBehaviour
         }
     }
 
+    public List<Planet> GetPlanetsInTile()
+    {
+        List<Planet> planetList = new List<Planet>();
+        foreach (var obj in _currentObjectsInTile)
+        {
+            Planet candidate = obj.GetComponent<Planet>();
+            if (candidate != null)
+            {
+                planetList.Add(candidate);
+            }
+        }
+        return planetList;
+    }
+
     private IEnumerator LifeTimer()
     {
         float seconds = lifeTime;

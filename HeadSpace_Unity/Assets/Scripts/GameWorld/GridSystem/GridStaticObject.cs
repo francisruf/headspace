@@ -10,22 +10,32 @@ public class GridStaticObject : MonoBehaviour
     public Action<GridStaticObject> gridObjectPositionRemoved;
 
     // Components
-    private SpriteRenderer _spriteRenderer;
-    private Collider2D _collider;
+    protected SpriteRenderer _spriteRenderer;
+    protected Collider2D _collider;
 
     // Propriété publique : Coordonnées de l'objet sur la grille de jeu (ET NON EN WORLD UNITS / UNITY UNITS)
     public Vector2 GridCoordinates { get; private set; }
     public TileCoordinates ParentTile { get; private set; }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         // Assigner les références de components
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<Collider2D>();
     }
 
+    protected virtual void OnEnable()
+    {
+        GridManager.gridDataDestroyed += OnGridDataDestroyed;
+    }
+
+    protected virtual void OnDisable()
+    {
+        GridManager.gridDataDestroyed -= OnGridDataDestroyed;
+    }
+
     // Fonction qui permet d'assigner coordonnées de grille et placer l'objet dans le monde en conséquence
-    public void PlaceGridObject(Vector2 gridCoordinates)
+    public virtual void PlaceGridObject(Vector2 gridCoordinates)
     {
         GridCoordinates = gridCoordinates;
         ParentTile = GridCoords.FromGridToTile(gridCoordinates);
@@ -36,7 +46,7 @@ public class GridStaticObject : MonoBehaviour
     }
 
     // Désactiver un objet et ses components
-    public void DisableGridObject()
+    public virtual void DisableGridObject()
     {
         if (_spriteRenderer != null)
             _spriteRenderer.enabled = false;
@@ -46,5 +56,10 @@ public class GridStaticObject : MonoBehaviour
 
         if (gridObjectPositionRemoved != null)
             gridObjectPositionRemoved(this);
+    }
+
+    private void OnGridDataDestroyed()
+    {
+        Destroy(this.gameObject);
     }
 }
