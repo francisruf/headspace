@@ -266,16 +266,16 @@ public class GridCoords : MonoBehaviour
         }
         
         if (coords.x < -0.001f)
-
             validCoords = false;
+
         if (coords.x > _currentGridInfo.gameGridSize.x)
             validCoords = false;
 
         if (coords.y < -0.001f)
             validCoords = false;
 
-            validCoords = false;
         if (coords.y > _currentGridInfo.gameGridSize.y)
+            validCoords = false;
 
         Vector2 roundedCoords = coords;
         roundedCoords.x = Mathf.Round(roundedCoords.x * 10.0f) * 0.1f;
