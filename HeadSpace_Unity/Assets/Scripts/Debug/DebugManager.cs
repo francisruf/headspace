@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -12,6 +13,7 @@ public class DebugManager : MonoBehaviour
     [Header("Debug references")]
     public GameObject buttonsPanel;
     public GameObject timePanel;
+    public TextMeshProUGUI gameTimeText;
     public GameObject objectsPanel;
     public GameObject mouseToolTip;
     public GameObject gridDebug;
@@ -30,7 +32,8 @@ public class DebugManager : MonoBehaviour
 
     private float _timeScaleBeforePause;
     private bool _timePaused;
-
+    private bool _gameTimerStarted;
+    private float _gameTimer;
 
     private void Awake()
     {
@@ -45,23 +48,42 @@ public class DebugManager : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        GridManager.firstAnomalyTile += StartGameTimer;
+        GridManager.totalGridAnomaly += StopGameTimer;
+    }
+
+    private void OnDisable()
+    {
+        GridManager.firstAnomalyTile -= StartGameTimer;
+        GridManager.totalGridAnomaly -= StopGameTimer;
+    }
+
     private void Start()
     {
         buttonsPanel.SetActive(false);
         timePanel.SetActive(false);
         objectsPanel.SetActive(false);
         debugText.enabled = true;
+        gameTimeText.enabled = false;
         UpdateTimeScaleText();
     }
 
     private void Update()
     {
+        if (_gameTimerStarted)
+        {
+            UpdateGameTimer();
+        }
+
         if (Input.GetKeyDown(KeyCode.F3))
         {
             buttonsPanel.SetActive(!buttonsPanel.activeSelf);
             timePanel.SetActive(!timePanel.activeSelf);
             objectsPanel.SetActive(!objectsPanel.activeSelf);
             debugText.enabled = !buttonsPanel.activeSelf;
+            gameTimeText.enabled = !gameTimeText.enabled;
         }
     }
 
@@ -157,6 +179,31 @@ public class DebugManager : MonoBehaviour
             timeScaleText.text = "TimeScale : " + Time.timeScale;
         }
     }
+
+    private void StartGameTimer()
+    {
+        ResetGameTimer();
+        Debug.Log("TIMER START");
+        _gameTimerStarted = true;
+    }
+
+    private void ResetGameTimer()
+    {
+        _gameTimer = 0f;
+    }
+
+    private void UpdateGameTimer()
+    {
+        _gameTimer += Time.deltaTime;
+        gameTimeText.text = "Game Time : " + TimeSpan.FromSeconds(_gameTimer).ToString(@"mm\:ss");
+    }
+
+    private void StopGameTimer()
+    {
+        Debug.Log("TIMER STOP");
+        _gameTimerStarted = false;
+    }
+
     #endregion
 
     #region Object management

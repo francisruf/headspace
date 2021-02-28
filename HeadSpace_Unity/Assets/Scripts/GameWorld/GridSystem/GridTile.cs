@@ -66,7 +66,7 @@ public class GridTile : MonoBehaviour
         _lifeTimeText = GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         // SI la tuile n'a pas de durée de vie, cacher le debug text
         if (liveForever)

@@ -5,8 +5,13 @@ using UnityEngine;
 
 public class GridTile_Anomaly : GridTile
 {
-    //protected override void UpdateNeighbours()
-    //{
-    //    base.UpdateNeighbours();
-    //}
+    public static Action<GridTile_Anomaly> newAnomalyTile;
+
+    protected override void Start()
+    {
+        base.Start();
+
+        if (newAnomalyTile != null)
+            newAnomalyTile(this);
+    }
 }
