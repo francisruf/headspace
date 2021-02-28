@@ -3,15 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(GridCoords))]
 public class GridManager : MonoBehaviour
 {
     // ACTION / EVENT qui est appelé à chaque fois qu'une grille est créée, qui envoie les informations de cette grille
     public static Action<GridInfo> newGameGrid;
     public static Action firstAnomalyTile;
     public static Action totalGridAnomaly;
+    public static Action gridDataDestroyed;
 
     // Singleton
     public static GridManager instance;
+
+    // Référence aux GridCoords
+    private GridCoords _gridCoords;
 
     // Paramètres de la grille
     [Header("Grid settings")]
@@ -74,6 +79,8 @@ public class GridManager : MonoBehaviour
         {
             instance = this;
         }
+
+        _gridCoords = GetComponent<GridCoords>();
     }
 
     private void Start()
@@ -99,6 +106,8 @@ public class GridManager : MonoBehaviour
         GenerateMapData();
         GenerateMapTiles();
 
+        _gridCoords.AssignGridInfo(_currentGridInfo);
+
         if (newGameGrid != null)
             newGameGrid(_currentGridInfo);
 
@@ -114,19 +123,12 @@ public class GridManager : MonoBehaviour
             Destroy(gridTile.gameObject);
         }
 
-        foreach (var obj in _allStaticObjects)
-        {
-            obj.DisableGridObject();
-        }
-
-        foreach (var obj in _allStaticObjects)
-        {
-            Destroy(obj.gameObject);
-        }
-
         _allStaticObjects.Clear();
         _allAnomalySegments.Clear();
         _anomalyCompletedTileCount = 0;
+
+        if (gridDataDestroyed != null)
+            gridDataDestroyed();
     }
 
     // Fonction qui génère la grille d'entiers
@@ -458,18 +460,11 @@ public class GridManager : MonoBehaviour
             return;
         }
 
-        // Ajout de l'objet à la liste et subscribe à son Action Remove
+        // Ajout de l'objet à la liste 
         _allStaticObjects.Add(obj);
-        obj.gridObjectPositionRemoved += OnGridObjectPositionRemoved;
 
         // Ajout de l'objet aux données de la tuile qui le contient
         _gameGridTiles[obj.ParentTile.tileX, obj.ParentTile.tileY].AddObjectToTile(obj);
-    }
-
-    // Enlever un objet de la liste d'objets
-    private void OnGridObjectPositionRemoved(GridStaticObject obj)
-    {
-        obj.gridObjectPositionRemoved -= OnGridObjectPositionRemoved;
     }
 
     // Fonction DEBUG qui change une tuile au hasard par une anomalie

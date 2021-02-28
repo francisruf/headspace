@@ -29,6 +29,36 @@ public class GridInfo
         this.gameGridQuadrants = new GridQuadrants(gameGridWorldBounds);
         Debug.Log("New grid with " + tileCount + " tiles");
     }
+
+    public List<GridTile> GetEmptyTiles()
+    {
+        List<GridTile> emptyTiles = new List<GridTile>();
+        foreach (var tile in gameGridTiles)
+        {
+            if (tile.tileType == 0)
+            {
+                emptyTiles.Add(tile);
+            }
+        }
+        Debug.Log("Empty tile count : " + emptyTiles.Count);
+
+        return emptyTiles;
+    }
+
+    public List<GridTile> GetAnomalyTiles()
+    {
+        List<GridTile> anomalyTiles = new List<GridTile>();
+        foreach (var tile in gameGridTiles)
+        {
+            if (tile.tileType > 0)
+            {
+                anomalyTiles.Add(tile);
+            }
+        }
+        Debug.Log("Anomaly tile count : " + anomalyTiles.Count);
+
+        return anomalyTiles;
+    }
 }
 
 /* STRUCT : 
