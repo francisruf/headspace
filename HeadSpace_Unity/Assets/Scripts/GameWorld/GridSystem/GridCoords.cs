@@ -179,4 +179,33 @@ public class GridCoords : MonoBehaviour
         roundedCoords.y = Mathf.Round(roundedCoords.y * 10.0f) * 0.1f;
         return roundedCoords;
     }
+
+    public static Vector2 RoundCoords(Vector2 coords, out bool validCoords)
+    {
+        validCoords = true;
+
+        if (_currentGridInfo == null)
+        {
+            Debug.LogError("GridCoords error : No current grid could be found");
+            validCoords = false;
+            return Vector2.zero;
+        }
+        
+        if (coords.x < -0.001f)
+            validCoords = false;
+
+        if (coords.x > _currentGridInfo.gameGridSize.x)
+            validCoords = false;
+
+        if (coords.y < -0.001f)
+            validCoords = false;
+
+        if (coords.y > _currentGridInfo.gameGridSize.y)
+            validCoords = false;
+
+        Vector2 roundedCoords = coords;
+        roundedCoords.x = Mathf.Round(roundedCoords.x * 10.0f) * 0.1f;
+        roundedCoords.y = Mathf.Round(roundedCoords.y * 10.0f) * 0.1f;
+        return roundedCoords;
+    }
 }

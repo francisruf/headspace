@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DeployPoint : MonoBehaviour
 {
+    public static Action<DeployPoint> newDeployPoint;
+
     // Components
     private CircleCollider2D _collider;
     public float radius;
@@ -18,6 +21,8 @@ public class DeployPoint : MonoBehaviour
     {
         // TEMP : Size hardcoded
         this.transform.localScale = Vector3.one * radius;
+        if (newDeployPoint != null)
+            newDeployPoint(this);
     }
 
     // Fonction qui permet de vérifier si un point (Vector3) envoyé en paramètre se trouve à L'INTÉRIEUR du cercle
