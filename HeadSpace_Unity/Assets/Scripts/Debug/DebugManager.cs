@@ -33,7 +33,7 @@ public class DebugManager : MonoBehaviour
     // Prefabs
     [Header("Prefabs")]
     public GameObject genericDocumentPrefab;
-    public GameObject genericMarkerPrefab;
+    public GameObject[] genericMarkerPrefabs;
 
     private float _timeScaleBeforePause;
     private bool _timePaused;
@@ -242,7 +242,8 @@ public class DebugManager : MonoBehaviour
     public void SpawnMarker()
     {
         Vector3 spawnPos = new Vector3(-4.36f, -4.8f, 0f);
-        GameObject marker = Instantiate(genericMarkerPrefab, spawnPos, Quaternion.identity);
+        int randomIndex = UnityEngine.Random.Range(0, genericMarkerPrefabs.Length);
+        GameObject marker = Instantiate(genericMarkerPrefabs[randomIndex], spawnPos, Quaternion.identity);
     }
 
     #endregion

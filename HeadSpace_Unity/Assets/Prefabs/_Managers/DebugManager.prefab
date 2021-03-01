@@ -4396,8 +4396,14 @@ MonoBehaviour:
   debugText: {fileID: 7953223779888978022}
   genericDocumentPrefab: {fileID: 8073970855766751962, guid: 6ee2acf3079a2874484e53148655ccca,
     type: 3}
-  genericMarkerPrefab: {fileID: 2289719838551024665, guid: 2e40d8db7fd569c4c9328e2043b741b7,
-    type: 3}
+  genericMarkerPrefabs:
+  - {fileID: 8065276512556439008, guid: 9120a8f5fc4724c488f8d79c7359b36b, type: 3}
+  - {fileID: 5345643302154013521, guid: ce25cd5c00fdf764d9faf4b706818418, type: 3}
+  - {fileID: 4386816945201293731, guid: 707c64e66ae438147b5ebd088d0265ff, type: 3}
+  - {fileID: 6964936532800032168, guid: d9028355593f35d4e87d7dfe862424c7, type: 3}
+  - {fileID: 1310004620078110734, guid: 841d23c72a65cdb479c658906b9ce238, type: 3}
+  - {fileID: 5873181348125557491, guid: 8b354f2278c5f464e9764934e5668d7f, type: 3}
+  - {fileID: 2289719838551024665, guid: 2e40d8db7fd569c4c9328e2043b741b7, type: 3}
 --- !u!1 &7953223779479581036
 GameObject:
   m_ObjectHideFlags: 0

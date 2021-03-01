@@ -13,8 +13,8 @@ public class MovableMarker : MovableObject
     {
         base.Select();
         _mouseOffset = new Vector2(0.04f, 0f);
-        
-        
+
+        Debug.Log(GridCoords.FromWorldToGrid(transform.position));
     }
 
     public override void Deselect()
