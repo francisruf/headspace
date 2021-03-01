@@ -11,6 +11,15 @@ public class CommandManager : MonoBehaviour
     public string testShipName;
     public string testCoordinates;
 
+    private void OnEnable()
+    {
+        CommandDebugWindow.newCommandRequest += OnNewCommandRequest;
+    }
+
+    private void OnDisable()
+    {
+        CommandDebugWindow.newCommandRequest -= OnNewCommandRequest;
+    }
 
     private void Awake()
     {
@@ -24,11 +33,11 @@ public class CommandManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
-            OnNewCommandRequed(testCommandName, testShipName, testCoordinates);
+            OnNewCommandRequest(testCommandName, testShipName, testCoordinates);
         }
     }
 
-    private void OnNewCommandRequed(string commandName, string shipName, string coordinates)
+    private void OnNewCommandRequest(string commandName, string shipName, string coordinates)
     {
         Command foundCommand = FindCommand(commandName);
 

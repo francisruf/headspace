@@ -10,7 +10,7 @@ using UnityEngine;
  * -- Pour la gestion des commandes
  * 
  * Pistes : 
- * - Utiliser une Liste qui se remplit à chaque vaisseau qui s'active
+ * - Utiliser une Liste qui se remplit à chaque vaisseau qui s'active (un inventaire, dans l'fond)
  * - Utiliser une fonction de recherche de vaisseau dans cette liste, à l'aide du NOM d'un vaisseau (un string public)
  */
 

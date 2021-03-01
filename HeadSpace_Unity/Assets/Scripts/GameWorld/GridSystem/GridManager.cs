@@ -88,17 +88,7 @@ public class GridManager : MonoBehaviour
         GenerateNewGrid();
     }
 
-    private void Update()
-    {
-
-        // TEMP : Génération de nouvelle grille on KeyDown
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            GenerateNewGrid();
-        }
-    }
-
-    private void GenerateNewGrid()
+    public void GenerateNewGrid()
     {
         if (_gameGridTiles != null)
             DestroyMapData();

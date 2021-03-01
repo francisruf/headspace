@@ -18,6 +18,10 @@ public class DebugManager : MonoBehaviour
     public GameObject mouseToolTip;
     public GameObject gridDebug;
 
+    // Command Debug
+    [Header("Command Debug references")]
+    public GameObject commandDebugWindow;
+
     // Time stuff
     [Header("Text references")]
     public TextMeshProUGUI pauseButtonText;
@@ -29,6 +33,7 @@ public class DebugManager : MonoBehaviour
     // Prefabs
     [Header("Prefabs")]
     public GameObject genericDocumentPrefab;
+    public GameObject genericMarkerPrefab;
 
     private float _timeScaleBeforePause;
     private bool _timePaused;
@@ -67,6 +72,7 @@ public class DebugManager : MonoBehaviour
         objectsPanel.SetActive(false);
         debugText.enabled = true;
         gameTimeText.enabled = false;
+        commandDebugWindow.SetActive(false);
         UpdateTimeScaleText();
     }
 
@@ -85,6 +91,11 @@ public class DebugManager : MonoBehaviour
             debugText.enabled = !buttonsPanel.activeSelf;
             gameTimeText.enabled = !gameTimeText.enabled;
         }
+
+        if (Input.GetKeyDown(KeyCode.Space) && !commandDebugWindow.activeSelf)
+        {
+            commandDebugWindow.SetActive(true);
+        }
     }
 
     #region Grid management
@@ -99,11 +110,17 @@ public class DebugManager : MonoBehaviour
         mouseToolTip.SetActive(!mouseToolTip.activeSelf);
     }
 
-    public void SpawnRandomAnomalyTile()
+    public void NewGrid()
     {
         if (GridManager.instance != null)
-            GridManager.instance.SpawnRandomAnomalyTile();
+            GridManager.instance.GenerateNewGrid();
     }
+
+    //public void SpawnRandomAnomalyTile()
+    //{
+    //    if (GridManager.instance != null)
+    //        GridManager.instance.SpawnRandomAnomalyTile();
+    //}
     #endregion
 
     #region Time Management
@@ -214,6 +231,12 @@ public class DebugManager : MonoBehaviour
         spawnPos.z = 0f;
 
         GameObject doc = Instantiate(genericDocumentPrefab, spawnPos, Quaternion.identity);
+    }
+
+    public void SpawnMarker()
+    {
+        Vector3 spawnPos = new Vector3(-4.36f, -4.8f, 0f);
+        GameObject marker = Instantiate(genericMarkerPrefab, spawnPos, Quaternion.identity);
     }
 
     #endregion
