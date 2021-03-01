@@ -14,12 +14,14 @@ public class DeployManager : MonoBehaviour
     private void OnEnable()
     {
         DeployPoint.newDeployPoint += OnNewDeployPoint;
+        GridManager.gridDataDestroyed += OnGridDataDestroyed;
     }
 
     // Unsubscription
     private void OnDisable()
     {
         DeployPoint.newDeployPoint -= OnNewDeployPoint;
+        GridManager.gridDataDestroyed -= OnGridDataDestroyed;
     }
 
     private void Awake()
@@ -42,6 +44,12 @@ public class DeployManager : MonoBehaviour
         _allDeployPoints.Add(deployPoint);
     }
 
+    // Vider la liste lorsque la grille est détruite
+    private void OnGridDataDestroyed()
+    {
+        _allDeployPoints.Clear();
+    }
+
     // Fonction qui permet de vérifier si une coordonnée donnée se trouve dans un point de déploiement
     public bool IsInDeployPoint(Vector2 gridCoords)
     {
@@ -56,5 +64,18 @@ public class DeployManager : MonoBehaviour
         return false;
     }
 
+    public List<GridTile> GetAllDeployTouchingTiles()
+    {
+        List<GridTile> allTouchingTiles = new List<GridTile>();
 
+        foreach (var point in _allDeployPoints)
+        {
+            List<GridTile> temp = point.GetTouchingTiles();
+            foreach (var tile in temp)
+            {
+                allTouchingTiles.Add(tile);
+            }
+        }
+        return allTouchingTiles;
+    }
 }

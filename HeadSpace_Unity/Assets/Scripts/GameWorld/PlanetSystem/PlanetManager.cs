@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlanetManager : MonoBehaviour
 {
+    // Singleton
+    public static PlanetManager instance;
+
     // Variables publiques
     public int planetCount;
     public GameObject planetPrefab;
@@ -13,6 +16,20 @@ public class PlanetManager : MonoBehaviour
 
     // Liste de toutes les planètes générées
     private List<Planet> _allPlanets = new List<Planet>();
+
+    private void Awake()
+    {
+        // Déclaration du singleton
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        else
+        {
+            instance = this;
+        }
+    }
 
     // Subscription à différentes actions
     private void OnEnable()
@@ -64,7 +81,6 @@ public class PlanetManager : MonoBehaviour
 
         for (int i = 0; i < planetCount; i++)
         {
-            Debug.Log("WTF");
             int randomIndex = Random.Range(0, allowedSpawnTiles.Count);
             Vector2 spawnPos = GridCoords.GetRandomCoordsInTile(allowedSpawnTiles[randomIndex]);
             Planet planet = Instantiate(planetPrefab).GetComponent<Planet>();
@@ -107,6 +123,30 @@ public class PlanetManager : MonoBehaviour
             }
         }
 
+        if (DeployManager.instance != null)
+        {
+            Debug.Log("yo");
+            foreach (var tile in DeployManager.instance.GetAllDeployTouchingTiles())
+            {
+                if (candidateTiles.Contains(tile))
+                {
+                    candidateTiles.Remove(tile);
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("WARNING : Could not find DeployManager");
+        }
+
         return candidateTiles;
+    }
+
+    public void TogglePlanetDebug()
+    {
+        foreach (var planet in _allPlanets)
+        {
+            planet.ToggleSprite();
+        }
     }
 }

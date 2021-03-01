@@ -14,8 +14,8 @@ public class GridStaticObject : MonoBehaviour
     protected Collider2D _collider;
 
     // Propriété publique : Coordonnées de l'objet sur la grille de jeu (ET NON EN WORLD UNITS / UNITY UNITS)
-    public Vector2 GridCoordinates { get; private set; }
-    public TileCoordinates ParentTile { get; private set; }
+    public Vector2 GridCoordinates { get; protected set; }
+    public TileCoordinates ParentTile { get; protected set; }
 
     protected virtual void Awake()
     {

@@ -28,4 +28,9 @@ public class Planet : GridStaticObject
     {
         Debug.Log(collider.gameObject.name + " has entered my detection zone.");
     }
+
+    public void ToggleSprite()
+    {
+        _spriteRenderer.enabled = !_spriteRenderer.enabled;
+    }
 }

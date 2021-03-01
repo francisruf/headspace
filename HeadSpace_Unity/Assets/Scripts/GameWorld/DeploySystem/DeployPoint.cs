@@ -3,26 +3,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeployPoint : MonoBehaviour
+public class DeployPoint : GridStaticObject
 {
     public static Action<DeployPoint> newDeployPoint;
 
-    // Components
-    private CircleCollider2D _collider;
+    // Paramètres
     public float radius;
 
-    private void Awake()
-    {
-        // Assigner les références de components
-        _collider = GetComponent<CircleCollider2D>();
-    }
+    // LayerMask pour vérifier les tiles qui touchent au DeployPoint
+    public LayerMask touchingTilesLayerMask;
 
-    private void Start()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         // TEMP : Size hardcoded
         this.transform.localScale = Vector3.one * radius;
         if (newDeployPoint != null)
             newDeployPoint(this);
+    }
+
+    public override void PlaceGridObject(Vector2 gridCoordinates)
+    {
+        GridCoordinates = gridCoordinates;
+        ParentTile = GridCoords.FromGridToTile(gridCoordinates);
+        this.transform.position = GridCoords.FromGridToWorld(gridCoordinates);
+
+        if (gridObjectPositionAdded != null)
+            gridObjectPositionAdded(this);
     }
 
     // Fonction qui permet de vérifier si un point (Vector3) envoyé en paramètre se trouve à L'INTÉRIEUR du cercle
@@ -36,5 +43,24 @@ public class DeployPoint : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public List<GridTile> GetTouchingTiles()
+    {
+        List<GridTile> touchingTiles = new List<GridTile>();
+        Collider2D[] allTileColliders = Physics2D.OverlapCircleAll(transform.position, radius, touchingTilesLayerMask);
+
+        foreach (var tileCol in allTileColliders)
+        {
+            GridTile candidate = tileCol.GetComponent<GridTile>();
+
+            if (candidate != null)
+            {
+                touchingTiles.Add(candidate);
+                Debug.DrawRay(candidate.transform.position, Vector2.up, Color.cyan, 5f);
+            }
+        }
+        Debug.Log(gameObject.name + " says : " + touchingTiles.Count + " tiles touching");
+        return touchingTiles;
     }
 }

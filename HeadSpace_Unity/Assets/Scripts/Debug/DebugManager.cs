@@ -105,6 +105,12 @@ public class DebugManager : MonoBehaviour
         gridDebug.SetActive(!gridDebug.activeSelf);
     }
 
+    public void ToggleGridObjects()
+    {
+        if (PlanetManager.instance != null)
+            PlanetManager.instance.TogglePlanetDebug();
+    }
+
     public void ToggleMouseCoords()
     {
         mouseToolTip.SetActive(!mouseToolTip.activeSelf);
