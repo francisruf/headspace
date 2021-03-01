@@ -7,8 +7,15 @@ public class PlanetManager : MonoBehaviour
     // Singleton
     public static PlanetManager instance;
 
-    // Variables publiques
-    public int planetCount;
+    // Paramètres de spawning et archétypes de planètes
+    [Header("Random population settings")]
+    public bool randomArchetypes;
+    public int randomPlanetCount;
+
+    [Header("Archetype population settings")]
+    public List<PlanetArchetypeQuantity> allArchetypes;
+
+    // Prefab
     public GameObject planetPrefab;
 
     // Informations de la grille de jeu actuelle
@@ -77,6 +84,49 @@ public class PlanetManager : MonoBehaviour
         if (_currentGridInfo == null)
             return;
 
+        int planetCount = 0;
+        List<PlanetArchetype> archetypesToSpawn = new List<PlanetArchetype>();
+
+        if (randomArchetypes)
+        {
+            planetCount = randomPlanetCount;
+            int archetypeCount = allArchetypes.Count;
+
+            if (archetypeCount > 0)
+            {
+                for (int i = 0; i < planetCount; i++)
+                {
+                    int randomIndex = Random.Range(0, archetypeCount);
+                    archetypesToSpawn.Add(allArchetypes[randomIndex].archetype);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < planetCount; i++)
+                {
+                    string planetName = "randomizedPlanet";
+                    int randomMinPopulation = Random.Range(0, 15);
+                    int randomMaxPopulation = Random.Range(randomMinPopulation + 1, 31);
+                    int creditsBonus = (randomMinPopulation + randomMaxPopulation / 2) / 10;
+
+                    archetypesToSpawn.Add(new PlanetArchetype(planetName, randomMinPopulation, randomMaxPopulation, creditsBonus));
+                }
+            }
+
+        }
+        else
+        {
+            foreach (var archetype in allArchetypes)
+            {
+                for (int i = 0; i < archetype.amountToSpawn; i++)
+                {
+                    archetypesToSpawn.Add(archetype.archetype);
+                }
+                planetCount += archetype.amountToSpawn;
+            }
+        }
+
+
         List<GridTile> allowedSpawnTiles = GetAllowedSpawnTiles();
 
         for (int i = 0; i < planetCount; i++)
@@ -85,6 +135,7 @@ public class PlanetManager : MonoBehaviour
             Vector2 spawnPos = GridCoords.GetRandomCoordsInTile(allowedSpawnTiles[randomIndex]);
             Planet planet = Instantiate(planetPrefab).GetComponent<Planet>();
             planet.PlaceGridObject(spawnPos);
+            planet.AssignArchetype(archetypesToSpawn[i]);
             _allPlanets.Add(planet);
         }
     }
@@ -149,4 +200,12 @@ public class PlanetManager : MonoBehaviour
             planet.ToggleSprite();
         }
     }
+
+}
+
+[System.Serializable]
+public struct PlanetArchetypeQuantity
+{
+    public PlanetArchetype archetype;
+    public int amountToSpawn;
 }

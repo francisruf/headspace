@@ -9,10 +9,15 @@ public class Planet : GridStaticObject
     public int totalSouls;
     public int currentSouls;
     public int completionCreditsBonus;
+    public string archetypeName;
 
-    void Start()
+    public void AssignArchetype(PlanetArchetype archetype)
     {
+        archetypeName = archetype.archetypeName;
+        totalSouls = archetype.GetRandomPopulation();
         currentSouls = totalSouls;
+        completionCreditsBonus = archetype.completionCreditsBonus;
+        this.gameObject.name = "Planet_" + archetypeName;
     }
 
     // Fonction appellée par le script InteractionZone, sur son CHILD object

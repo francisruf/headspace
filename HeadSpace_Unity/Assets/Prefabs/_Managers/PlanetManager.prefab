@@ -43,6 +43,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d4ab665c549c64c82bba54745ad37f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planetCount: 10
+  randomArchetypes: 0
+  randomPlanetCount: 20
+  allArchetypes:
+  - archetype: {fileID: 11400000, guid: 0827764fac4fe7e47a05df3f7d79475b, type: 2}
+    amountToSpawn: 1
+  - archetype: {fileID: 11400000, guid: e5769ad44f253794fa488e3171836b9b, type: 2}
+    amountToSpawn: 1
+  - archetype: {fileID: 11400000, guid: 38c085e39864d704fb0dbf420ea18d58, type: 2}
+    amountToSpawn: 3
+  - archetype: {fileID: 11400000, guid: 9c16d36415d3d8841a4e36550b990020, type: 2}
+    amountToSpawn: 4
+  - archetype: {fileID: 11400000, guid: f347aa5ccf28bfe4c8b4c63e82ae9a89, type: 2}
+    amountToSpawn: 2
+  - archetype: {fileID: 11400000, guid: 75175559925b6404aa57e3738045a16d, type: 2}
+    amountToSpawn: 1
   planetPrefab: {fileID: 2620573376535800384, guid: 7f0f414053a8dd241b680ad37f81eb90,
     type: 3}
