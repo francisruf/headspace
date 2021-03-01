@@ -11,10 +11,10 @@ public class MovableObject : InteractableObject
     public static Action<MovableObject> movableObjectDeselected;
 
     // État de l'objet
-    private bool _isSelected;
+    protected bool _isSelected;
 
     // Position de la souris lorsque l'objet est cliqué
-    private Vector2 _mouseOffset;
+    protected Vector2 _mouseOffset;
 
     // Valeurs minimales et maximales pour le déplacement de l'objet
     private float _clampXmin;
@@ -22,7 +22,7 @@ public class MovableObject : InteractableObject
     private float _clampYmin;
     private float _clampYmax;
 
-    private void Update()
+    protected virtual void Update()
     {
         if (_isSelected)
         {

@@ -45,4 +45,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 28672
