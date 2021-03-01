@@ -59,3 +59,6 @@ TagManager:
   - name: Tools
     uniqueID: 3081615327
     locked: 0
+  - name: ToolsUi
+    uniqueID: 4206615015
+    locked: 0
