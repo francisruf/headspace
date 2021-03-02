@@ -368,3 +368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   postItText: {fileID: 1026667066986160227}
+  raylength: 200
+  layermask:
+    serializedVersion: 2
+    m_Bits: 4096
