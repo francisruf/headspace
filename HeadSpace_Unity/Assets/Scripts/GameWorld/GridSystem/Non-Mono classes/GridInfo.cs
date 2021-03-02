@@ -27,7 +27,7 @@ public class GridInfo
         this.tileCount = (int)gameGridSize.x * (int)gameGridSize.y;
         this.gameGridWorldBounds = gameGridWorldBounds;
         this.gameGridQuadrants = new GridQuadrants(gameGridWorldBounds);
-        Debug.Log("New grid with " + tileCount + " tiles");
+        //Debug.Log("New grid with " + tileCount + " tiles");
     }
 
     public List<GridTile> GetEmptyTiles()
@@ -40,7 +40,7 @@ public class GridInfo
                 emptyTiles.Add(tile);
             }
         }
-        Debug.Log("Empty tile count : " + emptyTiles.Count);
+        //Debug.Log("Empty tile count : " + emptyTiles.Count);
 
         return emptyTiles;
     }
@@ -55,7 +55,7 @@ public class GridInfo
                 anomalyTiles.Add(tile);
             }
         }
-        Debug.Log("Anomaly tile count : " + anomalyTiles.Count);
+        //Debug.Log("Anomaly tile count : " + anomalyTiles.Count);
 
         return anomalyTiles;
     }

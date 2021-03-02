@@ -209,7 +209,7 @@ public class GridManager : MonoBehaviour
 
         // Placer l'anomalie selon un point au hasard dans le cadran opposé
         Vector3 randomAnomalyPoint = RandomPointInBounds(quadrantMatch.negativeQuadrant);
-        Debug.Log("RANDOM NEGATIVE POINT : " + randomAnomalyPoint);
+        //Debug.Log("RANDOM NEGATIVE POINT : " + randomAnomalyPoint);
         TileCoordinates startTile = GridCoords.FromWorldToTile(randomAnomalyPoint);
 
         InstantiateAnomalySegment(startTile);
@@ -217,7 +217,7 @@ public class GridManager : MonoBehaviour
 
     private void InstantiateAnomalySegment(TileCoordinates startTile)
     {
-        Debug.Log("X : " + startTile.tileX + "Y : " + startTile.tileY);
+        //Debug.Log("X : " + startTile.tileX + "Y : " + startTile.tileY);
         GridTile tileToReplace = _gameGridTiles[startTile.tileX, startTile.tileY];
         GridTile newTile;
         ReplaceTile(tileToReplace, 1, out newTile);

@@ -206,7 +206,7 @@ public class DebugManager : MonoBehaviour
     private void StartGameTimer()
     {
         ResetGameTimer();
-        Debug.Log("TIMER START");
+        //Debug.Log("TIMER START");
         _gameTimerStarted = true;
     }
 

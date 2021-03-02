@@ -60,7 +60,7 @@ public class DeployPoint : GridStaticObject
                 Debug.DrawRay(candidate.transform.position, Vector2.up, Color.cyan, 5f);
             }
         }
-        Debug.Log(gameObject.name + " says : " + touchingTiles.Count + " tiles touching");
+        //Debug.Log(gameObject.name + " says : " + touchingTiles.Count + " tiles touching");
         return touchingTiles;
     }
 }
