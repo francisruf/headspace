@@ -107,7 +107,7 @@ public class MouseTooltip : MonoBehaviour
                     // Aller chercher le script planet
                     Planet planet = planetZone.GetComponentInParent<Planet>();
                     // Assigner les propriétés de texte
-                    _planetText = "Souls : " + planet.currentSouls + "/" + planet.totalSouls;
+                    _planetText = "Souls : " + planet.CurrentSouls + "/" + planet.TotalSouls;
                     _planetText += "\nCoords : " + planet.GridCoordinates;
                     _planetText += "\nTile : (" + planet.ParentTile.tileX + ", " + planet.ParentTile.tileY + ")";
 

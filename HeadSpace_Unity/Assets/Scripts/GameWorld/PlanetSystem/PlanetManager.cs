@@ -15,6 +15,7 @@ public class PlanetManager : MonoBehaviour
     [Header("Archetype population settings")]
     public List<PlanetArchetypeQuantity> allArchetypes;
 
+    [Header("Prefab")]
     // Prefab
     public GameObject planetPrefab;
 
@@ -176,7 +177,6 @@ public class PlanetManager : MonoBehaviour
 
         if (DeployManager.instance != null)
         {
-            Debug.Log("yo");
             foreach (var tile in DeployManager.instance.GetAllDeployTouchingTiles())
             {
                 if (candidateTiles.Contains(tile))

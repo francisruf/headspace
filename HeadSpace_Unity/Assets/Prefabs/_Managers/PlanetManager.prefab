@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d4ab665c549c64c82bba54745ad37f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageStartBuffer: 2
   randomArchetypes: 0
   randomPlanetCount: 20
   allArchetypes:

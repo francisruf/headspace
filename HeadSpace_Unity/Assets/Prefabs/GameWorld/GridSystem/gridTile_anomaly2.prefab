@@ -125,7 +125,7 @@ MonoBehaviour:
   liveForever: 1
   lifeTime: 0
   shipDPS: 0
-  planetDPS: 0
+  planetDPS: 4
   tileX: 0
   tileY: 0
   tileType: 0

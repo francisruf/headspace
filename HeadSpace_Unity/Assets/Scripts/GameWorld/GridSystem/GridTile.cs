@@ -137,7 +137,7 @@ public class GridTile : MonoBehaviour
         _currentObjectsInTile = new List<GridStaticObject>(objList);
         foreach (var obj in _currentObjectsInTile)
         {
-            Debug.Log("Found : " + obj.gameObject.name);
+            //Debug.Log("Found : " + obj.gameObject.name);
             obj.gridObjectPositionRemoved += RemoveObjectFromTile;
         }
     }
