@@ -95,6 +95,12 @@ public class Ship : MonoBehaviour
 
     public void Deploy(Vector2 gridCoords) {
 
+        //Stops function if Ship cannot be Deployed
+        if (CurrentShipState == ShipState.Deployed) {
+            Debug.Log("Ship already Deployed");
+            return;
+        }
+
         Debug.Log("SHIP NAME: " + shipName + " | COMMAND: Deploy " + gridCoords + " | STATUS: Deployed");
         //Enable the ship and all it's components
         spriteRenderer.enabled = true;
@@ -111,6 +117,12 @@ public class Ship : MonoBehaviour
     }
 
     public void Leave() {
+
+        //Stops function if Ship cannot be Leave
+        if (CurrentShipState == ShipState.AtBase) {
+            Debug.Log("Ship is already At Base");
+            return;
+        }
 
         Debug.Log("SHIP NAME: " + shipName + " | COMMAND: Leave | STATUS: On it's way to base");
         //Enable the ship and all it's components
