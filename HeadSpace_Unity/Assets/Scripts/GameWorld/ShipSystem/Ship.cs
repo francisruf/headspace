@@ -29,8 +29,8 @@ public class Ship : MonoBehaviour
     //How many souls can the Ship carry
     public int cargoCapacity;
 
-    [Range(0, 10)]
-    public float movementSpeed;
+    [Range(0, 100)]
+    public float moveSpeed;
 
     [Range(0, 10)]
     //How many Souls per second can the Ship transfer from the Planet to Cargo
@@ -41,7 +41,10 @@ public class Ship : MonoBehaviour
     private CircleCollider2D detectionZone;
 
     //MOVEMENT
-    public Vector2 testGridCoords;
+    public Vector2 displayedGridCoords;
+    private Vector2 targetWorldCoords;
+    public bool isMoving;
+
 
     // STATE TRACKING
     public ShipState shipStartingState; // State du vaisseau lorsque Start() est appelé. Simplement pour debug et assigner un state différent.
@@ -65,29 +68,35 @@ public class Ship : MonoBehaviour
         //Sets the radius of the CircleCollider2D located in child GameObject<Detection_Collider> to be equal to the one set by the detectionRadius variable.
         detectionZone = GetComponentInChildren<CircleCollider2D>();
         detectionZone.radius = detectionRadius;
+
+        //Sets the startPosition of the Ship so it can move to targetPosition
+        //currentPosition = gameObject.transform.position;
+        //targetPosition = testGridCoords;
     }
 
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.M)) {
-        //    Move(testGridCoords);
-        //}
+        //If MOVE command is called, moves the ship at coordinates indicated in the MOVE command.
+        if (isMoving) {
+            Debug.Log("SHIP NAME: " + shipName + "\n COMMAND: Move " + displayedGridCoords);
+            transform.position = Vector2.MoveTowards(transform.position, targetWorldCoords, moveSpeed * Time.deltaTime);
+        }
+        if (targetWorldCoords == (Vector2)transform.position) {
+            isMoving = false;
+        }
     }
 
-    public void Move(Vector2 gridCoords)
-    {
-        Debug.Log("MOVE called on Ship : " + shipName);
+    public void Move(Vector2 gridCoords) {
+
+        //When MOVE command is called, it converts gridCoords to WorldCoords and sets isMoving to true
+        displayedGridCoords = gridCoords;
+        targetWorldCoords = GridCoords.FromGridToWorld(gridCoords);
+        isMoving = true;
+
+
+
+
     }
-
-    //STEP 1: MOVE THAT SHIP
-    //Créer une fonction MOVE qui prend un Vecto2 à l'entrée (GridCoords)
-    //Coder le mouvement pour que ça marche independemment ici
-    //Créer un champs public Vector2 qui prend des GridCoords
-    //Convertir les GridCoords en WorldCoords (le faire DANS l'input)
-    //Quand j'INPUT qqc, vaisseau bouge mouvement speed vers ces coordonnées
-
-    //STEP 2: 
-    //
 
     // Function that changes and tracks the ship state (AtBase / Deployed) and notifies other scripts
     private void ChangeShipState(ShipState newState)

@@ -121,6 +121,33 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &1531927872 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8519948865630102667, guid: 3bee59208df45904b9deb47acc3b7742,
+    type: 3}
+  m_PrefabInstance: {fileID: 8519948865209298247}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &1531927876
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1531927872}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1001 &8519948865209298247
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -128,6 +155,41 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8519948864602389777, guid: 3bee59208df45904b9deb47acc3b7742,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519948865630102664, guid: 3bee59208df45904b9deb47acc3b7742,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519948865630102664, guid: 3bee59208df45904b9deb47acc3b7742,
+        type: 3}
+      propertyPath: testGridCoords.x
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519948865630102664, guid: 3bee59208df45904b9deb47acc3b7742,
+        type: 3}
+      propertyPath: testGridCoords.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519948865630102664, guid: 3bee59208df45904b9deb47acc3b7742,
+        type: 3}
+      propertyPath: shipStartingState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519948865630102664, guid: 3bee59208df45904b9deb47acc3b7742,
+        type: 3}
+      propertyPath: targetGridCoords.x
+      value: 7.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519948865630102664, guid: 3bee59208df45904b9deb47acc3b7742,
+        type: 3}
+      propertyPath: targetGridCoords.y
+      value: 3.23
+      objectReference: {fileID: 0}
     - target: {fileID: 8519948865630102665, guid: 3bee59208df45904b9deb47acc3b7742,
         type: 3}
       propertyPath: m_RootOrder
@@ -136,12 +198,12 @@ PrefabInstance:
     - target: {fileID: 8519948865630102665, guid: 3bee59208df45904b9deb47acc3b7742,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: 8519948865630102665, guid: 3bee59208df45904b9deb47acc3b7742,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -3.06
       objectReference: {fileID: 0}
     - target: {fileID: 8519948865630102665, guid: 3bee59208df45904b9deb47acc3b7742,
         type: 3}
@@ -187,6 +249,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Prefab_Ship
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519948865910382502, guid: 3bee59208df45904b9deb47acc3b7742,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bee59208df45904b9deb47acc3b7742, type: 3}
