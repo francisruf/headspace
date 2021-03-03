@@ -44,8 +44,8 @@ public class Ship : MonoBehaviour
     public Vector2 testGridCoords;
 
     // STATE TRACKING
-    // Ça c'est une "propriété", aka une autre façon fancy d'écrire des variables
-    public ShipState CurrentShipState { get; private set; } = ShipState.Deployed;    // Pour l'instant, les Ships sont considérés Deployed
+    public ShipState shipStartingState; // State du vaisseau lorsque Start() est appelé. Simplement pour debug et assigner un state différent.
+    public ShipState CurrentShipState { get; private set; }  // Ça c'est une "propriété", aka une autre façon fancy d'écrire des variables
 
     private void Awake()
     {
@@ -55,6 +55,9 @@ public class Ship : MonoBehaviour
 
     void Start()
     {
+        // Assigner le currentState au state de départ
+        CurrentShipState = shipStartingState;
+
         //Fire the newShipAvaible action (received by the ShipManager)
         if (newShipAvailable != null)
             newShipAvailable(this);
