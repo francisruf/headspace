@@ -132,7 +132,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2049550199
   m_SortingLayer: 4
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 52032605ef17da8488cdaa28b4f4056c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63a624545cd56ef4a9a66b52301760a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipName: 
+  shipName: Bob
   healthPoints: 100
   cargoCapacity: 100
   movementSpeed: 1

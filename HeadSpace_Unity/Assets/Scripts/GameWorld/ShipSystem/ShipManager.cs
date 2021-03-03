@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,8 +17,17 @@ using UnityEngine;
 
 public class ShipManager : MonoBehaviour
 {
+    // Action qui lance les updates de UI
+    public static Action<List<Ship>> shipInventoryUpdate;
+
     // Singleton
     public static ShipManager instance;
+
+    // Liste de tous les ships qui ont été déclarés
+    private List<Ship> shipInventory = new List<Ship>();
+
+    // État de debug (visibilité des vaisseaux)
+    private bool shipDebugVisible = true;
 
     private void Awake()
     {
@@ -33,17 +43,102 @@ public class ShipManager : MonoBehaviour
         }
     }
 
+    // Subscription aux actions de Ship (ajouter ou enlever un Ship de l'inventaire)
+    private void OnEnable()
+    {
+        Ship.newShipAvailable += OnNewShipAvailable;
+        Ship.shipUnavailable += OnShipUnavailable;
+        Ship.shipStateChange += OnShipStateChange;
+    }
+
+    // Unsubscription
+    private void OnDisable()
+    {
+        Ship.newShipAvailable -= OnNewShipAvailable;
+        Ship.shipUnavailable -= OnShipUnavailable;
+        Ship.shipStateChange -= OnShipStateChange;
+    }
+
+    // Ajouter un ship à l'inventaire
+    private void OnNewShipAvailable(Ship ship)
+    {
+        shipInventory.Add(ship);
+        UpdateShipInventoryUI();
+    }
+
+    // Enlever un ship de l'inventaire
+    private void OnShipUnavailable(Ship ship)
+    {
+        if (shipInventory.Contains(ship))
+        {
+            shipInventory.Remove(ship);
+            UpdateShipInventoryUI();
+        }
+    }
+
+    // Fonction qui se trigger lorsqu'un vaisseau change d'état
+    // Pour l'instant, ne sert qu'à notifier le ShipUI
+    private void OnShipStateChange(Ship ship)
+    {
+        UpdateShipInventoryUI();
+    }
+
+    // Fonction générale pour trigger le Update du UI
+    private void UpdateShipInventoryUI()
+    {
+        if (shipInventoryUpdate != null)
+            shipInventoryUpdate(shipInventory);
+    }
+
     /* Fonction qui retourne VRAI ou FAUX si un vaisseau a été trouvé.
      * La fonction assigne également un paramètre de SORTIE avec la clause OUT, permettant d'envoyer
      * une référence au vaisseau trouvé du même coup.
-     * 
-     * N'hésite pas à m'écrire si tu veux plus d'explications :)
      */
     public bool FindShipByName(string shipNameToFind, out Ship foundShip)
     {
+        string shipNameLowerCase = shipNameToFind.ToLower();   // Mettre le nom recherché en minuscules
+
+        // Assigner variables de départ
         bool shipNameFound = false;
         foundShip = null;
 
+        // Itérer dans shipInventory, et vérifier si un ship a le nom correspondant
+        foreach (var ship in shipInventory)
+        {
+            // Si un ship correspondant trouvé, retourner VRAI et assigner le foundShip en paramètre de sortie
+            if (ship.shipName.ToLower() == shipNameLowerCase)
+            {
+                foundShip = ship;
+                shipNameFound = true;
+                break;
+            }
+        }
+        // Sinon, retourner FAUX (le foundShip sera null)
         return shipNameFound;
+    }
+
+    // Fonction qui affiche ou non les sprites de tous les vaisseaux
+    public void ToggleShipDebug()
+    {
+        // Si debug visible au moment du toggle, désactiver les sprites des vaisseaux dont l'état est DEPLOYED
+        if (shipDebugVisible)
+        {
+            foreach (var ship in shipInventory)
+            {
+                if (ship.CurrentShipState == ShipState.Deployed)
+                    ship.ToggleSprite(false);
+            }
+            shipDebugVisible = false;
+        }
+        // Si debug non visible au moment du toggle, activer les sprites des vaisseaux dont l'état est DEPLOYED
+        else
+        {
+            foreach (var ship in shipInventory)
+            {
+                if (ship.CurrentShipState == ShipState.Deployed)
+                    ship.ToggleSprite(true);
+            }
+            shipDebugVisible = true;
+        }
     }
 }

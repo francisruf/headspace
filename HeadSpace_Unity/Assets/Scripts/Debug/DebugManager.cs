@@ -20,6 +20,7 @@ public class DebugManager : MonoBehaviour
     public GameObject objectsPanel;
     public MouseTooltip mouseToolTip;
     public GameObject gridDebug;
+    public TextMeshProUGUI shipInventoryText;
 
     // Command Debug
     [Header("Command Debug references")]
@@ -64,12 +65,14 @@ public class DebugManager : MonoBehaviour
     {
         GridManager.firstAnomalyTile += StartGameTimer;
         GridManager.totalGridAnomaly += StopGameTimer;
+        ShipManager.shipInventoryUpdate += UpdateShipInventoryUI;
     }
 
     private void OnDisable()
     {
         GridManager.firstAnomalyTile -= StartGameTimer;
         GridManager.totalGridAnomaly -= StopGameTimer;
+        ShipManager.shipInventoryUpdate -= UpdateShipInventoryUI;
     }
 
     private void Start()
@@ -80,6 +83,7 @@ public class DebugManager : MonoBehaviour
         debugText.enabled = true;
         gameTimeText.enabled = false;
         commandDebugWindow.SetActive(false);
+        shipInventoryText.enabled = true;
         UpdateTimeScaleText();
     }
 
@@ -119,6 +123,9 @@ public class DebugManager : MonoBehaviour
     {
         if (PlanetManager.instance != null)
             PlanetManager.instance.TogglePlanetDebug();
+
+        if (ShipManager.instance != null)
+            ShipManager.instance.ToggleShipDebug();
     }
 
     public void ToggleMouseCoords()
@@ -127,6 +134,21 @@ public class DebugManager : MonoBehaviour
 
         if (mouseToolTipActiveState != null)
             mouseToolTipActiveState(_mouseTooltipVisible);
+    }
+
+    public void ToggleShipInventory()
+    {
+        shipInventoryText.enabled = !shipInventoryText.enabled;
+    }
+
+    private void UpdateShipInventoryUI(List<Ship> allShips)
+    {
+        string inventoryText = "<size=150%><b>Ship Inventory</size></b>";
+        foreach (var ship in allShips)
+        {
+            inventoryText += "\n<b>" + ship.shipName + "</b> : " + ship.CurrentShipState.ToString();
+        }
+        shipInventoryText.text = inventoryText;
     }
 
     public void NewGrid()

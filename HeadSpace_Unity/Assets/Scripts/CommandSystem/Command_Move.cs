@@ -74,6 +74,6 @@ public class Command_Move : Command
     protected override void ExecuteCommand(Ship targetShip, Vector2 gridCoordinates)
     {
         //Pour lier le Command Tool au Move du Ship
-        //targetShip.Move(gridCoordinates);
+        targetShip.Move(gridCoordinates);
     }
 }
