@@ -17,6 +17,8 @@ public class Ship : MonoBehaviour
 
     // Components
     private SpriteRenderer spriteRenderer;
+    private PolygonCollider2D shipCollider;
+    private CircleCollider2D detectionZone;
 
     //STATS
     public string shipName;
@@ -38,12 +40,14 @@ public class Ship : MonoBehaviour
 
     [Range(0, 1)]
     public float detectionRadius;
-    private CircleCollider2D detectionZone;
 
     //MOVEMENT
-    public Vector2 displayedGridCoords;
+    private Vector2 displayedGridCoords;
     private Vector2 targetWorldCoords;
-    public bool isMoving;
+    private bool isMoving;
+
+    //LEAVE
+    private Vector2 basePosition;
 
 
     // STATE TRACKING
@@ -54,6 +58,8 @@ public class Ship : MonoBehaviour
     {
         // Assign component references
         spriteRenderer = GetComponent<SpriteRenderer>();
+        shipCollider = GetComponentInChildren<PolygonCollider2D>();
+        detectionZone = GetComponentInChildren<CircleCollider2D>();
     }
 
     void Start()
@@ -66,19 +72,20 @@ public class Ship : MonoBehaviour
             newShipAvailable(this);
 
         //Sets the radius of the CircleCollider2D located in child GameObject<Detection_Collider> to be equal to the one set by the detectionRadius variable.
-        detectionZone = GetComponentInChildren<CircleCollider2D>();
         detectionZone.radius = detectionRadius;
 
-        //Sets the startPosition of the Ship so it can move to targetPosition
-        //currentPosition = gameObject.transform.position;
-        //targetPosition = testGridCoords;
+        //Assign basePosition
+        basePosition = new Vector2(100f, 100f);
+
+        //Start ships at basePosition
+        transform.position = basePosition;
     }
 
     void Update()
     {
         //If MOVE command is called, moves the ship at coordinates indicated in the MOVE command.
         if (isMoving) {
-            Debug.Log("SHIP NAME: " + shipName + "\n COMMAND: Move " + displayedGridCoords);
+            Debug.Log("SHIP NAME: " + shipName + " | COMMAND: Move " + displayedGridCoords + " | STATUS: Moving");
             transform.position = Vector2.MoveTowards(transform.position, targetWorldCoords, moveSpeed * Time.deltaTime);
         }
         if (targetWorldCoords == (Vector2)transform.position) {
@@ -86,16 +93,50 @@ public class Ship : MonoBehaviour
         }
     }
 
+    public void Deploy(Vector2 gridCoords) {
+
+        Debug.Log("SHIP NAME: " + shipName + " | COMMAND: Deploy " + gridCoords + " | STATUS: Deployed");
+        //Enable the ship and all it's components
+        spriteRenderer.enabled = true;
+        shipCollider.enabled = true;
+        detectionZone.enabled = true;
+
+        //Convert gridCoords entered into worldCoords
+        targetWorldCoords = GridCoords.FromGridToWorld(gridCoords);
+        //Place ship on the entered coordinates
+        transform.position = targetWorldCoords;
+
+        //Change the status of the ship from "At Base" to "Deployed"
+        ChangeShipState(ShipState.Deployed);
+    }
+
+    public void Leave() {
+
+        Debug.Log("SHIP NAME: " + shipName + " | COMMAND: Leave | STATUS: On it's way to base");
+        //Enable the ship and all it's components
+        spriteRenderer.enabled = false;
+        shipCollider.enabled = false;
+        detectionZone.enabled = false;
+
+        //Place ship on the entered coordinates
+        transform.position = basePosition;
+
+        //Change the status of the ship from "At Base" to "Deployed"
+        ChangeShipState(ShipState.AtBase);
+    }
+
+
     public void Move(Vector2 gridCoords) {
 
         //When MOVE command is called, it converts gridCoords to WorldCoords and sets isMoving to true
         displayedGridCoords = gridCoords;
         targetWorldCoords = GridCoords.FromGridToWorld(gridCoords);
         isMoving = true;
+    }
 
-
-
-
+    public void Abort() {
+        Debug.Log("SHIP NAME: " + shipName + " | COMMAND: Abort | STATUS: Action Stopped");
+        isMoving = false;
     }
 
     // Function that changes and tracks the ship state (AtBase / Deployed) and notifies other scripts

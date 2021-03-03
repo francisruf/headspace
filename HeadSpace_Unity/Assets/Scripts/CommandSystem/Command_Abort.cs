@@ -59,6 +59,6 @@ public class Command_Abort : Command
 
     protected override void ExecuteCommand(Ship targetShip)
     {
-        Debug.Log("ABORT CALLED");
+        targetShip.Abort();
     }
 }
