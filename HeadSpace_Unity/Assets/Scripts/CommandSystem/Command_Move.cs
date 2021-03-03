@@ -73,6 +73,7 @@ public class Command_Move : Command
     // TODO : Ajouter la référence de vaisseau
     protected override void ExecuteCommand(Ship targetShip, Vector2 gridCoordinates)
     {
-        Debug.Log("MOVE CALLED");
+        //Pour lier le Command Tool au Move du Ship
+        //targetShip.Move(gridCoordinates);
     }
 }
