@@ -55,7 +55,7 @@ public class postItCoordinates : MonoBehaviour
             Vector2 vector2 = new Vector2(mouseGridPos.x, mouseGridPos.y);
             //convertit en vector2 pour enlever la coordonnees z sur le post it
 
-            Debug.Log(mouseGridPos);
+            //Debug.Log(mouseGridPos);
 
             postItText.text = vector2.ToString();
 

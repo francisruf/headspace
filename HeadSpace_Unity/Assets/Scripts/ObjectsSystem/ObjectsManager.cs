@@ -77,7 +77,7 @@ public class ObjectsManager : MonoBehaviour
 
         foreach (var hit in hitsInfo)
         {
-            Debug.Log("HIT : " + hit.collider.gameObject.name);
+            //Debug.Log("HIT : " + hit.collider.gameObject.name);
             candidateObject = hit.collider.GetComponent<InteractableObject>();
 
             if (candidateObject != null)
@@ -85,28 +85,28 @@ public class ObjectsManager : MonoBehaviour
                 if (selectedObject == null)
                 {
                     selectedObject = candidateObject;
-                    Debug.Log("1- Selected : " + selectedObject.gameObject.name);
+                    //Debug.Log("1- Selected : " + selectedObject.gameObject.name);
                 }
                 else
                 {
                     int sortingLayer = candidateObject.GetSortingLayer();
                     int sortingOrder = candidateObject.GetOrderInLayer();
-                    Debug.Log("Selected sorting layer : " + selectedObject.GetSortingLayer());
-                    Debug.Log("Selected sorting order : " + selectedObject.GetOrderInLayer());
-                    Debug.Log("Candidate sorting layer : " + candidateObject.GetSortingLayer());
-                    Debug.Log("Candidate sorting order : " + candidateObject.GetOrderInLayer());
+                    //Debug.Log("Selected sorting layer : " + selectedObject.GetSortingLayer());
+                    //Debug.Log("Selected sorting order : " + selectedObject.GetOrderInLayer());
+                    //Debug.Log("Candidate sorting layer : " + candidateObject.GetSortingLayer());
+                    //Debug.Log("Candidate sorting order : " + candidateObject.GetOrderInLayer());
 
                     if (sortingLayer > selectedObject.GetSortingLayer())
                     {
                         selectedObject = candidateObject;
-                        Debug.Log("2- Selected : " + selectedObject.gameObject.name);
+                        //Debug.Log("2- Selected : " + selectedObject.gameObject.name);
                     }
                     else if (sortingLayer == selectedObject.GetSortingLayer())
                     {
                         if (sortingOrder > selectedObject.GetOrderInLayer())
                         {
                             selectedObject = candidateObject;
-                            Debug.Log("3- Selected : " + selectedObject.gameObject.name);
+                            //Debug.Log("3- Selected : " + selectedObject.gameObject.name);
                         }
                     }
                 }
@@ -125,7 +125,7 @@ public class ObjectsManager : MonoBehaviour
     {
         // Expression très fancy. Hésitez pas à me demander et je vous expliquerait kessé ça mange en hiver.
         var objectsWithSameLayer = _allActiveObjects.Where(x => x.GetSortingLayer() == selectedObject.GetSortingLayer()).ToList();
-        Debug.Log("Objects in same layer : " + objectsWithSameLayer.Count);
+        //Debug.Log("Objects in same layer : " + objectsWithSameLayer.Count);
 
         int maxOrderInLayer = 0;
         foreach (var obj in objectsWithSameLayer)
@@ -135,7 +135,7 @@ public class ObjectsManager : MonoBehaviour
                 maxOrderInLayer = obj.GetOrderInLayer();
             }
         }
-        Debug.Log("New max order : " + maxOrderInLayer);
+        //Debug.Log("New max order : " + maxOrderInLayer);
         selectedObject.SetOrderInLayer(maxOrderInLayer + 1);
     }
 

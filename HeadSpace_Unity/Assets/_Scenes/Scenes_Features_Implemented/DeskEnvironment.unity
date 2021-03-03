@@ -241,14 +241,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1003825767, guid: e45b24c6c9d1bd946a73a574e007c22b, type: 3}
-      propertyPath: raylength
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 1003825767, guid: e45b24c6c9d1bd946a73a574e007c22b, type: 3}
-      propertyPath: layermask.m_Bits
-      value: 4096
-      objectReference: {fileID: 0}
     - target: {fileID: 1026667068131997264, guid: e45b24c6c9d1bd946a73a574e007c22b,
         type: 3}
       propertyPath: m_RootOrder
