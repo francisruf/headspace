@@ -8,7 +8,7 @@ public class Command_Abort : Command
     public override bool TryExecution(string playerText, out string errorMessage)
     {
         bool success = false;
-        errorMessage = "Move command not implemented.";
+        errorMessage = "Abort command not implemented.";
 
         /* TODO :
          * - Decode full text
