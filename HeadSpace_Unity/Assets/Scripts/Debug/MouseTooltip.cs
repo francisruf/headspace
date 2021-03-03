@@ -24,18 +24,30 @@ public class MouseTooltip : MonoBehaviour
     private void OnEnable()
     {
         GridManager.newGameGrid += AssignGridInfo;
+        DebugManager.mouseToolTipActiveState += ToggleToolTip;
     }
 
     // Unsubscription
     private void OnDisable()
     {
         GridManager.newGameGrid -= AssignGridInfo;
+        DebugManager.mouseToolTipActiveState -= ToggleToolTip;
     }
 
     private void Awake()
     {
         _mouseCoordsText = GetComponentInChildren<TextMeshProUGUI>();
         _mouseCoordsText.enabled = false;
+    }
+
+    private void Start()
+    {
+        ToggleToolTip(false);
+    }
+
+    private void ToggleToolTip(bool ToggleON)
+    {
+        _mouseCoordsText.gameObject.SetActive(ToggleON);
     }
 
     // Assigne les valeurs de _currentGridInfo (appel à chaque nouvelle grille)

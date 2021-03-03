@@ -407,6 +407,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7953223779252455096, guid: cc49c54a82c8c95428e5a206c6d95ce3,
+        type: 3}
+      propertyPath: m_Name
+      value: MouseDebugTooltip
+      objectReference: {fileID: 0}
     - target: {fileID: 7953223779361040805, guid: cc49c54a82c8c95428e5a206c6d95ce3,
         type: 3}
       propertyPath: m_AnchorMax.y

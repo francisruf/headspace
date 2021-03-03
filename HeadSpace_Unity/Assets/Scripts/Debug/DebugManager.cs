@@ -6,6 +6,9 @@ using TMPro;
 
 public class DebugManager : MonoBehaviour
 {
+    // Action qui envoie signal quand le tooltip de souris est activé
+    public static Action<bool> mouseToolTipActiveState;
+
     // Singleton
     public static DebugManager instance;
 
@@ -15,7 +18,7 @@ public class DebugManager : MonoBehaviour
     public GameObject timePanel;
     public TextMeshProUGUI gameTimeText;
     public GameObject objectsPanel;
-    public GameObject mouseToolTip;
+    public MouseTooltip mouseToolTip;
     public GameObject gridDebug;
 
     // Command Debug
@@ -35,10 +38,14 @@ public class DebugManager : MonoBehaviour
     public GameObject genericDocumentPrefab;
     public GameObject[] genericMarkerPrefabs;
 
+    // Time stuff
     private float _timeScaleBeforePause;
     private bool _timePaused;
     private bool _gameTimerStarted;
     private float _gameTimer;
+
+    // State
+    private bool _mouseTooltipVisible;
 
     private void Awake()
     {
@@ -100,9 +107,12 @@ public class DebugManager : MonoBehaviour
 
     #region Grid management
 
-    public void ToggleGrid()
+    public void ToggleGridMode()
     {
-        gridDebug.SetActive(!gridDebug.activeSelf);
+        if (GridManager.instance != null)
+            GridManager.instance.ToggleGridMode();
+
+        //gridDebug.SetActive(!gridDebug.activeSelf);
     }
 
     public void ToggleGridObjects()
@@ -113,7 +123,10 @@ public class DebugManager : MonoBehaviour
 
     public void ToggleMouseCoords()
     {
-        mouseToolTip.SetActive(!mouseToolTip.activeSelf);
+        _mouseTooltipVisible = !_mouseTooltipVisible;
+
+        if (mouseToolTipActiveState != null)
+            mouseToolTipActiveState(_mouseTooltipVisible);
     }
 
     public void NewGrid()

@@ -53,6 +53,9 @@ TagManager:
   - name: MapObjects
     uniqueID: 2245417097
     locked: 0
+  - name: MapMarkers
+    uniqueID: 1810622779
+    locked: 0
   - name: DeskObjects
     uniqueID: 1351713243
     locked: 0
@@ -61,4 +64,7 @@ TagManager:
     locked: 0
   - name: ToolsUI
     uniqueID: 4206615015
+    locked: 0
+  - name: SelectedObject
+    uniqueID: 461311847
     locked: 0

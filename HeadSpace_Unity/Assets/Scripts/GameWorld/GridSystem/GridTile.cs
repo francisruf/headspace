@@ -23,6 +23,10 @@ public class GridTile : MonoBehaviour
     public float shipDPS;
     public float planetDPS;
 
+    [Header("Sprites")]
+    public Sprite worldMapSprite;
+    public Sprite debugSprite;
+
     // Position sur la grille, assignee par le GridManager
     [HideInInspector] public int tileX;
     [HideInInspector] public int tileY;
@@ -33,6 +37,7 @@ public class GridTile : MonoBehaviour
 
     // Informations de la grille
     private GridInfo _gridInfo;
+    private GridMode _currentGridMode;
     // Liste d'objets statics qui se trouvent dans la tuile
     [SerializeField] private List<GridStaticObject> _currentObjectsInTile = new List<GridStaticObject>();
     // Propriété qui retourne une référence à la liste d'objets
@@ -50,15 +55,17 @@ public class GridTile : MonoBehaviour
     private void OnEnable()
     {
         GridManager.newGameGrid += AssignGridInfo;
+        GridManager.newGridMode += ToggleGridMode;
     }
 
     // UNSUBSCRIPTION
     private void OnDisable()
     {
         GridManager.newGameGrid -= AssignGridInfo;
+        GridManager.newGridMode -= ToggleGridMode;
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         // Assigner les références de components
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -85,17 +92,21 @@ public class GridTile : MonoBehaviour
     }
 
     // Fonction pour initialiser les components de la tuile, lorsqu'elle spawn
-    public void InitializeTile(Vector2 tileDimensions)
+    public virtual void InitializeTile(Vector2 tileDimensions, GridMode gridMode)
     {
         this.tileDimensions = tileDimensions;
 
         _spriteRenderer.size = tileDimensions;
         _boxCollider.size = tileDimensions;
         _boxCollider.offset = tileDimensions / 2f;
+
+        _currentGridMode = gridMode;
+
+        ToggleGridMode(_currentGridMode);
     }
 
     // Fonction pour initialiser les components de la tuile, lorsqu'elle spawn
-    public void InitializeTile(Vector2 tileDimensions, GridInfo currentGridInfo)
+    public virtual void InitializeTile(Vector2 tileDimensions, GridMode gridMode, GridInfo currentGridInfo)
     {
         this.tileDimensions = tileDimensions;
 
@@ -103,7 +114,27 @@ public class GridTile : MonoBehaviour
         _boxCollider.size = tileDimensions;
         _boxCollider.offset = tileDimensions / 2f;
 
+        _currentGridMode = gridMode;
         AssignGridInfo(currentGridInfo);
+
+        ToggleGridMode(_currentGridMode);
+    }
+
+    protected virtual void ToggleGridMode(GridMode newGridMode)
+    {
+        switch (newGridMode)
+        {
+            case GridMode.WorldMap:
+                _spriteRenderer.sprite = worldMapSprite;
+                ToggleLifetimeText(false);
+                break;
+            case GridMode.Debug:
+                _spriteRenderer.sprite = debugSprite;
+                ToggleLifetimeText(true);
+                break;
+            default:
+                break;
+        }
     }
 
     // Fonction pour désactiver les components de la tuile
@@ -168,8 +199,6 @@ public class GridTile : MonoBehaviour
             UpdateDebugText(seconds);
         }
 
-        _lifeTimeText.enabled = false;
-
         if (!liveForever)
         {
             if (tileLifeOver != null)
@@ -182,6 +211,8 @@ public class GridTile : MonoBehaviour
             if (anomalyTileComplete != null)
                 anomalyTileComplete(this);
         }
+
+        ToggleLifetimeText(false);
     }
 
     public virtual void UpdateNeighbours()
@@ -238,6 +269,16 @@ public class GridTile : MonoBehaviour
         }
     }
 
+    private void ToggleLifetimeText(bool toggleON)
+    {
+        if (liveForever)
+        {
+            _lifeTimeText.enabled = false;
+            return;
+        }
+        _lifeTimeText.enabled = toggleON;
+    }
+
     private void UpdateDebugText(float time)
     {
         if (_lifeTimeText == null)
@@ -245,5 +286,5 @@ public class GridTile : MonoBehaviour
 
         _lifeTimeText.text = TimeSpan.FromSeconds(time).ToString(@"m\:ss");
     }
-
 }
+

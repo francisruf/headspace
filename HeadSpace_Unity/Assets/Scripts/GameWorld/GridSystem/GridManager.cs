@@ -11,6 +11,7 @@ public class GridManager : MonoBehaviour
     public static Action firstAnomalyTile;
     public static Action totalGridAnomaly;
     public static Action gridDataDestroyed;
+    public static Action<GridMode> newGridMode;
 
     // Singleton
     public static GridManager instance;
@@ -37,12 +38,10 @@ public class GridManager : MonoBehaviour
     [Header("Object prefabs")]
     public GameObject deployPointPrefab;
 
-    //[Header("Deploy point settings")]
-    //public Vector2 deployStartCoordinates;
-
     // La grille
     private int[,] _gameGrid;   // Array2D d'ints pour génération initiale et pathfinding
     private GridTile[,] _gameGridTiles;    // Array 2D pour la grille de TUILES physiques
+    private GridMode _currentGridMode;
 
     // Informations de la grille actuelle (voir Struct en bas de cette classe)
     private GridInfo _currentGridInfo;
@@ -85,6 +84,7 @@ public class GridManager : MonoBehaviour
 
     private void Start()
     {
+        _currentGridMode = GridMode.WorldMap;
         GenerateNewGrid();
     }
 
@@ -171,7 +171,7 @@ public class GridManager : MonoBehaviour
                 gt.tileX = x;
                 gt.tileY = y;
                 gt.tileType = _gameGrid[x, y];
-                gt.InitializeTile(new Vector2(tileWidth, tileWidth));
+                gt.InitializeTile(new Vector2(tileWidth, tileWidth), _currentGridMode);
 
                 // Ajout de la tuile à l'array2D de tuiles
                 _gameGridTiles[x, y] = gt;
@@ -330,7 +330,7 @@ public class GridManager : MonoBehaviour
         gt.tileX = deadTile.tileX;
         gt.tileY = deadTile.tileY;
         gt.tileType = newTileType;
-        gt.InitializeTile(deadTile.tileDimensions, _currentGridInfo);
+        gt.InitializeTile(deadTile.tileDimensions, _currentGridMode, _currentGridInfo);
 
         gt.TransferObjectList(deadTile.CurrentObjectsInTile);
 
@@ -365,7 +365,7 @@ public class GridManager : MonoBehaviour
         newTile.tileX = deadTile.tileX;
         newTile.tileY = deadTile.tileY;
         newTile.tileType = newTileType;
-        newTile.InitializeTile(deadTile.tileDimensions, _currentGridInfo);
+        newTile.InitializeTile(deadTile.tileDimensions, _currentGridMode, _currentGridInfo);
 
         newTile.TransferObjectList(deadTile.CurrentObjectsInTile);
 
@@ -401,7 +401,7 @@ public class GridManager : MonoBehaviour
         newTile.tileX = deadTile.tileX;
         newTile.tileY = deadTile.tileY;
         newTile.tileType = newTileType;
-        newTile.InitializeTile(deadTile.tileDimensions, _currentGridInfo);
+        newTile.InitializeTile(deadTile.tileDimensions, _currentGridMode, _currentGridInfo);
 
         newTile.TransferObjectList(deadTile.CurrentObjectsInTile);
 
@@ -488,6 +488,24 @@ public class GridManager : MonoBehaviour
         }
         return tilesInBounds;
     }
+
+    public void ToggleGridMode()
+    {
+        switch (_currentGridMode)
+        {
+            case GridMode.WorldMap:
+                _currentGridMode = GridMode.Debug;
+                break;
+            case GridMode.Debug:
+                _currentGridMode = GridMode.WorldMap;
+                break;
+            default:
+                break;
+        }
+
+        if (newGridMode != null)
+            newGridMode(_currentGridMode);
+    }
 }
 
 /* STRUCT : 
@@ -504,5 +522,11 @@ public struct TileCoordinates
         this.tileX = tileX;
         this.tileY = tileY;
     }
+}
+
+public enum GridMode
+{
+    WorldMap,
+    Debug
 }
 

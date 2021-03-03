@@ -12,6 +12,7 @@ public class MovableObject : InteractableObject
 
     // État de l'objet
     protected bool _isSelected;
+    public ObjectType objectType;
 
     // Position de la souris lorsque l'objet est cliqué
     protected Vector2 _mouseOffset;
@@ -42,6 +43,7 @@ public class MovableObject : InteractableObject
     // Fonction appelée par le ObjectsManager
     public override void Select()
     {
+        base.Select();
         _isSelected = true;
         _mouseOffset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
         CalculateMinMaxPosition();
@@ -53,6 +55,7 @@ public class MovableObject : InteractableObject
     // Fonction qui force l'objet à être déposé
     public override void Deselect()
     {
+        base.Deselect();
         _isSelected = false;
         if (movableObjectDeselected != null)
             movableObjectDeselected(this);
@@ -130,4 +133,10 @@ public class MovableObject : InteractableObject
             _clampYmax = screenBounds.max.y + ((objectBounds.size.y / 2f) - 0.5f);
         }
     }
+}
+
+public enum ObjectType
+{
+    Marker,
+    Other
 }

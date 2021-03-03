@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapSizeX: 8
   mapSizeY: 4
-  mapWidth: 17
+  mapWidth: 15
   newSegmentAfterCount: 030000000800000010000000
   emptyCellPrefab: {fileID: 328405606139326222, guid: 2057765f4f76ef74c847f46818749518,
     type: 3}
