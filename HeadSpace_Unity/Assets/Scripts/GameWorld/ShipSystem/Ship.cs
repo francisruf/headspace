@@ -10,6 +10,7 @@ using UnityEngine;
 
 public class Ship : MonoBehaviour
 {
+    //STATS
     public string shipName;
     [Header("Stats")]
 
@@ -17,6 +18,7 @@ public class Ship : MonoBehaviour
     public int healthPoints;
 
     [Range(0, 100)]
+    //How many souls can the Ship carry
     public int cargoCapacity;
 
     [Range(0, 10)]
@@ -28,14 +30,16 @@ public class Ship : MonoBehaviour
 
     [Range(0, 1)]
     public float detectionRadius;
+    private CircleCollider2D detectionZone;
 
-    public CircleCollider2D detectionZone;
-
+    //MOVEMENT
     public Vector2 testGridCoords;
 
     void Start()
     {
-
+        //Sets the radius of the CircleCollider2D located in child GameObject<Detection_Collider> to be equal to the one set by the detectionRadius variable.
+        detectionZone = GetComponentInChildren<CircleCollider2D>();
+        detectionZone.radius = detectionRadius;
     }
 
     void Update()
