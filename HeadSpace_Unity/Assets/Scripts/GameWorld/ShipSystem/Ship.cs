@@ -49,7 +49,6 @@ public class Ship : MonoBehaviour
     //LEAVE
     private Vector2 basePosition;
 
-
     // STATE TRACKING
     public ShipState shipStartingState; // State du vaisseau lorsque Start() est appelé. Simplement pour debug et assigner un state différent.
     public ShipState CurrentShipState { get; private set; }  // Ça c'est une "propriété", aka une autre façon fancy d'écrire des variables
@@ -137,7 +136,6 @@ public class Ship : MonoBehaviour
         ChangeShipState(ShipState.AtBase);
     }
 
-
     public void Move(Vector2 gridCoords) {
 
         //When MOVE command is called, it converts gridCoords to WorldCoords and sets isMoving to true
@@ -174,6 +172,7 @@ public class Ship : MonoBehaviour
         if (shipUnavailable != null)
             shipUnavailable(this);
     }
+
 }
 
 public enum ShipState
