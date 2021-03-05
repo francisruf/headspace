@@ -14,14 +14,20 @@ public class Ship : MonoBehaviour
     public static Action<Ship> newShipAvailable;
     public static Action<Ship> shipUnavailable;
     public static Action<Ship> shipStateChange;
+    public static Action<Ship> shipInfoChange;
 
     // Components
     private SpriteRenderer spriteRenderer;
     private PolygonCollider2D shipCollider;
     private CircleCollider2D detectionZone;
 
+    // Linked Marker
+    private ShipMarker linkedMarker;
+    public GameObject markerPrefab;
+
     //STATS
     public string shipName;
+    public string shipCallsign;
     [Header("Stats")]
 
     [Range(0,100)]
@@ -66,18 +72,27 @@ public class Ship : MonoBehaviour
         // Assigner le currentState au state de départ
         CurrentShipState = shipStartingState;
 
-        //Fire the newShipAvaible action (received by the ShipManager)
-        if (newShipAvailable != null)
-            newShipAvailable(this);
-
         //Sets the radius of the CircleCollider2D located in child GameObject<Detection_Collider> to be equal to the one set by the detectionRadius variable.
         detectionZone.radius = detectionRadius;
+
+        // Force captial letters for callsign and 3 chars. max (safety)
+        shipCallsign = shipCallsign.ToUpper();
+        if (shipCallsign.Length > 3)
+        {
+            shipCallsign = shipCallsign.Substring(0, 3);
+        }
 
         //Assign basePosition
         basePosition = new Vector2(100f, 100f);
 
         //Start ships at basePosition
         transform.position = basePosition;
+
+        SpawnMarker();
+
+        //Fire the newShipAvaible action (received by the ShipManager)
+        if (newShipAvailable != null)
+            newShipAvailable(this);
     }
 
     void Update()
@@ -89,6 +104,17 @@ public class Ship : MonoBehaviour
         }
         if (targetWorldCoords == (Vector2)transform.position) {
             isMoving = false;
+        }
+    }
+
+    // Function that spawns a marker when a ship is activated (in start) and assigns its info.
+    private void SpawnMarker()
+    {
+        if (markerPrefab != null)
+        {
+            // For now, spawn a marker at center.
+            linkedMarker = Instantiate(markerPrefab).GetComponent<ShipMarker>();
+            linkedMarker.InitializeMarker(this);
         }
     }
 
@@ -159,6 +185,22 @@ public class Ship : MonoBehaviour
             shipStateChange(this);
     }
 
+    // Function that changes name and callsign, and notifies other scripts
+    private void ChangeShipName(string newName, string newCallsign)
+    {
+        shipName = newName;
+        shipCallsign = newCallsign;
+
+        // Force 3 characters Max (safety net)
+        if (shipCallsign.Length > 3)
+        {
+            shipCallsign = shipCallsign.Substring(0, 3);
+        }
+
+        if (shipInfoChange != null)
+            shipInfoChange(this);
+    }
+
     // Simple function that toggles SpriteRender on/off, called from DebugManager-->ShipManager-->Ship
     public void ToggleSprite(bool toggleON)
     {
@@ -169,6 +211,9 @@ public class Ship : MonoBehaviour
     // Function to be implemented when a ship is fully destroyed, or when the scene changes
     private void DisableShip()
     {
+        if (linkedMarker != null)
+            linkedMarker.DisableMarker();
+
         if (shipUnavailable != null)
             shipUnavailable(this);
     }

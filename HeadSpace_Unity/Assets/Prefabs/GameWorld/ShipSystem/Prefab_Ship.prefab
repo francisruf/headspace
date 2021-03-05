@@ -157,7 +157,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63a624545cd56ef4a9a66b52301760a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipName: Bob
+  markerPrefab: {fileID: 5824309797789608925, guid: e54d91c73d2f9ff46889a2291e0972b0,
+    type: 3}
+  shipName: Bobette
+  shipCallsign: Bob
   healthPoints: 100
   cargoCapacity: 100
   moveSpeed: 5
