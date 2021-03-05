@@ -10,8 +10,6 @@ public class MovableObject : InteractableObject
     public static Action<MovableObject> movableObjectSelected;
     public static Action<MovableObject> movableObjectDeselected;
 
-    // État de l'objet
-    protected bool _isSelected;
     public ObjectType objectType;
 
     // Position de la souris lorsque l'objet est cliqué
@@ -44,7 +42,6 @@ public class MovableObject : InteractableObject
     public override void Select()
     {
         base.Select();
-        _isSelected = true;
         _mouseOffset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
         CalculateMinMaxPosition();
 
@@ -56,7 +53,6 @@ public class MovableObject : InteractableObject
     public override void Deselect()
     {
         base.Deselect();
-        _isSelected = false;
         if (movableObjectDeselected != null)
             movableObjectDeselected(this);
     }
