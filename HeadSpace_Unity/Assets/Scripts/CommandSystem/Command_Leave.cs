@@ -76,5 +76,6 @@ public class Command_Leave : Command
     protected override void ExecuteCommand(Ship targetShip)
     {
         Debug.Log("LEAVE CALLED");
+        targetShip.Leave();
     }
 }

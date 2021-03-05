@@ -17,6 +17,8 @@ public class Ship : MonoBehaviour
 
     // Components
     private SpriteRenderer spriteRenderer;
+    private PolygonCollider2D shipCollider;
+    private CircleCollider2D detectionZone;
 
     //STATS
     public string shipName;
@@ -29,8 +31,8 @@ public class Ship : MonoBehaviour
     //How many souls can the Ship carry
     public int cargoCapacity;
 
-    [Range(0, 10)]
-    public float movementSpeed;
+    [Range(0, 100)]
+    public float moveSpeed;
 
     [Range(0, 10)]
     //How many Souls per second can the Ship transfer from the Planet to Cargo
@@ -38,10 +40,14 @@ public class Ship : MonoBehaviour
 
     [Range(0, 1)]
     public float detectionRadius;
-    private CircleCollider2D detectionZone;
 
     //MOVEMENT
-    public Vector2 testGridCoords;
+    private Vector2 displayedGridCoords;
+    private Vector2 targetWorldCoords;
+    private bool isMoving;
+
+    //LEAVE
+    private Vector2 basePosition;
 
     // STATE TRACKING
     public ShipState shipStartingState; // State du vaisseau lorsque Start() est appelé. Simplement pour debug et assigner un state différent.
@@ -51,6 +57,8 @@ public class Ship : MonoBehaviour
     {
         // Assign component references
         spriteRenderer = GetComponent<SpriteRenderer>();
+        shipCollider = GetComponentInChildren<PolygonCollider2D>();
+        detectionZone = GetComponentInChildren<CircleCollider2D>();
     }
 
     void Start()
@@ -63,31 +71,83 @@ public class Ship : MonoBehaviour
             newShipAvailable(this);
 
         //Sets the radius of the CircleCollider2D located in child GameObject<Detection_Collider> to be equal to the one set by the detectionRadius variable.
-        detectionZone = GetComponentInChildren<CircleCollider2D>();
         detectionZone.radius = detectionRadius;
+
+        //Assign basePosition
+        basePosition = new Vector2(100f, 100f);
+
+        //Start ships at basePosition
+        transform.position = basePosition;
     }
 
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.M)) {
-        //    Move(testGridCoords);
-        //}
+        //If MOVE command is called, moves the ship at coordinates indicated in the MOVE command.
+        if (isMoving) {
+            Debug.Log("SHIP NAME: " + shipName + " | COMMAND: Move " + displayedGridCoords + " | STATUS: Moving");
+            transform.position = Vector2.MoveTowards(transform.position, targetWorldCoords, moveSpeed * Time.deltaTime);
+        }
+        if (targetWorldCoords == (Vector2)transform.position) {
+            isMoving = false;
+        }
     }
 
-    public void Move(Vector2 gridCoords)
-    {
-        Debug.Log("MOVE called on Ship : " + shipName);
+    public void Deploy(Vector2 gridCoords) {
+
+        //Stops function if Ship cannot be Deployed
+        if (CurrentShipState == ShipState.Deployed) {
+            Debug.Log("Ship already Deployed");
+            return;
+        }
+
+        Debug.Log("SHIP NAME: " + shipName + " | COMMAND: Deploy " + gridCoords + " | STATUS: Deployed");
+        //Enable the ship and all it's components
+        spriteRenderer.enabled = true;
+        shipCollider.enabled = true;
+        detectionZone.enabled = true;
+
+        //Convert gridCoords entered into worldCoords
+        targetWorldCoords = GridCoords.FromGridToWorld(gridCoords);
+        //Place ship on the entered coordinates
+        transform.position = targetWorldCoords;
+
+        //Change the status of the ship from "At Base" to "Deployed"
+        ChangeShipState(ShipState.Deployed);
     }
 
-    //STEP 1: MOVE THAT SHIP
-    //Créer une fonction MOVE qui prend un Vecto2 à l'entrée (GridCoords)
-    //Coder le mouvement pour que ça marche independemment ici
-    //Créer un champs public Vector2 qui prend des GridCoords
-    //Convertir les GridCoords en WorldCoords (le faire DANS l'input)
-    //Quand j'INPUT qqc, vaisseau bouge mouvement speed vers ces coordonnées
+    public void Leave() {
 
-    //STEP 2: 
-    //
+        //Stops function if Ship cannot be Leave
+        if (CurrentShipState == ShipState.AtBase) {
+            Debug.Log("Ship is already At Base");
+            return;
+        }
+
+        Debug.Log("SHIP NAME: " + shipName + " | COMMAND: Leave | STATUS: On it's way to base");
+        //Enable the ship and all it's components
+        spriteRenderer.enabled = false;
+        shipCollider.enabled = false;
+        detectionZone.enabled = false;
+
+        //Place ship on the entered coordinates
+        transform.position = basePosition;
+
+        //Change the status of the ship from "At Base" to "Deployed"
+        ChangeShipState(ShipState.AtBase);
+    }
+
+    public void Move(Vector2 gridCoords) {
+
+        //When MOVE command is called, it converts gridCoords to WorldCoords and sets isMoving to true
+        displayedGridCoords = gridCoords;
+        targetWorldCoords = GridCoords.FromGridToWorld(gridCoords);
+        isMoving = true;
+    }
+
+    public void Abort() {
+        Debug.Log("SHIP NAME: " + shipName + " | COMMAND: Abort | STATUS: Action Stopped");
+        isMoving = false;
+    }
 
     // Function that changes and tracks the ship state (AtBase / Deployed) and notifies other scripts
     private void ChangeShipState(ShipState newState)
@@ -112,6 +172,7 @@ public class Ship : MonoBehaviour
         if (shipUnavailable != null)
             shipUnavailable(this);
     }
+
 }
 
 public enum ShipState
