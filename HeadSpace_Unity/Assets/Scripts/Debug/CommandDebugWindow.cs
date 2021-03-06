@@ -31,7 +31,6 @@ public class CommandDebugWindow : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         commandInputField.Select();
-
     }
 
     // Fonction qui RESET tous les champs textuels à chaque fois que la fenêtre est disabled

@@ -107,6 +107,14 @@ public class Ship : MonoBehaviour
         }
     }
 
+    // Function that initializes ship parameters when instantiated
+    public void InitializeShip(string shipName, string shipCallsign, ShipState startingState)
+    {
+        shipStartingState = startingState;
+        ChangeShipName(shipName, shipCallsign);
+        ChangeShipState(startingState);
+    }
+
     // Function that spawns a marker when a ship is activated (in start) and assigns its info.
     private void SpawnMarker()
     {
@@ -127,10 +135,6 @@ public class Ship : MonoBehaviour
         }
 
         Debug.Log("SHIP NAME: " + shipName + " | COMMAND: Deploy " + gridCoords + " | STATUS: Deployed");
-        //Enable the ship and all it's components
-        spriteRenderer.enabled = true;
-        shipCollider.enabled = true;
-        detectionZone.enabled = true;
 
         //Convert gridCoords entered into worldCoords
         targetWorldCoords = GridCoords.FromGridToWorld(gridCoords);
@@ -150,10 +154,7 @@ public class Ship : MonoBehaviour
         }
 
         Debug.Log("SHIP NAME: " + shipName + " | COMMAND: Leave | STATUS: On it's way to base");
-        //Enable the ship and all it's components
-        spriteRenderer.enabled = false;
-        shipCollider.enabled = false;
-        detectionZone.enabled = false;
+
 
         //Place ship on the entered coordinates
         transform.position = basePosition;
@@ -163,6 +164,12 @@ public class Ship : MonoBehaviour
     }
 
     public void Move(Vector2 gridCoords) {
+
+        if (CurrentShipState == ShipState.AtBase)
+        {
+            Debug.Log("Ship is not deployed");
+            return;
+        }
 
         //When MOVE command is called, it converts gridCoords to WorldCoords and sets isMoving to true
         displayedGridCoords = gridCoords;
@@ -179,6 +186,26 @@ public class Ship : MonoBehaviour
     private void ChangeShipState(ShipState newState)
     {
         CurrentShipState = newState;
+
+        switch (CurrentShipState)
+        {
+            //Enable the ship and all it's components
+            case ShipState.Deployed:
+                spriteRenderer.enabled = true;
+                shipCollider.enabled = true;
+                detectionZone.enabled = true;
+                break;
+
+            //Disable the ship and all it's components
+            case ShipState.AtBase:
+                spriteRenderer.enabled = false;
+                shipCollider.enabled = false;
+                detectionZone.enabled = false;
+                break;
+
+            default:
+                break;
+        }
 
         // Action call when a ship changes state
         if (shipStateChange != null)

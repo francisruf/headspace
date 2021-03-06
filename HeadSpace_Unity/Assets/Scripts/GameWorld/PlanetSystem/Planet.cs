@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Planet : GridStaticObject
 {
+    public static Action<Planet> newPlanetInSector;   // Action qui déclare la planète et envoie une référence lorsqu'elle apparait dans la scène
+    public static Action<Planet, int> soulsLost;   // Action appelée à chaque PERTE de souls, envoie une ref de Planet et la qté de souls perdue
+
     public float damageStartBuffer;
 
     // Envoi de notification d'urgence (quand x % est perdu)
@@ -31,6 +34,13 @@ public class Planet : GridStaticObject
     {
         base.Awake();
         _anomalyZone = GetComponentInChildren<Planet_AnomalyZone>();
+    }
+
+    private void Start()
+    {
+        // Lancer l'action et envoyer une référence vers son script Planet
+        if (newPlanetInSector != null)
+            newPlanetInSector(this);
     }
 
     public void AssignArchetype(PlanetArchetype archetype)
@@ -90,7 +100,17 @@ public class Planet : GridStaticObject
         {
             yield return new WaitForSeconds(1f);
             _soulDamage -= soulTicks * _currentDPS;
+            int previousSouls = CurrentSouls;
             CurrentSouls = Mathf.CeilToInt(_soulDamage);
+
+            if (previousSouls < CurrentSouls)
+            {
+                int difference = CurrentSouls - previousSouls;
+
+                // Appel de l'action qui envoie les infos sur la planète et la qté. d'habitants perdus
+                if (soulsLost != null)
+                    soulsLost(this, difference);
+            }
 
             if (((float)CurrentSouls / TotalSouls) < distressNotificationPercent / 100f && !distressSent)
             {

@@ -54,7 +54,7 @@ public abstract class InteractableObject : MonoBehaviour
 
     // Fonction qui communique au manager que l'objet est désactivé
     // Et qui désactive ses components
-    protected virtual void DisableObject()
+    public virtual void DisableObject()
     {
         if (_spriteRenderer != null)
             _spriteRenderer.enabled = false;

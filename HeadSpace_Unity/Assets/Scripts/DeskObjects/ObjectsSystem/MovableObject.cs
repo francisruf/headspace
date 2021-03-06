@@ -58,7 +58,7 @@ public class MovableObject : InteractableObject
     }
 
     // Fonction qui désactive l'objet (fonctionnalité complète dans classe de base - InteractableObject)
-    protected override void DisableObject()
+    public override void DisableObject()
     {
         base.DisableObject();
 
