@@ -32,12 +32,16 @@ public class DebugManager : MonoBehaviour
     public TextMeshProUGUI timeScaleText;
 
     // Texte d'instructions
-    public TextMeshProUGUI debugText;
+    //public TextMeshProUGUI debugText;
 
     // Prefabs
     [Header("Prefabs")]
     public GameObject genericDocumentPrefab;
     public GameObject[] genericMarkerPrefabs;
+
+    [Header("Message testing")]
+    public List<string> testMessages;
+    private List<string> _remainingMessages;
 
     // Time stuff
     private float _timeScaleBeforePause;
@@ -77,10 +81,12 @@ public class DebugManager : MonoBehaviour
 
     private void Start()
     {
+        _remainingMessages = new List<string>(testMessages);
+
         buttonsPanel.SetActive(false);
         timePanel.SetActive(false);
         objectsPanel.SetActive(false);
-        debugText.enabled = true;
+        //debugText.enabled = true;
         gameTimeText.enabled = false;
         commandDebugWindow.SetActive(false);
         shipInventoryText.enabled = true;
@@ -99,7 +105,7 @@ public class DebugManager : MonoBehaviour
             buttonsPanel.SetActive(!buttonsPanel.activeSelf);
             timePanel.SetActive(!timePanel.activeSelf);
             objectsPanel.SetActive(!objectsPanel.activeSelf);
-            debugText.enabled = !buttonsPanel.activeSelf;
+            //debugText.enabled = !buttonsPanel.activeSelf;
             gameTimeText.enabled = !gameTimeText.enabled;
         }
 
@@ -279,6 +285,29 @@ public class DebugManager : MonoBehaviour
         Vector3 spawnPos = new Vector3(-4.36f, -4.8f, 0f);
         int randomIndex = UnityEngine.Random.Range(0, genericMarkerPrefabs.Length);
         GameObject marker = Instantiate(genericMarkerPrefabs[randomIndex], spawnPos, Quaternion.identity);
+    }
+
+    #endregion
+
+    #region Message management
+
+    public void NewRandomMessage()
+    {
+        if (testMessages.Count <= 0)
+            return;
+
+        int randomIndex = UnityEngine.Random.Range(0, _remainingMessages.Count);
+        string messageText = _remainingMessages[randomIndex];
+        Message newMessage = new Message(messageText);
+
+        _remainingMessages.Remove(_remainingMessages[randomIndex]);
+        if (_remainingMessages.Count <= 0)
+        {
+            _remainingMessages = new List<string>(testMessages);
+        }
+
+        if (MessageManager.instance != null)
+            MessageManager.instance.QueueMessage(newMessage);
     }
 
     #endregion
