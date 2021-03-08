@@ -13,6 +13,8 @@ public class GridStaticObject : MonoBehaviour
     protected SpriteRenderer _spriteRenderer;
     protected Collider2D _collider;
 
+    public string objectNameLine;
+    
     // Propriété publique : Coordonnées de l'objet sur la grille de jeu (ET NON EN WORLD UNITS / UNITY UNITS)
     public Vector2 GridCoordinates { get; protected set; }
     public TileCoordinates ParentTile { get; protected set; }

@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20268576bc21d7541bc62a31b0326862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectNameLine: 
   damageStartBuffer: 1
   distressNotificationPercent: 50
 --- !u!50 &3726881075096618389
@@ -131,9 +132,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2620573376782148092}
   - component: {fileID: 2620573376782148094}
-  - component: {fileID: 2620573376782148093}
+  - component: {fileID: 3583957803815272305}
   m_Layer: 9
-  m_Name: DetectionZone
+  m_Name: TransmissionZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -168,8 +169,8 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.5
---- !u!114 &2620573376782148093
+  m_Radius: 3
+--- !u!114 &3583957803815272305
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,7 +179,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2620573376782148091}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2e47c9fcdece9e4eb42806108e1e125, type: 3}
+  m_Script: {fileID: 11500000, guid: b4b9babfbf56014468f11ebc95330ad4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2620573376883380176
@@ -228,7 +229,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.5
 --- !u!114 &2620573376883380178
 MonoBehaviour:
   m_ObjectHideFlags: 0

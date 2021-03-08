@@ -9,7 +9,7 @@ public class MessageManager : MonoBehaviour
     public static MessageManager instance;
 
     // File d'attente des messages
-    private Queue<Message> _messageQueue = new Queue<Message>();
+    private Queue<string> _messageQueue = new Queue<string>();
 
     // Textes de DEBUG temporaires
     public TextMeshProUGUI currentMessageText;
@@ -39,7 +39,7 @@ public class MessageManager : MonoBehaviour
     }
 
     // Fonction qui ajoute un message à la file d'attente (sans l'imprimer)
-    public void QueueMessage(Message newMessage)
+    public void QueueMessage(string newMessage)
     {
         _messageQueue.Enqueue(newMessage);
         UpdateMessageCount();
@@ -56,11 +56,11 @@ public class MessageManager : MonoBehaviour
             return;
         }
 
-        Message messageToPrint = _messageQueue.Dequeue();
+        string messageToPrint = _messageQueue.Dequeue();
 
         if (currentMessageText != null)
         {
-            currentMessageText.text = messageToPrint.messageText;
+            currentMessageText.text = messageToPrint;
             currentMessageText.enabled = true;
         }
 
@@ -75,5 +75,26 @@ public class MessageManager : MonoBehaviour
 
         // Clamp le nombre de messages à deux
         messageCountText.text = Mathf.Clamp(_messageQueue.Count, 0, 99).ToString("00");
+    }
+
+    public void NewObjectNotification(Ship ship, GridStaticObject obj)
+    {
+        string newMessageText = ship.shipName + " has met " + obj.objectNameLine + " at " + obj.GridCoordinates;
+
+        QueueMessage(newMessageText);
+    }
+
+    public void NewAnomalyNotification(Ship ship, GridTile_Anomaly anomaly)
+    {
+        string newMessageText = ship.shipName + " is in danger " + anomaly.tileType;
+
+        QueueMessage(newMessageText);
+    }
+
+    public void NewPlanetNotification(Planet planet)
+    {
+        string newMessageText = planet.objectNameLine;
+
+        QueueMessage(newMessageText);
     }
 }

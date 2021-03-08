@@ -36,13 +36,14 @@ public class Ship : MonoBehaviour
     [Range(0, 100)]
     //How many souls can the Ship carry
     public int cargoCapacity;
+    private int currentCargo;
 
     [Range(0, 100)]
     public float moveSpeed;
 
     [Range(0, 10)]
-    //How many Souls per second can the Ship transfer from the Planet to Cargo
-    public float pickupSpeed;
+    //How many seconds to pickup ONE Soul
+    public float pickupSoulInSeconds;
 
     [Range(0, 1)]
     public float detectionRadius;

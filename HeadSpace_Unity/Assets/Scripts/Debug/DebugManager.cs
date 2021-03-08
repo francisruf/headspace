@@ -298,7 +298,6 @@ public class DebugManager : MonoBehaviour
 
         int randomIndex = UnityEngine.Random.Range(0, _remainingMessages.Count);
         string messageText = _remainingMessages[randomIndex];
-        Message newMessage = new Message(messageText);
 
         _remainingMessages.Remove(_remainingMessages[randomIndex]);
         if (_remainingMessages.Count <= 0)
@@ -307,7 +306,7 @@ public class DebugManager : MonoBehaviour
         }
 
         if (MessageManager.instance != null)
-            MessageManager.instance.QueueMessage(newMessage);
+            MessageManager.instance.QueueMessage(messageText);
     }
 
     #endregion

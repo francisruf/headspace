@@ -80,11 +80,27 @@ public class Planet : GridStaticObject
             _currentAnomalyTileLife = anomalyTileLife;
         }
 
+        // Assigner et start la coroutine, s'il n'y en a pas déjà une en cours
         if (_currentDamageRoutine == null)
         {
             _currentDamageRoutine = DamageTick();
             StartCoroutine(_currentDamageRoutine);
         }
+
+        // Arrêter la coroutine, si elle n'est pas null
+        if (_currentDamageRoutine != null)
+        {
+            StopCoroutine(_currentDamageRoutine);
+            _currentDamageRoutine = null;
+        }
+    }
+
+    public int RemoveSoul(int soulAmount)
+    {
+        int soulsBeforeRemove = CurrentSouls;
+        CurrentSouls = Mathf.Clamp(CurrentSouls - soulAmount, 0, TotalSouls);
+
+        return soulsBeforeRemove - CurrentSouls;
     }
 
     private IEnumerator DamageTick()
