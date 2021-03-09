@@ -77,24 +77,64 @@ public class MessageManager : MonoBehaviour
         messageCountText.text = Mathf.Clamp(_messageQueue.Count, 0, 99).ToString("00");
     }
 
-    public void NewObjectNotification(Ship ship, GridStaticObject obj)
+    public void NewObjectDetectedNotif(Ship ship, GridStaticObject obj)
     {
-        string newMessageText = ship.shipName + " has met " + obj.objectNameLine + " at " + obj.GridCoordinates;
+        string newMessageText = ship.shipName + " detected a " + obj.objectNameLine + " at " + obj.GridCoordinates;
+
+        QueueMessage(newMessageText);
+
+        Debug.Log(obj);
+    }
+
+    public void NewAnomalyDetectedNotif(Ship ship, GridTile_Anomaly anomaly)
+    {
+        string newMessageText = ship.shipName + " reports that tile " + anomaly.tileX + ", " + anomaly.tileY + " has been affected";
 
         QueueMessage(newMessageText);
     }
 
-    public void NewAnomalyNotification(Ship ship, GridTile_Anomaly anomaly)
+    public void ContactWithAnomalyNotif(Ship ship, GridTile_Anomaly anomaly) 
     {
-        string newMessageText = ship.shipName + " is in danger " + anomaly.tileType;
+        string newMessageText = "DANGER: " + ship.shipName + " currently affected by Stage " + anomaly.tileType + " Anomaly at " + ship.currentPositionInGridCoords;
 
         QueueMessage(newMessageText);
     }
 
-    public void NewPlanetNotification(Planet planet)
-    {
-        string newMessageText = planet.objectNameLine;
+    public void ContactWithCloudNotif(Ship ship) {
+        //Message when ships collides with Cloud here
+
+    }
+
+    public void ContactWithWormholeNotif(Ship ship) {
+        //Message when ships collides with Wormhole here
+    }
+
+    public void OutOfWormholeNotif(Ship ship) {
+        //Message when ships exits a Wormhole
+    }
+
+    public void EnteredPlanetOrbitNotif(Ship ship) {
+        //Message when ships stops it's movement in Planet InteractionZone
+    }
+
+    public void EnteredDeployZoneNotif(Ship ship, DeployPoint deploy) {
+
+        string newMessageText = ship.shipName + " ready to leave system and return to base.";
 
         QueueMessage(newMessageText);
     }
+
+    public void MoveFinishedNotif(Ship ship) {
+
+        string newMessageText = ship.shipName + " has completed his move at " + ship.currentPositionInGridCoords;
+
+        QueueMessage(newMessageText);
+    }
+
+    //public void NewPlanetDetectedNotif(Ship ship, Planet planet)
+    //{
+    //    string newMessageText = ship.shipName + " detected a " + planet.objectNameLine + " at " + planet.GridCoordinates;
+
+    //    QueueMessage(newMessageText);
+    //}
 }

@@ -28,11 +28,11 @@ Transform:
   m_GameObject: {fileID: 2620573376535800384}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3, y: 2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
+  - {fileID: 8050383456839116999}
   - {fileID: 2620573376883380177}
   - {fileID: 2620573376782148092}
-  - {fileID: 8050383456839116999}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20268576bc21d7541bc62a31b0326862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectNameLine: 
+  objectNameLine: Planet
   damageStartBuffer: 1
   distressNotificationPercent: 50
 --- !u!50 &3726881075096618389
@@ -120,7 +120,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 7
 --- !u!1 &2620573376782148091
 GameObject:
@@ -132,7 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2620573376782148092}
   - component: {fileID: 2620573376782148094}
-  - component: {fileID: 3583957803815272305}
+  - component: {fileID: 3684650971845759782}
   m_Layer: 9
   m_Name: TransmissionZone
   m_TagString: Untagged
@@ -152,7 +152,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2620573376535800386}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &2620573376782148094
 CircleCollider2D:
@@ -170,7 +170,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3
---- !u!114 &3583957803815272305
+--- !u!114 &3684650971845759782
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -179,7 +179,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2620573376782148091}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4b9babfbf56014468f11ebc95330ad4, type: 3}
+  m_Script: {fileID: 11500000, guid: b2e47c9fcdece9e4eb42806108e1e125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2620573376883380176
@@ -192,7 +192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2620573376883380177}
   - component: {fileID: 2620573376883380179}
-  - component: {fileID: 2620573376883380178}
+  - component: {fileID: 1457145925897909304}
   m_Layer: 9
   m_Name: InteractionZone
   m_TagString: Untagged
@@ -212,7 +212,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2620573376535800386}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &2620573376883380179
 CircleCollider2D:
@@ -229,8 +229,8 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
---- !u!114 &2620573376883380178
+  m_Radius: 1
+--- !u!114 &1457145925897909304
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -272,7 +272,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2620573376535800386}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &7040636952734742594
 CircleCollider2D:
@@ -284,12 +284,12 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.020722628, y: 0.018419862}
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.23584735
 --- !u!114 &4605766853648907449
 MonoBehaviour:
   m_ObjectHideFlags: 0

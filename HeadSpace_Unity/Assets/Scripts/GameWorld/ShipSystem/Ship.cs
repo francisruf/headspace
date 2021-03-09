@@ -51,7 +51,7 @@ public class Ship : MonoBehaviour
     //MOVEMENT
     private Vector2 displayedGridCoords;
     private Vector2 targetWorldCoords;
-    private bool isMoving;
+    public bool isMoving;
 
     //LEAVE
     private Vector2 basePosition;
@@ -60,12 +60,18 @@ public class Ship : MonoBehaviour
     public ShipState shipStartingState; // State du vaisseau lorsque Start() est appelé. Simplement pour debug et assigner un state différent.
     public ShipState CurrentShipState { get; private set; }  // Ça c'est une "propriété", aka une autre façon fancy d'écrire des variables
 
+    // FOR NOTIFICATIONS
+    public Vector2 currentPositionInGridCoords;
+    private MessageManager mM;
+
+
     private void Awake()
     {
         // Assign component references
         spriteRenderer = GetComponent<SpriteRenderer>();
         shipCollider = GetComponentInChildren<PolygonCollider2D>();
         detectionZone = GetComponentInChildren<CircleCollider2D>();
+        mM = MessageManager.instance;
     }
 
     void Start()
@@ -105,8 +111,13 @@ public class Ship : MonoBehaviour
         }
         if (targetWorldCoords == (Vector2)transform.position) {
             isMoving = false;
+            mM.MoveFinishedNotif(this);
         }
-    }
+
+        //Finds current position at all times in Grid Coords
+        currentPositionInGridCoords = GridCoords.FromWorldToGrid(transform.position);
+        Debug.Log(currentPositionInGridCoords);
+}
 
     // Function that initializes ship parameters when instantiated
     public void InitializeShip(string shipName, string shipCallsign, ShipState startingState)
