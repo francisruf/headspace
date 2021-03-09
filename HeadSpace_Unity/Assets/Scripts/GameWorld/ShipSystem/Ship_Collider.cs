@@ -8,9 +8,12 @@ public class Ship_Collider : MonoBehaviour {
     private Ship ship;
 
     private void Awake() {
+        ship = GetComponentInParent<Ship>();
+    }
+
+    private void Start() {
         //Besoin du prefab MessageManager dans la scene sinon ca cree des erreurs
         mM = MessageManager.instance;
-        ship = GetComponentInParent<Ship>();
     }
 
     private void OnTriggerEnter2D(Collider2D col) {
@@ -22,20 +25,37 @@ public class Ship_Collider : MonoBehaviour {
             mM.ContactWithAnomalyNotif(ship, anomaly);
         }
 
-        if (col.GetComponent<DeployPoint>() != null && !ship.isMoving) {
-            DeployPoint deploy = col.GetComponent<DeployPoint>();
+        if (col.GetComponent<Planet_InteractionZone>() != null) {
+            ship.planetInOrbit = col.GetComponent<Planet_InteractionZone>().ParentPlanet;
+            ship.isInPlanetOrbit = true;
+            Debug.Log("Ca EnterTrigger comme du monde!");
+        }
 
-            mM.EnteredDeployZoneNotif(ship, deploy);
+        if (col.GetComponent<DeployPoint>() != null) {
+            ship.deployP = col.GetComponent<DeployPoint>();
+            ship.isInDeployPoint = true;
         }
     }
 
-    //private void OnTriggerStay2D(Collider2D col) {
+    private void OnTriggerExit2D(Collider2D col) {
 
-    //    //When inside anomaly affected sector
-    //    if (col.GetComponent<DeployPoint>() != null && !ship.isMoving) {
-    //        DeployPoint deploy = col.GetComponent<DeployPoint>();
+        if (col.GetComponent<Planet_InteractionZone>() != null) {
 
-    //        mM.EnteredDeployZoneNotif(ship, deploy);
-    //    }
-    //}
+            if (col.GetComponent<Planet_InteractionZone>().ParentPlanet == ship.planetInOrbit) {
+                ship.isInPlanetOrbit = false;
+                ship.planetInOrbit = null;
+                //ship.isLoadingSouls = false;
+                Debug.Log("Ca ExitTrigger comme du monde!");
+            }
+        }
+
+        if (col.GetComponent<DeployPoint>() != null) {
+
+            if(col.GetComponent<DeployPoint>() == ship.deployP) {
+                ship.isInDeployPoint = false;
+                ship.deployP = null;
+            }
+        }
+    }
+
 }

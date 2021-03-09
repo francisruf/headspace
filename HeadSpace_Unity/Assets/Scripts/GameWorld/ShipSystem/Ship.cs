@@ -36,14 +36,14 @@ public class Ship : MonoBehaviour
     [Range(0, 100)]
     //How many souls can the Ship carry
     public int cargoCapacity;
-    private int currentCargo;
+    public int currentCargo;
 
     [Range(0, 100)]
     public float moveSpeed;
 
     [Range(0, 10)]
     //How many seconds to pickup ONE Soul
-    public float pickupSoulInSeconds;
+    public float pickupSpeedInSeconds;
 
     [Range(0, 1)]
     public float detectionRadius;
@@ -63,7 +63,12 @@ public class Ship : MonoBehaviour
     // FOR NOTIFICATIONS
     public Vector2 currentPositionInGridCoords;
     private MessageManager mM;
-
+    public bool isInDeployPoint;
+    public bool isInPlanetOrbit;
+    public Planet planetInOrbit;
+    public DeployPoint deployP;
+    public bool isLoadingSouls;
+    IEnumerator pickupCoroutine;
 
     private void Awake()
     {
@@ -71,7 +76,6 @@ public class Ship : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         shipCollider = GetComponentInChildren<PolygonCollider2D>();
         detectionZone = GetComponentInChildren<CircleCollider2D>();
-        mM = MessageManager.instance;
     }
 
     void Start()
@@ -90,7 +94,8 @@ public class Ship : MonoBehaviour
         }
 
         //Assign basePosition
-        basePosition = new Vector2(100f, 100f);
+        //basePosition = new Vector2(100f, 100f);
+        basePosition = new Vector2(0f, 0f); //ONLY FOR TESTING
 
         //Start ships at basePosition
         transform.position = basePosition;
@@ -100,6 +105,8 @@ public class Ship : MonoBehaviour
         //Fire the newShipAvaible action (received by the ShipManager)
         if (newShipAvailable != null)
             newShipAvailable(this);
+
+        mM = MessageManager.instance;
     }
 
     void Update()
@@ -108,16 +115,30 @@ public class Ship : MonoBehaviour
         if (isMoving) {
             Debug.Log("SHIP NAME: " + shipName + " | COMMAND: Move " + displayedGridCoords + " | STATUS: Moving");
             transform.position = Vector2.MoveTowards(transform.position, targetWorldCoords, moveSpeed * Time.deltaTime);
-        }
-        if (targetWorldCoords == (Vector2)transform.position) {
-            isMoving = false;
-            mM.MoveFinishedNotif(this);
-        }
 
+            if (targetWorldCoords == (Vector2)transform.position) {
+                isMoving = false;
+                Debug.Log("Movement has ended");
+ 
+                if (planetInOrbit != null) {
+                    mM.EnteredPlanetOrbitNotif(this, planetInOrbit);
+                }
+
+                else if (deployP != null) {
+                    mM.EnteredDeployPointNotif(this, deployP);
+                }
+
+                else {
+                    mM.MoveFinishedNotif(this);
+                }
+            }
+        }
+  
         //Finds current position at all times in Grid Coords
         currentPositionInGridCoords = GridCoords.FromWorldToGrid(transform.position);
-        Debug.Log(currentPositionInGridCoords);
-}
+
+        Debug.Log(pickupCoroutine);
+    }
 
     // Function that initializes ship parameters when instantiated
     public void InitializeShip(string shipName, string shipCallsign, ShipState startingState)
@@ -183,15 +204,51 @@ public class Ship : MonoBehaviour
             return;
         }
 
+        if (pickupCoroutine != null) {
+            StopCoroutine(pickupCoroutine);
+            pickupCoroutine = null;
+        }
+
         //When MOVE command is called, it converts gridCoords to WorldCoords and sets isMoving to true
         displayedGridCoords = gridCoords;
         targetWorldCoords = GridCoords.FromGridToWorld(gridCoords);
         isMoving = true;
     }
 
+    public void Pickup() {
+
+        if (CurrentShipState == ShipState.AtBase) {
+            Debug.Log("Ship is not deployed");
+            return;
+        }
+
+        if (planetInOrbit != null) {
+
+            if (pickupCoroutine == null)
+                pickupCoroutine = LoadingSouls();
+                StartCoroutine(pickupCoroutine);
+        }
+    }
+
     public void Abort() {
-        Debug.Log("SHIP NAME: " + shipName + " | COMMAND: Abort | STATUS: Action Stopped");
-        isMoving = false;
+
+        if (isMoving) {
+            isMoving = false;
+            mM.MoveAbortedNotif(this);
+
+        }
+
+        if (pickupCoroutine != null) {
+            StopCoroutine(pickupCoroutine);
+            pickupCoroutine = null;
+        }
+
+        //if (isLoadingSouls) {
+        //    StopCoroutine(LoadingSouls());
+        //    isLoadingSouls = false;
+        //    Debug.Log("Coroutine stopped. Congratulations.");
+        //}
+
     }
 
     // Function that changes and tracks the ship state (AtBase / Deployed) and notifies other scripts
@@ -257,6 +314,19 @@ public class Ship : MonoBehaviour
             shipUnavailable(this);
     }
 
+    private IEnumerator LoadingSouls() {
+
+
+        while (planetInOrbit.CurrentSouls > 0 && currentCargo < cargoCapacity) {
+
+                yield return new WaitForSeconds(pickupSpeedInSeconds);
+                planetInOrbit.RemoveSoul(1);
+                currentCargo++;
+        }
+
+
+    }
+
 }
 
 public enum ShipState
@@ -264,3 +334,4 @@ public enum ShipState
     Deployed,
     AtBase
 }
+

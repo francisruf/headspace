@@ -9,18 +9,28 @@ public class Ship_Detection_Radius : MonoBehaviour
     private Ship ship;
 
     private void Awake() {
+        ship = GetComponentInParent<Ship>();
+    }
+
+    private void Start() {
         //Besoin du prefab MessageManager dans la scene sinon ca cree des erreurs
         mM = MessageManager.instance;
-        ship = GetComponentInParent<Ship>();
     }
 
     private void OnTriggerEnter2D(Collider2D col) {
 
-        //Detect planet, wormhole, cloud
-        if (col.GetComponent<GridStaticObject>() != null) {
-            GridStaticObject obj = col.GetComponent<GridStaticObject>();
+        //Detect planet
+        if (col.GetComponent<Planet_AnomalyZone>() != null) {
+            Planet planet = col.GetComponent<Planet_AnomalyZone>().ParentPlanet;
 
-            mM.NewObjectDetectedNotif(ship, obj);
+            mM.NewPlanetDetectedNotif(ship, planet);
+        }
+
+        //Detect transmission from a planet
+        if (col.GetComponent<Planet_TransmissionZone>() != null) {
+            Planet planet = col.GetComponent<Planet_TransmissionZone>().ParentPlanet;
+
+            mM.NewTransmissionDetectedNotif(ship, planet);
         }
 
         //Detect anomly tile
@@ -30,10 +40,14 @@ public class Ship_Detection_Radius : MonoBehaviour
             mM.NewAnomalyDetectedNotif(ship, anomaly);
         }
 
-        //Detects a transmission coming from a planet
-        if (col.gameObject.name == "TransmissionZone") {
-            Debug.Log("I detected a Transmission coming from a planet!");
-        }
+
+        ////Detects any object of the gameWorld
+        //if (col.GetComponent<GridStaticObject>() != null) {
+        //    GridStaticObject obj = col.GetComponent<GridStaticObject>();
+
+        //    mM.NewObjectDetectedNotif(ship, obj);
+        //}
+
 
     }
 }

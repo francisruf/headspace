@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Script qui détecte les collisions avec l'anomalie, et définit le DPS effectué à la planète (implémenté dans le script PLANET)
-public class Planet_AnomalyZone : MonoBehaviour
-{
+public class Planet_AnomalyZone : MonoBehaviour {
+
     // Référence au script Planet
     private Planet _parentPlanet;
+    public Planet ParentPlanet { get { return _parentPlanet; } } 
 
     // Liste de toutes les cases d'anomalie qui touchent à la planète
     private List<GridTile_Anomaly> _allAnomalyTiles = new List<GridTile_Anomaly>();

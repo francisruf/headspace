@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6504984134038671551}
   - component: {fileID: 6504984134038671549}
   - component: {fileID: 6504984134038671550}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: DeployPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -7,6 +7,7 @@ public class Planet_TransmissionZone : MonoBehaviour
 {
     // Référence à la planète à laquelle la zone appartient
     private Planet _parentPlanet;
+    public Planet ParentPlanet { get { return _parentPlanet; } }
 
     private void Awake()
     {

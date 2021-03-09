@@ -77,13 +77,27 @@ public class MessageManager : MonoBehaviour
         messageCountText.text = Mathf.Clamp(_messageQueue.Count, 0, 99).ToString("00");
     }
 
-    public void NewObjectDetectedNotif(Ship ship, GridStaticObject obj)
-    {
-        string newMessageText = ship.shipName + " detected a " + obj.objectNameLine + " at " + obj.GridCoordinates;
+    //public void NewObjectDetectedNotif(Ship ship, GridStaticObject obj)
+    //{
+    //    string newMessageText = ship.shipName + " detected a " + obj.objectNameLine + " at " + obj.GridCoordinates;
+
+    //    QueueMessage(newMessageText);
+
+    //    Debug.Log(obj);
+    //}
+
+    public void NewPlanetDetectedNotif(Ship ship, Planet planet) {
+
+        string newMessageText = ship.shipName + " discovered a new Planet at " + planet.GridCoordinates;
 
         QueueMessage(newMessageText);
+    }
 
-        Debug.Log(obj);
+    public void NewTransmissionDetectedNotif(Ship ship, Planet planet) {
+
+        string newMessageText = ship.shipName + " discovered a new Transmission at " + ship.currentPositionInGridCoords;
+
+        QueueMessage(newMessageText);
     }
 
     public void NewAnomalyDetectedNotif(Ship ship, GridTile_Anomaly anomaly)
@@ -102,7 +116,6 @@ public class MessageManager : MonoBehaviour
 
     public void ContactWithCloudNotif(Ship ship) {
         //Message when ships collides with Cloud here
-
     }
 
     public void ContactWithWormholeNotif(Ship ship) {
@@ -113,13 +126,31 @@ public class MessageManager : MonoBehaviour
         //Message when ships exits a Wormhole
     }
 
-    public void EnteredPlanetOrbitNotif(Ship ship) {
-        //Message when ships stops it's movement in Planet InteractionZone
+    public void EnteredPlanetOrbitNotif(Ship ship, Planet planet) {
+
+        if (planet.TotalSouls <= 0) {
+            string newMessageText = ship.shipName + " is now in orbit of Planet at " + planet.GridCoordinates + " . This planet is uninhabited.";
+
+            QueueMessage(newMessageText);
+        }
+
+        else if (planet.CurrentSouls <= 0) {
+            string newMessageText = ship.shipName + " is now in orbit of Planet at " + planet.GridCoordinates + " . No more souls on this Planet.";
+
+            QueueMessage(newMessageText);
+        }
+
+        else {
+            string newMessageText = ship.shipName + " is now in orbit of Planet at " + planet.GridCoordinates + " . There are " + planet.CurrentSouls + " souls on this Planet. Ready to LOAD.";
+
+            QueueMessage(newMessageText);
+        }
+
     }
 
-    public void EnteredDeployZoneNotif(Ship ship, DeployPoint deploy) {
+    public void EnteredDeployPointNotif(Ship ship, DeployPoint deploy) {
 
-        string newMessageText = ship.shipName + " ready to leave system and return to base.";
+        string newMessageText = ship.shipName + " entered the Deploy Point at " + deploy.GridCoordinates + " and is now ready to leave the system.";
 
         QueueMessage(newMessageText);
     }
@@ -127,6 +158,13 @@ public class MessageManager : MonoBehaviour
     public void MoveFinishedNotif(Ship ship) {
 
         string newMessageText = ship.shipName + " has completed his move at " + ship.currentPositionInGridCoords;
+
+        QueueMessage(newMessageText);
+    }
+
+    public void MoveAbortedNotif(Ship ship) {
+
+        string newMessageText = ship.shipName + " aborted its MOVE command and is now at " + ship.currentPositionInGridCoords;
 
         QueueMessage(newMessageText);
     }

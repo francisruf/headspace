@@ -59,8 +59,7 @@ public class Command_Pickup : Command
 
     protected override void ExecuteCommand(Ship targetShip)
     {
-        // La validation de la commande (si le vaisseau se trouve dans la zone d'interaction de la planète ou non)
-        // devrait se faire dans le script du vaisseau lui-même
+        targetShip.Pickup();
         Debug.Log("PICKUP CALLED");
     }
 }
