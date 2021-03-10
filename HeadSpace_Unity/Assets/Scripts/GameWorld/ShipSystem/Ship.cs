@@ -241,6 +241,7 @@ public class Ship : MonoBehaviour
         if (pickupCoroutine != null) {
             StopCoroutine(pickupCoroutine);
             pickupCoroutine = null;
+            mM.PickupAbortedNotif(this);
         }
 
         //if (isLoadingSouls) {
@@ -323,7 +324,7 @@ public class Ship : MonoBehaviour
                 planetInOrbit.RemoveSoul(1);
                 currentCargo++;
         }
-
+        mM.PickupFinishedNotif(this);
 
     }
 
