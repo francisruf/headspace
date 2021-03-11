@@ -13,11 +13,14 @@ public abstract class InteractableObject : MonoBehaviour
     // Protected = Comme private, mais accessible par les classes qui HÉRITENT de cette classe
     protected SpriteRenderer _spriteRenderer;
     protected Collider2D _collider;
+    public Bounds ColliderBounds { get { return _collider.bounds; } }
 
     // État de l'objet
     protected bool _isSelected;
 
     public int CurrentSortingLayer { get; set; }
+
+    public bool ignoreSelectedBringToFront;
 
     // Virtual = Une classe qui HÉRITE de InteractableObject peut REMPLACER ou MODIFIER la fonction Awake à sa façon
     protected virtual void Awake()
@@ -36,13 +39,21 @@ public abstract class InteractableObject : MonoBehaviour
     public virtual void Select()
     {
         _isSelected = true;
-        CurrentSortingLayer = _spriteRenderer.sortingLayerID;
-        SetSortingLayer(SortingLayer.NameToID("SelectedObject"));
+        
+        if (!ignoreSelectedBringToFront)
+        {
+            CurrentSortingLayer = _spriteRenderer.sortingLayerID;
+            SetSortingLayer(SortingLayer.NameToID("SelectedObject"));
+        }
     }
     public virtual void Deselect()
     {
         _isSelected = false;
-        SetSortingLayer(CurrentSortingLayer);
+
+        if (!ignoreSelectedBringToFront)
+        {
+            SetSortingLayer(CurrentSortingLayer);
+        }
     }
 
     // Fonction qui envoie l'objet au manager lorsqu'il est initialisé

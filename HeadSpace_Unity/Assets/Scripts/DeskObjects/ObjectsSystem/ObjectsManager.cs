@@ -123,6 +123,10 @@ public class ObjectsManager : MonoBehaviour
     // TODO : Increase performance of this crap. (?)
     private void AssignTopRenderingOrder(InteractableObject selectedObject)
     {
+        // Arrêter l'exécution s'il n'est pas souhaitable pour un objet d'être "bring to front"
+        if (selectedObject.ignoreSelectedBringToFront)
+            return;
+
         // Expression très fancy. Hésitez pas à me demander et je vous expliquerait kessé ça mange en hiver.
         var objectsWithSameLayer = _allActiveObjects.Where(x => x.GetSortingLayer() == selectedObject.GetSortingLayer()).ToList();
         //Debug.Log("Objects in same layer : " + objectsWithSameLayer.Count);
