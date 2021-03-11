@@ -123,6 +123,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectType: 0
+  dropZoneLayerMask:
+    serializedVersion: 2
+    m_Bits: 8192
 --- !u!50 &1484028817080086577
 Rigidbody2D:
   serializedVersion: 4
