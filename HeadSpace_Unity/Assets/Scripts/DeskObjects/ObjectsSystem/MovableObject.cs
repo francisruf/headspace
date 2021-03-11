@@ -48,9 +48,13 @@ public class MovableObject : InteractableObject
         if (_currentDropZone != null)
         {
             RemoveFromDropZone();
+            SetSortingLayer(SortingLayer.NameToID("SelectedObject"));
+            _isSelected = true;
         }
-
-        base.Select();
+        else
+        {
+            base.Select();
+        }
 
         _mouseOffset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
         CalculateMinMaxPosition();
