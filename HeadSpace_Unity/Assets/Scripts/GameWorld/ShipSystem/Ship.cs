@@ -30,7 +30,7 @@ public class Ship : MonoBehaviour
     public string shipCallsign;
     [Header("Stats")]
 
-    [Range(0,100)]
+    [Range(0, 100)]
     public int healthPoints;
 
     [Range(0, 100)]
@@ -68,6 +68,8 @@ public class Ship : MonoBehaviour
     public Planet planetInOrbit;
     public DeployPoint deployP;
     public bool isLoadingSouls;
+    public bool isInCloud;
+    public bool isInWormHole;
     IEnumerator pickupCoroutine;
 
     private void Awake()
@@ -119,7 +121,7 @@ public class Ship : MonoBehaviour
             if (targetWorldCoords == (Vector2)transform.position) {
                 isMoving = false;
                 Debug.Log("Movement has ended");
- 
+
                 if (planetInOrbit != null) {
                     mM.EnteredPlanetOrbitNotif(this, planetInOrbit);
                 }
@@ -133,7 +135,7 @@ public class Ship : MonoBehaviour
                 }
             }
         }
-  
+
         //Finds current position at all times in Grid Coords
         currentPositionInGridCoords = GridCoords.FromWorldToGrid(transform.position);
 
@@ -226,7 +228,7 @@ public class Ship : MonoBehaviour
 
             if (pickupCoroutine == null)
                 pickupCoroutine = LoadingSouls();
-                StartCoroutine(pickupCoroutine);
+            StartCoroutine(pickupCoroutine);
         }
     }
 
@@ -319,13 +321,46 @@ public class Ship : MonoBehaviour
 
         while (planetInOrbit.CurrentSouls > 0 && currentCargo < cargoCapacity) {
 
-                yield return new WaitForSeconds(pickupSpeedInSeconds);
-                planetInOrbit.RemoveSoul(1);
-                currentCargo++;
+            yield return new WaitForSeconds(pickupSpeedInSeconds);
+            planetInOrbit.RemoveSoul(1);
+            currentCargo++;
         }
 
 
     }
+
+    public void TouchWormHole(WormHole targetWormHole)
+    {
+        isMoving = false;
+
+        targetWorldCoords = targetWormHole.transform.position;
+
+        transform.position = targetWorldCoords;
+
+
+        isMoving = true;
+
+        isInWormHole = true;
+
+        Debug.Log("I am in a wormhole");
+
+    }
+
+    public void ExitWormHole()
+    {
+        isInWormHole = false;
+        isMoving = false;
+
+        transform.position = Vector2.MoveTowards(transform.position, targetWorldCoords, moveSpeed * Time.deltaTime);
+
+        isMoving = true;
+
+
+
+    }
+
+
+
 
 }
 
