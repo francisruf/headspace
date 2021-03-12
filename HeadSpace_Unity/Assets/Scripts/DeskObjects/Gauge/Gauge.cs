@@ -24,9 +24,9 @@ public class Gauge : MonoBehaviour
     }
 
                       //fonction change le height du sprite gaugeFill
-    void AddToGauge(float amounttoAdd)
+    void AddToGauge(float amountToAdd)
     {
-        fillAmount = fillAmount + amounttoAdd;
+        fillAmount = fillAmount + amountToAdd;
 
                       //set un maximum de la gauge
         fillAmount = Mathf.Clamp(fillAmount, 0f, 100f);
