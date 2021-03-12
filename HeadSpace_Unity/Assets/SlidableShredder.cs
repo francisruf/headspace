@@ -4,16 +4,33 @@ using UnityEngine;
 
 public class SlidableShredder : SlidableTool
 {
+    private ShredderSlot child = null;
+
+    // Start is called before the first frame update
+    protected override void Awake()
+    {
+        base.Awake();
+        child = transform.GetComponentInChildren<ShredderSlot>();
+    }
+
+    protected override void OpenTool()
+    {
+        base.OpenTool();
+        child.canShred = true;
+        child.UpdateLightState();
+    }
+
+    protected override void CloseTool()
+    {
+        base.CloseTool();
+        child.canShred = false;
+        child.UpdateLightState();
+    }
+
+
     //private Vector3 mouseOffset;
     //private float boxHalfSize;
-    //private ShredderSlot child = null;
-    
-    //// Start is called before the first frame update
-    //protected override void Start()
-    //{
-    //    base.Start();
-    //    child = transform.GetComponentInChildren<ShredderSlot>();
-    //}
+
 
     //// Update is called once per frame
     //void Update()

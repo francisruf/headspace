@@ -14,6 +14,7 @@ public abstract class InteractableObject : MonoBehaviour
     protected SpriteRenderer _spriteRenderer;
     protected Collider2D _collider;
     public Bounds ColliderBounds { get { return _collider.bounds; } }
+    public SpriteRenderer ObjSpriteRenderer {get { return _spriteRenderer; }}
 
     // État de l'objet
     protected bool _isSelected;
