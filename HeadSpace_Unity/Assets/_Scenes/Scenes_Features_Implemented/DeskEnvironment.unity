@@ -465,6 +465,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drawer
       objectReference: {fileID: 0}
+    - target: {fileID: 8184818431553381665, guid: a04c0ec02e4ec8c479db1e6fa209d053,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8184818431553381669, guid: a04c0ec02e4ec8c479db1e6fa209d053,
         type: 3}
       propertyPath: m_RootOrder
