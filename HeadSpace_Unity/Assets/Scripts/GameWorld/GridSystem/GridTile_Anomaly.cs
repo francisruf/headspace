@@ -7,6 +7,7 @@ public class GridTile_Anomaly : GridTile
 {
     public static Action<GridTile_Anomaly> newAnomalyTile;
 
+    public string tileNameLine;
     public SpriteRenderer anomalySpriteRenderer;
 
     protected override void Awake()

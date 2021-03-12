@@ -23,6 +23,7 @@ public class GridManager : MonoBehaviour
     [Header("Grid settings")]
     public int mapSizeX;
     public int mapSizeY;
+    [Header("Map width if no WorldMap found")]
     public float mapWidth;
 
     [Header("Anomaly settings")]
@@ -52,6 +53,9 @@ public class GridManager : MonoBehaviour
     // Segments de l'anomalie
     private List<AnomalySegment> _allAnomalySegments = new List<AnomalySegment>();
     private int _anomalyCompletedTileCount;
+
+    // Référence à la world map pour assigner la grosseur de la grille
+    private DynamicWorldMap _worldMap;
 
     // Subscription aux ACTIONS d'autres classes
     private void OnEnable()
@@ -93,6 +97,8 @@ public class GridManager : MonoBehaviour
         if (_gameGridTiles != null)
             DestroyMapData();
 
+        _worldMap = FindObjectOfType<DynamicWorldMap>();
+
         GenerateMapData();
         GenerateMapTiles();
 
@@ -116,6 +122,7 @@ public class GridManager : MonoBehaviour
         _allStaticObjects.Clear();
         _allAnomalySegments.Clear();
         _anomalyCompletedTileCount = 0;
+        _worldMap = null;
 
         if (gridDataDestroyed != null)
             gridDataDestroyed();
@@ -145,8 +152,16 @@ public class GridManager : MonoBehaviour
      */
     private void GenerateMapTiles()
     {
-        float tileWidth = mapWidth / mapSizeX;   // Dimensions d'une tuile en unités de unity
-        Vector3 spawnOffset = new Vector3(mapWidth / 2f, (tileWidth * mapSizeY) / 2, 0f);
+        float actualWidth = mapWidth;
+        
+        // Assigner le size de la grille par rapport à la grosseur de la world map, si elle est trouvable
+        if (_worldMap != null)
+        {
+            actualWidth = _worldMap.GetComponent<SpriteRenderer>().size.x;
+        }
+
+        float tileWidth = actualWidth / mapSizeX;   // Dimensions d'une tuile en unités de unity
+        Vector3 spawnOffset = new Vector3(actualWidth / 2f, (tileWidth * mapSizeY) / 2, 0f);
 
         for (int x = 0; x < mapSizeX; x++)
         {
@@ -179,7 +194,7 @@ public class GridManager : MonoBehaviour
         }
 
         // Assignation des informations de la grille et appel de l'ACTION de nouvelle grille
-        Bounds newBounds = new Bounds(Vector3.zero, new Vector3(mapWidth, tileWidth * mapSizeY, 0f));
+        Bounds newBounds = new Bounds(Vector3.zero, new Vector3(actualWidth, tileWidth * mapSizeY, 0f));
         _currentGridInfo = new GridInfo(_gameGridTiles, new Vector2(mapSizeX, mapSizeY), newBounds);
     }
 

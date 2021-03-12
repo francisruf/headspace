@@ -12,6 +12,10 @@ public class MovableObject : InteractableObject
 
     public ObjectType objectType;
 
+    // DropZone (container) dans lequel l'objet se trouve
+    private DropZone _currentDropZone;
+    public LayerMask dropZoneLayerMask;
+
     // Position de la souris lorsque l'objet est cliqué
     protected Vector2 _mouseOffset;
 
@@ -41,7 +45,17 @@ public class MovableObject : InteractableObject
     // Fonction appelée par le ObjectsManager
     public override void Select()
     {
-        base.Select();
+        if (_currentDropZone != null)
+        {
+            RemoveFromDropZone();
+            SetSortingLayer(SortingLayer.NameToID("SelectedObject"));
+            _isSelected = true;
+        }
+        else
+        {
+            base.Select();
+        }
+
         _mouseOffset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
         CalculateMinMaxPosition();
 
@@ -52,13 +66,22 @@ public class MovableObject : InteractableObject
     // Fonction qui force l'objet à être déposé
     public override void Deselect()
     {
-        base.Deselect();
+        if (CheckForDropZone(out _currentDropZone))
+        {
+            _isSelected = false;
+            AssignToDropZone();
+        }
+        else
+        {
+            base.Deselect();
+        }
+
         if (movableObjectDeselected != null)
             movableObjectDeselected(this);
     }
 
     // Fonction qui désactive l'objet (fonctionnalité complète dans classe de base - InteractableObject)
-    protected override void DisableObject()
+    public override void DisableObject()
     {
         base.DisableObject();
 
@@ -66,6 +89,45 @@ public class MovableObject : InteractableObject
         {
             Deselect();
         }
+    }
+
+    private bool CheckForDropZone(out DropZone dropZone)
+    {
+        dropZone = null;
+        bool found = false;
+
+        List<Collider2D> allOverlappedColliders = new List<Collider2D>();
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(dropZoneLayerMask);
+
+        int colliderCount = _collider.OverlapCollider(filter, allOverlappedColliders);
+
+        for (int i = 0; i < colliderCount; i++)
+        {
+            DropZone candidate = allOverlappedColliders[i].GetComponent<DropZone>();
+            
+            if (candidate != null)
+            {
+                if (candidate.CheckIfAccepted(this))
+                {
+                    dropZone = candidate;
+                    found = true;
+                    break;
+                }
+            }
+        }
+        return found;
+    }
+
+    private void AssignToDropZone()
+    {
+        _currentDropZone.AddObjectToDropZone(this);
+    }
+
+    private void RemoveFromDropZone()
+    {
+        _currentDropZone.RemoveObjectFromDropZone(this);
+        _currentDropZone = null;
     }
 
     // Fonction principale qui bouge l'objet (appelée dans Update à chaque frame)
@@ -134,5 +196,6 @@ public class MovableObject : InteractableObject
 public enum ObjectType
 {
     Marker,
+    Document,
     Other
 }

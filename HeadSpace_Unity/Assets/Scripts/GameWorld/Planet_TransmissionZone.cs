@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Script qui envoie un signal au script PLANET, lorsqu'un objet entre dans le trigger de sa ZONE DE DÉTECTION
-public class Planet_DetectionZone : MonoBehaviour
+public class Planet_TransmissionZone : MonoBehaviour
 {
     // Référence à la planète à laquelle la zone appartient
     private Planet _parentPlanet;
+    public Planet ParentPlanet { get { return _parentPlanet; } }
 
     private void Awake()
     {

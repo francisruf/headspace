@@ -93,11 +93,12 @@ public class SlidableTool : InteractableObject
 
     public enum SlidingDirection
     {
-        VerticalDown,
-        VerticalUp,
-        HorizontalLeft,
-        HorizontalRight
+        VerticalDown,  // 0 
+        VerticalUp,   // 1
+        HorizontalLeft,   // 2
+        HorizontalRight   // 3
     }
+
 
     //private void OnMouseUp()
     //{
