@@ -252,6 +252,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3875620706196734524, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
+        type: 3}
+      propertyPath: sounds.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3875620706196734524, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
+        type: 3}
+      propertyPath: sounds.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 667cefaa2814fe7498b0e40bd4ccb381, type: 3}
+    - target: {fileID: 3875620706196734524, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
+        type: 3}
+      propertyPath: sounds.Array.data[1].name
+      value: Shredder
+      objectReference: {fileID: 0}
+    - target: {fileID: 3875620706196734524, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
+        type: 3}
+      propertyPath: sounds.Array.data[1].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3875620706196734524, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
+        type: 3}
+      propertyPath: sounds.Array.data[1].volume
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3875620706196734525, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
         type: 3}
       propertyPath: m_Name

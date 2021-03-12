@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - WorldMap
+  - Indestruc
+  - Destruc
   layers:
   - Default
   - TransparentFX
