@@ -6,14 +6,18 @@ public class Ship_Collider : MonoBehaviour {
 
     private MessageManager mM;
     private Ship ship;
+    
+    
 
     private void Awake() {
         ship = GetComponentInParent<Ship>();
+        
     }
 
     private void Start() {
         //Besoin du prefab MessageManager dans la scene sinon ca cree des erreurs
         mM = MessageManager.instance;
+        
     }
 
     private void OnTriggerEnter2D(Collider2D col) {
@@ -35,6 +39,26 @@ public class Ship_Collider : MonoBehaviour {
             ship.deployP = col.GetComponent<DeployPoint>();
             ship.isInDeployPoint = true;
         }
+
+        if (col.GetComponent<Cloud>() != null)
+        {
+
+            ship.isMoving = false;
+            ship.isInCloud = true;
+            Debug.Log("Send me a new command");
+        }
+
+        if (col.GetComponent<WormHole>() != null)
+            {
+
+            WormHole sisterWormHole = col.GetComponent<WormHole>().SisterWormHole;
+
+            Debug.Log("I am touching a wormhole");
+
+            ship.TouchWormHole(sisterWormHole);
+
+            }
+
     }
 
     private void OnTriggerExit2D(Collider2D col) {
@@ -55,6 +79,19 @@ public class Ship_Collider : MonoBehaviour {
                 ship.isInDeployPoint = false;
                 ship.deployP = null;
             }
+        }
+
+        if (col.GetComponent<Cloud>() != null) {
+            ship.isInCloud = false;
+            Debug.Log("I exit cloud");
+        }
+
+        if (col.GetComponent<WormHole>() != null)
+        {
+
+            ship.ExitWormHole();
+
+
         }
     }
 
