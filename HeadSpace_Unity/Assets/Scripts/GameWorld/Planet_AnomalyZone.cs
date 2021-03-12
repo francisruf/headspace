@@ -28,7 +28,6 @@ public class Planet_AnomalyZone : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collider)
     {
         GridTile_Anomaly tile = collider.GetComponent<GridTile_Anomaly>();
-
         if (tile != null)
         {
             _allAnomalyTiles.Add(tile);
@@ -36,7 +35,7 @@ public class Planet_AnomalyZone : MonoBehaviour {
             if (tile.planetDPS > _currentDPS)
             {
                 _currentDPS = tile.planetDPS;
-                _tileLife = tile.lifeTime;
+                _tileLife = tile.LifeRemaining;
 
                 _parentPlanet.NewDPSSettings(_currentDPS, _tileLife);
             }

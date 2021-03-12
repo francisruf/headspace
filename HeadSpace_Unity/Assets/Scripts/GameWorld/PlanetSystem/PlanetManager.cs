@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,9 @@ public class PlanetManager : MonoBehaviour
 {
     // Singleton
     public static PlanetManager instance;
+
+    // Action qui envoie toutes les planètes spawnées au début d'une partie
+    public static Action<List<Planet>> planetsSpawned;
 
     // Paramètres de spawning et archétypes de planètes
     [Header("Random population settings")]
@@ -70,7 +74,7 @@ public class PlanetManager : MonoBehaviour
     // Fonction appelée lorsqu'un planète spawn, qui sert à garder à jour la liste de planètes
     private void OnNewPlanetSpawned(Planet planet)
     {
-        _allPlanets.Add(planet);
+        //_allPlanets.Add(planet);
     }
 
     // Fonction appelée lorsque la grille actuelle est détruite qui reset les variables et références
@@ -97,7 +101,7 @@ public class PlanetManager : MonoBehaviour
             {
                 for (int i = 0; i < planetCount; i++)
                 {
-                    int randomIndex = Random.Range(0, archetypeCount);
+                    int randomIndex = UnityEngine.Random.Range(0, archetypeCount);
                     archetypesToSpawn.Add(allArchetypes[randomIndex].archetype);
                 }
             }
@@ -106,8 +110,8 @@ public class PlanetManager : MonoBehaviour
                 for (int i = 0; i < planetCount; i++)
                 {
                     string planetName = "randomizedPlanet";
-                    int randomMinPopulation = Random.Range(0, 15);
-                    int randomMaxPopulation = Random.Range(randomMinPopulation + 1, 31);
+                    int randomMinPopulation = UnityEngine.Random.Range(0, 15);
+                    int randomMaxPopulation = UnityEngine.Random.Range(randomMinPopulation + 1, 31);
                     int creditsBonus = (randomMinPopulation + randomMaxPopulation / 2) / 10;
 
                     archetypesToSpawn.Add(new PlanetArchetype(planetName, randomMinPopulation, randomMaxPopulation, creditsBonus));
@@ -132,13 +136,18 @@ public class PlanetManager : MonoBehaviour
 
         for (int i = 0; i < planetCount; i++)
         {
-            int randomIndex = Random.Range(0, allowedSpawnTiles.Count);
+            int randomIndex = UnityEngine.Random.Range(0, allowedSpawnTiles.Count);
             Vector2 spawnPos = GridCoords.GetRandomCoordsInTile(allowedSpawnTiles[randomIndex]);
             Planet planet = Instantiate(planetPrefab).GetComponent<Planet>();
             planet.PlaceGridObject(spawnPos);
             planet.AssignArchetype(archetypesToSpawn[i]);
             _allPlanets.Add(planet);
         }
+
+        if (planetsSpawned != null)
+            planetsSpawned(_allPlanets);
+
+        Debug.Log("Planet count : " + _allPlanets.Count);
     }
 
     private List<GridTile> GetAllowedSpawnTiles()

@@ -67,6 +67,11 @@ public class Planet : GridStaticObject
         //Debug.Log(collider.gameObject.name + " has entered my detection zone.");
     }
 
+    public void OnShipZoneTrigger(Collider2D collider)
+    {
+
+    }
+
     public void ToggleSprite()
     {
         _spriteRenderer.enabled = !_spriteRenderer.enabled;
@@ -76,10 +81,15 @@ public class Planet : GridStaticObject
     {
         _currentDPS = dps;
 
-        if (anomalyTileLife < 9999f)
+        if (anomalyTileLife > 0.01f)
         {
             _currentAnomalyTileLife = anomalyTileLife;
         }
+        else
+        {
+            _currentAnomalyTileLife = Mathf.Clamp(_currentAnomalyTileLife, 1f, 9999f);
+        }
+        Debug.Log("Current anomaly life : " + _currentAnomalyTileLife);
 
         // Assigner et start la coroutine, s'il n'y en a pas déjà une en cours
         if (_currentDamageRoutine == null)
@@ -89,10 +99,11 @@ public class Planet : GridStaticObject
         }
 
         // Arrêter la coroutine, si elle n'est pas null
-        if (_currentDamageRoutine != null)
+        else
         {
             StopCoroutine(_currentDamageRoutine);
-            _currentDamageRoutine = null;
+            _currentDamageRoutine = DamageTick();
+            StartCoroutine(_currentDamageRoutine);
         }
     }
 
@@ -106,27 +117,27 @@ public class Planet : GridStaticObject
 
     private IEnumerator DamageTick()
     {
-        yield return new WaitForSeconds(damageStartBuffer);
-
-        _soulDamage = TotalSouls;
-        float soulTicks = (0.75f * TotalSouls) / (_currentAnomalyTileLife - damageStartBuffer);
-
+        _soulDamage = CurrentSouls;
+        float soulTicks = (0.75f * TotalSouls) / (_currentAnomalyTileLife);
         Debug.Log("HELP, WE ARE IN DANGER!");
 
         while (CurrentSouls > 0)
         {
             yield return new WaitForSeconds(1f);
-            _soulDamage -= soulTicks * _currentDPS;
+            _soulDamage -= (soulTicks * _currentDPS);
             int previousSouls = CurrentSouls;
-            CurrentSouls = Mathf.CeilToInt(_soulDamage);
+            CurrentSouls = Mathf.Clamp(Mathf.CeilToInt(_soulDamage), 0, TotalSouls);
 
-            if (previousSouls < CurrentSouls)
+
+            if (previousSouls > CurrentSouls)
             {
-                int difference = CurrentSouls - previousSouls;
+                int difference = previousSouls - CurrentSouls;
 
                 // Appel de l'action qui envoie les infos sur la planète et la qté. d'habitants perdus
                 if (soulsLost != null)
                     soulsLost(this, difference);
+
+                //Debug.Log("Lost souls : " + difference);
             }
 
             if (((float)CurrentSouls / TotalSouls) < distressNotificationPercent / 100f && !distressSent)

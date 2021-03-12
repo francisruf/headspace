@@ -11,17 +11,20 @@ public class GridTile : MonoBehaviour
 
     // Références pour components
     private SpriteRenderer _spriteRenderer;
-    private BoxCollider2D _boxCollider;
+    protected BoxCollider2D _boxCollider;
     private TextMeshProUGUI _lifeTimeText;
 
     // Propriétés des tuiles
     [Header("Life settings")]
     public bool liveForever;
     public float lifeTime;
+    private float _lifeRemaining;
+    public float LifeRemaining { get { return _lifeRemaining; } }
 
     [Header("Damage settings")]
     public float shipDPS;
     public float planetDPS;
+    public float colliderEnableDelay;
 
     [Header("Sprites")]
     public Sprite worldMapSprite;
@@ -71,6 +74,9 @@ public class GridTile : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _boxCollider = GetComponent<BoxCollider2D>();
         _lifeTimeText = GetComponentInChildren<TextMeshProUGUI>();
+
+        _lifeRemaining = lifeTime;
+        StartColliderDelay();
     }
 
     protected virtual void Start()
@@ -196,6 +202,7 @@ public class GridTile : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
             seconds--;
+            _lifeRemaining = seconds;
             UpdateDebugText(seconds);
         }
 
@@ -213,6 +220,13 @@ public class GridTile : MonoBehaviour
         }
 
         ToggleLifetimeText(false);
+    }
+
+    private IEnumerator StartColliderDelay()
+    {
+        _boxCollider.enabled = false;
+        yield return new WaitForSeconds(colliderEnableDelay);
+        _boxCollider.enabled = true;
     }
 
     public virtual void UpdateNeighbours()

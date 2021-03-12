@@ -20,8 +20,8 @@ public class Ship_Detection_Radius : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D col) {
 
         //Detect planet
-        if (col.GetComponent<Planet_AnomalyZone>() != null) {
-            Planet planet = col.GetComponent<Planet_AnomalyZone>().ParentPlanet;
+        if (col.GetComponent<Planet_ShipZone>() != null) {
+            Planet planet = col.GetComponent<Planet_ShipZone>().ParentPlanet;
 
             mM.NewPlanetDetectedNotif(ship, planet);
         }
