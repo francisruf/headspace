@@ -9,19 +9,22 @@ public class SlidableTool : InteractableObject
     public float slidingAmount;
     public float drawerHandleSize = 1f;
 
-    private float startPosX;
-    private float startPosY;
     private float boxHalfSize;
-    private bool isBeingHeld = false;
     private Vector3 mouseOffset;
+    private float openDistanceBuffer;
+
+    private float minPosX;
+    private float maxPosX;
+    private float minPosY;
+    private float maxPosY;
+    private Vector2 openPos = new Vector2();
+
+    public bool IsOpen { get; private set; }
 
     protected override void Start()
     {
         base.Start();
-        
-        startPosX = transform.position.x;
-        startPosY = transform.position.y;
-
+       
         switch (slidingDirection)
         {
             case SlidingDirection.HorizontalLeft:
@@ -35,10 +38,46 @@ public class SlidableTool : InteractableObject
             default:
                 break;
         }
+
+        AssignStartingValues();
+    }
+
+    private void AssignStartingValues()
+    {
+        float vertExtent = Camera.main.orthographicSize;
+        float horExtent = vertExtent * Screen.width / Screen.height;
+
+        openDistanceBuffer = 0.25f;
+
+        switch (slidingDirection)
+        {
+            case SlidingDirection.HorizontalLeft:
+                minPosX = horExtent - (slidingAmount / 2f);
+                maxPosX = horExtent + (slidingAmount / 2f) - drawerHandleSize;
+                break;
+
+            case SlidingDirection.HorizontalRight:
+                minPosX = -horExtent - (slidingAmount / 2f) + drawerHandleSize;
+                maxPosX = -horExtent + (slidingAmount / 2f);
+                break;
+
+            case SlidingDirection.VerticalDown:
+                minPosY = vertExtent - (slidingAmount / 2f);
+                maxPosY = vertExtent + boxHalfSize - drawerHandleSize;
+                break;
+
+            case SlidingDirection.VerticalUp:
+                minPosY = -vertExtent - (slidingAmount / 2f) + drawerHandleSize;
+                maxPosY = -vertExtent + boxHalfSize;
+                break;
+
+            default:
+                break;
+        }
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         if(_isSelected)
         {
@@ -55,22 +94,30 @@ public class SlidableTool : InteractableObject
                 switch (slidingDirection)
                 {
                     case SlidingDirection.HorizontalLeft:
-                        float clampedXPosLeft = Mathf.Clamp(mousePos.x + mouseOffset.x, horExtent - (slidingAmount/2f), horExtent + (slidingAmount / 2f) - drawerHandleSize);
+                        minPosX = horExtent - (slidingAmount / 2f);
+                        maxPosX = horExtent + (slidingAmount / 2f) - drawerHandleSize;
+                        float clampedXPosLeft = Mathf.Clamp(mousePos.x + mouseOffset.x, minPosX, maxPosX);
                         gameObject.transform.position = new Vector3(clampedXPosLeft, transform.position.y, 0);
                         break;
 
                     case SlidingDirection.HorizontalRight:
-                        float clampedXPosRight = Mathf.Clamp(mousePos.x + mouseOffset.x, -horExtent - (slidingAmount / 2f) + drawerHandleSize, -horExtent + (slidingAmount / 2f));
+                        minPosX = -horExtent - (slidingAmount / 2f) + drawerHandleSize;
+                        maxPosX = -horExtent + (slidingAmount / 2f);
+                        float clampedXPosRight = Mathf.Clamp(mousePos.x + mouseOffset.x, minPosX, maxPosX);
                         gameObject.transform.position = new Vector3(clampedXPosRight, transform.position.y, 0);
                         break;
 
                     case SlidingDirection.VerticalDown:
-                        float clampedYPosDown = Mathf.Clamp(mousePos.y + mouseOffset.y, vertExtent - (slidingAmount / 2f), vertExtent + boxHalfSize - drawerHandleSize);
+                        minPosY = vertExtent - (slidingAmount / 2f);
+                        maxPosY = vertExtent + boxHalfSize - drawerHandleSize;
+                        float clampedYPosDown = Mathf.Clamp(mousePos.y + mouseOffset.y, minPosY, maxPosY);
                         gameObject.transform.position = new Vector3(transform.position.x, clampedYPosDown, 0);
                         break;
 
                     case SlidingDirection.VerticalUp:
-                        float clampedYPosUp = Mathf.Clamp(mousePos.y + mouseOffset.y, -vertExtent - (slidingAmount / 2f) + drawerHandleSize, -vertExtent + boxHalfSize);
+                        minPosY = -vertExtent - (slidingAmount / 2f) + drawerHandleSize;
+                        maxPosY = -vertExtent + boxHalfSize;
+                        float clampedYPosUp = Mathf.Clamp(mousePos.y + mouseOffset.y, minPosY, maxPosY);
                         gameObject.transform.position = new Vector3(transform.position.x, clampedYPosUp, 0);
                         break;
 
@@ -83,6 +130,61 @@ public class SlidableTool : InteractableObject
                 Deselect();
             }
         }
+
+        CheckOpenState();
+    }
+
+    private void CheckOpenState()
+    {
+        bool openDistance = false;
+
+        switch (slidingDirection)
+        {
+            case SlidingDirection.VerticalDown:
+                openPos.x = transform.position.x;
+                openPos.y = minPosY;
+                openDistance = Vector2.Distance(transform.position, openPos) <= openDistanceBuffer;
+                break;
+
+            case SlidingDirection.VerticalUp:
+                openPos.x = transform.position.x;
+                openPos.y = maxPosY;
+                openDistance = Vector2.Distance(transform.position, openPos) <= openDistanceBuffer;
+                break;
+
+            case SlidingDirection.HorizontalLeft:
+                openPos.x = minPosX;
+                openPos.y = transform.position.y;
+                openDistance = Vector2.Distance(transform.position, openPos) <= openDistanceBuffer;
+                break;
+
+            case SlidingDirection.HorizontalRight:
+                openPos.x = maxPosX;
+                openPos.y = transform.position.y;
+                openDistance = Vector2.Distance(transform.position, openPos) <= openDistanceBuffer;
+                break;
+        }
+
+        if (openDistance && !IsOpen)
+        {
+            OpenTool();
+        }
+        else if (!openDistance && IsOpen)
+        {
+            CloseTool();
+        }
+    }
+
+    protected virtual void OpenTool()
+    {
+        IsOpen = true;
+        Debug.Log(this.gameObject.name + " is OPEN.");
+    }
+
+    protected virtual void CloseTool()
+    {
+        IsOpen = false;
+        Debug.Log(this.gameObject.name + " is CLOSED.");
     }
 
     public override void Select()
@@ -98,23 +200,4 @@ public class SlidableTool : InteractableObject
         HorizontalLeft,   // 2
         HorizontalRight   // 3
     }
-
-
-    //private void OnMouseUp()
-    //{
-    //    isBeingHeld = false;
-    //}
-
-    //private void OnMouseDown()
-    //{
-    //    if (Input.GetMouseButtonDown(0))
-    //    {
-    //        Vector3 mousePos;
-
-    //        mousePos = Input.mousePosition;
-    //        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-    //        isBeingHeld = true;
-    //    }
-
-    //}
 }
