@@ -142,8 +142,6 @@ public class Ship : MonoBehaviour
 
         //Finds current position at all times in Grid Coords
         currentPositionInGridCoords = GridCoords.FromWorldToGrid(transform.position);
-
-        Debug.Log(pickupCoroutine);
     }
 
     // Function that initializes ship parameters when instantiated

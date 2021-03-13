@@ -36,7 +36,7 @@ public class AnomalyGauge : MonoBehaviour
         }
 
         _currentSouls = _sectorTotalSouls;
-        Debug.Log("SECTOR HAS " + _sectorTotalSouls + " SOULS.");
+        //Debug.Log("SECTOR HAS " + _sectorTotalSouls + " SOULS.");
 
         UpdateGaugeValue();
     }

@@ -8,10 +8,6 @@ public class GridCoords : MonoBehaviour
     private static GridInfo _currentGridInfo;  // Stock les informations de la grille actuelle
     public static GridInfo CurrentGridInfo { get { return _currentGridInfo; } }
 
-    [Header("Test coordinates with Z or X input")]
-    public Vector2 TestCoords;
-    public Vector2 TestWorldCoords;
-
     // Subscription à l'action newGameGrid
     private void OnEnable()
     {
@@ -22,37 +18,6 @@ public class GridCoords : MonoBehaviour
     private void OnDisable()
     {
         //GridManager.newGameGrid -= AssignGridInfo;
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            bool valid;
-            Debug.Log("Grid coords : " + TestCoords);
-            Debug.Log("World coords : " + FromGridToWorld(TestCoords, out valid));
-
-            Debug.DrawLine(FromGridToWorld(TestCoords), FromGridToWorld(TestCoords) + Vector2.up, Color.red, 5f);
-
-            if (!valid)
-            {
-                Debug.Log("COORDINATES ARE OUTSIDE GRID");
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            bool valid;
-            Debug.Log("World coords : " + TestWorldCoords);
-            Debug.Log("Grid coords : " + FromWorldToGrid(TestWorldCoords, out valid));
-
-            Debug.DrawLine(TestWorldCoords, TestWorldCoords + Vector2.up, Color.cyan, 5f);
-
-            if (!valid)
-            {
-                Debug.Log("COORDINATES ARE OUTSIDE GRID");
-            }
-        }
     }
 
     // Assigne les valeurs de _currentGridInfo (appel à chaque nouvelle grille)
