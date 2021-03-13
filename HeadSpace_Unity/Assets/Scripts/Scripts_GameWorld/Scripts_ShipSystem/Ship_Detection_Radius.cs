@@ -40,13 +40,12 @@ public class Ship_Detection_Radius : MonoBehaviour
             mM.NewAnomalyDetectedNotif(ship, anomaly);
         }
 
+        //Detects cloud or wormhole
+        if (col.GetComponent<Hazard>() != null) {
+            Hazard hazard = col.GetComponent<Hazard>();
 
-        ////Detects any object of the gameWorld
-        //if (col.GetComponent<GridStaticObject>() != null) {
-        //    GridStaticObject obj = col.GetComponent<GridStaticObject>();
-
-        //    mM.NewObjectDetectedNotif(ship, obj);
-        //}
+            mM.NewHazardDetectedNotif(ship, hazard);
+        }
 
 
     }
