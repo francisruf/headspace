@@ -16,6 +16,13 @@ public abstract class InteractableObject : MonoBehaviour
     public Bounds ColliderBounds { get { return _collider.bounds; } }
     public SpriteRenderer ObjSpriteRenderer {get { return _spriteRenderer; }}
 
+    // SpriteRenderers des child objects
+    protected SpriteRenderer[] _childSpriteRenderers;
+    protected int _childSpriteRenderersCount;
+    // Canvas des child objects
+    protected Canvas[] _childCanvases;
+    protected int _childCanvasesCount;
+
     // État de l'objet
     protected bool _isSelected;
 
@@ -29,6 +36,12 @@ public abstract class InteractableObject : MonoBehaviour
         // Assigner les références de components
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<Collider2D>();
+
+        _childSpriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        _childCanvases = GetComponentsInChildren<Canvas>();
+
+        _childSpriteRenderersCount = _childSpriteRenderers.Length;
+        _childCanvasesCount = _childCanvases.Length;
     }
 
     protected virtual void Start()
@@ -101,7 +114,21 @@ public abstract class InteractableObject : MonoBehaviour
         if (_spriteRenderer != null)
         {
             _spriteRenderer.sortingLayerID = newSortingLayerID;
+
+            for (int i = 0; i < _childSpriteRenderersCount; i++)
+            {
+                if (_childSpriteRenderers[i] != _spriteRenderer)
+                {
+                    _childSpriteRenderers[i].sortingLayerID = _spriteRenderer.sortingLayerID;
+                }
+            }
+
+            for (int i = 0; i < _childCanvasesCount; i++)
+            {
+                _childCanvases[i].sortingLayerID = _spriteRenderer.sortingLayerID;
+            }
         }
+
         // Sinon, retourner 0 (ne devrait pas arriver)
         else
         {
@@ -132,6 +159,22 @@ public abstract class InteractableObject : MonoBehaviour
         if (_spriteRenderer != null)
         {
             _spriteRenderer.sortingOrder = newOrderInLayer;
+
+            int currentOrder = _spriteRenderer.sortingOrder;
+            for (int i = 0; i < _childSpriteRenderersCount; i++)
+            {
+                if (_childSpriteRenderers[i] != _spriteRenderer)
+                {
+                    _childSpriteRenderers[i].sortingOrder = currentOrder;
+                    currentOrder++;
+                }
+            }
+
+            for (int i = 0; i < _childCanvasesCount; i++)
+            {
+                _childCanvases[i].sortingOrder = currentOrder;
+                currentOrder++;
+            }
         }
         // Sinon, retourner 0 (ne devrait pas arriver)
         else
