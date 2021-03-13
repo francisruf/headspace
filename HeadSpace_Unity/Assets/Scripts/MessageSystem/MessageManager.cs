@@ -169,10 +169,17 @@ public class MessageManager : MonoBehaviour
         QueueMessage(newMessageText);
     }
 
-    //public void NewPlanetDetectedNotif(Ship ship, Planet planet)
-    //{
-    //    string newMessageText = ship.shipName + " detected a " + planet.objectNameLine + " at " + planet.GridCoordinates;
+    public void PickupAbortedNotif(Ship ship) {
 
-    //    QueueMessage(newMessageText);
-    //}
+        string newMessageText = ship.shipName + " aborted its PICKUP command at " + ship.currentPositionInGridCoords + ". Cargo status: " + ship.currentCargo + " / " + ship.cargoCapacity;
+
+        QueueMessage(newMessageText);
+    }
+
+    public void PickupFinishedNotif(Ship ship) {
+
+        string newMessageText = ship.shipName + " finished its PICKUP command at " + ship.currentPositionInGridCoords + ". Cargo status: " + ship.currentCargo + " / " + ship.cargoCapacity;
+
+        QueueMessage(newMessageText);
+    }
 }
