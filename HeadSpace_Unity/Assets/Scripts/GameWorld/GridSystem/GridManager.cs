@@ -109,6 +109,12 @@ public class GridManager : MonoBehaviour
 
         GenerateStartingObjects();
         Array.Sort(newSegmentAfterCount);
+
+        if (HazardManager.instance != null)
+            HazardManager.instance.SpawnHazards();
+
+        if (PlanetManager.instance != null)
+            PlanetManager.instance.SpawnPlanets();
     }
 
     // Fonction qui détruit l'ancienne grille, si elle existe

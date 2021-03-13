@@ -6,7 +6,6 @@ public class AnomalyGauge : MonoBehaviour
 {
     public SpriteRenderer gaugeFormatRenderer;
     public SpriteRenderer gaugeFillRenderer;
-    public float addPercent;
     private float _fillAmount;
 
     private int _currentSouls;
@@ -19,12 +18,14 @@ public class AnomalyGauge : MonoBehaviour
     {
         PlanetManager.planetsSpawned += AssignTotalSouls;
         Planet.soulsLost += OnSoulsLost;
+        GridManager.gridDataDestroyed += OnGridDataDestroyed;
     }
 
     private void OnDisable()
     {
         PlanetManager.planetsSpawned -= AssignTotalSouls;
         Planet.soulsLost -= OnSoulsLost;
+        GridManager.gridDataDestroyed -= OnGridDataDestroyed;
     }
 
     private void AssignTotalSouls(List<Planet> allPlanets)
@@ -38,7 +39,6 @@ public class AnomalyGauge : MonoBehaviour
         Debug.Log("SECTOR HAS " + _sectorTotalSouls + " SOULS.");
 
         UpdateGaugeValue();
-        UpdateGauge();
     }
 
     private void Start()
@@ -46,34 +46,27 @@ public class AnomalyGauge : MonoBehaviour
         _gaugeFormatSize = gaugeFormatRenderer.size;
     }
 
-
-    //private void Update()
-    //{                  //quand on pese sur space change le _fillAmount de la gauge
-    //    if (Input.GetKeyDown("space"))
-    //    {
-    //        //AddToGauge(addPercent);
-    //        Debug.Log("gauge");
-    //    }
-    //}
+    private void OnGridDataDestroyed()
+    {
+        _currentSouls = 0;
+        _sectorTotalSouls = 0;
+        UpdateGaugeValue();
+    }
 
     private void OnSoulsLost(Planet targetPlanet, int soulsLost)
     {
         _currentSouls -= soulsLost;
         UpdateGaugeValue();
-        UpdateGauge();
     }
 
     private void UpdateGaugeValue()
     {
         _gaugePercent = 100f - ((float)_currentSouls / _sectorTotalSouls * 100f);
-        Debug.Log("CURRENT SOULS : " + _currentSouls);
-        Debug.Log("TOTAL SOULS : " + _sectorTotalSouls);
-        Debug.Log("CURRENT GAUGE % : " + _gaugePercent);
+        UpdateGaugeVisuals();
     }
 
-    private void UpdateGauge()
+    private void UpdateGaugeVisuals()
     {
-
 
         if (gaugeFillRenderer != null)
         {

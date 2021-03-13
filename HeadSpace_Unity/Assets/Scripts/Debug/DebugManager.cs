@@ -130,6 +130,9 @@ public class DebugManager : MonoBehaviour
         if (PlanetManager.instance != null)
             PlanetManager.instance.TogglePlanetDebug();
 
+        if (HazardManager.instance != null)
+            HazardManager.instance.ToggleHazardDebug();
+
         if (ShipManager.instance != null)
             ShipManager.instance.ToggleShipDebug();
     }

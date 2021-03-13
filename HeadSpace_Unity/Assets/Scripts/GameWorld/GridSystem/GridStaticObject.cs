@@ -60,6 +60,11 @@ public class GridStaticObject : MonoBehaviour
             gridObjectPositionRemoved(this);
     }
 
+    public virtual void ToggleSprite()
+    {
+        _spriteRenderer.enabled = !_spriteRenderer.enabled;
+    }
+
     private void OnGridDataDestroyed()
     {
         Destroy(this.gameObject);

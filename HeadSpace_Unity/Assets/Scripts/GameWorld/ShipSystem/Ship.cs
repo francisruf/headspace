@@ -65,11 +65,15 @@ public class Ship : MonoBehaviour
     private MessageManager mM;
     public bool isInDeployPoint;
     public bool isInPlanetOrbit;
-    public Planet planetInOrbit;
-    public DeployPoint deployP;
     public bool isLoadingSouls;
     public bool isInCloud;
     public bool isInWormHole;
+
+    public Planet planetInOrbit;
+    public DeployPoint deployP;
+    public WormHole senderWormhole;
+    public WormHole receiverWormhole;
+
     IEnumerator pickupCoroutine;
 
     private void Awake()
@@ -329,39 +333,40 @@ public class Ship : MonoBehaviour
 
     }
 
-    public void TouchWormHole(WormHole targetWormHole)
+    // Function that teleports the ship to a targetwormhole, stops movement, 
+    // assigns a transposed movement vector, and starts moving again
+    public void EnterWormHole(WormHole targetWormHole)
     {
-        isMoving = false;
+        // Get remaining movement
+        Vector2 remainingMovement =  targetWorldCoords - (Vector2)transform.position;
 
-        targetWorldCoords = targetWormHole.transform.position;
-
-        transform.position = targetWorldCoords;
-
-
-        isMoving = true;
-
+        // Assign states and teleport ship
         isInWormHole = true;
+        isMoving = false;
+        transform.position = targetWormHole.transform.position;
+
+        // Start a new movement vector
+        Vector2 newTargetWorldCoords = (Vector2)transform.position + remainingMovement;
+
+        // Get current grid info and assign max positions, according to game world bounds
+        GridInfo currentGridInfo = GridCoords.CurrentGridInfo;
+        if (currentGridInfo != null)
+        {
+            float minX = currentGridInfo.gameGridWorldBounds.min.x;
+            float maxX = currentGridInfo.gameGridWorldBounds.max.x;
+            float minY = currentGridInfo.gameGridWorldBounds.min.y;
+            float maxY = currentGridInfo.gameGridWorldBounds.max.y;
+
+            newTargetWorldCoords.x = Mathf.Clamp(newTargetWorldCoords.x, minX, maxX);
+            newTargetWorldCoords.y = Mathf.Clamp(newTargetWorldCoords.y, minY, maxY);
+        }
+
+        // Assign new vector and start moving again
+        targetWorldCoords = newTargetWorldCoords;
+        isMoving = true;
 
         Debug.Log("I am in a wormhole");
-
     }
-
-    public void ExitWormHole()
-    {
-        isInWormHole = false;
-        isMoving = false;
-
-        transform.position = Vector2.MoveTowards(transform.position, targetWorldCoords, moveSpeed * Time.deltaTime);
-
-        isMoving = true;
-
-
-
-    }
-
-
-
-
 }
 
 public enum ShipState

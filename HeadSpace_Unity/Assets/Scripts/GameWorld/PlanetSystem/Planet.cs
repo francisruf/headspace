@@ -72,11 +72,6 @@ public class Planet : GridStaticObject
 
     }
 
-    public void ToggleSprite()
-    {
-        _spriteRenderer.enabled = !_spriteRenderer.enabled;
-    }
-
     public void NewDPSSettings(float dps, float anomalyTileLife)
     {
         _currentDPS = dps;

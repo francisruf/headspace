@@ -48,7 +48,7 @@ public class PlanetManager : MonoBehaviour
     {
         GridManager.gridDataDestroyed += OnGridDataDestroyed;
         GridManager.newGameGrid += OnNewGameGrid;
-        GridManager.firstAnomalyTile += OnFirstAnomalyTile;
+        //GridManager.firstAnomalyTile += OnFirstAnomalyTile;
     }
 
     // Unsubscription
@@ -56,7 +56,7 @@ public class PlanetManager : MonoBehaviour
     {
         GridManager.gridDataDestroyed -= OnGridDataDestroyed;
         GridManager.newGameGrid -= OnNewGameGrid;
-        GridManager.firstAnomalyTile -= OnFirstAnomalyTile;
+        //GridManager.firstAnomalyTile -= OnFirstAnomalyTile;
     }
 
     // Fonction appelée lorsqu'une nouvelle grille est générée qui stock les informations de cette grille
@@ -66,10 +66,10 @@ public class PlanetManager : MonoBehaviour
     }
 
     // Fonction appelée lorsque l'anomalie a été assignée, afin d'assigner par la suite les planètes
-    private void OnFirstAnomalyTile()
-    {
-        SpawnPlanets();
-    }
+    //private void OnFirstAnomalyTile()
+    //{
+    //    SpawnPlanets();
+    //}
 
     // Fonction appelée lorsqu'un planète spawn, qui sert à garder à jour la liste de planètes
     private void OnNewPlanetSpawned(Planet planet)
@@ -84,7 +84,7 @@ public class PlanetManager : MonoBehaviour
         _currentGridInfo = null;
     }
 
-    private void SpawnPlanets()
+    public void SpawnPlanets()
     {
         if (_currentGridInfo == null)
             return;
@@ -147,7 +147,7 @@ public class PlanetManager : MonoBehaviour
         if (planetsSpawned != null)
             planetsSpawned(_allPlanets);
 
-        Debug.Log("Planet count : " + _allPlanets.Count);
+        //Debug.Log("Planet count : " + _allPlanets.Count);
     }
 
     private List<GridTile> GetAllowedSpawnTiles()

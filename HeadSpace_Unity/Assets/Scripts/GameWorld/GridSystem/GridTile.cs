@@ -48,6 +48,27 @@ public class GridTile : MonoBehaviour
 
     // Voisins de la tuile
     [SerializeField] private GridTile[] _allNeighbours = new GridTile[4];
+    [SerializeField] private GridTile[] _diagonalNeighbours = new GridTile[4];
+
+    public List<GridTile> EightWayNeighbours
+    {
+        get
+        {
+            List<GridTile> neighbours = new List<GridTile>();
+            foreach (var nb in _allNeighbours)
+            {
+                if (nb != null)
+                    neighbours.Add(nb);
+            }
+            foreach (var nb in _diagonalNeighbours)
+            {
+                if (nb != null)
+                    neighbours.Add(nb);
+            }
+            //Debug.Log("UO");
+            return neighbours;
+        }
+    }
 
     private List<GridTile> _emptyNeighbours = new List<GridTile>();
     public List<GridTile> EmptyNeighbours { get { return _emptyNeighbours; } }
@@ -239,11 +260,40 @@ public class GridTile : MonoBehaviour
 
         // Top Neighbour
         if (tileY + 1 <= maxIndexY)
+        {
             _allNeighbours[0] = _gridInfo.gameGridTiles[tileX, tileY + 1];
+
+            // TopLeft diagonal neighbour
+            if (tileX - 1 >= 0)
+            {
+                _diagonalNeighbours[0] = _gridInfo.gameGridTiles[tileX - 1, tileY + 1];
+            }
+
+            // TopRight diagonal neighbour
+            if (tileX + 1 <= maxIndexX)
+            {
+                _diagonalNeighbours[1] = _gridInfo.gameGridTiles[tileX + 1, tileY + 1];
+            }
+        }
 
         // Bottom Neighbour
         if (tileY - 1 >= 0)
+        {
             _allNeighbours[1] = _gridInfo.gameGridTiles[tileX, tileY - 1];
+
+            // TopLeft diagonal neighbour
+            if (tileX - 1 >= 0)
+            {
+                _diagonalNeighbours[2] = _gridInfo.gameGridTiles[tileX - 1, tileY - 1];
+            }
+
+            // TopRight diagonal neighbour
+            if (tileX + 1 <= maxIndexX)
+            {
+                _diagonalNeighbours[3] = _gridInfo.gameGridTiles[tileX + 1, tileY - 1];
+            }
+        }
+            
 
         // Left Neighbour
         if (tileX - 1 >= 0)

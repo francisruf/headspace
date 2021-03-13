@@ -6,8 +6,6 @@ public class Ship_Collider : MonoBehaviour {
 
     private MessageManager mM;
     private Ship ship;
-    
-    
 
     private void Awake() {
         ship = GetComponentInParent<Ship>();
@@ -40,25 +38,27 @@ public class Ship_Collider : MonoBehaviour {
             ship.isInDeployPoint = true;
         }
 
-        if (col.GetComponent<Cloud>() != null)
-        {
-
+        if (col.GetComponent<Cloud>() != null){
             ship.isMoving = false;
             ship.isInCloud = true;
             Debug.Log("Send me a new command");
         }
 
-        if (col.GetComponent<WormHole>() != null)
+        // Wormhole
+        WormHole candidateWormhole = col.GetComponent<WormHole>();
+
+        if (candidateWormhole != null)
+        {
+            // If collision with wormhole is NOT collision with the current RECEIVING wormhole
+            if (candidateWormhole != ship.receiverWormhole)
             {
-
-            WormHole sisterWormHole = col.GetComponent<WormHole>().SisterWormHole;
-
-            Debug.Log("I am touching a wormhole");
-
-            ship.TouchWormHole(sisterWormHole);
-
+                // Assign references and call the ship function
+                ship.senderWormhole = col.GetComponent<WormHole>();
+                ship.receiverWormhole = ship.senderWormhole.SisterWormHole;
+                Debug.Log("I am touching a wormhole");
+                ship.EnterWormHole(ship.receiverWormhole);
             }
-
+        }
     }
 
     private void OnTriggerExit2D(Collider2D col) {
@@ -86,12 +86,21 @@ public class Ship_Collider : MonoBehaviour {
             Debug.Log("I exit cloud");
         }
 
-        if (col.GetComponent<WormHole>() != null)
+        // Wormhole
+        WormHole candidateWormhole = col.GetComponent<WormHole>();
+
+        if (candidateWormhole != null)
         {
+            // If exiting the sender wormhole, clear the reference
+            if (candidateWormhole == ship.senderWormhole)
+                ship.senderWormhole = null;
 
-            ship.ExitWormHole();
-
-
+            // If exiting the receiving wormhole, clear the reference
+            else if (candidateWormhole == ship.receiverWormhole)
+            {
+                ship.receiverWormhole = null;
+                ship.isInWormHole = false;
+            }
         }
     }
 

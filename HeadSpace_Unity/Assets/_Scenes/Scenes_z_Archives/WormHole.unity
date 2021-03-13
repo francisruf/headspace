@@ -133,6 +133,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c1be6d279e5d11448e767829b0440ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1874134754 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1613958215, guid: 8d49cd649064df54eb8a2b3cd597bc46,
+    type: 3}
+  m_PrefabInstance: {fileID: 7355836231979725764}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c1be6d279e5d11448e767829b0440ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2138971011
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -140,10 +152,19 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1613958215, guid: 8d49cd649064df54eb8a2b3cd597bc46, type: 3}
+      propertyPath: SisterWormHole
+      value: 
+      objectReference: {fileID: 1874134754}
     - target: {fileID: 7355836233591455618, guid: 8d49cd649064df54eb8a2b3cd597bc46,
         type: 3}
       propertyPath: m_Name
-      value: wormHoleSister
+      value: wormHole2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7355836233591455618, guid: 8d49cd649064df54eb8a2b3cd597bc46,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7355836233591455629, guid: 8d49cd649064df54eb8a2b3cd597bc46,
         type: 3}
@@ -216,7 +237,12 @@ PrefabInstance:
     - target: {fileID: 7355836233591455618, guid: 8d49cd649064df54eb8a2b3cd597bc46,
         type: 3}
       propertyPath: m_Name
-      value: wormHole
+      value: wormHole1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7355836233591455618, guid: 8d49cd649064df54eb8a2b3cd597bc46,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7355836233591455629, guid: 8d49cd649064df54eb8a2b3cd597bc46,
         type: 3}
