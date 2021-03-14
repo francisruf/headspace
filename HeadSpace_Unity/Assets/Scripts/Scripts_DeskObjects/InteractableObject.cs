@@ -28,6 +28,7 @@ public abstract class InteractableObject : MonoBehaviour
 
     public int CurrentSortingLayer { get; set; }
 
+    [Header("Interactable object settings")]
     public bool ignoreSelectedBringToFront;
 
     // Virtual = Une classe qui HÉRITE de InteractableObject peut REMPLACER ou MODIFIER la fonction Awake à sa façon

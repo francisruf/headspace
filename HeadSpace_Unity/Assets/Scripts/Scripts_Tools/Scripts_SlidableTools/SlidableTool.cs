@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SlidableTool : InteractableObject
 {
-    [Header("Sliding settings")]
+    [Header("SlidableTool settings")]
     public SlidingDirection slidingDirection;
     public float slidingAmount;
     public float drawerHandleSize = 1f;

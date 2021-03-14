@@ -8,8 +8,12 @@ public class MessageManager : MonoBehaviour
     // Singleton
     public static MessageManager instance;
 
+    // Référence au récepteur
+    private SlidableReceptor _receptor;
+
     // File d'attente des messages
     private Queue<string> _messageQueue = new Queue<string>();
+    private int _messageCount;
 
     // Textes de DEBUG temporaires
     public TextMeshProUGUI currentMessageText;
@@ -27,6 +31,8 @@ public class MessageManager : MonoBehaviour
         {
             instance = this;
         }
+
+        _receptor = GetComponentInParent<SlidableReceptor>();
     }
 
     // Assigner les éléments de UI initiaux
@@ -38,10 +44,23 @@ public class MessageManager : MonoBehaviour
             currentMessageText.enabled = false;
     }
 
+    private void LateUpdate()
+    {
+        if (_messageCount > 0)
+        {
+            if (_receptor.CanPrintMessages())
+            {
+                PrintNextMessage();
+            }
+        }
+    }
+
     // Fonction qui ajoute un message à la file d'attente (sans l'imprimer)
     public void QueueMessage(string newMessage)
     {
         _messageQueue.Enqueue(newMessage);
+        _messageCount++;
+        _receptor.NewMessageReceived();
         UpdateMessageCount();
     }
 
@@ -57,6 +76,7 @@ public class MessageManager : MonoBehaviour
         }
 
         string messageToPrint = _messageQueue.Dequeue();
+        _messageCount--;
 
         if (currentMessageText != null)
         {
@@ -64,6 +84,7 @@ public class MessageManager : MonoBehaviour
             currentMessageText.enabled = true;
         }
 
+        _receptor.PrintMessage(messageToPrint);
         UpdateMessageCount();
     }
 
@@ -74,7 +95,7 @@ public class MessageManager : MonoBehaviour
             return;
 
         // Clamp le nombre de messages à deux
-        messageCountText.text = Mathf.Clamp(_messageQueue.Count, 0, 99).ToString("00");
+        messageCountText.text = Mathf.Clamp(_messageCount, 0, 99).ToString("00");
     }
 
     //NOTIFICATION FUNCTIONS
