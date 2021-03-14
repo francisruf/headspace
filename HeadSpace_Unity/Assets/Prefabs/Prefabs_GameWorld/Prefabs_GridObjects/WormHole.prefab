@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7355836233591455619}
   - component: {fileID: 1613958215}
   m_Layer: 10
-  m_Name: wormHole
+  m_Name: WormHole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -111,4 +111,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c1be6d279e5d11448e767829b0440ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectNameLine: Wormhole
   SisterWormHole: {fileID: 0}

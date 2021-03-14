@@ -77,18 +77,18 @@ public class MessageManager : MonoBehaviour
         messageCountText.text = Mathf.Clamp(_messageQueue.Count, 0, 99).ToString("00");
     }
 
-    //public void NewObjectDetectedNotif(Ship ship, GridStaticObject obj)
-    //{
-    //    string newMessageText = ship.shipName + " detected a " + obj.objectNameLine + " at " + obj.GridCoordinates;
-
-    //    QueueMessage(newMessageText);
-
-    //    Debug.Log(obj);
-    //}
-
+    //NOTIFICATION FUNCTIONS
+    #region
     public void NewPlanetDetectedNotif(Ship ship, Planet planet) {
 
         string newMessageText = ship.shipName + " discovered a new Planet at " + planet.GridCoordinates;
+
+        QueueMessage(newMessageText);
+    }
+
+    public void NewHazardDetectedNotif(Ship ship, Hazard hazard) {
+
+        string newMessageText = ship.shipName + " discovered a new " + hazard.objectNameLine + " at " + hazard.GridCoordinates;
 
         QueueMessage(newMessageText);
     }
@@ -115,15 +115,17 @@ public class MessageManager : MonoBehaviour
     }
 
     public void ContactWithCloudNotif(Ship ship) {
-        //Message when ships collides with Cloud here
+
+        string newMessageText = ship.shipName + " $t#ck &ns&d3 m%gn3ti( $l#ud &t " + ship.currentPositionInGridCoords + " Pl3@$e s&nd #ver n%w c#mm@nd.";
+
+        QueueMessage(newMessageText);
     }
 
     public void ContactWithWormholeNotif(Ship ship) {
-        //Message when ships collides with Wormhole here
-    }
 
-    public void OutOfWormholeNotif(Ship ship) {
-        //Message when ships exits a Wormhole
+        string newMessageText = ship.shipName + " entered a Wormhole at " + ship.currentPositionInGridCoords + ". New MOVE target set to " + ship.targetWorldCoords;
+
+        QueueMessage(newMessageText);
     }
 
     public void EnteredPlanetOrbitNotif(Ship ship, Planet planet) {
@@ -182,4 +184,5 @@ public class MessageManager : MonoBehaviour
 
         QueueMessage(newMessageText);
     }
+    #endregion
 }

@@ -50,7 +50,7 @@ public class Ship : MonoBehaviour
 
     //MOVEMENT
     private Vector2 displayedGridCoords;
-    private Vector2 targetWorldCoords;
+    public Vector2 targetWorldCoords;
     public bool isMoving;
 
     //LEAVE
