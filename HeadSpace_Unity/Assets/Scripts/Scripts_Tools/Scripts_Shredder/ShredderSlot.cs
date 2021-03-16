@@ -49,11 +49,19 @@ public class ShredderSlot : MonoBehaviour
             {
                 MovableObject objToShred = collision.GetComponent<MovableObject>();
                 objToShred.Deselect();
+
+                Bounds objBounds = objToShred.ColliderBounds;
+                if (objBounds.size.y > objBounds.size.x)
+                {
+                    objToShred.transform.Rotate(new Vector3(0f, 0f, 90f));
+                }
+
                 objToShred.transform.position = new Vector3(objToShred.transform.position.x, transform.position.y, objToShred.transform.position.z);
                 objToShred.transform.parent = this.transform.parent;
                 objToShred.ObjSpriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
                 objToShred.SetSortingLayer(parent.ObjSpriteRenderer.sortingLayerID);
                 objToShred.SetOrderInLayer(parent.ObjSpriteRenderer.sortingOrder + 1);
+
                 StartCoroutine(Shred(objToShred));
                 //FindObjectOfType<AudioManager>().PlaySound("Shredder");
             }

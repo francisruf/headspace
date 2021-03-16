@@ -21,6 +21,13 @@ public class DebugManager : MonoBehaviour
     public MouseTooltip mouseToolTip;
     public GameObject gridDebug;
     public TextMeshProUGUI shipInventoryText;
+    public GameObject ressourcePanel;
+
+    [Header("Ressource texts")]
+    public TextMeshProUGUI soulsSavedText;
+    public TextMeshProUGUI soulsBufferText;
+    public TextMeshProUGUI currentCreditsText;
+    public TextMeshProUGUI totalCreditsText;
 
     // Command Debug
     [Header("Command Debug references")]
@@ -70,6 +77,7 @@ public class DebugManager : MonoBehaviour
         GridManager.firstAnomalyTile += StartGameTimer;
         GridManager.totalGridAnomaly += StopGameTimer;
         ShipManager.shipInventoryUpdate += UpdateShipInventoryUI;
+        RessourceManager.ressourcesUpdate += UpdateRessourceTexts;
     }
 
     private void OnDisable()
@@ -77,6 +85,7 @@ public class DebugManager : MonoBehaviour
         GridManager.firstAnomalyTile -= StartGameTimer;
         GridManager.totalGridAnomaly -= StopGameTimer;
         ShipManager.shipInventoryUpdate -= UpdateShipInventoryUI;
+        RessourceManager.ressourcesUpdate -= UpdateRessourceTexts;
     }
 
     private void Start()
@@ -90,6 +99,8 @@ public class DebugManager : MonoBehaviour
         gameTimeText.enabled = false;
         commandDebugWindow.SetActive(false);
         shipInventoryText.enabled = true;
+        ressourcePanel.SetActive(false);
+
         UpdateTimeScaleText();
     }
 
@@ -107,6 +118,7 @@ public class DebugManager : MonoBehaviour
             objectsPanel.SetActive(!objectsPanel.activeSelf);
             //debugText.enabled = !buttonsPanel.activeSelf;
             gameTimeText.enabled = !gameTimeText.enabled;
+            ressourcePanel.SetActive(!ressourcePanel.activeSelf);
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && !commandDebugWindow.activeSelf)
@@ -310,6 +322,18 @@ public class DebugManager : MonoBehaviour
 
         if (MessageManager.instance != null)
             MessageManager.instance.QueueMessage(messageText);
+    }
+
+    #endregion
+
+    #region Ressource management
+
+    private void UpdateRessourceTexts(int soulsSaved, int soulBuffer, int currentCredits, int totalCredits)
+    {
+        soulsSavedText.text = "Souls saved : <b>" + soulsSaved + "</b>";
+        soulsBufferText.text = "Soul buffer : <b>" + soulBuffer + "</b>";
+        currentCreditsText.text = "Current credits : <b>" + currentCredits + "</b>";
+        totalCreditsText.text = "Total credits : <b>" + totalCredits + "</b>";
     }
 
     #endregion

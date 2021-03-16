@@ -10,6 +10,7 @@ public class ShipMarker : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private Collider2D _collider;
     private MovableMarker _movableMarker;
+    private ShipMarker_Animator _markerAnimator;
 
     // Variables
     private Ship _linkedShip;
@@ -22,6 +23,7 @@ public class ShipMarker : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<Collider2D>();
         _movableMarker = GetComponent<MovableMarker>();
+        _markerAnimator = GetComponentInParent<ShipMarker_Animator>();
     }
 
     // Subscribe aux changements d'informations des Ships
@@ -52,6 +54,22 @@ public class ShipMarker : MonoBehaviour
         _collider.enabled = false;
         _movableMarker.enabled = false;
         _linkedShip.enabled = false;
+    }
+
+    // TODO
+    public void DestroyMarker()
+    {
+        _movableMarker.enabled = false;
+        _collider.enabled = false;
+        _linkedShip = null;
+
+        _markerAnimator.TriggerDestroy();
+    }
+
+    public void OnDestroyAnimationComplete()
+    {
+        _spriteRenderer.enabled = false;
+        _movableMarker.enabled = false;
     }
 
     // Action appelée à chaque changement d'information de Ship

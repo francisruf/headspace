@@ -23,7 +23,7 @@ public class Ship_Collider : MonoBehaviour {
         //When inside anomaly affected sector
         if (col.GetComponent<GridTile_Anomaly>() != null) {
             GridTile_Anomaly anomaly = col.GetComponent<GridTile_Anomaly>();
-
+            ship.anomalyTile = anomaly;
             mM.ContactWithAnomalyNotif(ship, anomaly);
         }
 
@@ -61,6 +61,18 @@ public class Ship_Collider : MonoBehaviour {
     }
 
     private void OnTriggerExit2D(Collider2D col) {
+
+        //When exiting anomaly affected sector
+        if (col.GetComponent<GridTile_Anomaly>() != null)
+        {
+            GridTile_Anomaly anomaly = col.GetComponent<GridTile_Anomaly>();
+            if (ship.anomalyTile == anomaly)
+            {
+                ship.anomalyTile = null;
+            }
+
+            mM.ContactWithAnomalyNotif(ship, anomaly);
+        }
 
         if (col.GetComponent<Planet_InteractionZone>() != null) {
 

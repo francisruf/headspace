@@ -48,6 +48,7 @@ public class ShipManager : MonoBehaviour
     {
         Ship.newShipAvailable += OnNewShipAvailable;
         Ship.shipUnavailable += OnShipUnavailable;
+        Ship.shipDestroyed += OnShipDestroyed;
         Ship.shipStateChange += OnShipStateChange;
     }
 
@@ -56,6 +57,7 @@ public class ShipManager : MonoBehaviour
     {
         Ship.newShipAvailable -= OnNewShipAvailable;
         Ship.shipUnavailable -= OnShipUnavailable;
+        Ship.shipDestroyed -= OnShipDestroyed;
         Ship.shipStateChange -= OnShipStateChange;
     }
 
@@ -63,6 +65,12 @@ public class ShipManager : MonoBehaviour
     private void OnNewShipAvailable(Ship ship)
     {
         shipInventory.Add(ship);
+        UpdateShipInventoryUI();
+    }
+
+    // Enlever un ship de l'inventaire
+    private void OnShipDestroyed(Ship ship)
+    {
         UpdateShipInventoryUI();
     }
 
@@ -108,9 +116,12 @@ public class ShipManager : MonoBehaviour
             // Si un ship correspondant trouvé, retourner VRAI et assigner le foundShip en paramètre de sortie
             if (ship.shipName.ToLower() == shipNameLowerCase)
             {
-                foundShip = ship;
-                shipNameFound = true;
-                break;
+                if (ship.CurrentShipState != ShipState.Destroyed)
+                {
+                    foundShip = ship;
+                    shipNameFound = true;
+                    break;
+                }
             }
         }
         // Sinon, retourner FAUX (le foundShip sera null)

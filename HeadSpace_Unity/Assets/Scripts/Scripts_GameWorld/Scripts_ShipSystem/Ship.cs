@@ -13,6 +13,8 @@ public class Ship : MonoBehaviour
     // Actions that send various updates regarding their state/availability
     public static Action<Ship> newShipAvailable;
     public static Action<Ship> shipUnavailable;
+    public static Action<Ship> shipDisabled;
+    public static Action<Ship> shipDestroyed;
     public static Action<Ship> shipStateChange;
     public static Action<Ship> shipInfoChange;
 
@@ -32,11 +34,12 @@ public class Ship : MonoBehaviour
 
     [Range(0, 100)]
     public int healthPoints;
+    public int currentHealthPoints;
 
     [Range(0, 100)]
     //How many souls can the Ship carry
     public int cargoCapacity;
-    public int currentCargo;
+    [HideInInspector] public int currentCargo;
 
     [Range(0, 100)]
     public float moveSpeed;
@@ -50,8 +53,8 @@ public class Ship : MonoBehaviour
 
     //MOVEMENT
     private Vector2 displayedGridCoords;
-    public Vector2 targetWorldCoords;
-    public bool isMoving;
+    [HideInInspector] public Vector2 targetWorldCoords;
+    [HideInInspector] public bool isMoving;
 
     //LEAVE
     private Vector2 basePosition;
@@ -61,20 +64,22 @@ public class Ship : MonoBehaviour
     public ShipState CurrentShipState { get; private set; }  // Ça c'est une "propriété", aka une autre façon fancy d'écrire des variables
 
     // FOR NOTIFICATIONS
-    public Vector2 currentPositionInGridCoords;
+    [HideInInspector] public Vector2 currentPositionInGridCoords;
     private MessageManager mM;
-    public bool isInDeployPoint;
-    public bool isInPlanetOrbit;
-    public bool isLoadingSouls;
-    public bool isInCloud;
-    public bool isInWormHole;
+    [HideInInspector] public bool isInDeployPoint;
+    [HideInInspector] public bool isInPlanetOrbit;
+    [HideInInspector] public bool isLoadingSouls;
+    [HideInInspector] public bool isInCloud;
+    [HideInInspector] public bool isInWormHole;
 
-    public Planet planetInOrbit;
-    public DeployPoint deployP;
-    public WormHole senderWormhole;
-    public WormHole receiverWormhole;
+    [HideInInspector] public Planet planetInOrbit;
+    [HideInInspector] public DeployPoint deployP;
+    [HideInInspector] public WormHole senderWormhole;
+    [HideInInspector] public WormHole receiverWormhole;
+    [HideInInspector] public GridTile_Anomaly anomalyTile;
 
-    IEnumerator pickupCoroutine;
+    private IEnumerator pickupCoroutine;
+    private IEnumerator damageTickCoroutine;
 
     private void Awake()
     {
@@ -88,6 +93,7 @@ public class Ship : MonoBehaviour
     {
         // Assigner le currentState au state de départ
         CurrentShipState = shipStartingState;
+        currentHealthPoints = healthPoints;
 
         //Sets the radius of the CircleCollider2D located in child GameObject<Detection_Collider> to be equal to the one set by the detectionRadius variable.
         detectionZone.radius = detectionRadius;
@@ -117,31 +123,42 @@ public class Ship : MonoBehaviour
 
     void Update()
     {
+        CheckForAnomaly();
+        MoveShip();
+
+        //Finds current position at all times in Grid Coords
+        currentPositionInGridCoords = GridCoords.FromWorldToGrid(transform.position);
+    }
+
+    private void MoveShip()
+    {
         //If MOVE command is called, moves the ship at coordinates indicated in the MOVE command.
-        if (isMoving) {
+        if (isMoving)
+        {
             Debug.Log("SHIP NAME: " + shipName + " | COMMAND: Move " + displayedGridCoords + " | STATUS: Moving");
             transform.position = Vector2.MoveTowards(transform.position, targetWorldCoords, moveSpeed * Time.deltaTime);
 
-            if (targetWorldCoords == (Vector2)transform.position) {
+            if (targetWorldCoords == (Vector2)transform.position)
+            {
                 isMoving = false;
                 Debug.Log("Movement has ended");
 
-                if (planetInOrbit != null) {
+                if (planetInOrbit != null)
+                {
                     mM.EnteredPlanetOrbitNotif(this, planetInOrbit);
                 }
 
-                else if (deployP != null) {
+                else if (deployP != null)
+                {
                     mM.EnteredDeployPointNotif(this, deployP);
                 }
 
-                else {
+                else
+                {
                     mM.MoveFinishedNotif(this);
                 }
             }
         }
-
-        //Finds current position at all times in Grid Coords
-        currentPositionInGridCoords = GridCoords.FromWorldToGrid(transform.position);
     }
 
     // Function that initializes ship parameters when instantiated
@@ -158,7 +175,7 @@ public class Ship : MonoBehaviour
         if (markerPrefab != null)
         {
             // For now, spawn a marker at center.
-            linkedMarker = Instantiate(markerPrefab).GetComponent<ShipMarker>();
+            linkedMarker = Instantiate(markerPrefab).GetComponentInChildren<ShipMarker>();
             linkedMarker.InitializeMarker(this);
         }
     }
@@ -277,6 +294,11 @@ public class Ship : MonoBehaviour
                 detectionZone.enabled = false;
                 break;
 
+            //Remove the ship from play
+            case ShipState.Destroyed:
+                DestroyShip();
+                break;
+
             default:
                 break;
         }
@@ -308,6 +330,21 @@ public class Ship : MonoBehaviour
         spriteRenderer.enabled = toggleON;
     }
 
+    private void DestroyShip()
+    {
+        if (linkedMarker != null)
+            linkedMarker.DestroyMarker();
+
+        if (shipDestroyed != null)
+            shipDestroyed(this);
+
+        spriteRenderer.enabled = false;
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(false);
+        }
+    }
     // Safety net - When a ship is disabled, sends info to the ShipManager (TODO : Nothing calls DisableShip yet)
     // Function to be implemented when a ship is fully destroyed, or when the scene changes
     private void DisableShip()
@@ -315,8 +352,10 @@ public class Ship : MonoBehaviour
         if (linkedMarker != null)
             linkedMarker.DisableMarker();
 
-        if (shipUnavailable != null)
-            shipUnavailable(this);
+        if (shipDisabled != null)
+            shipDisabled(this);
+
+        this.gameObject.SetActive(false);
     }
 
     private IEnumerator LoadingSouls() {
@@ -366,11 +405,55 @@ public class Ship : MonoBehaviour
 
         Debug.Log("I am in a wormhole");
     }
+
+    // Verify, on everyframe, if ship is in anomaly tile
+    private void CheckForAnomaly()
+    {
+        // If ship is in an anomaly tile
+        if (anomalyTile != null)
+        {
+            // If no damage routine yet
+            if (damageTickCoroutine == null)
+            {
+                damageTickCoroutine = DamageTick();
+                StartCoroutine(damageTickCoroutine);
+            }
+        }
+        // If ship is not in anomaly tile
+        else
+        {
+            // If damage routine is active
+            if (damageTickCoroutine != null)
+            {
+                StopCoroutine(damageTickCoroutine);
+                damageTickCoroutine = null;
+            }
+        }
+    }
+
+    private IEnumerator DamageTick()
+    {
+        Debug.Log("DAMAGE STARTED");
+        while (currentHealthPoints > 0)
+        {
+            if (anomalyTile == null)
+                break;
+
+            yield return new WaitForSeconds(1f);
+            currentHealthPoints -= (int)anomalyTile.shipDPS;
+        }
+
+        currentHealthPoints = 0;
+        ChangeShipState(ShipState.Destroyed);
+        damageTickCoroutine = null;
+        yield return null;
+    }
 }
 
 public enum ShipState
 {
     Deployed,
-    AtBase
+    AtBase,
+    Destroyed
 }
 

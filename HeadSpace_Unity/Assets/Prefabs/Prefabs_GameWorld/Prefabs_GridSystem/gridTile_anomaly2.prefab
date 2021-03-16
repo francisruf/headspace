@@ -125,8 +125,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   liveForever: 1
   lifeTime: 0
-  shipDPS: 0
+  shipDPS: 15
   planetDPS: 4
+  colliderEnableDelay: 0
   worldMapSprite: {fileID: 21300000, guid: f62621b330e0de5409c5c90f599c9aae, type: 3}
   debugSprite: {fileID: 21300000, guid: 68af0bed142bc5b49b010d48713fbfa4, type: 3}
   tileX: 0
@@ -139,6 +140,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  _diagonalNeighbours:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  tileNameLine: 
   anomalySpriteRenderer: {fileID: 6647417507317368059}
 --- !u!1 &792759034991735327
 GameObject:

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -10,6 +11,7 @@ public class SlidableReceptor : SlidableTool
     public Transform printPoint;
 
     private Animator _printerAnimator;
+    public TextMeshProUGUI timeText;
     private MovableMessage _messageInSlot;
 
     // Start is called before the first frame update
@@ -24,10 +26,10 @@ public class SlidableReceptor : SlidableTool
     {
         base.Update();
 
-        //if (Input.GetKeyDown(KeyCode.P))
-        //{
-        //    PrintMessage("asdasd");
-        //}
+        if (TimeManager.instance != null)
+        {
+            UpdateTime();
+        }
     }
 
     public void NewMessageReceived()
@@ -75,5 +77,11 @@ public class SlidableReceptor : SlidableTool
         _messageInSlot.messageTeared -= ClearSlot;
         _messageInSlot = null;
         _printerAnimator.SetBool("MessageInSlot", false);
+    }
+
+    private void UpdateTime()
+    {
+        string currentTime = TimeSpan.FromSeconds(TimeManager.instance.GameTime).ToString(@"hh\:mm");
+        timeText.text = currentTime;
     }
 }

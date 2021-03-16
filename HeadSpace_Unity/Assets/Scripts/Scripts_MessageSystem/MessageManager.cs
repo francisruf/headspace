@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -58,7 +59,14 @@ public class MessageManager : MonoBehaviour
     // Fonction qui ajoute un message à la file d'attente (sans l'imprimer)
     public void QueueMessage(string newMessage)
     {
-        _messageQueue.Enqueue(newMessage);
+        string fullMessage = "";
+        if (TimeManager.instance != null)
+        {
+            fullMessage += "[" + TimeSpan.FromSeconds(TimeManager.instance.GameTime).ToString(@"hh\:mm") + "].............\n\n";
+        }
+        fullMessage += newMessage;
+
+        _messageQueue.Enqueue(fullMessage);
         _messageCount++;
         _receptor.NewMessageReceived();
         UpdateMessageCount();
