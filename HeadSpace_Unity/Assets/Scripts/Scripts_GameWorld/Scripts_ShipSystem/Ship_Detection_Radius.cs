@@ -27,18 +27,20 @@ public class Ship_Detection_Radius : MonoBehaviour
         }
 
         //Detect transmission from a planet
-        if (col.GetComponent<Planet_TransmissionZone>() != null) {
-            Planet planet = col.GetComponent<Planet_TransmissionZone>().ParentPlanet;
+        //Deactivated for now
+        //if (col.GetComponent<Planet_TransmissionZone>() != null) {
+        //    Planet planet = col.GetComponent<Planet_TransmissionZone>().ParentPlanet;
 
-            mM.NewTransmissionDetectedNotif(ship, planet);
-        }
+        //    mM.NewTransmissionDetectedNotif(ship, planet);
+        //}
 
         //Detect anomly tile
-        if (col.GetComponent<GridTile_Anomaly>() != null) {
-            GridTile_Anomaly anomaly = col.GetComponent<GridTile_Anomaly>();
+        //Deactivated for now
+        //if (col.GetComponent<GridTile_Anomaly>() != null) {
+        //    GridTile_Anomaly anomaly = col.GetComponent<GridTile_Anomaly>();
 
-            mM.NewAnomalyDetectedNotif(ship, anomaly);
-        }
+        //    mM.NewAnomalyDetectedNotif(ship, anomaly);
+        //}
 
         //Detects cloud or wormhole
         if (col.GetComponent<Hazard>() != null) {

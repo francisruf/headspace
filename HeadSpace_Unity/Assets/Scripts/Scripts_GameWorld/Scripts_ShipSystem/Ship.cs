@@ -180,6 +180,9 @@ public class Ship : MonoBehaviour
 
         //Change the status of the ship from "At Base" to "Deployed"
         ChangeShipState(ShipState.Deployed);
+
+        //Notify player that Ship has Deployed
+        mM.ShipDeployedNotif(this);
     }
 
     public void Leave() {
