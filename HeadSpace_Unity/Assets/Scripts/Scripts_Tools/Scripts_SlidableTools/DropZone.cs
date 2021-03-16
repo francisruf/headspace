@@ -12,7 +12,7 @@ public class DropZone : MonoBehaviour
     public int ContainerSortingLayer { get { return _containerSpriteRenderer.sortingLayerID; } }
     public int HighestSortingOrder { get; private set; } = 0;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _collider = GetComponent<Collider2D>();
 

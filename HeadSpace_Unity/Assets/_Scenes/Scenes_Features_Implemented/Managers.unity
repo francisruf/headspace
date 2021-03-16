@@ -190,100 +190,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e20bf3383f7bbda45a8b8bf7756be3ba, type: 3}
---- !u!1001 &1412507014
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3875620706196734523, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3875620706196734523, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3875620706196734523, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3875620706196734523, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3875620706196734523, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3875620706196734523, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3875620706196734523, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3875620706196734523, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3875620706196734523, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3875620706196734523, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3875620706196734523, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3875620706196734524, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
-        type: 3}
-      propertyPath: sounds.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3875620706196734524, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
-        type: 3}
-      propertyPath: sounds.Array.data[1].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 667cefaa2814fe7498b0e40bd4ccb381, type: 3}
-    - target: {fileID: 3875620706196734524, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
-        type: 3}
-      propertyPath: sounds.Array.data[1].name
-      value: Shredder
-      objectReference: {fileID: 0}
-    - target: {fileID: 3875620706196734524, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
-        type: 3}
-      propertyPath: sounds.Array.data[1].pitch
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3875620706196734524, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
-        type: 3}
-      propertyPath: sounds.Array.data[1].volume
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3875620706196734525, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
-        type: 3}
-      propertyPath: m_Name
-      value: AudioManager
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: fca737fa3c43da8419df6ba7bc2e8dbc, type: 3}
 --- !u!1 &1500980627
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,7 +254,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1712038626
 PrefabInstance:

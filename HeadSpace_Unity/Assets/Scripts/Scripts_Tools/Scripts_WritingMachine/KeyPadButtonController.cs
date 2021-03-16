@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class KeyPadButtonController : MonoBehaviour
 {
+    public static Action buttonPress;
+
     private Animator _animator;
     public int buttonValue;
 
@@ -30,6 +33,9 @@ public class KeyPadButtonController : MonoBehaviour
 
     private IEnumerator PressButton()
     {
+        if (buttonPress != null)
+            buttonPress();
+
         int frameCount = 0;
         _animator.SetTrigger("Press");
 

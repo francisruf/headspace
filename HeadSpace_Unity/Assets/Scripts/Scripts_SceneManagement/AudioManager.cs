@@ -34,6 +34,24 @@ public class AudioManager : MonoBehaviour {
         SceneManager.activeSceneChanged += AssignMusicOnScene;
     }
 
+    private void OnEnable()
+    {
+        ShredderSlot.shredderStarted += ShredderStarted;
+        ButtonController.buttonPress += ButtonPress;
+        KeyPadButtonController.buttonPress += ButtonPress;
+        DropZone_Outbox.commandSuccess += CommandSuccess;
+        DropZone_Outbox.commandFail += CommandFail;
+    }
+
+    private void OnDisable()
+    {
+        ShredderSlot.shredderStarted -= ShredderStarted;
+        ButtonController.buttonPress -= ButtonPress;
+        KeyPadButtonController.buttonPress -= ButtonPress;
+        DropZone_Outbox.commandSuccess -= CommandSuccess;
+        DropZone_Outbox.commandFail -= CommandFail;
+    }
+
     //Update function only to test feature. Remove when necessary.
     //private void Update() {
     //    if (Input.GetKeyDown(KeyCode.S)) {
@@ -52,8 +70,6 @@ public class AudioManager : MonoBehaviour {
         //        currentMusic.source.Stop();
         //    }
         //}
-
-
     }
 
     public void PlaySound(string name) {
@@ -79,5 +95,30 @@ public class AudioManager : MonoBehaviour {
 
         currentMusic = s;
         currentMusic.source.Play();
+    }
+
+    private void CommandFail()
+    {
+        PlaySound("LeNomDeTonSon");
+    }
+
+    private void CommandSuccess()
+    {
+
+    }
+
+    private void AnomalyWarning()
+    {
+
+    }
+
+    private void ShredderStarted()
+    {
+
+    }
+
+    private void ButtonPress()
+    {
+
     }
 }

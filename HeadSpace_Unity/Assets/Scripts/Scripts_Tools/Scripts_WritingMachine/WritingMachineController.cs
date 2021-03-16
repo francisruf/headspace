@@ -1,14 +1,19 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class WritingMachineController : MonoBehaviour
 {
+    public static Action commandReadyToTear;
+
     private SlidableWritingMachine _slidableMachine;
     private KeyPadController _keyPadController;
+    private Animator _animator;
 
     private List<ButtonController> _allButtons;
     private List<ButtonController> _currentAvailableButtons = new List<ButtonController>();
+    private List<ButtonController> _currentPressedButtons = new List<ButtonController>();
     private int _currentAvailableButtonsCount;
 
     private int _buttonCount;
@@ -42,6 +47,7 @@ public class WritingMachineController : MonoBehaviour
     {
         _slidableMachine = GetComponent<SlidableWritingMachine>();
         _keyPadController = GetComponentInChildren<KeyPadController>();
+        _animator = GetComponent<Animator>();
 
         _allButtons = new List<ButtonController>(GetComponentsInChildren<ButtonController>());
         _buttonCount = _allButtons.Count;
@@ -69,13 +75,25 @@ public class WritingMachineController : MonoBehaviour
 
     public void OnMachineOpen()
     {
-        ChangeButtonSection(ButtonSectionType.Commands);
+        ChangeButtonSection(_currentButtonSectionType);
+
+        if (_currentButtonSectionType != ButtonSectionType.End)
+        {
+            foreach (var btn in _currentPressedButtons)
+            {
+                btn.PressButton();
+            }
+        }
+
+        _animator.SetBool("IsOpen", true);
     }
 
     public void OnMachineClose()
     {
         DisableAllButtons();
         _keyPadController.CloseKeyPad();
+
+        _animator.SetBool("IsOpen", false);
     }
 
     private void OnNewShipAvailable(Ship ship)
@@ -225,6 +243,8 @@ public class WritingMachineController : MonoBehaviour
 
         if (candidateButton != null)
         {
+            _currentPressedButtons.Add(candidateButton);
+
             ButtonController_Command cmdButton = candidateButton.GetComponent<ButtonController_Command>();
             if (cmdButton != null)
             {
@@ -394,12 +414,17 @@ public class WritingMachineController : MonoBehaviour
 
     private IEnumerator EndCommand()
     {
-        
+        _animator.SetBool("IsReady", true);
+
         yield return new WaitForSeconds(0.05f);
         _keyPadController.CloseKeyPad();
+
+        if (commandReadyToTear != null)
+            commandReadyToTear();
+
         yield return new WaitForSeconds(0.45f);
         DisableAllButtons();
-        ChangeButtonSection(ButtonSectionType.Commands);
+        //ChangeButtonSection(ButtonSectionType.Commands);
     }
 
     private void SpawnCommandDocument()
@@ -409,11 +434,20 @@ public class WritingMachineController : MonoBehaviour
         _currentCommandDocument.commandTeared += OnCommandTeared;
     }
 
+    private void OnCommandTearStart()
+    {
+        ChangeButtonSection(ButtonSectionType.End);
+    }
+
     private void OnCommandTeared()
     {
         _currentCommandDocument.commandTeared -= OnCommandTeared;
         _currentCommandDocument.transform.parent = null;
         _currentCommandDocument = null;
+        _currentPressedButtons.Clear();
+
+        _animator.SetBool("IsReady", false);
+        ChangeButtonSection(ButtonSectionType.Commands);
 
         SpawnCommandDocument();
     }

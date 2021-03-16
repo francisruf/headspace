@@ -1,10 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public abstract class ButtonController : MonoBehaviour
 {
+    public static Action buttonPress;
+
     protected TextMeshProUGUI _buttonTextMesh;
     protected Animator _animator;
     public string BaseButtonText { get; protected set; }
@@ -100,6 +103,9 @@ public abstract class ButtonController : MonoBehaviour
 
     public string PressButton()
     {
+        if (buttonPress != null)
+            buttonPress();
+
         ChangeButtonState(ButtonState.Pressed);
         return BaseButtonText;
     }

@@ -6,7 +6,14 @@ using UnityEngine;
 public class DropZone_Outbox : DropZone
 {
     public static Action<List<MovableCommand>> newCommandRequest;
+
+    public static Action commandSuccess;
+    public static Action commandFail;
+
     private List<MovableCommand> _commandsInDropZone = new List<MovableCommand>();
+    private List<MovableCommand> _sentCommands = new List<MovableCommand>();
+
+    private Animator _animator;
 
     private void OnEnable()
     {
@@ -16,6 +23,12 @@ public class DropZone_Outbox : DropZone
     private void OnDisable()
     {
         CommandManager.commandRequestResult -= OnCommandResult;
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        _animator = GetComponentInParent<Animator>();
     }
 
     public override void AddObjectToDropZone(MovableObject obj)
@@ -50,18 +63,53 @@ public class DropZone_Outbox : DropZone
 
     private void OnCommandResult(List<MovableCommand> commands)
     {
-        bool success = true;
+        bool commandsFailed = false;
+        bool commandsSent = false;
+
 
         foreach (var cmd in commands)
         {
             if (cmd.CurrentCommandState == CommandState.Sucess)
             {
                 cmd.DisableObject();
+                commandsSent = true;
+                _sentCommands.Add(cmd);
             }
             else if (cmd.CurrentCommandState == CommandState.Fail)
             {
-                success = false;
+                commandsFailed = true;
             }
+        }
+
+        foreach (var cmd in _sentCommands)
+        {
+            _commandsInDropZone.Remove(cmd);
+        }
+        _sentCommands.Clear();
+
+        if (commandsSent)
+        {
+            if (commandsFailed)
+            {
+                _animator.SetTrigger("GreenRedLight");
+
+                if (commandFail != null)
+                    commandFail();
+            }
+            else
+            {
+                _animator.SetTrigger("GreenLight");
+
+                if (commandSuccess != null)
+                    commandSuccess();
+            }
+        }
+        else if (commandsFailed)
+        {
+            _animator.SetTrigger("RedLight");
+
+            if (commandFail != null)
+                commandFail();
         }
     }
 }

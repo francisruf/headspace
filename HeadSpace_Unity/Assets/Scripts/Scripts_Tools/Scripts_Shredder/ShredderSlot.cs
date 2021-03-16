@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class ShredderSlot : MonoBehaviour
-{   
+{
+    public static Action shredderStarted;
+
     public Transform EndPosition;
     public SpriteRenderer GreenButton;
     public SpriteRenderer RedButton;
@@ -53,7 +55,7 @@ public class ShredderSlot : MonoBehaviour
                 objToShred.SetSortingLayer(parent.ObjSpriteRenderer.sortingLayerID);
                 objToShred.SetOrderInLayer(parent.ObjSpriteRenderer.sortingOrder + 1);
                 StartCoroutine(Shred(objToShred));
-                FindObjectOfType<AudioManager>().PlaySound("Shredder");
+                //FindObjectOfType<AudioManager>().PlaySound("Shredder");
             }
         }
 
@@ -88,6 +90,10 @@ public class ShredderSlot : MonoBehaviour
     private IEnumerator Shred(MovableObject obj)
     {
         ShredStart();
+
+        if (shredderStarted != null)
+            shredderStarted();
+
         yield return StartCoroutine(LerpToPosition(obj));
         ShredEnd();
         obj.DisableObject();

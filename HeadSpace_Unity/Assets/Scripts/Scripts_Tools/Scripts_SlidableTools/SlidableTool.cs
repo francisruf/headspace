@@ -13,11 +13,11 @@ public class SlidableTool : InteractableObject
     private Vector3 mouseOffset;
     private float openDistanceBuffer;
 
-    private float minPosX;
-    private float maxPosX;
-    private float minPosY;
-    private float maxPosY;
-    private Vector2 openPos = new Vector2();
+    protected float minPosX;
+    protected float maxPosX;
+    protected float minPosY;
+    protected float maxPosY;
+    protected Vector2 openPos = new Vector2();
     private Vector2 fullyClosedPos = new Vector2();
 
     public bool IsOpen { get; private set; }
@@ -136,7 +136,7 @@ public class SlidableTool : InteractableObject
         CheckOpenState();
     }
 
-    private void CheckOpenState()
+    protected void CheckOpenState()
     {
         bool openDistance = false;
         bool fullyClosedDistance = false;
@@ -147,12 +147,22 @@ public class SlidableTool : InteractableObject
                 openPos.x = transform.position.x;
                 openPos.y = minPosY;
                 openDistance = Vector2.Distance(transform.position, openPos) <= openDistanceBuffer;
+
+                fullyClosedPos.x = transform.position.x;
+                fullyClosedPos.y = maxPosY;
+                fullyClosedDistance = Vector2.Distance(transform.position, fullyClosedPos) <= openDistanceBuffer;
+
                 break;
 
             case SlidingDirection.VerticalUp:
                 openPos.x = transform.position.x;
                 openPos.y = maxPosY;
                 openDistance = Vector2.Distance(transform.position, openPos) <= openDistanceBuffer;
+
+                fullyClosedPos.x = transform.position.x;
+                fullyClosedPos.y = minPosY;
+                fullyClosedDistance = Vector2.Distance(transform.position, fullyClosedPos) <= openDistanceBuffer;
+
                 break;
 
             case SlidingDirection.HorizontalLeft:
@@ -170,6 +180,11 @@ public class SlidableTool : InteractableObject
                 openPos.x = maxPosX;
                 openPos.y = transform.position.y;
                 openDistance = Vector2.Distance(transform.position, openPos) <= openDistanceBuffer;
+
+                fullyClosedPos.x = minPosX;
+                fullyClosedPos.y = transform.position.y;
+                fullyClosedDistance = Vector2.Distance(transform.position, fullyClosedPos) <= openDistanceBuffer;
+
                 break;
         }
 
