@@ -18,8 +18,10 @@ public class SlidableTool : InteractableObject
     private float minPosY;
     private float maxPosY;
     private Vector2 openPos = new Vector2();
+    private Vector2 fullyClosedPos = new Vector2();
 
     public bool IsOpen { get; private set; }
+    public bool IsFullyClosed { get; private set; }
 
     protected override void Start()
     {
@@ -137,6 +139,7 @@ public class SlidableTool : InteractableObject
     private void CheckOpenState()
     {
         bool openDistance = false;
+        bool fullyClosedDistance = false;
 
         switch (slidingDirection)
         {
@@ -156,6 +159,11 @@ public class SlidableTool : InteractableObject
                 openPos.x = minPosX;
                 openPos.y = transform.position.y;
                 openDistance = Vector2.Distance(transform.position, openPos) <= openDistanceBuffer;
+
+                fullyClosedPos.x = maxPosX;
+                fullyClosedPos.y = transform.position.y;
+                fullyClosedDistance = Vector2.Distance(transform.position, fullyClosedPos) <= openDistanceBuffer;
+
                 break;
 
             case SlidingDirection.HorizontalRight:
@@ -173,6 +181,16 @@ public class SlidableTool : InteractableObject
         {
             CloseTool();
         }
+
+        if (fullyClosedDistance && !IsFullyClosed)
+        {
+            FullyCloseTool();
+        }
+        else if (!fullyClosedDistance && IsFullyClosed)
+        {
+            IsFullyClosed = false;
+        }
+
     }
 
     protected virtual void OpenTool()
@@ -185,6 +203,12 @@ public class SlidableTool : InteractableObject
     {
         IsOpen = false;
         Debug.Log(this.gameObject.name + " is CLOSED.");
+    }
+
+    protected virtual void FullyCloseTool()
+    {
+        Debug.Log(this.gameObject.name + "is FULLY CLOSED.");
+        IsFullyClosed = true;
     }
 
     public override void Select()

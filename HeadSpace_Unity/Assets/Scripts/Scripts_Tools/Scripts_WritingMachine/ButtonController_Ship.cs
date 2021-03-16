@@ -13,9 +13,19 @@ public class ButtonController_Ship : ButtonController
         _buttonTextMesh.text = BaseButtonText;
     }
 
+    public override string GetButtonCommandField()
+    {
+        return _linkedShip.shipName;
+    }
+
+    public override string GetButtonPrintText()
+    {
+        return printText + _linkedShip.shipName;
+    }
+
     protected override void Start()
     {
         ChangeButtonState(ButtonState.Unavailable);
-        nextButtonSection = ButtonSectionType.KeyPad;
+        nextButtonSection = ButtonSectionType.KeyPadVector;
     }
 }

@@ -36,7 +36,7 @@ public class DropZone : MonoBehaviour
         return false;
     }
 
-    public void AddObjectToDropZone(MovableObject obj)
+    public virtual void AddObjectToDropZone(MovableObject obj)
     {
         Bounds objBounds = obj.ColliderBounds;
         float minX = _collider.bounds.min.x + (objBounds.size.x / 2f);
@@ -55,7 +55,7 @@ public class DropZone : MonoBehaviour
         obj.SetOrderInLayer(HighestSortingOrder);
     }
 
-    public void RemoveObjectFromDropZone(MovableObject obj)
+    public virtual void RemoveObjectFromDropZone(MovableObject obj)
     {
         obj.transform.parent = null;
         HighestSortingOrder--;

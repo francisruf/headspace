@@ -2,22 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Command_Abort : Command
+public class Command_Exit : Command
 {
     // FUTURE VARIANTE DE FONCTION À IMPLÉMENTER, PAS BESOIN D'Y TOUCHER POUR L'INSTANT
     public override bool TryExecution(string playerText, out string errorMessage)
     {
-        bool success = false;
-        errorMessage = "Abort command not implemented.";
-
-        /* TODO :
-         * - Decode full text
-         * - Find ship from ShipManager
-         * - Verify if coordinates are valid
-         * - Send Command
-         */
-
-        return success;
+        errorMessage = "";
+        return false;
     }
 
     // Fonction qui essaie d'exécuter la commande à partir de la syntaxe fournie.
@@ -26,8 +17,10 @@ public class Command_Abort : Command
     {
         // Variables locales temporaires
         bool success = false;
-        bool validShip = true;
+        bool validShip = false;
         Ship targetShip = null;
+        bool coordsInDeployPoint = false;
+        Vector2 shipGridCoords = Vector2.zero;
         errorMessage = "";
 
         //Validation 1 : -Vérifier avec le ShipManager si le vaisseau entré est trouvable.
@@ -40,11 +33,34 @@ public class Command_Abort : Command
             Debug.Log("Error : Could not find ShipManager.");
         }
 
-        // Confirmation finale 1 : Le vaisseau est valide?
+        // Validation 2 : Vérifier avec deploymanager si les coordonnées du vaisseaux sont dans un point de déploiement.
+        if (targetShip != null)
+        {
+            shipGridCoords = GridCoords.FromWorldToGrid(targetShip.transform.position);
+
+            if (DeployManager.instance != null)
+            {
+                coordsInDeployPoint = DeployManager.instance.IsInDeployPoint(shipGridCoords);
+            }
+            else
+            {
+                Debug.Log("Warning : No DeployManager could be found");
+                coordsInDeployPoint = false;
+            }
+        }
+
+        //Confirmation finale 1 : Le vaisseau est valide?
         if (!validShip)
         {
             success = false;
             errorMessage = "Invalid ship name : " + shipName;
+        }
+
+        // Confirmation finale 2 : Les coordonnées sont dans un point de déploiement?
+        else if (!coordsInDeployPoint)
+        {
+            success = false;
+            errorMessage = "Coordinates are outisde of Deploy Point : " + coordinatesText;
         }
 
         // Si tout est valide, exécution de la commande et envoie du bool succès au CommandManager
@@ -59,6 +75,7 @@ public class Command_Abort : Command
 
     protected override void ExecuteCommand(Ship targetShip)
     {
-        targetShip.Abort();
+        Debug.Log("LEAVE CALLED");
+        targetShip.Leave();
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Command_Pickup : Command
+public class Command_Load : Command
 {
     // FUTURE VARIANTE DE FONCTION À IMPLÉMENTER, PAS BESOIN D'Y TOUCHER POUR L'INSTANT
     public override bool TryExecution(string playerText, out string errorMessage)

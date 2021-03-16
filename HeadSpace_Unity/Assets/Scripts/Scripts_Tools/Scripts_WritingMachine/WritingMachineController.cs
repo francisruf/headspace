@@ -28,6 +28,16 @@ public class WritingMachineController : MonoBehaviour
     [Header("Button prefabs")]
     public GameObject shipButtonPrefab;
 
+    [Header("Command prefab")]
+    public GameObject commandPrefab;
+    public Transform commandSpawnPos;
+    private MovableCommand _currentCommandDocument;
+
+    private ButtonController_Command _currentCommandButton;
+    private bool _openShipButtons;
+    private bool _openKeyPadVector;
+    private bool _openKeyPadCode;
+
     private void Awake()
     {
         _slidableMachine = GetComponent<SlidableWritingMachine>();
@@ -35,6 +45,8 @@ public class WritingMachineController : MonoBehaviour
 
         _allButtons = new List<ButtonController>(GetComponentsInChildren<ButtonController>());
         _buttonCount = _allButtons.Count;
+
+        SpawnCommandDocument();
     }
 
     private void Start()
@@ -88,13 +100,13 @@ public class WritingMachineController : MonoBehaviour
 
         string playerInput = Input.inputString;
 
-        if (_currentButtonSectionType != ButtonSectionType.KeyPad)
+        if (_currentButtonSectionType == ButtonSectionType.KeyPadVector || _currentButtonSectionType == ButtonSectionType.KeyPadCode)
         {
-            HandleButtonsInput(playerInput);
+            HandleKeyPadInput(playerInput);
         }
         else
         {
-            HandleKeyPadInput(playerInput);
+            HandleButtonsInput(playerInput);
         }
 
     }
@@ -138,10 +150,12 @@ public class WritingMachineController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             Vector2 keypadVector = _keyPadController.GetVectorValue();
-            Debug.Log(keypadVector);
+            //Debug.Log(keypadVector);
+
+            AssignButtonFields(keypadVector);
 
             _keyPadController.OnEnterInput();
-            ChangeButtonSection(ButtonSectionType.End);
+            ChangeButtonSection(VerifyNextSection());
         }
     }
 
@@ -211,12 +225,54 @@ public class WritingMachineController : MonoBehaviour
 
         if (candidateButton != null)
         {
+            ButtonController_Command cmdButton = candidateButton.GetComponent<ButtonController_Command>();
+            if (cmdButton != null)
+            {
+                _currentCommandButton = cmdButton;
+                _openShipButtons = cmdButton.openShipButtons;
+                _openKeyPadVector = cmdButton.openKeyPadVector;
+                _openKeyPadCode = cmdButton.openKeyPadCode;
+            }
+
             string buttonText = candidateButton.PressButton();
-            ChangeButtonSection(candidateButton.nextButtonSection);
-            Debug.Log(buttonText);
+            AssignButtonFields(candidateButton);
+            ChangeButtonSection(VerifyNextSection());
+            // Debug.Log(buttonText);
 
             _currentCharIndex = 0;
             _currentString = "";
+        }
+    }
+
+    private void AssignButtonFields(ButtonController currentButton)
+    {
+        switch (_currentButtonSectionType)
+        {
+            case ButtonSectionType.Commands:
+                _currentCommandDocument.AssignCommandName(currentButton.GetButtonCommandField(), currentButton.GetButtonPrintText());
+                break;
+            case ButtonSectionType.Ships:
+                _currentCommandDocument.AssignShipName(currentButton.GetButtonCommandField(), currentButton.GetButtonPrintText());
+                break;
+            case ButtonSectionType.End:
+                break;
+        }
+    }
+
+    private void AssignButtonFields(Vector2 keyPadEntry)
+    {
+        string printText = "";
+
+        switch (_currentButtonSectionType)
+        {
+            case ButtonSectionType.KeyPadVector:
+                printText = "To coordinates : " + keyPadEntry.ToString();
+                _currentCommandDocument.AssignTargetGridCoords(keyPadEntry, printText);
+                break;
+            case ButtonSectionType.KeyPadCode:
+                printText = "Product code : " + keyPadEntry.ToString();
+                _currentCommandDocument.AssignTargetGridCoords(keyPadEntry, printText);
+                break;
         }
     }
 
@@ -232,6 +288,7 @@ public class WritingMachineController : MonoBehaviour
         }
 
         _currentButtonSectionType = nextSection;
+        Debug.Log("new button section : " + nextSection);
 
         switch (_currentButtonSectionType)
         {
@@ -245,7 +302,12 @@ public class WritingMachineController : MonoBehaviour
                 _keyPadController.CloseKeyPad();
                 break;
 
-            case ButtonSectionType.KeyPad:
+            case ButtonSectionType.KeyPadVector:
+                _currentAvailableButtons = null;
+                _keyPadController.OpenKeyPad();
+                break;
+
+            case ButtonSectionType.KeyPadCode:
                 _currentAvailableButtons = null;
                 _keyPadController.OpenKeyPad();
                 break;
@@ -277,6 +339,39 @@ public class WritingMachineController : MonoBehaviour
         //}
     }
 
+    private ButtonSectionType VerifyNextSection()
+    {
+        switch (_currentButtonSectionType)
+        {
+            case ButtonSectionType.Commands:
+                if (_openShipButtons)
+                    return ButtonSectionType.Ships;
+
+                else if (_openKeyPadVector)
+                    return ButtonSectionType.KeyPadVector;
+
+                else if (_openKeyPadCode)
+                    return ButtonSectionType.KeyPadCode;
+
+                else
+                    return ButtonSectionType.End;
+
+            case ButtonSectionType.Ships:
+                Debug.Log("YO1");
+                Debug.Log(_currentCommandButton.gameObject.name);
+                Debug.Log(_currentCommandButton.openKeyPadVector);
+                if (_currentCommandButton.openKeyPadVector)
+                {
+                    Debug.Log("YO2");
+                    return ButtonSectionType.KeyPadVector;
+                }
+                else
+                    return ButtonSectionType.End;
+        }
+
+        return ButtonSectionType.End;
+    }
+
     private void DisableAllButtons()
     {
         foreach (var btn in _allButtons)
@@ -305,5 +400,21 @@ public class WritingMachineController : MonoBehaviour
         yield return new WaitForSeconds(0.45f);
         DisableAllButtons();
         ChangeButtonSection(ButtonSectionType.Commands);
+    }
+
+    private void SpawnCommandDocument()
+    {
+        _currentCommandDocument = Instantiate(commandPrefab, transform).GetComponent<MovableCommand>();
+        _currentCommandDocument.transform.position = commandSpawnPos.position;
+        _currentCommandDocument.commandTeared += OnCommandTeared;
+    }
+
+    private void OnCommandTeared()
+    {
+        _currentCommandDocument.commandTeared -= OnCommandTeared;
+        _currentCommandDocument.transform.parent = null;
+        _currentCommandDocument = null;
+
+        SpawnCommandDocument();
     }
 }

@@ -58,7 +58,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: -1213351969
-  m_SortingOrder: 7
+  m_SortingOrder: 9
   m_TargetDisplay: 0
 --- !u!114 &2056810582559047550
 MonoBehaviour:
@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 2056810583202852957}
   - component: {fileID: 2056810583202852956}
   - component: {fileID: 2056810583202852958}
-  - component: {fileID: 2056810583202852959}
+  - component: {fileID: 8534840483462712234}
   m_Layer: 13
   m_Name: WM_Button
   m_TagString: Untagged
@@ -304,7 +304,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1213351969
   m_SortingLayer: 7
-  m_SortingOrder: 6
+  m_SortingOrder: 8
   m_Sprite: {fileID: 7435302144594739814, guid: d7deaf2c8dfc3e448b615374d14d847f,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -336,7 +336,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2056810583202852959
+--- !u!114 &8534840483462712234
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -345,7 +345,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2056810583202852955}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f73782c0a627d6f48b8a07e8725a4f7a, type: 3}
+  m_Script: {fileID: 11500000, guid: b62b077a0f3b36441b483d5a5347377c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  printText: 'New fleet order : '
+  printButtonName: 0
+  buttonType: 0
   nextButtonSection: 1
+  openShipButtons: 0
+  openKeyPadVector: 0
+  openKeyPadCode: 0

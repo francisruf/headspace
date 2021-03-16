@@ -39,6 +39,7 @@ public enum ButtonSectionType
 {
     Commands,
     Ships,
-    KeyPad,
+    KeyPadVector,
+    KeyPadCode,
     End
 }

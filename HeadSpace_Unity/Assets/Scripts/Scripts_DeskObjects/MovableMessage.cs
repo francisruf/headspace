@@ -9,6 +9,7 @@ public class MovableMessage : MovableObject
     public Action messageTeared;
 
     private TextMeshProUGUI _messageText;
+    private Canvas _canvas;
     private bool _wasTeared;
 
     // Disable le collider du message (ne peut être sélectionné qu'une fois complètement imprimé)
@@ -16,6 +17,7 @@ public class MovableMessage : MovableObject
     {
         base.Awake();
         _messageText = GetComponentInChildren<TextMeshProUGUI>();
+        _canvas = GetComponentInChildren<Canvas>();
         _collider.enabled = false;
     }
 
@@ -40,5 +42,12 @@ public class MovableMessage : MovableObject
     public void SetText(string messageText)
     {
         _messageText.text = messageText;
+    }
+
+    public override void DisableObject()
+    {
+        base.DisableObject();
+        _messageText.enabled = false;
+        _canvas.enabled = false;
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Command_Leave : Command
+public class Command_Send : Command
 {
     // FUTURE VARIANTE DE FONCTION À IMPLÉMENTER, PAS BESOIN D'Y TOUCHER POUR L'INSTANT
     public override bool TryExecution(string playerText, out string errorMessage)
@@ -18,9 +18,9 @@ public class Command_Leave : Command
         // Variables locales temporaires
         bool success = false;
         bool validShip = false;
+        bool validCoords = false;
         Ship targetShip = null;
         bool coordsInDeployPoint = false;
-        Vector2 shipGridCoords = Vector2.zero;
         errorMessage = "";
 
         //Validation 1 : -Vérifier avec le ShipManager si le vaisseau entré est trouvable.
@@ -33,14 +33,16 @@ public class Command_Leave : Command
             Debug.Log("Error : Could not find ShipManager.");
         }
 
-        // Validation 2 : Vérifier avec deploymanager si les coordonnées du vaisseaux sont dans un point de déploiement.
-        if (targetShip != null)
-        {
-            shipGridCoords = GridCoords.FromWorldToGrid(targetShip.transform.position);
+        // Validation 2 : Vérifier si les coordonnées sont valides, si oui les assigner à parsedCoords
+        Vector2 parsedCoords;
+        validCoords = TryParseCoordinates(coordinatesText, out parsedCoords);   // Fonction dans la classe de base
 
+        // Validation 3 : Vérifier si les coordonnées se trouvent dans un point de déploiement.
+        if (validCoords)
+        {
             if (DeployManager.instance != null)
             {
-                coordsInDeployPoint = DeployManager.instance.IsInDeployPoint(shipGridCoords);
+                coordsInDeployPoint = DeployManager.instance.IsInDeployPoint(parsedCoords);
             }
             else
             {
@@ -56,7 +58,14 @@ public class Command_Leave : Command
             errorMessage = "Invalid ship name : " + shipName;
         }
 
-        // Confirmation finale 2 : Les coordonnées sont dans un point de déploiement?
+        // Confirmation finale 2 : Les coordonnées sont valides?
+        else if (!validCoords)
+        {
+            success = false;
+            errorMessage = "Invalid coordinates : " + coordinatesText;
+        }
+
+        // Confirmation finale 3 : Les coordonnées sont dans un point de déploiement?
         else if (!coordsInDeployPoint)
         {
             success = false;
@@ -67,15 +76,15 @@ public class Command_Leave : Command
         else
         {
             success = true;
-            ExecuteCommand(targetShip);
+            ExecuteCommand(targetShip, parsedCoords);
         }
 
         return success;
     }
 
-    protected override void ExecuteCommand(Ship targetShip)
+    protected override void ExecuteCommand(Ship targetShip, Vector2 gridCoordinates)
     {
-        Debug.Log("LEAVE CALLED");
-        targetShip.Leave();
+        Debug.Log("DEPLOY CALLED");
+        targetShip.Deploy(gridCoordinates);
     }
 }

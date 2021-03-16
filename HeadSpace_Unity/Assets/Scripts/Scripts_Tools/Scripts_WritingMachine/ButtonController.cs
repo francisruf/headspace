@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class ButtonController : MonoBehaviour
+public abstract class ButtonController : MonoBehaviour
 {
     protected TextMeshProUGUI _buttonTextMesh;
     protected Animator _animator;
     public string BaseButtonText { get; protected set; }
+
+    public string printText;
+    public bool printButtonName;
+
     protected int _highlightedCharCount;
     public ButtonState CurrentState { get; protected set; }
 
+    public ButtonSectionType buttonType;
     public ButtonSectionType nextButtonSection;
 
     private void Awake()
@@ -23,6 +28,20 @@ public class ButtonController : MonoBehaviour
     {
         BaseButtonText = _buttonTextMesh.text;
         ChangeButtonState(ButtonState.Unavailable);
+    }
+
+    public virtual string GetButtonPrintText()
+    {
+        if (printButtonName)
+        {
+            return printText + BaseButtonText;
+        }
+        return printText;
+    }
+
+    public virtual string GetButtonCommandField()
+    {
+        return BaseButtonText;
     }
 
     public void HighlightCharacter(int charIndex)

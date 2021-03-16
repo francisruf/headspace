@@ -63,7 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9add8d940ab1ae64c888b892518e7a83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyWord: Deploy
+  keyWord: Send
 --- !u!114 &3628148880506788857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fcce8489b3607e438259c1152968253, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyWord: Abort
+  keyWord: Stop
 --- !u!114 &2302959481840722337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ba46cd19a0188c4f91ddd923d9e0fd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyWord: Pickup
+  keyWord: Load
 --- !u!114 &522285936153810917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,4 +115,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f1cf90f43184de46a3be76da0b3f8a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyWord: Leave
+  keyWord: Exit
