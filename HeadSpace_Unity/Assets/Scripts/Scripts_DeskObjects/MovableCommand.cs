@@ -17,10 +17,10 @@ public class MovableCommand : MovableObject
 
     private float _previousSpriteHeight;
 
-    public string CommandName { get; private set; }
-    public string ShipName { get; private set; }
-    public string TargetGridCoords { get; private set; }
-    public string ProductCode { get; private set; }
+    public string CommandName { get; private set; } = "";
+    public string ShipName { get; private set; } = "";
+    public string TargetGridCoords { get; private set; } = "";
+    public string ProductCode { get; private set; } = "";
 
     private Queue<string> _printingQueue = new Queue<string>();
     private int _printQueueCount;

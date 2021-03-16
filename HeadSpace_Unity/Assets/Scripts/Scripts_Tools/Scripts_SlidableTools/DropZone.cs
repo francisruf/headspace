@@ -39,10 +39,12 @@ public class DropZone : MonoBehaviour
     public virtual void AddObjectToDropZone(MovableObject obj)
     {
         Bounds objBounds = obj.ColliderBounds;
-        float minX = _collider.bounds.min.x + (objBounds.size.x / 2f);
-        float maxX = _collider.bounds.max.x - (objBounds.size.x / 2f);
-        float minY = _collider.bounds.min.y + (objBounds.size.y / 2f);
-        float maxY = _collider.bounds.max.y - (objBounds.size.y / 2f);
+        Vector2 centerOffset = objBounds.center - obj.transform.position;
+
+        float minX = _collider.bounds.min.x + (objBounds.size.x / 2f) - centerOffset.x;
+        float maxX = _collider.bounds.max.x - (objBounds.size.x / 2f) - centerOffset.x;
+        float minY = _collider.bounds.min.y + (objBounds.size.y / 2f) - centerOffset.y;
+        float maxY = _collider.bounds.max.y - (objBounds.size.y / 2f) - centerOffset.y;
 
         Vector2 newPos = obj.transform.position;
         newPos.x = Mathf.Clamp(newPos.x, minX, maxX);

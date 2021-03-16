@@ -445,6 +445,7 @@ public class WritingMachineController : MonoBehaviour
         _currentCommandDocument.transform.parent = null;
         _currentCommandDocument = null;
         _currentPressedButtons.Clear();
+        DisableAllButtons();
 
         _animator.SetBool("IsReady", false);
         ChangeButtonSection(ButtonSectionType.Commands);
