@@ -139,8 +139,8 @@ public class MovableCommand : MovableObject
     {
         _commandText.text += newLine + "\n";
         _commandText.ForceMeshUpdate();
-        Debug.Log(_commandText.textBounds.extents);
-        Debug.Log(_commandText.margin);
+        //Debug.Log(_commandText.textBounds.extents);
+        //Debug.Log(_commandText.margin);
 
         AssignSpriteSize();
 

@@ -49,6 +49,7 @@ public class PlanetManager : MonoBehaviour
         GridManager.gridDataDestroyed += OnGridDataDestroyed;
         GridManager.newGameGrid += OnNewGameGrid;
         //GridManager.firstAnomalyTile += OnFirstAnomalyTile;
+        Ship.soulsFromPlanetSaved += TrackSavedSouls;
     }
 
     // Unsubscription
@@ -57,6 +58,7 @@ public class PlanetManager : MonoBehaviour
         GridManager.gridDataDestroyed -= OnGridDataDestroyed;
         GridManager.newGameGrid -= OnNewGameGrid;
         //GridManager.firstAnomalyTile -= OnFirstAnomalyTile;
+        Ship.soulsFromPlanetSaved += TrackSavedSouls;
     }
 
     // Fonction appelée lorsqu'une nouvelle grille est générée qui stock les informations de cette grille
@@ -200,6 +202,19 @@ public class PlanetManager : MonoBehaviour
         }
 
         return candidateTiles;
+    }
+
+    private void TrackSavedSouls(PlanetSoulsMatch match)
+    {
+        Debug.Log("Received match with souls : " + match.soulsAmount);
+
+        if (!_allPlanets.Contains(match.linkedPlanet))
+        {
+            Debug.LogError("Could not find linked planet when unloading souls.");
+            return;
+        }
+
+        match.linkedPlanet.OnSoulsSaved(match.soulsAmount);
     }
 
     public void TogglePlanetDebug()

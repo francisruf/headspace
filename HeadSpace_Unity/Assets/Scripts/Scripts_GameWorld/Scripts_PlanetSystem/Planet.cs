@@ -20,6 +20,9 @@ public class Planet : GridStaticObject
     public int CompletionCreditsBonus { get; private set; }
     public string ArchetypeName { get; private set; }
 
+    private int _soulsSaved;
+    public bool BonusAwarded { get; private set; } = false;
+
     // Variables qui track la perte d'habitants en temps réel
     private float _soulDamage;
     private float _currentDPS;
@@ -84,7 +87,7 @@ public class Planet : GridStaticObject
         {
             _currentAnomalyTileLife = Mathf.Clamp(_currentAnomalyTileLife, 1f, 9999f);
         }
-        Debug.Log("Current anomaly life : " + _currentAnomalyTileLife);
+        //Debug.Log("Current anomaly life : " + _currentAnomalyTileLife);
 
         // Assigner et start la coroutine, s'il n'y en a pas déjà une en cours
         if (_currentDamageRoutine == null)
@@ -145,5 +148,37 @@ public class Planet : GridStaticObject
         CurrentSouls = 0;
         Debug.Log("PLANET LOST.");
         _currentDamageRoutine = null;
+    }
+
+    public void OnSoulsSaved(int savedAmount)
+    {
+        _soulsSaved += savedAmount;
+        Debug.Log("hello");
+        if (!BonusAwarded)
+        {
+            if (_soulsSaved >= TotalSouls)
+            {
+                if (RessourceManager.instance != null)
+                {
+                    RessourceManager.instance.AddBonusCredits(CompletionCreditsBonus);
+
+                    if (MessageManager.instance != null)
+                        MessageManager.instance.BonusCreditsNotif(this);
+                }
+                
+            }
+        }
+    }
+}
+
+public struct PlanetSoulsMatch
+{
+    public int soulsAmount;
+    public Planet linkedPlanet;
+
+    public PlanetSoulsMatch(int soulsAmount, Planet linkedPlanet)
+    {
+        this.soulsAmount = soulsAmount;
+        this.linkedPlanet = linkedPlanet;
     }
 }

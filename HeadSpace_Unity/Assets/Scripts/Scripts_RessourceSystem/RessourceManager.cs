@@ -30,6 +30,17 @@ public class RessourceManager : MonoBehaviour
         }
     }
 
+
+    private void OnEnable()
+    {
+        Ship.soulsUnloaded += OnShipUnload;
+    }
+
+    private void OnDisable()
+    {
+        Ship.soulsUnloaded -= OnShipUnload;
+    }
+
     private void Start()
     {
         if (soulRatioForOneCredit == 0)
@@ -49,6 +60,11 @@ public class RessourceManager : MonoBehaviour
     //    }
     //}
 
+    private void OnShipUnload(int soulsUnloaded)
+    {
+        AddSouls(soulsUnloaded);
+    }
+
     private void AddSouls(int newSouls)
     {
         _soulsSaved += newSouls;
@@ -58,6 +74,12 @@ public class RessourceManager : MonoBehaviour
         _soulBuffer = _soulBuffer % soulRatioForOneCredit;
 
         UpdateRessources();
+    }
+
+    public void AddBonusCredits(int amount)
+    {
+        Debug.Log("BONUS CREDITS : " + amount);
+        AddCredits(amount);
     }
 
     private void AddCredits(int amount)

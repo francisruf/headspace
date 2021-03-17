@@ -308,7 +308,7 @@ public class WritingMachineController : MonoBehaviour
         }
 
         _currentButtonSectionType = nextSection;
-        Debug.Log("new button section : " + nextSection);
+        //Debug.Log("new button section : " + nextSection);
 
         switch (_currentButtonSectionType)
         {
@@ -377,12 +377,12 @@ public class WritingMachineController : MonoBehaviour
                     return ButtonSectionType.End;
 
             case ButtonSectionType.Ships:
-                Debug.Log("YO1");
-                Debug.Log(_currentCommandButton.gameObject.name);
-                Debug.Log(_currentCommandButton.openKeyPadVector);
+                //Debug.Log("YO1");
+                //Debug.Log(_currentCommandButton.gameObject.name);
+                //Debug.Log(_currentCommandButton.openKeyPadVector);
                 if (_currentCommandButton.openKeyPadVector)
                 {
-                    Debug.Log("YO2");
+                    //Debug.Log("YO2");
                     return ButtonSectionType.KeyPadVector;
                 }
                 else

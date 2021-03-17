@@ -55,7 +55,7 @@ public class DropZone_Outbox : DropZone
 
     public void SendCommands()
     {
-        Debug.Log("Sending commands...");
+        //Debug.Log("Sending commands...");
 
         if (newCommandRequest != null)
             newCommandRequest(_commandsInDropZone);

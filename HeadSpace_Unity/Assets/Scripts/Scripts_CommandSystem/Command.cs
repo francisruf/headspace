@@ -104,7 +104,7 @@ public abstract class Command : MonoBehaviour
         }
         else
         {
-            Debug.Log("Successfully parsed coords : " + parsedCoords);
+            //Debug.Log("Successfully parsed coords : " + parsedCoords);
         }
 
         return true;

@@ -17,6 +17,8 @@ public class Ship : MonoBehaviour
     public static Action<Ship> shipDestroyed;
     public static Action<Ship> shipStateChange;
     public static Action<Ship> shipInfoChange;
+    public static Action<int> soulsUnloaded;
+    public static Action<PlanetSoulsMatch> soulsFromPlanetSaved;
 
     // Components
     private SpriteRenderer spriteRenderer;
@@ -48,8 +50,12 @@ public class Ship : MonoBehaviour
     //How many seconds to pickup ONE Soul
     public float pickupSpeedInSeconds;
 
+    [Range(0, 10)]
+    public int soulsUnloadedPerSec;
+
     [Range(0, 1)]
     public float detectionRadius;
+
 
     //MOVEMENT
     private Vector2 displayedGridCoords;
@@ -62,6 +68,9 @@ public class Ship : MonoBehaviour
     // STATE TRACKING
     public ShipState shipStartingState; // State du vaisseau lorsque Start() est appelé. Simplement pour debug et assigner un state différent.
     public ShipState CurrentShipState { get; private set; }  // Ça c'est une "propriété", aka une autre façon fancy d'écrire des variables
+
+    // PLANET-SOULS TRACKING
+    private List<PlanetSoulsMatch> _allSoulsAndPlanets = new List<PlanetSoulsMatch>();
 
     // FOR NOTIFICATIONS
     [HideInInspector] public Vector2 currentPositionInGridCoords;
@@ -135,13 +144,13 @@ public class Ship : MonoBehaviour
         //If MOVE command is called, moves the ship at coordinates indicated in the MOVE command.
         if (isMoving)
         {
-            Debug.Log("SHIP NAME: " + shipName + " | COMMAND: Move " + displayedGridCoords + " | STATUS: Moving");
+            //Debug.Log("SHIP NAME: " + shipName + " | COMMAND: Move " + displayedGridCoords + " | STATUS: Moving");
             transform.position = Vector2.MoveTowards(transform.position, targetWorldCoords, moveSpeed * Time.deltaTime);
 
             if (targetWorldCoords == (Vector2)transform.position)
             {
                 isMoving = false;
-                Debug.Log("Movement has ended");
+                //Debug.Log("Movement has ended");
 
                 if (planetInOrbit != null)
                 {
@@ -188,7 +197,14 @@ public class Ship : MonoBehaviour
             return;
         }
 
-        Debug.Log("SHIP NAME: " + shipName + " | COMMAND: Deploy " + gridCoords + " | STATUS: Deployed");
+        //Stops function if Ship cannot be Deployed
+        if (CurrentShipState == ShipState.Unloading)
+        {
+            Debug.Log("Ship is still unloading");
+            return;
+        }
+
+        //Debug.Log("SHIP NAME: " + shipName + " | COMMAND: Deploy " + gridCoords + " | STATUS: Deployed");
 
         //Convert gridCoords entered into worldCoords
         targetWorldCoords = GridCoords.FromGridToWorld(gridCoords);
@@ -205,24 +221,26 @@ public class Ship : MonoBehaviour
     public void Leave() {
 
         //Stops function if Ship cannot be Leave
-        if (CurrentShipState == ShipState.AtBase) {
+        if (CurrentShipState != ShipState.Deployed) {
             Debug.Log("Ship is already At Base");
             return;
         }
 
-        Debug.Log("SHIP NAME: " + shipName + " | COMMAND: Leave | STATUS: On it's way to base");
+        if (isMoving)
+            isMoving = false;
+
+        //Debug.Log("SHIP NAME: " + shipName + " | COMMAND: Leave | STATUS: On it's way to base");
 
 
         //Place ship on the entered coordinates
         transform.position = basePosition;
 
-        //Change the status of the ship from "At Base" to "Deployed"
-        ChangeShipState(ShipState.AtBase);
+        ChangeShipState(ShipState.Unloading);
     }
 
     public void Move(Vector2 gridCoords) {
 
-        if (CurrentShipState == ShipState.AtBase)
+        if (CurrentShipState != ShipState.Deployed)
         {
             Debug.Log("Ship is not deployed");
             return;
@@ -241,7 +259,7 @@ public class Ship : MonoBehaviour
 
     public void Pickup() {
 
-        if (CurrentShipState == ShipState.AtBase) {
+        if (CurrentShipState != ShipState.Deployed) {
             Debug.Log("Ship is not deployed");
             return;
         }
@@ -291,6 +309,13 @@ public class Ship : MonoBehaviour
                 break;
 
             //Disable the ship and all it's components
+            case ShipState.Unloading:
+                spriteRenderer.enabled = false;
+                shipCollider.enabled = false;
+                detectionZone.enabled = false;
+                StartCoroutine(UnloadSouls());
+                break;
+
             case ShipState.AtBase:
                 spriteRenderer.enabled = false;
                 shipCollider.enabled = false;
@@ -363,15 +388,18 @@ public class Ship : MonoBehaviour
 
     private IEnumerator LoadingSouls() {
 
+        PlanetSoulsMatch planetSoulsMatch = new PlanetSoulsMatch(0, planetInOrbit);
 
         while (planetInOrbit.CurrentSouls > 0 && currentCargo < cargoCapacity) {
 
             yield return new WaitForSeconds(pickupSpeedInSeconds);
-            planetInOrbit.RemoveSoul(1);
-            currentCargo++;
+            int addedSouls = planetInOrbit.RemoveSoul(1);
+            currentCargo += addedSouls;
+            planetSoulsMatch.soulsAmount += addedSouls; 
         }
-        mM.PickupFinishedNotif(this);
 
+        _allSoulsAndPlanets.Add(planetSoulsMatch);
+        mM.PickupFinishedNotif(this);
     }
 
     // Function that teleports the ship to a targetwormhole, stops movement, 
@@ -436,7 +464,7 @@ public class Ship : MonoBehaviour
 
     private IEnumerator DamageTick()
     {
-        Debug.Log("DAMAGE STARTED");
+        //Debug.Log("DAMAGE STARTED");
         while (currentHealthPoints > 0)
         {
             if (anomalyTile == null)
@@ -451,11 +479,38 @@ public class Ship : MonoBehaviour
         damageTickCoroutine = null;
         yield return null;
     }
+
+    private IEnumerator UnloadSouls()
+    {
+        while (currentCargo > 0)
+        {
+            yield return new WaitForSeconds(1f);
+            int previousSouls = currentCargo;
+            currentCargo = Mathf.Clamp(currentCargo - soulsUnloadedPerSec, 0, cargoCapacity);
+
+            int soulsRemoved = previousSouls - currentCargo;
+
+            if (soulsUnloaded != null)
+                soulsUnloaded(soulsRemoved);
+        }
+
+        foreach (var match in _allSoulsAndPlanets)
+        {
+            if (soulsFromPlanetSaved != null)
+                soulsFromPlanetSaved(match);
+
+            Debug.Log("Sending match action with souls :  " + match.soulsAmount);
+        }
+        _allSoulsAndPlanets.Clear();
+
+        ChangeShipState(ShipState.AtBase);
+    }
 }
 
 public enum ShipState
 {
     Deployed,
+    Unloading,
     AtBase,
     Destroyed
 }

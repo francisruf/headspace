@@ -220,5 +220,16 @@ public class MessageManager : MonoBehaviour
 
         QueueMessage(newMessageText);
     }
+
+    public void BonusCreditsNotif(Planet planet)
+    {
+        string creditText = planet.CompletionCreditsBonus > 1 ? "credits" : "credit";
+
+        string newMessageText = "Relayed message :";
+        newMessageText += "\nThank you for saving all of our people. Please take this as a toekn of our gratitude";
+        newMessageText += "\n\n[" + planet.CompletionCreditsBonus + " additional " + creditText + " awarded.]";
+
+        QueueMessage(newMessageText);
+    }
     #endregion
 }

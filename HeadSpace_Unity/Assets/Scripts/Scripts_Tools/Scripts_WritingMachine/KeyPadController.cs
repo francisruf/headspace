@@ -79,7 +79,7 @@ public class KeyPadController : MonoBehaviour
         }
         else
         {
-            Debug.Log("CLOSE CALLED");
+            //Debug.Log("CLOSE CALLED");
             if (_currentAnimRoutine == null)
             {
                 _currentAnimRoutine = HideKeyPad();

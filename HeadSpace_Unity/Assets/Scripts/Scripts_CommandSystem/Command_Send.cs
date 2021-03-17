@@ -84,7 +84,7 @@ public class Command_Send : Command
 
     protected override void ExecuteCommand(Ship targetShip, Vector2 gridCoordinates)
     {
-        Debug.Log("DEPLOY CALLED");
+        //Debug.Log("DEPLOY CALLED");
         targetShip.Deploy(gridCoordinates);
     }
 }

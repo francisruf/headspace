@@ -60,6 +60,6 @@ public class Command_Load : Command
     protected override void ExecuteCommand(Ship targetShip)
     {
         targetShip.Pickup();
-        Debug.Log("PICKUP CALLED");
+        //Debug.Log("PICKUP CALLED");
     }
 }

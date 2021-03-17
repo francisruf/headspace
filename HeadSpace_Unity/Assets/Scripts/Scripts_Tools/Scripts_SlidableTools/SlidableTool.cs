@@ -211,18 +211,18 @@ public class SlidableTool : InteractableObject
     protected virtual void OpenTool()
     {
         IsOpen = true;
-        Debug.Log(this.gameObject.name + " is OPEN.");
+        //Debug.Log(this.gameObject.name + " is OPEN.");
     }
 
     protected virtual void CloseTool()
     {
         IsOpen = false;
-        Debug.Log(this.gameObject.name + " is CLOSED.");
+        //Debug.Log(this.gameObject.name + " is CLOSED.");
     }
 
     protected virtual void FullyCloseTool()
     {
-        Debug.Log(this.gameObject.name + "is FULLY CLOSED.");
+        //Debug.Log(this.gameObject.name + "is FULLY CLOSED.");
         IsFullyClosed = true;
     }
 

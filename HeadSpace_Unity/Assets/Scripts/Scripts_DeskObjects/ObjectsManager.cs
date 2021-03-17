@@ -61,7 +61,7 @@ public class ObjectsManager : MonoBehaviour
 
     private void OnMovableObjectSelected(MovableObject obj)
     {
-        Debug.Log("Object selected : " + obj.gameObject.name);
+        //Debug.Log("Object selected : " + obj.gameObject.name);
     }
 
     // Fonction qui sera appellée par le playerStateMachine
