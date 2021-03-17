@@ -186,6 +186,13 @@ public class MessageManager : MonoBehaviour
         QueueMessage(newMessageText);
     }
 
+    public void ShipDeployedNotif(Ship ship) {
+
+        string newMessageText = ship.shipName + " is now Deployed at " + ship.currentPositionInGridCoords;
+
+        QueueMessage(newMessageText);
+    }
+
     public void MoveFinishedNotif(Ship ship) {
 
         string newMessageText = ship.shipName + " has completed his move at " + ship.currentPositionInGridCoords;

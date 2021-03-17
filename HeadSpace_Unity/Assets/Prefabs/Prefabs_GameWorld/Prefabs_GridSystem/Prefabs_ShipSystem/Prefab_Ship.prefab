@@ -159,22 +159,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   markerPrefab: {fileID: 5824309797789608925, guid: e54d91c73d2f9ff46889a2291e0972b0,
     type: 3}
-  shipName: Yoyoma
-  shipCallsign: YYM
+  shipName: A
+  shipCallsign: AAA
   healthPoints: 100
   cargoCapacity: 100
   currentCargo: 0
-  moveSpeed: 5
+  moveSpeed: 0.2
   pickupSpeedInSeconds: 2
   detectionRadius: 0.2
+  targetWorldCoords: {x: 0, y: 0}
   isMoving: 0
   shipStartingState: 1
   currentPositionInGridCoords: {x: 0, y: 0}
   isInDeployPoint: 0
   isInPlanetOrbit: 0
+  isLoadingSouls: 0
+  isInCloud: 0
+  isInWormHole: 0
   planetInOrbit: {fileID: 0}
   deployP: {fileID: 0}
-  isLoadingSouls: 0
+  senderWormhole: {fileID: 0}
+  receiverWormhole: {fileID: 0}
 --- !u!50 &1531927876
 Rigidbody2D:
   serializedVersion: 4

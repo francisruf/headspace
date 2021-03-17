@@ -191,7 +191,7 @@ PrefabInstance:
     - target: {fileID: 7583935391869050567, guid: d0fd4a9b57b221d4884d9efa214196ff,
         type: 3}
       propertyPath: mapSizeX
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7583935391869050567, guid: d0fd4a9b57b221d4884d9efa214196ff,
         type: 3}
