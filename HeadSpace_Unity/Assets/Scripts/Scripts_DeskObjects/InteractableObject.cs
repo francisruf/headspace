@@ -164,7 +164,7 @@ public abstract class InteractableObject : MonoBehaviour
         {
             _spriteRenderer.sortingOrder = newOrderInLayer;
 
-            int currentOrder = _spriteRenderer.sortingOrder;
+            int currentOrder = _spriteRenderer.sortingOrder + 1;
             for (int i = 0; i < _childSpriteRenderersCount; i++)
             {
                 if (_childSpriteRenderers[i] != _spriteRenderer)

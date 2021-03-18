@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class LogbookPage : MonoBehaviour
 {
+    public MovableLogbook Logbook { get; set; }
+
     [Header("General page settings")]
     public Sprite pageSprite;
 

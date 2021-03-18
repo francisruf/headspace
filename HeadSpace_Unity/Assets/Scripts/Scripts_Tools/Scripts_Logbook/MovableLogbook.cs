@@ -12,32 +12,53 @@ public class MovableLogbook : MovableObject
     private int _currentPageIndex;
     private int _pageCount;
 
+    private Canvas _canvas;
+    public Canvas MainCanvas { get { return _canvas; } }
+
     protected override void Awake()
     {
         base.Awake();
 
+        _canvas = GetComponentInChildren<Canvas>();
+
         leftCorner.interactRequest += PreviousPage;
         rightCorner.interactRequest += NextPage;
 
-        _pageCount = logbookPages.Count;
+        foreach (var page in logbookPages)
+        {
+            page.Logbook = this;
+        }
     }
 
     protected override void Start()
     {
         base.Start();
+
+        _pageCount = logbookPages.Count;
+
         DisplayStartingPage();
     }
 
     private void NextPage(ObjectInteractionZone interactionZone)
     {
-        Debug.Log("NEXT PAGE CALLED");
         ChangePage(_currentPageIndex + 1);
     }
 
     private void PreviousPage(ObjectInteractionZone interactionZone)
     {
-        Debug.Log("PREVIOUS PAGE CALLED");
         ChangePage(_currentPageIndex - 1);
+    }
+
+    public void AddPage(int index, LogbookPage newPage)
+    {
+        logbookPages.Insert(index, newPage);
+        _pageCount++;
+        newPage.Logbook = this;
+    }
+
+    public int IndexOf(LogbookPage targetPage)
+    {
+        return logbookPages.IndexOf(targetPage);
     }
 
     private void DisplayStartingPage()
@@ -66,8 +87,6 @@ public class MovableLogbook : MovableObject
         _spriteRenderer.sprite = newSprite;
 
         AssignCorners();
-
-        Debug.Log("CURRENT PAGE : " + _currentPageIndex);
     }
 
     private void AssignCorners()
