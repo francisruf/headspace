@@ -20,6 +20,10 @@ public class ObjectsManager : MonoBehaviour
     // Liste de tous les objets actifs dans la scène
     private List<InteractableObject> _allActiveObjects = new List<InteractableObject>();
 
+    private IEnumerator _currentClickRoutine;
+    private Vector2 _lastMousePos;
+    private Vector2 _currentMousePos = new Vector2();
+
     private void Awake()
     {
         // Déclaration du singleton
@@ -53,10 +57,19 @@ public class ObjectsManager : MonoBehaviour
     // TEMP : Envoyer cette fonctionnalité dans le playerStateMachine
     private void Update()
     {
+        _lastMousePos = _currentMousePos;
+        _currentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        
+
         if (Input.GetMouseButtonDown(0))
         {
             SelectObjectOnMouseDown();
         }
+    }
+
+    private void LateUpdate()
+    {
     }
 
     private void OnMovableObjectSelected(MovableObject obj)
@@ -115,9 +128,80 @@ public class ObjectsManager : MonoBehaviour
 
         if (selectedObject != null)
         {
-            AssignTopRenderingOrder(selectedObject);
-            selectedObject.Select();
+            if (_currentClickRoutine != null)
+            {
+                StopCoroutine(_currentClickRoutine);
+            }
+            _currentClickRoutine = AssignInteractionType(selectedObject);
+            StartCoroutine(_currentClickRoutine);
         }
+    }
+
+    private IEnumerator AssignInteractionType(InteractableObject obj)
+    {
+
+        ObjectInteractionZone[] candidateInteractionZones = null;
+        candidateInteractionZones = obj.GetInteractionZones();
+        int interactionZonesCount = candidateInteractionZones.Length;
+
+        if (interactionZonesCount <= 0)
+        {
+            AssignTopRenderingOrder(obj);
+            obj.Select();
+            _currentClickRoutine = null;
+            yield return null;
+        }
+        else
+        {
+            float time = 0.0f;
+            float maxTime = 0.3f;
+            float mouseDelta = 0.0f;
+
+            Vector2 currentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            bool simpleClick = false;
+
+            while (time < maxTime)
+            {
+                mouseDelta += Vector2.Distance(_currentMousePos, _lastMousePos);
+
+                if (mouseDelta > 0.1f)
+                {
+                    AssignTopRenderingOrder(obj);
+                    obj.Select();
+                    break;
+                }
+
+                yield return new WaitForEndOfFrame();
+
+                time += Time.unscaledDeltaTime;
+
+                if (!Input.GetMouseButton(0))
+                {
+                    simpleClick = true;
+                    break;
+                }
+            }
+
+            if (simpleClick)
+            {
+                Debug.Log("CLICK");
+                for (int i = 0; i < interactionZonesCount; i++)
+                {
+                    if (candidateInteractionZones[i].IsInBounds(currentMousePos))
+                    {
+                        candidateInteractionZones[i].Interact();
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                AssignTopRenderingOrder(obj);
+                obj.Select();
+            }
+
+        }
+        _currentClickRoutine = null;
     }
 
     // TODO : Increase performance of this crap. (?)

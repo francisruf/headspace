@@ -23,6 +23,8 @@ public abstract class InteractableObject : MonoBehaviour
     protected Canvas[] _childCanvases;
     protected int _childCanvasesCount;
 
+    protected ObjectInteractionZone[] _interactionZones;
+
     // État de l'objet
     protected bool _isSelected;
 
@@ -40,6 +42,7 @@ public abstract class InteractableObject : MonoBehaviour
 
         _childSpriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         _childCanvases = GetComponentsInChildren<Canvas>();
+        _interactionZones = GetComponentsInChildren<ObjectInteractionZone>();
 
         _childSpriteRenderersCount = _childSpriteRenderers.Length;
         _childCanvasesCount = _childCanvases.Length;
@@ -182,6 +185,11 @@ public abstract class InteractableObject : MonoBehaviour
         {
             Debug.LogError("Warning : No spriteRenderer found on " + gameObject.name);
         }
+    }
+
+    public virtual ObjectInteractionZone[] GetInteractionZones()
+    {
+        return _interactionZones;
     }
 
 }

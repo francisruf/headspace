@@ -7,6 +7,7 @@ public class Planet : GridStaticObject
 {
     public static Action<Planet> newPlanetInSector;   // Action qui déclare la planète et envoie une référence lorsqu'elle apparait dans la scène
     public static Action<Planet, int> soulsLost;   // Action appelée à chaque PERTE de souls, envoie une ref de Planet et la qté de souls perdue
+    public static Action<Planet> planetFullySaved;
 
     public float damageStartBuffer;
 
@@ -164,6 +165,11 @@ public class Planet : GridStaticObject
 
                     if (MessageManager.instance != null)
                         MessageManager.instance.BonusCreditsNotif(this);
+
+                    if (planetFullySaved != null)
+                        planetFullySaved(this);
+
+                    BonusAwarded = true;
                 }
                 
             }
