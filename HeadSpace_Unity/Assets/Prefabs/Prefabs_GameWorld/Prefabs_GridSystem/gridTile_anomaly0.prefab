@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   liveForever: 0
-  lifeTime: 30
+  lifeTime: 60
   shipDPS: 0
   planetDPS: 0
   colliderEnableDelay: 0
