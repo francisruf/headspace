@@ -53,12 +53,14 @@ public class AudioManager : MonoBehaviour {
     }
 
     //Update function only to test feature. Remove when necessary.
-    //private void Update() {
-    //    if (Input.GetKeyDown(KeyCode.S)) {
-    //        PlaySound("Yes.");
-    //    }
-    //}
-
+   private void Update() { 
+  if (Input.GetKeyDown(KeyCode.S)) 
+     {
+    PlaySound("Paper_Pickup");
+    }
+ 
+    }
+     
     private void AssignMusicOnScene(Scene scene1, Scene scene2) {
 
         //if (SceneManager.GetActiveScene().name == "MainMenu") {
@@ -99,7 +101,7 @@ public class AudioManager : MonoBehaviour {
 
     private void CommandFail()
     {
-        PlaySound("LeNomDeTonSon");
+        
     }
 
     private void CommandSuccess()
@@ -114,10 +116,40 @@ public class AudioManager : MonoBehaviour {
 
     private void ShredderStarted()
     {
-
+        PlaySound("Shredder");
     }
 
     private void ButtonPress()
+    {
+        PlaySound("Button_One");
+    }
+
+    private void ButtonPressTwo()
+    {
+        PlaySound("Button_Two");
+    }
+
+    private void DrawerError()
+    {
+        PlaySound("Error_One");
+    }
+
+    private void WriterSignal()
+    {
+        PlaySound("Writer_Signal");
+    }
+
+    private void DrawerOpen()
+    {
+        
+    }
+
+    private void PaperPickUp()
+    {
+
+    }
+
+    private void PaperDrop()
     {
 
     }
