@@ -61,10 +61,122 @@ public class ShipManager : MonoBehaviour
         Ship.shipStateChange -= OnShipStateChange;
     }
 
+    public string GetDefaultName(Ship newShip, out string defaultCallsign)
+    {
+        int candidateNumber = 1;
+        string candidateName = newShip.shipClass + "00";
+        bool valid = false;
+
+        while (!valid)
+        {
+            bool sameName = false;
+
+            candidateName = candidateName.Substring(0, candidateName.Length - 2);
+            candidateName += candidateNumber.ToString("00");
+
+            for (int i = 0; i < shipInventory.Count; i++)
+            {
+                if (candidateName == shipInventory[i].shipName)
+                {
+                    sameName = true;
+                    break;
+                }
+            }
+            if (sameName)
+            {
+                candidateNumber++;
+                if (candidateNumber >= 100)
+                {
+                    break;
+                }
+            }
+            else
+            {
+                valid = true;
+            }
+        }
+
+        if (!valid)
+        {
+            defaultCallsign = "iii";
+            return "iiiiiii";
+        }
+        defaultCallsign = GetDefaultCallsign(newShip, candidateNumber);
+        return candidateName;
+    }
+
+    public string GetDefaultCallsign(Ship newShip, int defaultNumber)
+    {
+        string number = defaultNumber.ToString("00");
+
+        string candidateCallsign = newShip.shipClass[0] + number;
+
+        bool valid = true;
+        for (int i = 0; i < shipInventory.Count; i++)
+        {
+            if (shipInventory[i].shipCallsign == candidateCallsign)
+            {
+                valid = false;
+                break;
+            }
+        }
+
+        if (!valid)
+        {
+            valid = true;
+            candidateCallsign = "X" + number;
+            for (int i = 0; i < shipInventory.Count; i++)
+            {
+                if (shipInventory[i].shipCallsign == candidateCallsign)
+                {
+                    valid = false;
+                    break;
+                }
+            }
+        }
+
+        if (!valid)
+        {
+            while (!valid)
+            {
+                char currentChar = 'A';
+                candidateCallsign = currentChar + number;
+
+                valid = true;
+                for (int i = 0; i < shipInventory.Count; i++)
+                {
+                    if (shipInventory[i].shipCallsign == candidateCallsign)
+                    {
+                        valid = false;
+                        break;
+                    }
+                }
+                if (!valid)
+                {
+                    currentChar++;
+                    if (currentChar > 'Z')
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (!valid)
+        {
+            return "$$$";
+        }
+        return candidateCallsign;
+    }
+
     // Ajouter un ship à l'inventaire
     private void OnNewShipAvailable(Ship ship)
     {
         shipInventory.Add(ship);
+
+        string shipCallsign;
+        string shipName = GetDefaultName(ship, out shipCallsign);
+        ship.InitializeShip(shipName, shipCallsign, ship.shipStartingState);
         UpdateShipInventoryUI();
     }
 

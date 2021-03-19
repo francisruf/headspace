@@ -81,9 +81,9 @@ public class MovableCommand : MovableObject
         PrintLine(printText);
     }
 
-    public void AssignProductCode(int productCode, string printText)
+    public void AssignProductCode(string productCode, string printText)
     {
-        ProductCode = productCode.ToString();
+        ProductCode = productCode;
         PrintLine(printText);
     }
 

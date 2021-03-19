@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3685609706471039415}
   - component: {fileID: 2302959481840722337}
   - component: {fileID: 522285936153810917}
+  - component: {fileID: 6602827340882840358}
   m_Layer: 0
   m_Name: CommandManager
   m_TagString: Untagged
@@ -48,9 +49,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3abd3b67a63b07498785d4c19f8164d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testCommandName: MOVE
-  testShipName: sadfladjf
-  testCoordinates: 12,32
 --- !u!114 &5604044782574627855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,3 +114,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keyWord: Exit
+--- !u!114 &6602827340882840358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3628148880506788859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2166460e424ea9e4b98c4ca0506f6285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyWord: Buy

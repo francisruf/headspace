@@ -30,8 +30,11 @@ public class Ship : MonoBehaviour
     public GameObject markerPrefab;
 
     //STATS
+    [Header("Info")]
     public string shipName;
     public string shipCallsign;
+    public string shipClass;
+
     [Header("Stats")]
 
     [Range(0, 100)]
@@ -121,8 +124,6 @@ public class Ship : MonoBehaviour
         //Start ships at basePosition
         transform.position = basePosition;
 
-        SpawnMarker();
-
         //Fire the newShipAvaible action (received by the ShipManager)
         if (newShipAvailable != null)
             newShipAvailable(this);
@@ -176,6 +177,8 @@ public class Ship : MonoBehaviour
         shipStartingState = startingState;
         ChangeShipName(shipName, shipCallsign);
         ChangeShipState(startingState);
+
+        SpawnMarker();
     }
 
     // Function that spawns a marker when a ship is activated (in start) and assigns its info.
@@ -337,7 +340,7 @@ public class Ship : MonoBehaviour
     }
 
     // Function that changes name and callsign, and notifies other scripts
-    private void ChangeShipName(string newName, string newCallsign)
+    public void ChangeShipName(string newName, string newCallsign)
     {
         shipName = newName;
         shipCallsign = newCallsign;
@@ -378,7 +381,7 @@ public class Ship : MonoBehaviour
     private void DisableShip()
     {
         if (linkedMarker != null)
-            linkedMarker.DisableMarker();
+            linkedMarker.DisableObject();
 
         if (shipDisabled != null)
             shipDisabled(this);

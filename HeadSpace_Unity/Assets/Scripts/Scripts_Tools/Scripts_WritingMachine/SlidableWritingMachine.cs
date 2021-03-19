@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(WritingMachineController))]
 public class SlidableWritingMachine : SlidableTool
 {
+    public SpriteRenderer machineBGRenderer;
     private WritingMachineController _machineController;
 
     protected override void Awake()
@@ -24,4 +25,33 @@ public class SlidableWritingMachine : SlidableTool
         base.CloseTool();
         _machineController.OnMachineClose();
     }
+
+    public override int GetSortingLayer()
+    { 
+        if (machineBGRenderer != null)
+        {
+            return SortingLayer.GetLayerValueFromID(machineBGRenderer.sortingLayerID);
+        }
+
+        else
+        {
+            Debug.LogError("Warning : No spriteRenderer found on " + gameObject.name);
+            return 0;
+        }
+    }
+
+    public override int GetOrderInLayer()
+    {
+        if (machineBGRenderer != null)
+        {
+            return machineBGRenderer.sortingOrder;
+        }
+        else
+        {
+            Debug.LogError("Warning : No spriteRenderer found on " + gameObject.name);
+            return 0;
+        }
+    }
+
+    //public override void 
 }

@@ -18,11 +18,13 @@ public class DropZone_Outbox : DropZone
     private void OnEnable()
     {
         CommandManager.commandRequestResult += OnCommandResult;
+        ObjectPlacer.newObjectInOutbox += OnNewObjectInOutbox;
     }
 
     private void OnDisable()
     {
         CommandManager.commandRequestResult -= OnCommandResult;
+        ObjectPlacer.newObjectInOutbox -= OnNewObjectInOutbox;
     }
 
     protected override void Awake()
@@ -111,5 +113,10 @@ public class DropZone_Outbox : DropZone
             if (commandFail != null)
                 commandFail();
         }
+    }
+
+    private void OnNewObjectInOutbox()
+    {
+        _animator.SetTrigger("BlueLight");
     }
 }

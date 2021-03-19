@@ -17,7 +17,8 @@ public class LogbookPage_Shipyard : LogbookPage
     public GameObject shipyardPagePrefab;
     public VerticalLayoutGroup shipBuyablesLayoutGroup;
 
-    public TextMeshProUGUI shipPageCountText;
+    private TextMeshProUGUI _creditsText;
+    private TextMeshProUGUI _shipPageCountText;
 
     private List<Logbook_BuyableContainer> _shipBuyableContainers = new List<Logbook_BuyableContainer>();
     private int _containerCount;
@@ -41,8 +42,14 @@ public class LogbookPage_Shipyard : LogbookPage
         {
             if (txt.gameObject.tag == "FleetPageText")
             {
-                shipPageCountText = txt;
-                break;
+                _shipPageCountText = txt;
+            }
+
+            if (txt.gameObject.tag == "CreditsText")
+            {
+                _creditsText = txt;
+                if (RessourceManager.instance != null)
+                    OnCreditsUpdate(RessourceManager.instance.CurrentCredits);
             }
         }
 
@@ -72,25 +79,27 @@ public class LogbookPage_Shipyard : LogbookPage
     {
         BuyablesDatabase.newShipyardDB += OnNewShipyardDB;
         LogbookPage_Shipyard.newShipyardPage += UpdateShipyardPageText;
+        RessourceManager.creditsUpdate += OnCreditsUpdate;
     }
 
     private void OnDisable()
     {
         BuyablesDatabase.newShipyardDB -= OnNewShipyardDB;
         LogbookPage_Shipyard.newShipyardPage -= UpdateShipyardPageText;
+        RessourceManager.creditsUpdate -= OnCreditsUpdate;
     }
 
     private void UpdateShipyardPageText()
     {
-        if (shipPageCountText != null)
+        if (_shipPageCountText != null)
         {
-            shipPageCountText.text = currentShipyardPageIndex + " / " + shipyardPageCount;
+            _shipPageCountText.text = currentShipyardPageIndex + " / " + shipyardPageCount;
         }
     }
 
     private void OnNewShipyardDB(Dictionary<int, BuyableShip> catalogueDictionnary)
     {
-        Debug.Log("Received new dictionnary with : " + catalogueDictionnary.Count + " entries.");
+        //Debug.Log("Received new dictionnary with : " + catalogueDictionnary.Count + " entries.");
 
         List<BuyableShip> allBuyables = new List<BuyableShip>();
 
@@ -134,5 +143,11 @@ public class LogbookPage_Shipyard : LogbookPage
                 break;
             }
         }
+    }
+
+    private void OnCreditsUpdate(int currentCredits)
+    {
+        if (_creditsText != null)
+            _creditsText.text = "Credits : " + currentCredits + "$";
     }
 }

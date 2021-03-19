@@ -126,6 +126,7 @@ MonoBehaviour:
   lifeTime: 0
   shipDPS: 0
   planetDPS: 0
+  colliderEnableDelay: 0
   worldMapSprite: {fileID: 21300000, guid: f62621b330e0de5409c5c90f599c9aae, type: 3}
   debugSprite: {fileID: 21300000, guid: 68af0bed142bc5b49b010d48713fbfa4, type: 3}
   tileX: 0
@@ -134,6 +135,11 @@ MonoBehaviour:
   tileDimensions: {x: 0, y: 0}
   _currentObjectsInTile: []
   _allNeighbours:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _diagonalNeighbours:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

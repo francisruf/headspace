@@ -65,12 +65,14 @@ public class WritingMachineController : MonoBehaviour
     {
         Ship.newShipAvailable += OnNewShipAvailable;
         Ship.shipUnavailable += OnShipUnavailable;
+        Ship.shipInfoChange += OnShipInfoChange;
     }
 
     private void OnDisable()
     {
         Ship.newShipAvailable -= OnNewShipAvailable;
         Ship.shipUnavailable -= OnShipUnavailable;
+        Ship.shipInfoChange -= OnShipInfoChange;
     }
 
     public void OnMachineOpen()
@@ -290,8 +292,23 @@ public class WritingMachineController : MonoBehaviour
                 _currentCommandDocument.AssignTargetGridCoords(keyPadEntry, printText);
                 break;
             case ButtonSectionType.KeyPadCode:
-                printText = "Product code : " + keyPadEntry.ToString();
-                _currentCommandDocument.AssignTargetGridCoords(keyPadEntry, printText);
+
+                string stringCode = keyPadEntry.ToString();
+                string actualCode = "";
+                for (int i = 0; i < stringCode.Length; i++)
+                {
+                    if (stringCode[i] < 48 || stringCode[i] > 57)
+                    {
+                        
+                    }
+                    else
+                    {
+                        actualCode += stringCode[i];
+                    }
+                }
+
+                printText = "Product code : " + actualCode;
+                _currentCommandDocument.AssignProductCode(actualCode, printText);
                 break;
         }
     }
@@ -451,5 +468,19 @@ public class WritingMachineController : MonoBehaviour
         ChangeButtonSection(ButtonSectionType.Commands);
 
         SpawnCommandDocument();
+    }
+
+    private void OnShipInfoChange(Ship ship)
+    {
+        if (_currentButtonSectionType == ButtonSectionType.Ships)
+        {
+            _currentString = "";
+            _currentCharIndex = 0;
+
+            for (int i = 0; i < _currentAvailableButtonsCount; i++)
+            {
+                _currentAvailableButtons[i].ClearHighlighting();
+            }
+        }
     }
 }

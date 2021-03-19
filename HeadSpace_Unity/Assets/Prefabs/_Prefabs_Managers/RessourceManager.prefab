@@ -43,4 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 220805f268c472f418117940e6adef63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startCredits: 20
   soulRatioForOneCredit: 5

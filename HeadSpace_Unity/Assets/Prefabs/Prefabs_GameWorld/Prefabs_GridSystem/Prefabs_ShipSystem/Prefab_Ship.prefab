@@ -161,6 +161,7 @@ MonoBehaviour:
     type: 3}
   shipName: A
   shipCallsign: AAA
+  shipClass: Explorer
   healthPoints: 100
   currentHealthPoints: 0
   cargoCapacity: 100

@@ -954,6 +954,7 @@ MonoBehaviour:
   slidingDirection: 1
   slidingAmount: 4
   drawerHandleSize: 0.5
+  machineBGRenderer: {fileID: 6578522236718316557}
 --- !u!114 &5484499785070221499
 MonoBehaviour:
   m_ObjectHideFlags: 0

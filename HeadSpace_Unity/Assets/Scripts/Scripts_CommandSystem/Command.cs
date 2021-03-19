@@ -16,7 +16,7 @@ public abstract class Command : MonoBehaviour
     // Fonctions à définir dans les classes qui héritent de Command
     // Le CommandManager appelle toujours cette fonction et envoie les paramètres STRING
     public abstract bool TryExecution(string playerText, out string errorMessage);
-    public abstract bool TryExecution(string shipName, string coordinatesText, out string errorMessage);
+    public abstract bool TryExecution(string shipName, string coordinatesText, string productCode, out string errorMessage);
 
     // Fonctions vides qui peuvent être override (remplacées) dans les classes qui héritent de Command
     protected virtual void ExecuteCommand()

@@ -9,6 +9,10 @@ public class MovableObject : InteractableObject
 {
     public static Action<MovableObject> movableObjectSelected;
     public static Action<MovableObject> movableObjectDeselected;
+    public static Action<MovableObject, ObjectSpawnZone> placeObjectRequest;
+
+    protected Rigidbody2D _rigidBody;
+    public Rigidbody2D Rigidbody { get { return _rigidBody; } }
 
     public ObjectType objectType;
 
@@ -24,6 +28,12 @@ public class MovableObject : InteractableObject
     private float _clampXmax;
     private float _clampYmin;
     private float _clampYmax;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        _rigidBody = GetComponentInChildren<Rigidbody2D>();
+    }
 
     protected virtual void Update()
     {

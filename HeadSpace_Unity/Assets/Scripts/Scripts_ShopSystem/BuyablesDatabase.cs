@@ -57,4 +57,20 @@ public class BuyablesDatabase : MonoBehaviour
         //if (newCatalogueDB != null)
         //    newCatalogueDB(_catalogueDatabase);
     }
+
+    public bool FindObjectWithCode(int code, out BuyableObject obj)
+    {
+        obj = null;
+
+        if (_catalogueDatabase.ContainsKey(code))
+            obj = _catalogueDatabase[code];
+
+        else if (_shipyardDatabase.ContainsKey(code))
+            obj = _shipyardDatabase[code];
+
+        if (obj != null)
+            return true;
+
+        return false;
+    }
 }

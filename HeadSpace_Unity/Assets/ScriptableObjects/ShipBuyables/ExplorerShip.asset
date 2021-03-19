@@ -14,12 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buyableName: Explorer
   buyableType: 0
-  description: Some generic description here
+  description: A well rounded ship for any type of mission.
   icon: {fileID: 0}
-  price: 10
-  code: 1235
+  price: 5
+  code: 1000
   spawnQuantity: 1
-  objectPrefab: {fileID: 0}
+  spawnZone: 3
+  objectPrefab: {fileID: 8519948865630102667, guid: 3bee59208df45904b9deb47acc3b7742,
+    type: 3}
   objectFlyer: {fileID: 0}
   scan: 2
   speed: 3

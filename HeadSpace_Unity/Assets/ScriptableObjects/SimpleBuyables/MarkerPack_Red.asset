@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4db90dd4cb6a8f4aac2fc9409f6e88e, type: 3}
   m_Name: MarkerPack_Red
   m_EditorClassIdentifier: 
-  buyableName: Marker pack (blue)
+  buyableName: Marker 4-pack (red)
   buyableType: 1
-  description: Some other generic description here.
+  description: Same markers, now in a family-sized pack!
   icon: {fileID: 0}
   price: 5
-  code: 4567
+  code: 5030
   spawnQuantity: 4
-  objectPrefab: {fileID: 0}
+  spawnZone: 1
+  objectPrefab: {fileID: 6964936532800032168, guid: d9028355593f35d4e87d7dfe862424c7,
+    type: 3}
   objectFlyer: {fileID: 0}

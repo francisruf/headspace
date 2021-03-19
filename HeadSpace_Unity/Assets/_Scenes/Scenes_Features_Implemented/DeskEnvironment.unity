@@ -232,7 +232,7 @@ Transform:
   - {fileID: 1106057310}
   - {fileID: 358773004}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &463058781
 PrefabInstance:
@@ -382,7 +382,7 @@ PrefabInstance:
     - target: {fileID: 1026667068131997264, guid: e45b24c6c9d1bd946a73a574e007c22b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1026667068131997264, guid: e45b24c6c9d1bd946a73a574e007c22b,
         type: 3}
@@ -879,15 +879,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drawer
       objectReference: {fileID: 0}
-    - target: {fileID: 8184818431553381665, guid: a04c0ec02e4ec8c479db1e6fa209d053,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8184818431553381669, guid: a04c0ec02e4ec8c479db1e6fa209d053,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8184818431553381669, guid: a04c0ec02e4ec8c479db1e6fa209d053,
         type: 3}

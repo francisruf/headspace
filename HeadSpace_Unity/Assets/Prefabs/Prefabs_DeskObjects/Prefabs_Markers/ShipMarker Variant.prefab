@@ -58,7 +58,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 1810622779
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &5617660276771076670
 MonoBehaviour:
@@ -275,6 +275,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5b49afa1b36125428d8508de9d01fa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ignoreSelectedBringToFront: 0
+  objectType: 0
+  dropZoneLayerMask:
+    serializedVersion: 2
+    m_Bits: 270336
 --- !u!1001 &5697795599197016004
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -441,6 +446,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1993480947, guid: 2e40d8db7fd569c4c9328e2043b741b7, type: 3}
+    - {fileID: 5534911797177841589, guid: 2e40d8db7fd569c4c9328e2043b741b7, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2e40d8db7fd569c4c9328e2043b741b7, type: 3}
 --- !u!1 &5824309797789608925 stripped
 GameObject:

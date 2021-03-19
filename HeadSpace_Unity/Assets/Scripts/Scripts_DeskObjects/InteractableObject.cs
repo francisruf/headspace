@@ -61,6 +61,7 @@ public abstract class InteractableObject : MonoBehaviour
         if (!ignoreSelectedBringToFront)
         {
             CurrentSortingLayer = _spriteRenderer.sortingLayerID;
+
             SetSortingLayer(SortingLayer.NameToID("SelectedObject"));
         }
     }
@@ -97,7 +98,7 @@ public abstract class InteractableObject : MonoBehaviour
 
     // Fonction qui retourne le sorting layer en INT d'un sprite renderer,
     // pour déterminer lequel est sélectionné selon sa priorité de rendering
-    public int GetSortingLayer()
+    public virtual int GetSortingLayer()
     {
         // Si l'objet a bel et bien un sprite renderer
         if (_spriteRenderer != null)
@@ -112,7 +113,7 @@ public abstract class InteractableObject : MonoBehaviour
         }
     }
 
-    public void SetSortingLayer(int newSortingLayerID)
+    public virtual void SetSortingLayer(int newSortingLayerID)
     {
         // Si l'objet a bel et bien un sprite renderer
         if (_spriteRenderer != null)
@@ -142,7 +143,7 @@ public abstract class InteractableObject : MonoBehaviour
 
     // Fonction qui retourne le order in layer en INT d'un sprite renderer.
     // Suite de la fonctionnalité précédente
-    public int GetOrderInLayer()
+    public virtual int GetOrderInLayer()
     {
         // Si l'objet a bel et bien un sprite renderer
         if (_spriteRenderer != null)
@@ -157,7 +158,7 @@ public abstract class InteractableObject : MonoBehaviour
         }
     }
 
-    public void SetOrderInLayer(int newOrderInLayer)
+    public virtual void SetOrderInLayer(int newOrderInLayer)
     {
         // Si l'objet a bel et bien un sprite renderer
         if (_spriteRenderer != null)

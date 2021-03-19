@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public class DropZone : MonoBehaviour
+public abstract class DropZone : MonoBehaviour
 {
-    private SpriteRenderer _containerSpriteRenderer;
-    private Collider2D _collider;
+    protected SpriteRenderer _containerSpriteRenderer;
+    protected Collider2D _collider;
 
-    [SerializeField] private ObjectType[] acceptedObjects;
+    [SerializeField] protected ObjectType[] acceptedObjects;
     public int ContainerSortingLayer { get { return _containerSpriteRenderer.sortingLayerID; } }
     public int HighestSortingOrder { get; private set; } = 0;
 
@@ -55,10 +55,20 @@ public class DropZone : MonoBehaviour
         HighestSortingOrder++;
         obj.SetSortingLayer(ContainerSortingLayer);
         obj.SetOrderInLayer(HighestSortingOrder);
+
+        if (obj.Rigidbody != null)
+        {
+            obj.Rigidbody.bodyType = RigidbodyType2D.Dynamic;
+        }
     }
 
     public virtual void RemoveObjectFromDropZone(MovableObject obj)
     {
+        if (obj.Rigidbody != null)
+        {
+            obj.Rigidbody.bodyType = RigidbodyType2D.Kinematic;
+        }
+
         obj.transform.parent = null;
         HighestSortingOrder--;
     }

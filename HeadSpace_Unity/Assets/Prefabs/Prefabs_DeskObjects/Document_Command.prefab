@@ -263,7 +263,7 @@ MonoBehaviour:
   objectType: 1
   dropZoneLayerMask:
     serializedVersion: 2
-    m_Bits: 8192
+    m_Bits: 270336
   lineHeight: 0.5
 --- !u!1 &4936675365891656420
 GameObject:

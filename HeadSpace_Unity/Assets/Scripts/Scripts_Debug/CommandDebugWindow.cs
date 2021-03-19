@@ -9,7 +9,7 @@ using TMPro;
 public class CommandDebugWindow : MonoBehaviour
 {
     // Action qui envoie les strings au CommandManager
-    public static Action<string, string, string> newCommandRequest;
+    public static Action<string, string, string, string> newCommandRequest;
 
     // Input fields
     public TMP_InputField commandInputField;
@@ -50,7 +50,7 @@ public class CommandDebugWindow : MonoBehaviour
         string coordsText = coordsInputField.text;
 
         if (newCommandRequest != null)
-            newCommandRequest(commandText, shipText, coordsText);
+            newCommandRequest(commandText, shipText, coordsText, "");
 
         this.gameObject.SetActive(false);
     }

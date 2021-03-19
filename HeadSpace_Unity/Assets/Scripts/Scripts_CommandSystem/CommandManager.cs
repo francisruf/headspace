@@ -10,10 +10,6 @@ public class CommandManager : MonoBehaviour
     // Liste de toute les commandes, remplie avec les commands qui se trouvent sur le même gameObject
     private List<Command> _allCommands = new List<Command>();
 
-    public string testCommandName;
-    public string testShipName;
-    public string testCoordinates;
-
     private void OnEnable()
     {
         CommandDebugWindow.newCommandRequest += OnNewCommandRequest;
@@ -34,14 +30,6 @@ public class CommandManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            OnNewCommandRequest(testCommandName, testShipName, testCoordinates);
-        }
-    }
-
     private void OnNewCommandRequest(List<MovableCommand> commands)
     {
         foreach (var cmd in commands)
@@ -58,7 +46,7 @@ public class CommandManager : MonoBehaviour
             else
             {
                 string errorMessage = "";
-                commandIsValid = foundCommand.TryExecution(cmd.ShipName, cmd.TargetGridCoords, out errorMessage);
+                commandIsValid = foundCommand.TryExecution(cmd.ShipName, cmd.TargetGridCoords, cmd.ProductCode, out errorMessage);
             }
 
             if (commandIsValid)
@@ -71,7 +59,7 @@ public class CommandManager : MonoBehaviour
             commandRequestResult(commands);
     }
 
-    private void OnNewCommandRequest(string commandName, string shipName, string coordinates)
+    private void OnNewCommandRequest(string commandName, string shipName, string coordinates, string productCode)
     {
         Command foundCommand = FindCommand(commandName);
 
@@ -84,7 +72,7 @@ public class CommandManager : MonoBehaviour
         if (foundCommand != null)
         {
             string errorMessage = "";
-            bool commandIsValid = foundCommand.TryExecution(shipName, coordinates, out errorMessage);
+            bool commandIsValid = foundCommand.TryExecution(shipName, coordinates, productCode, out errorMessage);
 
             if (!commandIsValid)
             {

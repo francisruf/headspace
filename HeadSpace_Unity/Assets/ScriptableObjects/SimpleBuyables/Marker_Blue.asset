@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buyableName: Marker (blue)
   buyableType: 1
-  description: Some other generic description here.
+  description: A simple pin to annotate locations on the world map.
   icon: {fileID: 0}
   price: 2
-  code: 3542
+  code: 4000
   spawnQuantity: 1
-  objectPrefab: {fileID: 0}
+  spawnZone: 1
+  objectPrefab: {fileID: 8065276512556439008, guid: 9120a8f5fc4724c488f8d79c7359b36b,
+    type: 3}
   objectFlyer: {fileID: 0}

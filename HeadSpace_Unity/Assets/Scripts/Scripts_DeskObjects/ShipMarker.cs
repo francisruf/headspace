@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class ShipMarker : MonoBehaviour
+public class ShipMarker : MovableMarker
 {
     // Références aux components
     private TextMeshProUGUI _markerText;
-    private SpriteRenderer _spriteRenderer;
-    private Collider2D _collider;
     private MovableMarker _movableMarker;
     private ShipMarker_Animator _markerAnimator;
 
@@ -16,12 +14,12 @@ public class ShipMarker : MonoBehaviour
     private Ship _linkedShip;
     private string _shipCallsign;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         // Assigner la référence aux components
         _markerText = GetComponentInChildren<TextMeshProUGUI>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        _collider = GetComponent<Collider2D>();
         _movableMarker = GetComponent<MovableMarker>();
         _markerAnimator = GetComponentInParent<ShipMarker_Animator>();
     }
@@ -44,14 +42,17 @@ public class ShipMarker : MonoBehaviour
         this._linkedShip = linkedShip;
         this._shipCallsign = linkedShip.shipCallsign;
         UpdateMarkerText();
+
+        if (placeObjectRequest != null)
+            placeObjectRequest(this, ObjectSpawnZone.Outbox);
     }
 
     // TODO
-    public void DisableMarker()
+    public override void DisableObject()
     {
+        base.DisableObject();
+
         _markerText.enabled = false;
-        _spriteRenderer.enabled = false;
-        _collider.enabled = false;
         _movableMarker.enabled = false;
         _linkedShip.enabled = false;
     }
@@ -86,6 +87,6 @@ public class ShipMarker : MonoBehaviour
     // Fonction générale de mise à jour du texte
     private void UpdateMarkerText()
     {
-        _markerText.text = _shipCallsign.ToUpper();
+        _markerText.text = _linkedShip.shipCallsign.ToUpper();
     }
 }

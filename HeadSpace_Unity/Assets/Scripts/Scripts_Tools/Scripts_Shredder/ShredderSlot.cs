@@ -58,7 +58,7 @@ public class ShredderSlot : MonoBehaviour
 
                 objToShred.transform.position = new Vector3(objToShred.transform.position.x, transform.position.y, objToShred.transform.position.z);
                 objToShred.transform.parent = this.transform.parent;
-                objToShred.ObjSpriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
+                //objToShred.ObjSpriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
                 objToShred.SetSortingLayer(parent.ObjSpriteRenderer.sortingLayerID);
                 objToShred.SetOrderInLayer(parent.ObjSpriteRenderer.sortingOrder + 1);
 

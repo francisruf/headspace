@@ -17,7 +17,8 @@ public class LogbookPage_Catalogue : LogbookPage
     public GameObject cataloguePagePrefab;
     public VerticalLayoutGroup buyablesLayoutGroup;
 
-    public TextMeshProUGUI cataloguePageCountText;
+    private TextMeshProUGUI _creditsText;
+    private TextMeshProUGUI _cataloguePageCountText;
 
     private List<Logbook_BuyableContainer> _buyableContainers = new List<Logbook_BuyableContainer>();
     private int _containerCount;
@@ -41,8 +42,14 @@ public class LogbookPage_Catalogue : LogbookPage
         {
             if (txt.gameObject.tag == "FleetPageText")
             {
-                cataloguePageCountText = txt;
-                break;
+                _cataloguePageCountText = txt;
+            }
+
+            if (txt.gameObject.tag == "CreditsText")
+            {
+                _creditsText = txt;
+                if (RessourceManager.instance != null)
+                    OnCreditsUpdate(RessourceManager.instance.CurrentCredits);
             }
         }
 
@@ -72,25 +79,27 @@ public class LogbookPage_Catalogue : LogbookPage
     {
         BuyablesDatabase.newCatalogueDB += OnNewCatalogueDB;
         LogbookPage_Catalogue.newCataloguePage += UpdateCataloguePageText;
+        RessourceManager.creditsUpdate += OnCreditsUpdate;
     }
 
     private void OnDisable()
     {
         BuyablesDatabase.newCatalogueDB -= OnNewCatalogueDB;
         LogbookPage_Catalogue.newCataloguePage -= UpdateCataloguePageText;
+        RessourceManager.creditsUpdate -= OnCreditsUpdate;
     }
 
     private void UpdateCataloguePageText()
     {
-        if (cataloguePageCountText != null)
+        if (_cataloguePageCountText != null)
         {
-            cataloguePageCountText.text = currentCataloguePageIndex + " / " + cataloguePageCount;
+            _cataloguePageCountText.text = currentCataloguePageIndex + " / " + cataloguePageCount;
         }
     }
 
     private void OnNewCatalogueDB(Dictionary<int, BuyableObject> catalogueDictionnary)
     {
-        Debug.Log("Received new dictionnary with : " + catalogueDictionnary.Count + " entries.");
+        //Debug.Log("Received new dictionnary with : " + catalogueDictionnary.Count + " entries.");
 
         List<BuyableObject> allBuyables = new List<BuyableObject>();
 
@@ -136,33 +145,9 @@ public class LogbookPage_Catalogue : LogbookPage
         }
     }
 
-    //private void OnNewShipAvailable(Ship ship)
-    //{
-    //    if (!_currentFleetPage)
-    //        return;
-
-    //    if (_containerCount < maxShipContainers)
-    //    {
-    //        StartCoroutine(AddShip(ship));
-    //    }
-    //    else
-    //    {
-    //        _currentFleetPage = false;
-    //        fleetPageCount++;
-    //        LogbookPage_FleetDetails newPage = Instantiate(fleetDetailsPageControllerPrefab, transform.parent).GetComponent<LogbookPage_FleetDetails>();
-    //        newPage.transform.SetSiblingIndex(transform.GetSiblingIndex() + 1);
-    //        int currentPageIndex = Logbook.IndexOf(this);
-    //        Logbook.AddPage(currentPageIndex + 1, newPage);
-    //        newPage.StartCoroutine(newPage.AddShip(ship));
-    //    }
-    //}
-
-    //public IEnumerator AddShip(Ship ship)
-    //{
-    //    yield return new WaitForEndOfFrame();
-    //    Logbook_ShipContainer newContainer = Instantiate(shipContainerPrefab, shipLayoutGroup.transform).GetComponent<Logbook_ShipContainer>();
-    //    newContainer.InitializeContainer(ship);
-    //    _shipContainers.Add(newContainer);
-    //    _containerCount++;
-    //}
+    private void OnCreditsUpdate(int currentCredits)
+    {
+        if (_creditsText != null)
+            _creditsText.text = "Credits : " + currentCredits + "$";
+    }
 }

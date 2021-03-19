@@ -2025,6 +2025,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FleetDetailsPage
       objectReference: {fileID: 0}
+    - target: {fileID: 893418522628546620, guid: 16a7021655f1a8a4199d2ad61f594737,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 893418522628546621, guid: 16a7021655f1a8a4199d2ad61f594737,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2130,6 +2135,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 893418523623473926, guid: 16a7021655f1a8a4199d2ad61f594737,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 893418523623473926, guid: 16a7021655f1a8a4199d2ad61f594737,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 893418523623473926, guid: 16a7021655f1a8a4199d2ad61f594737,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1.5625
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16a7021655f1a8a4199d2ad61f594737, type: 3}
 --- !u!224 &1218995809393744409 stripped
@@ -2232,30 +2252,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1218995807747660681}
     m_Modifications:
-    - target: {fileID: 9220948653732831238, guid: 4f18e80a080368741af288a7b39299f0,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9220948653732831238, guid: 4f18e80a080368741af288a7b39299f0,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9220948653732831238, guid: 4f18e80a080368741af288a7b39299f0,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9220948654717600572, guid: 4f18e80a080368741af288a7b39299f0,
         type: 3}
       propertyPath: m_Name
       value: ShipyardPage
-      objectReference: {fileID: 0}
-    - target: {fileID: 9220948654717600572, guid: 4f18e80a080368741af288a7b39299f0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9220948654717600573, guid: 4f18e80a080368741af288a7b39299f0,
         type: 3}
@@ -2377,21 +2377,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1218995807747660681}
     m_Modifications:
-    - target: {fileID: 5863437842962549309, guid: 3c9e2dba016cc604fbe69a2d05096dbc,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5863437842962549309, guid: 3c9e2dba016cc604fbe69a2d05096dbc,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5863437842962549309, guid: 3c9e2dba016cc604fbe69a2d05096dbc,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5863437844114974982, guid: 3c9e2dba016cc604fbe69a2d05096dbc,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2501,11 +2486,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CataloguePage
-      objectReference: {fileID: 0}
-    - target: {fileID: 5863437844114974983, guid: 3c9e2dba016cc604fbe69a2d05096dbc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c9e2dba016cc604fbe69a2d05096dbc, type: 3}

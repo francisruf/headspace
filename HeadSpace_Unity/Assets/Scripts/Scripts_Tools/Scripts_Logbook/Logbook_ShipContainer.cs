@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -17,6 +18,8 @@ public class Logbook_ShipContainer : MonoBehaviour
     public TextMeshProUGUI shipCallsignText;
     public TextMeshProUGUI shipClassText;
     public TextMeshProUGUI shipStateText;
+    public TMP_InputField shipNameField;
+    public TMP_InputField shipCallsignField;
 
     public void InitializeContainer(Ship linkedShip)
     {
@@ -37,12 +40,35 @@ public class Logbook_ShipContainer : MonoBehaviour
             return;
         }
 
-        shipNameText.text = _linkedShip.shipName;
-        shipCallsignText.text = _linkedShip.shipCallsign;
+        shipNameField.text = _linkedShip.shipName;
+        shipCallsignField.text = _linkedShip.shipCallsign;
+        //shipNameText.text = _linkedShip.shipName;
+        //shipCallsignText.text = _linkedShip.shipCallsign;
         shipClassText.text = "Explorer class";
         Color textColor;
         shipStateText.text = GetShipStatusFromState(_linkedShip.CurrentShipState, out textColor);
         shipStateText.color = textColor;
+    }
+
+    public void OnNameChange()
+    {
+        _linkedShip.ChangeShipName(shipNameField.text, shipCallsignField.text);
+    }
+
+    public void OnCallsignChange()
+    {
+        string newCallsign = shipCallsignField.text;
+        int callsignLength = newCallsign.Length;
+
+        while (callsignLength < 3)
+        {
+            newCallsign += "A";
+            callsignLength++;
+        }
+
+        newCallsign = newCallsign.ToUpper();
+        shipCallsignField.text = newCallsign;
+        _linkedShip.ChangeShipName(shipNameField.text, newCallsign);
     }
 
     private string GetShipStatusFromState(ShipState targetState, out Color textColor)
@@ -69,9 +95,6 @@ public class Logbook_ShipContainer : MonoBehaviour
                 textColor = destroyedColor;
                 break;
         }
-
-        Debug.Log(deployedColor.ToString());
-
         return statusText;
     }
 }

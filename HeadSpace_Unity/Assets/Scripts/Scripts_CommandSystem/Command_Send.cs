@@ -13,7 +13,7 @@ public class Command_Send : Command
 
     // Fonction qui essaie d'exécuter la commande à partir de la syntaxe fournie.
     // Si la syntaxe est invalide, la commande ne s'exécute pas, et renvoie un message d'erreur au CommandManager.
-    public override bool TryExecution(string shipName, string coordinatesText, out string errorMessage)
+    public override bool TryExecution(string shipName, string coordinatesText, string productCode, out string errorMessage)
     {
         // Variables locales temporaires
         bool success = false;

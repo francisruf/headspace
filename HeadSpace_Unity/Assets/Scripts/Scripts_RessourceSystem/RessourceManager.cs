@@ -6,14 +6,17 @@ using UnityEngine;
 public class RessourceManager : MonoBehaviour
 {
     public static Action<int, int, int, int> ressourcesUpdate;
+    public static Action<int> creditsUpdate;
 
     public static RessourceManager instance;
 
+    public int startCredits;
     public int soulRatioForOneCredit;
 
     private int _soulsSaved;
     private int _soulBuffer;
     private int _currentCredits;
+    public int CurrentCredits { get { return _currentCredits; } }
     private int _totalCreditsEarned;
 
     private void Awake()
@@ -43,6 +46,9 @@ public class RessourceManager : MonoBehaviour
 
     private void Start()
     {
+        _currentCredits = startCredits;
+        UpdateRessources();
+
         if (soulRatioForOneCredit == 0)
             soulRatioForOneCredit = 1;
     }
@@ -90,7 +96,7 @@ public class RessourceManager : MonoBehaviour
         UpdateRessources();
     }
 
-    private bool SpendCredits(int amount)
+    public bool SpendCredits(int amount)
     {
         if (_currentCredits >= amount)
         {
@@ -108,5 +114,8 @@ public class RessourceManager : MonoBehaviour
     {
         if (ressourcesUpdate != null)
             ressourcesUpdate(_soulsSaved, _soulBuffer, _currentCredits, _totalCreditsEarned);
+
+        if (creditsUpdate != null)
+            creditsUpdate(_currentCredits);
     }
 }

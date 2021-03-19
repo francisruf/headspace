@@ -6,6 +6,25 @@ public class ButtonController_Ship : ButtonController
 {
     private Ship _linkedShip;
 
+    private void OnEnable()
+    {
+        Ship.shipInfoChange += UpdateShipInfo;
+    }
+
+    private void OnDisable()
+    {
+        Ship.shipInfoChange -= UpdateShipInfo;
+    }
+
+    private void UpdateShipInfo(Ship ship)
+    {
+        if (ship != _linkedShip)
+            return;
+
+        BaseButtonText = _linkedShip.shipCallsign;
+        _buttonTextMesh.text = _linkedShip.shipCallsign;
+    }
+
     public void InitializeShipButton(Ship ship)
     {
         _linkedShip = ship;

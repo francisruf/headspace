@@ -98,6 +98,12 @@ public class ObjectsManager : MonoBehaviour
                 if (selectedObject == null)
                 {
                     selectedObject = candidateObject;
+                    int sortingLayer = candidateObject.GetSortingLayer();
+                    int sortingOrder = candidateObject.GetOrderInLayer();
+                    //Debug.Log("Selected sorting layer : " + selectedObject.GetSortingLayer());
+                    //Debug.Log("Selected sorting order : " + selectedObject.GetOrderInLayer());
+                    //Debug.Log("Candidate sorting layer : " + candidateObject.GetSortingLayer());
+                    //Debug.Log("Candidate sorting order : " + candidateObject.GetOrderInLayer());
                     //Debug.Log("1- Selected : " + selectedObject.gameObject.name);
                 }
                 else
@@ -143,6 +149,7 @@ public class ObjectsManager : MonoBehaviour
         ObjectInteractionZone[] candidateInteractionZones = null;
         candidateInteractionZones = obj.GetInteractionZones();
         int interactionZonesCount = candidateInteractionZones.Length;
+        bool dragged = false;
 
         if (interactionZonesCount <= 0)
         {
@@ -168,6 +175,7 @@ public class ObjectsManager : MonoBehaviour
                 {
                     AssignTopRenderingOrder(obj);
                     obj.Select();
+                    dragged = true;
                     break;
                 }
 
@@ -181,25 +189,26 @@ public class ObjectsManager : MonoBehaviour
                     break;
                 }
             }
-
-            if (simpleClick)
+            if (!dragged)
             {
-                Debug.Log("CLICK");
-                for (int i = 0; i < interactionZonesCount; i++)
+                if (simpleClick)
                 {
-                    if (candidateInteractionZones[i].IsInBounds(currentMousePos))
+                    Debug.Log("CLICK");
+                    for (int i = 0; i < interactionZonesCount; i++)
                     {
-                        candidateInteractionZones[i].Interact();
-                        break;
+                        if (candidateInteractionZones[i].IsInBounds(currentMousePos))
+                        {
+                            candidateInteractionZones[i].Interact();
+                            break;
+                        }
                     }
                 }
+                else
+                {
+                    AssignTopRenderingOrder(obj);
+                    obj.Select();
+                }
             }
-            else
-            {
-                AssignTopRenderingOrder(obj);
-                obj.Select();
-            }
-
         }
         _currentClickRoutine = null;
     }

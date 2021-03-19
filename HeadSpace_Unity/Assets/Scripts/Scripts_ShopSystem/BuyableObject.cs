@@ -13,6 +13,7 @@ public class BuyableObject : ScriptableObject
     public int price;
     public int code;
     public int spawnQuantity;
+    public ObjectSpawnZone spawnZone;
 
     [Header("Prefabs")]
     public GameObject objectPrefab;
