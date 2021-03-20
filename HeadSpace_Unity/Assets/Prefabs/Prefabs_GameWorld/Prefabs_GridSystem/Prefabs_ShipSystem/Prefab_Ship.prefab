@@ -164,7 +164,7 @@ MonoBehaviour:
   shipClass: Explorer
   healthPoints: 100
   currentHealthPoints: 0
-  cargoCapacity: 100
+  cargoCapacity: 10
   currentCargo: 0
   moveSpeed: 0.2
   pickupSpeedInSeconds: 2
