@@ -39,8 +39,10 @@ public class AudioManager : MonoBehaviour {
         ShredderSlot.shredderStarted += ShredderStarted;
         ButtonController.buttonPress += ButtonPress;
         KeyPadButtonController.buttonPress += ButtonPress;
-        DropZone_Outbox.commandSuccess += CommandSuccess;
-        DropZone_Outbox.commandFail += CommandFail;
+        DropZone_Outbox.commandSuccess += DrawerSuccess;
+        DropZone_Outbox.commandFail += DrawerError;
+        MovableObject.movableObjectSelected += OnMovableObjectSelected;
+        MovableObject.movableObjectDeselected += OnMovableObjectDeselected;
     }
 
     private void OnDisable()
@@ -48,17 +50,19 @@ public class AudioManager : MonoBehaviour {
         ShredderSlot.shredderStarted -= ShredderStarted;
         ButtonController.buttonPress -= ButtonPress;
         KeyPadButtonController.buttonPress -= ButtonPress;
-        DropZone_Outbox.commandSuccess -= CommandSuccess;
-        DropZone_Outbox.commandFail -= CommandFail;
+        DropZone_Outbox.commandSuccess -= DrawerSuccess;
+        DropZone_Outbox.commandFail -= DrawerError;
+        MovableObject.movableObjectSelected -= OnMovableObjectSelected;
+        MovableObject.movableObjectDeselected += OnMovableObjectDeselected;
     }
 
     //Update function only to test feature. Remove when necessary.
-   private void Update() { 
-  if (Input.GetKeyDown(KeyCode.S)) 
-     {
-    PlaySound("Paper_Pickup");
-    }
- 
+   private void Update()
+    { 
+        //if (Input.GetKeyDown(KeyCode.S)) 
+        //{
+        //    PlaySound("Paper_Pickup");
+        //}
     }
      
     private void AssignMusicOnScene(Scene scene1, Scene scene2) {
@@ -99,20 +103,6 @@ public class AudioManager : MonoBehaviour {
         currentMusic.source.Play();
     }
 
-    private void CommandFail()
-    {
-        
-    }
-
-    private void CommandSuccess()
-    {
-
-    }
-
-    private void AnomalyWarning()
-    {
-
-    }
 
     private void ShredderStarted()
     {
@@ -121,12 +111,20 @@ public class AudioManager : MonoBehaviour {
 
     private void ButtonPress()
     {
-        PlaySound("Button_One");
+        int roll = UnityEngine.Random.Range(1, 10);
+        if (roll > 5)
+        {
+            PlaySound("Button_One");
+        }
+        else
+        {
+            PlaySound("Button_Two");
+        }
     }
 
-    private void ButtonPressTwo()
+    private void DrawerSuccess()
     {
-        PlaySound("Button_Two");
+        
     }
 
     private void DrawerError()
@@ -144,13 +142,45 @@ public class AudioManager : MonoBehaviour {
         
     }
 
-    private void PaperPickUp()
+    private void OnMovableObjectSelected(MovableObject obj)
     {
+        switch (obj.objectType)
+        {
+            case ObjectType.Marker:
+                break;
+            case ObjectType.Document:
+                PaperPickup();
+                break;
+            case ObjectType.Other:
+                break;
+            default:
+                break;
+        }
+    }
 
+    private void OnMovableObjectDeselected(MovableObject obj)
+    {
+        switch (obj.objectType)
+        {
+            case ObjectType.Marker:
+                break;
+            case ObjectType.Document:
+                PaperDrop();
+                break;
+            case ObjectType.Other:
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void PaperPickup()
+    {
+        PlaySound("Paper_Pickup");
     }
 
     private void PaperDrop()
     {
-
+        PlaySound("Paper_Drop");
     }
 }

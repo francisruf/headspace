@@ -32,7 +32,17 @@ public class SlidableReceptor : SlidableTool
         }
     }
 
-    public void NewMessageReceived()
+    private void OnEnable()
+    {
+        MessageManager.newMessageReceived += NewMessageReceived;
+    }
+
+    private void OnDisable()
+    {
+        MessageManager.newMessageReceived -= NewMessageReceived;
+    }
+
+    private void NewMessageReceived()
     {
         _printerAnimator.SetTrigger("NewMessage");
     }

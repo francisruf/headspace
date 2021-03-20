@@ -6,6 +6,8 @@ using TMPro;
 
 public class MessageManager : MonoBehaviour
 {
+    public static Action newMessageReceived;
+
     // Singleton
     public static MessageManager instance;
 
@@ -68,7 +70,10 @@ public class MessageManager : MonoBehaviour
 
         _messageQueue.Enqueue(fullMessage);
         _messageCount++;
-        _receptor.NewMessageReceived();
+
+        if (newMessageReceived != null)
+            newMessageReceived();
+
         UpdateMessageCount();
     }
 
