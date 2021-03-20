@@ -3,16 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEditor.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
+    public static Action baseLoadingDone;
     public static Action loadingDone;
     
     // Singleton
     public static LevelManager instance;
+    public string[] baseScenes;
+    public string[] mainMenuScenes;
+    public string[] gymScenes;
 
-    public List<Scene> scenesToLoad;
+    private IEnumerator _currentLoadingRoutine;
 
     private void Awake()
     {
@@ -25,18 +28,72 @@ public class LevelManager : MonoBehaviour
         else
         {
             instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
+    }
+
+    private void OnEnable()
+    {
+        MainMenuController.playButtonPressed += OnPlayButtonPressed;
+        MainMenuController.quitButtonPressed += OnQuitButtonPressed;
+    }
+
+    private void OnDisable()
+    {
+        MainMenuController.playButtonPressed -= OnPlayButtonPressed;
+        MainMenuController.quitButtonPressed -= OnQuitButtonPressed;
     }
 
     private void Start()
     {
-        string[] sceneNames = new string[scenesToLoad.Count];
+        StartCoroutine(LoadStartScenes());
+    }
 
-        for (int i = 0; i < sceneNames.Length; i++)
+    #region Application start
+
+    private IEnumerator LoadStartScenes()
+    {
+        yield return LoadScenes(baseScenes);
+        yield return LoadScenes(mainMenuScenes);
+        
+        if (baseLoadingDone != null)
+            baseLoadingDone();
+    }
+
+    #endregion
+    #region Main menu
+
+    private void OnPlayButtonPressed()
+    {
+        StartCoroutine(TryLoadScenes(gymScenes, mainMenuScenes));
+    }
+
+    private void OnQuitButtonPressed()
+    {
+        Application.Quit();
+    }
+
+    #endregion
+    #region Scene loading
+
+    private IEnumerator TryLoadScenes(string[] scenesToLoad, string[] scenesToUnoad)
+    {
+        yield return UnloadScenes(scenesToUnoad);
+        yield return LoadScenes(scenesToLoad);
+    }
+
+    private IEnumerator TryLoadScenes(string[] scenesToLoad)
+    {
+        yield return LoadScenes(scenesToLoad);
+    }
+
+    private IEnumerator UnloadScenes(params string[] scenes)
+    {
+        foreach (var scene in scenes)
         {
-            sceneNames[i] = scenesToLoad[i].name;
+            SceneManager.UnloadSceneAsync(scene);
         }
-        LoadScenes(sceneNames);
+        yield return new WaitForSeconds(0f);
     }
 
     private IEnumerator LoadScenes(params string[] scenes)
@@ -45,7 +102,7 @@ public class LevelManager : MonoBehaviour
 
         //// Doit attendre un peu a cause d'un qwerk stupide de unity avec allowSceneActivation
         //// allowSceneActivation va etre ignoré si se passe au même frame qu'une scene TERMINE de se loader
-        //yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.1f);
 
         List<AsyncOperation> ops = new List<AsyncOperation>();
 
@@ -53,6 +110,7 @@ public class LevelManager : MonoBehaviour
         {
             // LoadScene retourne une AsyncOperation
             AsyncOperation op = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
+            Debug.Log("Loading : " + scene);
 
             // N'active pas la scene avant qu'elle load
             op.allowSceneActivation = false;
@@ -69,21 +127,17 @@ public class LevelManager : MonoBehaviour
             loadingDone();
 
         // Attente input pour loader
-        bool input = false;
-        while (!input)
-        {
-            if (Input.anyKeyDown)
-            {
-                input = true;
-                foreach (AsyncOperation op in ops)
-                {
-                    op.allowSceneActivation = true;
-                }
-            }
-            yield return new WaitForSeconds(0);
-        }
 
+        foreach (AsyncOperation op in ops)
+        {
+            op.allowSceneActivation = true;
+        }
+        yield return new WaitForSeconds(0);
+
+        _currentLoadingRoutine = null;
         //SceneManager.UnloadSceneAsync("LoadingScreen");
     }
+    
+    #endregion
 }
 

@@ -10,22 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67108e063a91d044caf97bb97404d797, type: 3}
-  m_Name: Setup_MASTER
+  m_Name: Setup_Master
   m_EditorClassIdentifier: 
   Setups:
-  - m_Path: Assets/_Scenes/_Scenes_Master_PASTOUCHE/_Master.unity
+  - m_Path: Assets/_Scenes/_Scenes_Master_NEPASMODIFIER/_Master.unity
     m_IsLoaded: 1
     m_IsActive: 1
-    m_IsSubScene: 0
-  - m_Path: Assets/_Scenes/Scenes_Features_Implemented/Camera.unity
-    m_IsLoaded: 1
-    m_IsActive: 0
-    m_IsSubScene: 0
-  - m_Path: Assets/_Scenes/Scenes_Features_Implemented/GridSystem.unity
-    m_IsLoaded: 1
-    m_IsActive: 0
-    m_IsSubScene: 0
-  - m_Path: Assets/_Scenes/Scenes_Features_Implemented/Interface.unity
-    m_IsLoaded: 1
-    m_IsActive: 0
     m_IsSubScene: 0

@@ -213,6 +213,7 @@ public class Ship : MonoBehaviour
         targetWorldCoords = GridCoords.FromGridToWorld(gridCoords);
         //Place ship on the entered coordinates
         transform.position = targetWorldCoords;
+        currentPositionInGridCoords = GridCoords.FromWorldToGrid(transform.position);
 
         //Change the status of the ship from "At Base" to "Deployed"
         ChangeShipState(ShipState.Deployed);
