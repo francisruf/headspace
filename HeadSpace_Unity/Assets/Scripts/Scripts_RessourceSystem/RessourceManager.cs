@@ -10,7 +10,6 @@ public class RessourceManager : MonoBehaviour
 
     public static RessourceManager instance;
 
-    public int startCredits;
     public int soulRatioForOneCredit;
 
     private int _soulsSaved;
@@ -46,25 +45,11 @@ public class RessourceManager : MonoBehaviour
 
     private void Start()
     {
-        _currentCredits = startCredits;
         UpdateRessources();
 
         if (soulRatioForOneCredit == 0)
             soulRatioForOneCredit = 1;
     }
-
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.S))
-    //    {
-    //        AddSouls(3);
-    //    }
-
-    //    if (Input.GetKeyDown(KeyCode.R))
-    //    {
-    //        SpendCredits(3);
-    //    }
-    //}
 
     private void OnShipUnload(int soulsUnloaded)
     {
@@ -88,10 +73,12 @@ public class RessourceManager : MonoBehaviour
         AddCredits(amount);
     }
 
-    private void AddCredits(int amount)
+    public void AddCredits(int amount, bool dontAddToTotal = false)
     {
         _currentCredits += amount;
-        _totalCreditsEarned += amount;
+
+        if (!dontAddToTotal)
+            _totalCreditsEarned += amount;
 
         UpdateRessources();
     }

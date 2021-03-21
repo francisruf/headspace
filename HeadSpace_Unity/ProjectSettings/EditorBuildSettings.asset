@@ -32,4 +32,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/Scenes_Menus/MainMenu.unity
     guid: 6acf16dbe9ae0054686e563de0feed0d
+  - enabled: 1
+    path: Assets/_Scenes/Scenes_Levels/00_Gym.unity
+    guid: 8b13a63738760ca4d8faa38f8cf336b8
+  - enabled: 1
+    path: Assets/_Scenes/Scenes_Menus/EndScreen.unity
+    guid: 64c1d97e29d42334caed35ab57908e3a
+  - enabled: 1
+    path: Assets/_Scenes/Scenes_Menus/GameOverScreen.unity
+    guid: 6ae6578aa2d67014cb1ebc9b4867a356
   m_configObjects: {}

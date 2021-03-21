@@ -103,6 +103,15 @@ public class Ship : MonoBehaviour
 
     void Start()
     {
+        if (DebugManager.instance != null)
+        {
+            spriteRenderer.enabled = DebugManager.instance.DebugObjectsVisible;
+        }
+        else
+        {
+            spriteRenderer.enabled = false;
+        }
+
         // Assigner le currentState au state de départ
         CurrentShipState = shipStartingState;
         currentHealthPoints = healthPoints;
@@ -307,21 +316,21 @@ public class Ship : MonoBehaviour
         {
             //Enable the ship and all it's components
             case ShipState.Deployed:
-                spriteRenderer.enabled = true;
+                //spriteRenderer.enabled = true;
                 shipCollider.enabled = true;
                 detectionZone.enabled = true;
                 break;
 
             //Disable the ship and all it's components
             case ShipState.Unloading:
-                spriteRenderer.enabled = false;
+                //spriteRenderer.enabled = false;
                 shipCollider.enabled = false;
                 detectionZone.enabled = false;
                 StartCoroutine(UnloadSouls());
                 break;
 
             case ShipState.AtBase:
-                spriteRenderer.enabled = false;
+                //spriteRenderer.enabled = false;
                 shipCollider.enabled = false;
                 detectionZone.enabled = false;
                 break;

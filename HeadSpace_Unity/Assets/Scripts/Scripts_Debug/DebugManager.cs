@@ -59,6 +59,8 @@ public class DebugManager : MonoBehaviour
     // State
     private bool _mouseTooltipVisible;
 
+    public bool DebugObjectsVisible { get; private set; } = false;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -74,7 +76,7 @@ public class DebugManager : MonoBehaviour
 
     private void OnEnable()
     {
-        GridManager.firstAnomalyTile += StartGameTimer;
+        GameManager.gameStarted += StartGameTimer;
         GridManager.totalGridAnomaly += StopGameTimer;
         ShipManager.shipInventoryUpdate += UpdateShipInventoryUI;
         RessourceManager.ressourcesUpdate += UpdateRessourceTexts;
@@ -82,7 +84,7 @@ public class DebugManager : MonoBehaviour
 
     private void OnDisable()
     {
-        GridManager.firstAnomalyTile -= StartGameTimer;
+        GameManager.gameStarted -= StartGameTimer;
         GridManager.totalGridAnomaly -= StopGameTimer;
         ShipManager.shipInventoryUpdate -= UpdateShipInventoryUI;
         RessourceManager.ressourcesUpdate -= UpdateRessourceTexts;
@@ -121,10 +123,10 @@ public class DebugManager : MonoBehaviour
             ressourcePanel.SetActive(!ressourcePanel.activeSelf);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && !commandDebugWindow.activeSelf)
-        {
-            commandDebugWindow.SetActive(true);
-        }
+        //if (Input.GetKeyDown(KeyCode.Space) && !commandDebugWindow.activeSelf)
+        //{
+        //    commandDebugWindow.SetActive(true);
+        //}
     }
 
     #region Grid management
@@ -139,14 +141,16 @@ public class DebugManager : MonoBehaviour
 
     public void ToggleGridObjects()
     {
+        DebugObjectsVisible = !DebugObjectsVisible;
+
         if (PlanetManager.instance != null)
-            PlanetManager.instance.TogglePlanetDebug();
+            PlanetManager.instance.TogglePlanetDebug(DebugObjectsVisible);
 
         if (HazardManager.instance != null)
-            HazardManager.instance.ToggleHazardDebug();
+            HazardManager.instance.ToggleHazardDebug(DebugObjectsVisible);
 
         if (ShipManager.instance != null)
-            ShipManager.instance.ToggleShipDebug();
+            ShipManager.instance.ToggleShipDebug(DebugObjectsVisible);
     }
 
     public void ToggleMouseCoords()

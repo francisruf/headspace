@@ -9,7 +9,7 @@ public class ObjectPlacer : MonoBehaviour
 
     public static ObjectPlacer instance;
     private DropZone_Outbox _outbox;
-    private DropZone_Drawer _drawer;
+    private DropZone_Drawer[] _drawers;
 
     private void Awake()
     {
@@ -28,18 +28,22 @@ public class ObjectPlacer : MonoBehaviour
     {
         MovableObject.placeObjectRequest += PlaceObject;
         ShopManager.placeObjectRequest += PlaceObject;
+        PlayerInventory.placeObjectRequest += PlaceObject;
     }
 
     private void OnDisable()
     {
         MovableObject.placeObjectRequest -= PlaceObject;
         ShopManager.placeObjectRequest -= PlaceObject;
+        PlayerInventory.placeObjectRequest -= PlaceObject;
+
+        _outbox = FindObjectOfType<DropZone_Outbox>();
+        _drawers = FindObjectsOfType<DropZone_Drawer>();
     }
 
     private void Start()
     {
-        _outbox = FindObjectOfType<DropZone_Outbox>();
-        _drawer = FindObjectOfType<DropZone_Drawer>();
+
     }
 
 
@@ -55,8 +59,16 @@ public class ObjectPlacer : MonoBehaviour
                 PlaceObjectOutOfBounds(obj.gameObject);
                 break;
 
-            case ObjectSpawnZone.Drawer:
-                StartCoroutine(PlaceObjectInDrawer(obj));
+            case ObjectSpawnZone.DrawerLeft:
+                StartCoroutine(PlaceObjectInDrawer(obj, DrawerTray.left));
+                break;
+
+            case ObjectSpawnZone.DrawerCenter:
+                StartCoroutine(PlaceObjectInDrawer(obj, DrawerTray.center));
+                break;
+
+            case ObjectSpawnZone.DrawerRight:
+                StartCoroutine(PlaceObjectInDrawer(obj, DrawerTray.right));
                 break;
 
             case ObjectSpawnZone.Outbox:
@@ -80,7 +92,9 @@ public class ObjectPlacer : MonoBehaviour
         switch (targetZone)
         {
             case ObjectSpawnZone.Desk:
-            case ObjectSpawnZone.Drawer:
+            case ObjectSpawnZone.DrawerLeft:
+            case ObjectSpawnZone.DrawerCenter:
+            case ObjectSpawnZone.DrawerRight:
             case ObjectSpawnZone.Outbox:
                 PlaceObjectInCenter(go);
                 break;
@@ -94,20 +108,37 @@ public class ObjectPlacer : MonoBehaviour
         }
     }
 
-    private IEnumerator PlaceObjectInDrawer(MovableObject obj)
+    private IEnumerator PlaceObjectInDrawer(MovableObject obj, DrawerTray tray)
     {
-        if (_drawer == null)
-        {
-            _drawer = FindObjectOfType<DropZone_Drawer>();
+        DropZone_Drawer targetDrawer = null;
 
-            if (_drawer == null)
+        if (_drawers == null)
+        {
+            _drawers = FindObjectsOfType<DropZone_Drawer>();
+
+            if (_drawers == null)
                 yield return null;
         }
-        obj.transform.position = _drawer.gameObject.transform.position;
-        obj.Select();
 
-        yield return new WaitForFixedUpdate();
-        obj.Deselect();
+        foreach (var drawer in _drawers)
+        {
+            if (drawer.tray == tray)
+            {
+                targetDrawer = drawer;
+                break;
+            }
+        }
+
+        Debug.Log(obj.gameObject.name + " placed in drawer : " + targetDrawer.gameObject.name);
+
+        if (targetDrawer != null)
+        {
+            obj.transform.position = targetDrawer.GetRandomPointInZone();
+            obj.Select();
+
+            yield return new WaitForFixedUpdate();
+            obj.Deselect();
+        }
     }
 
     private IEnumerator PlaceObjectInOutbox(MovableObject obj)
@@ -144,7 +175,9 @@ public class ObjectPlacer : MonoBehaviour
 
 public enum ObjectSpawnZone
 {
-    Drawer,
+    DrawerLeft,
+    DrawerCenter,
+    DrawerRight,
     Outbox,
     Desk,
     OutOfBounds

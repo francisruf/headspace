@@ -219,6 +219,11 @@ public class GridTile : MonoBehaviour
         float seconds = lifeTime;
         UpdateDebugText(seconds);
 
+        while (!GameManager.GameStarted)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
         while (seconds > 0.01f)
         {
             yield return new WaitForSeconds(1f);

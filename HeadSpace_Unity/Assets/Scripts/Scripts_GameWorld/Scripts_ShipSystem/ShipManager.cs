@@ -26,6 +26,9 @@ public class ShipManager : MonoBehaviour
     // Liste de tous les ships qui ont été déclarés
     private List<Ship> shipInventory = new List<Ship>();
 
+    private int _activeShipsCount;
+    public int ActiveShipsCount { get { return _activeShipsCount; } }
+
     // État de debug (visibilité des vaisseaux)
     private bool shipDebugVisible = true;
 
@@ -173,6 +176,7 @@ public class ShipManager : MonoBehaviour
     private void OnNewShipAvailable(Ship ship)
     {
         shipInventory.Add(ship);
+        _activeShipsCount++;
 
         string shipCallsign;
         string shipName = GetDefaultName(ship, out shipCallsign);
@@ -183,12 +187,14 @@ public class ShipManager : MonoBehaviour
     // Enlever un ship de l'inventaire
     private void OnShipDestroyed(Ship ship)
     {
+        _activeShipsCount--;
         UpdateShipInventoryUI();
     }
 
     // Enlever un ship de l'inventaire
     private void OnShipUnavailable(Ship ship)
     {
+        _activeShipsCount--;
         if (shipInventory.Contains(ship))
         {
             shipInventory.Remove(ship);
@@ -241,27 +247,11 @@ public class ShipManager : MonoBehaviour
     }
 
     // Fonction qui affiche ou non les sprites de tous les vaisseaux
-    public void ToggleShipDebug()
+    public void ToggleShipDebug(bool toggleON)
     {
-        // Si debug visible au moment du toggle, désactiver les sprites des vaisseaux dont l'état est DEPLOYED
-        if (shipDebugVisible)
+        foreach (var ship in shipInventory)
         {
-            foreach (var ship in shipInventory)
-            {
-                if (ship.CurrentShipState == ShipState.Deployed)
-                    ship.ToggleSprite(false);
-            }
-            shipDebugVisible = false;
-        }
-        // Si debug non visible au moment du toggle, activer les sprites des vaisseaux dont l'état est DEPLOYED
-        else
-        {
-            foreach (var ship in shipInventory)
-            {
-                if (ship.CurrentShipState == ShipState.Deployed)
-                    ship.ToggleSprite(true);
-            }
-            shipDebugVisible = true;
+            ship.ToggleSprite(toggleON);
         }
     }
 }

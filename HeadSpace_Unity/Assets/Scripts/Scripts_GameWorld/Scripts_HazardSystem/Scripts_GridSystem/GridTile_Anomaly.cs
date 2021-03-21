@@ -10,7 +10,6 @@ public class GridTile_Anomaly : GridTile
     public string tileNameLine;
     public SpriteRenderer anomalySpriteRenderer;
 
-
     protected override void Awake()
     {
         base.Awake();

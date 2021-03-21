@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Command_Send : Command
 {
+    public static Action playerFirstDeploy;
+
     // FUTURE VARIANTE DE FONCTION À IMPLÉMENTER, PAS BESOIN D'Y TOUCHER POUR L'INSTANT
     public override bool TryExecution(string playerText, out string errorMessage)
     {
@@ -84,6 +87,12 @@ public class Command_Send : Command
 
     protected override void ExecuteCommand(Ship targetShip, Vector2 gridCoordinates)
     {
+        if (!GameManager.GameStarted)
+        {
+            if (playerFirstDeploy != null)
+                playerFirstDeploy();
+        }
+
         //Debug.Log("DEPLOY CALLED");
         targetShip.Deploy(gridCoordinates);
     }

@@ -103,9 +103,19 @@ public class AudioManager : MonoBehaviour {
         currentMusic.source.Play();
     }
 
+    private Sound FindSound(string name)
+    {
+        return Array.Find(sounds, sound => sound.name == name);
+    }
+
 
     private void ShredderStarted()
     {
+        Sound shredSound = FindSound("Shredder");
+        if (shredSound != null)
+            if (shredSound.source.isPlaying)
+                return;
+
         PlaySound("Shredder");
     }
 

@@ -26,6 +26,18 @@ public class GridStaticObject : MonoBehaviour
         _collider = GetComponent<Collider2D>();
     }
 
+    protected virtual void Start()
+    {
+        if (DebugManager.instance != null)
+        {
+            _spriteRenderer.enabled = DebugManager.instance.DebugObjectsVisible;
+        }
+        else
+        {
+            _spriteRenderer.enabled = false;
+        }
+    }
+
     protected virtual void OnEnable()
     {
         GridManager.gridDataDestroyed += OnGridDataDestroyed;
@@ -60,9 +72,9 @@ public class GridStaticObject : MonoBehaviour
             gridObjectPositionRemoved(this);
     }
 
-    public virtual void ToggleSprite()
+    public virtual void ToggleSprite(bool toggleON)
     {
-        _spriteRenderer.enabled = !_spriteRenderer.enabled;
+        _spriteRenderer.enabled = toggleON;
     }
 
     private void OnGridDataDestroyed()

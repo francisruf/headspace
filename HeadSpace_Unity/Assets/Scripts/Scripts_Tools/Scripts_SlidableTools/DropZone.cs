@@ -36,6 +36,14 @@ public abstract class DropZone : MonoBehaviour
         return false;
     }
 
+    public Vector2 GetRandomPointInZone()
+    {
+        float randomX = Random.Range(_collider.bounds.min.x + 0.05f, _collider.bounds.max.x - 0.05f);
+        float randomY = Random.Range(_collider.bounds.min.y + 0.05f, _collider.bounds.max.y - _collider.bounds.extents.y);
+
+        return new Vector2(randomX, randomY);
+    }
+
     public virtual void AddObjectToDropZone(MovableObject obj)
     {
         Bounds objBounds = obj.ColliderBounds;

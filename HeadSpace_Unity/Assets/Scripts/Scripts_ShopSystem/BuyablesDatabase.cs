@@ -73,4 +73,17 @@ public class BuyablesDatabase : MonoBehaviour
 
         return false;
     }
+
+    public int GetMinimumShipPrice()
+    {
+        int minPrice = int.MaxValue;
+
+        foreach (var ship in _shipyardDatabase)
+        {
+            if (ship.Value.price < minPrice)
+                minPrice = ship.Value.price;
+        }
+
+        return minPrice;
+    }
 }

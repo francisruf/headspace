@@ -10,6 +10,7 @@ public class PlanetManager : MonoBehaviour
 
     // Action qui envoie toutes les planètes spawnées au début d'une partie
     public static Action<List<Planet>> planetsSpawned;
+    public static Action noMoreSoulsInSector;
 
     // Paramètres de spawning et archétypes de planètes
     [Header("Random population settings")]
@@ -28,6 +29,9 @@ public class PlanetManager : MonoBehaviour
 
     // Liste de toutes les planètes générées
     private List<Planet> _allPlanets = new List<Planet>();
+
+    private int _currentSectorSouls;
+    private int _totalSectorSouls;
 
     private void Awake()
     {
@@ -50,6 +54,8 @@ public class PlanetManager : MonoBehaviour
         GridManager.newGameGrid += OnNewGameGrid;
         //GridManager.firstAnomalyTile += OnFirstAnomalyTile;
         Ship.soulsFromPlanetSaved += TrackSavedSouls;
+        Ship.soulsUnloaded += OnSoulsUnloaded;
+        Planet.soulsLost += OnSoulsLost;
     }
 
     // Unsubscription
@@ -58,7 +64,9 @@ public class PlanetManager : MonoBehaviour
         GridManager.gridDataDestroyed -= OnGridDataDestroyed;
         GridManager.newGameGrid -= OnNewGameGrid;
         //GridManager.firstAnomalyTile -= OnFirstAnomalyTile;
-        Ship.soulsFromPlanetSaved += TrackSavedSouls;
+        Ship.soulsFromPlanetSaved -= TrackSavedSouls;
+        Ship.soulsUnloaded -= OnSoulsUnloaded;
+        Planet.soulsLost -= OnSoulsLost;
     }
 
     // Fonction appelée lorsqu'une nouvelle grille est générée qui stock les informations de cette grille
@@ -146,6 +154,12 @@ public class PlanetManager : MonoBehaviour
             _allPlanets.Add(planet);
         }
 
+        foreach (var planet in _allPlanets)
+        {
+            _totalSectorSouls += planet.TotalSouls;
+        }
+        _currentSectorSouls = _totalSectorSouls;
+
         if (planetsSpawned != null)
             planetsSpawned(_allPlanets);
 
@@ -217,11 +231,32 @@ public class PlanetManager : MonoBehaviour
         match.linkedPlanet.OnSoulsSaved(match.soulsAmount);
     }
 
-    public void TogglePlanetDebug()
+    public void TogglePlanetDebug(bool toggleON)
     {
         foreach (var planet in _allPlanets)
         {
-            planet.ToggleSprite();
+            planet.ToggleSprite(toggleON);
+        }
+    }
+
+    private void OnSoulsLost(Planet planet, int amount)
+    {
+        _currentSectorSouls -= amount;
+        CheckForEndCondition();
+    }
+
+    private void OnSoulsUnloaded(int amount)
+    {
+        _currentSectorSouls -= amount;
+        CheckForEndCondition();
+    }
+
+    private void CheckForEndCondition()
+    {
+        if (_currentSectorSouls <= 0)
+        {
+            if (noMoreSoulsInSector != null)
+                noMoreSoulsInSector();
         }
     }
 

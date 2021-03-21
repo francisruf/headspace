@@ -41,8 +41,10 @@ public class Planet : GridStaticObject
         _anomalyZone = GetComponentInChildren<Planet_AnomalyZone>();
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         // Lancer l'action et envoyer une référence vers son script Planet
         if (newPlanetInSector != null)
             newPlanetInSector(this);

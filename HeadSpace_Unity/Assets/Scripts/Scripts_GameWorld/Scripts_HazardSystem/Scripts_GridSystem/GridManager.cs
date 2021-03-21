@@ -89,7 +89,7 @@ public class GridManager : MonoBehaviour
     private void Start()
     {
         _currentGridMode = GridMode.WorldMap;
-        GenerateNewGrid();
+        //GenerateNewGrid();
     }
 
     public void GenerateNewGrid()

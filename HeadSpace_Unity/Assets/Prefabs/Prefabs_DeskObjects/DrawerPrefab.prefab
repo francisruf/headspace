@@ -71,6 +71,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   acceptedObjects: 00000000
+  tray: 2
 --- !u!1 &3712856590310479867
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,6 +335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   acceptedObjects: 00000000
+  tray: 0
 --- !u!1 &8184818431553381665
 GameObject:
   m_ObjectHideFlags: 0
@@ -561,3 +563,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   acceptedObjects: 00000000
+  tray: 1

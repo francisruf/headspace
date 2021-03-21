@@ -10,6 +10,8 @@ public class ShopManager : MonoBehaviour
     public static ShopManager instance;
     private BuyablesDatabase _buyablesDB;
 
+    public bool TransactionInProgress { get; private set; }
+    private int transactionInProgressCount;
     //public int spawnBoughtObjectsCooldown;
 
     private void Awake()
@@ -44,6 +46,7 @@ public class ShopManager : MonoBehaviour
             success = RessourceManager.instance.SpendCredits(objToSpawn.price);
             if (success)
             {
+                TransactionInProgress = true;
                 StartCoroutine(SpawnObject(objToSpawn));
             }
         }
@@ -52,6 +55,7 @@ public class ShopManager : MonoBehaviour
 
     private IEnumerator SpawnObject(BuyableObject objToSpawn)
     {
+        transactionInProgressCount++;
         yield return new WaitForSeconds(0f);
 
         for (int i = 0; i < objToSpawn.spawnQuantity; i++)
@@ -60,6 +64,14 @@ public class ShopManager : MonoBehaviour
 
             if (placeObjectRequest != null)
                 placeObjectRequest(go, objToSpawn.spawnZone);
+        }
+        transactionInProgressCount--;
+
+        yield return new WaitForSeconds(1f);
+        
+        if (transactionInProgressCount <= 0)
+        {
+            TransactionInProgress = false;
         }
     }
 }

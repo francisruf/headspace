@@ -215,11 +215,11 @@ public class HazardManager : MonoBehaviour
         return candidateTiles;
     }
 
-    public void ToggleHazardDebug()
+    public void ToggleHazardDebug(bool toggleON)
     {
         foreach (var hazard in _allHazards)
         {
-            hazard.ToggleSprite();
+            hazard.ToggleSprite(toggleON);
         }
     }
 }

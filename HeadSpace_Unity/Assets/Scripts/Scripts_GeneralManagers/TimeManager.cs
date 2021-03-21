@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
+    public static Action levelTimerEnded;
+
     // Singleton
     public static TimeManager instance;
 
@@ -14,6 +17,23 @@ public class TimeManager : MonoBehaviour
     private float _currentTime = 0f;
     private bool _timeStarted;
     private float _timeScaleBeforePause;
+
+    private float _levelEndTimer;
+
+    public float GetCurrentTime
+    {
+        get
+        {
+            if (!GameManager.GameStarted)
+            {
+                return (startHours * 60f * 60f) + startMinutes * 60f;
+            }
+            else
+            {
+                return _currentTime;
+            }
+        }
+    }
 
     public float GameTime { get { return _currentTime; } }
 
@@ -33,24 +53,39 @@ public class TimeManager : MonoBehaviour
 
     private void OnEnable()
     {
-        GridManager.newGameGrid += StartTime;
+        _currentTime = (startHours * 60f * 60f) + startMinutes * 60f;
+        GameManager.gameStarted += StartTime;
     }
 
     private void OnDisable()
     {
-        
+        GameManager.gameStarted -= StartTime;
     }
 
-    private void StartTime(GridInfo info)
+    private void StartTime()
     {
-        _currentTime = (startHours * 60f * 60f) + startMinutes * 60f;
+        if (GameManager.instance != null)
+        {
+            _levelEndTimer = _currentTime + (GameManager.instance.LevelDurationInMinutes * 60f * 60f);
+        }
         _timeStarted = true;
     }
 
     private void Update()
     {
         if (_timeStarted)
+        {
             _currentTime += (Time.deltaTime * 60f);
+
+            if (_currentTime >= _levelEndTimer)
+            {
+                _timeStarted = false;
+                _currentTime = _levelEndTimer;
+
+                if (levelTimerEnded != null)
+                    levelTimerEnded();
+            }
+        }
     }
 
     //public void DoubleTimeScale()

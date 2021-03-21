@@ -42,6 +42,8 @@ public class SlidableTool : InteractableObject
         }
 
         AssignStartingValues();
+        CheckOpenState();
+        transform.position = fullyClosedPos;
     }
 
     private void AssignStartingValues()

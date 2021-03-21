@@ -22,6 +22,11 @@ public class DeployPoint : GridStaticObject
             newDeployPoint(this);
     }
 
+    protected override void Start()
+    {
+        
+    }
+
     public override void PlaceGridObject(Vector2 gridCoordinates)
     {
         GridCoordinates = gridCoordinates;
