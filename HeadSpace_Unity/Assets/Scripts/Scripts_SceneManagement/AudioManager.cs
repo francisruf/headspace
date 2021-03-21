@@ -59,10 +59,10 @@ public class AudioManager : MonoBehaviour {
     //Update function only to test feature. Remove when necessary.
    private void Update()
     { 
-        //if (Input.GetKeyDown(KeyCode.S)) 
-        //{
-        //    PlaySound("Paper_Pickup");
-        //}
+     //   if (Input.GetKeyDown(KeyCode.S)) 
+       // {
+        //    PlaySound("Menu_Button_Select");
+      //  }
     }
      
     private void AssignMusicOnScene(Scene scene1, Scene scene2) {
@@ -182,5 +182,10 @@ public class AudioManager : MonoBehaviour {
     private void PaperDrop()
     {
         PlaySound("Paper_Drop");
+    }
+
+    private void MenuButtonSelect()
+    {
+        PlaySound("Menu_Button_Select");
     }
 }

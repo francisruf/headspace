@@ -186,7 +186,7 @@ PrefabInstance:
     - target: {fileID: 3875620706196734524, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
         type: 3}
       propertyPath: sounds.Array.size
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3875620706196734524, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
         type: 3}
@@ -282,11 +282,11 @@ PrefabInstance:
         type: 3}
       propertyPath: sounds.Array.data[9].clip
       value: 
-      objectReference: {fileID: 8300000, guid: 3951147565f00e14998a46b4660dd66a, type: 3}
+      objectReference: {fileID: 8300000, guid: 3ac86297451aa9d4ca4691d03dbbffab, type: 3}
     - target: {fileID: 3875620706196734524, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
         type: 3}
       propertyPath: sounds.Array.data[9].name
-      value: 
+      value: Menu_Button_Select
       objectReference: {fileID: 0}
     - target: {fileID: 3875620706196734524, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
         type: 3}
@@ -376,7 +376,7 @@ PrefabInstance:
     - target: {fileID: 3875620706196734524, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
         type: 3}
       propertyPath: sounds.Array.data[9].volume
-      value: 1
+      value: 0.83
       objectReference: {fileID: 0}
     - target: {fileID: 3875620706196734525, guid: fca737fa3c43da8419df6ba7bc2e8dbc,
         type: 3}
