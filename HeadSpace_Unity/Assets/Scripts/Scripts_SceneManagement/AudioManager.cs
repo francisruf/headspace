@@ -43,6 +43,11 @@ public class AudioManager : MonoBehaviour {
         DropZone_Outbox.commandFail += DrawerError;
         MovableObject.movableObjectSelected += OnMovableObjectSelected;
         MovableObject.movableObjectDeselected += OnMovableObjectDeselected;
+
+        MainMenuController.playButtonPressed += MenuButtonSelect;
+        MainMenuController.quitButtonPressed += MenuButtonSelect;
+        EndMenuController.playAgainButtonPressed += MenuButtonSelect;
+        EndMenuController.quitButtonPressed += MenuButtonSelect;
     }
 
     private void OnDisable()
@@ -53,7 +58,12 @@ public class AudioManager : MonoBehaviour {
         DropZone_Outbox.commandSuccess -= DrawerSuccess;
         DropZone_Outbox.commandFail -= DrawerError;
         MovableObject.movableObjectSelected -= OnMovableObjectSelected;
-        MovableObject.movableObjectDeselected += OnMovableObjectDeselected;
+        MovableObject.movableObjectDeselected -= OnMovableObjectDeselected;
+
+        MainMenuController.playButtonPressed -= MenuButtonSelect;
+        MainMenuController.quitButtonPressed -= MenuButtonSelect;
+        EndMenuController.playAgainButtonPressed -= MenuButtonSelect;
+        EndMenuController.quitButtonPressed -= MenuButtonSelect;
     }
 
     //Update function only to test feature. Remove when necessary.

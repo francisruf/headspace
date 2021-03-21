@@ -25,13 +25,12 @@ public class LogbookPage_FleetDetails : LogbookPage
     private int currentFleetPageIndex;
     public static int fleetPageCount = 1;
 
-    private void Awake()
+    public override void InitializePage(MovableLogbook logbook)
     {
-        _currentFleetPage = true;
-    }
+        base.InitializePage(logbook);
 
-    private void Start()
-    {
+        _currentFleetPage = true;
+
         currentFleetPageIndex = fleetPageCount;
         pageParent = Instantiate(fleetDetailsPagePrefab, Logbook.MainCanvas.transform);
         shipLayoutGroup = pageParent.GetComponentInChildren<VerticalLayoutGroup>();

@@ -1992,6 +1992,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Page3Controller_Shipyard
       objectReference: {fileID: 0}
+    - target: {fileID: 8298254080241105262, guid: 0f827dc48ab5fef43a4b117aae926e53,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f827dc48ab5fef43a4b117aae926e53, type: 3}
 --- !u!114 &6875120887430741677 stripped
@@ -2223,6 +2228,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Page4Controller_Catalogue
+      objectReference: {fileID: 0}
+    - target: {fileID: 9091202128899529767, guid: c8cec724ba59481488f40afa4401228b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8cec724ba59481488f40afa4401228b, type: 3}
@@ -2560,6 +2570,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Page2Controller_FleetDetails
+      objectReference: {fileID: 0}
+    - target: {fileID: 7359078846187366787, guid: d5a65cb7d371c204692b2a1537237dce,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5a65cb7d371c204692b2a1537237dce, type: 3}

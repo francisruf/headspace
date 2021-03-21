@@ -27,13 +27,11 @@ public class LogbookPage_Shipyard : LogbookPage
     public static int shipyardPageCount = 1;
     public static bool shipyardStarted;
 
-    private void Awake()
+    public override void InitializePage(MovableLogbook logbook)
     {
-        _currentShipyardPage = true;
-    }
+        base.InitializePage(logbook);
 
-    private void Start()
-    {
+        _currentShipyardPage = true;
         currentShipyardPageIndex = shipyardPageCount;
         pageParent = Instantiate(shipyardPagePrefab, Logbook.MainCanvas.transform);
         shipBuyablesLayoutGroup = pageParent.GetComponentInChildren<VerticalLayoutGroup>();
@@ -137,6 +135,7 @@ public class LogbookPage_Shipyard : LogbookPage
                 shipyardPageCount++;
                 LogbookPage_Shipyard newPage = Instantiate(shipyardPageControllerPrefab, transform.parent).GetComponent<LogbookPage_Shipyard>();
                 newPage.transform.SetSiblingIndex(transform.GetSiblingIndex() + 1);
+                newPage.InitializePage(Logbook);
                 int currentPageIndex = Logbook.IndexOf(this);
                 Logbook.AddPage(currentPageIndex + 1, newPage);
                 newPage.StartCoroutine(newPage.PopulatePage(remainingObjects));

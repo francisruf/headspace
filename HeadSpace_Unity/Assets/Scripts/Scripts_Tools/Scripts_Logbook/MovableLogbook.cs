@@ -24,16 +24,17 @@ public class MovableLogbook : MovableObject
         leftCorner.interactRequest += PreviousPage;
         rightCorner.interactRequest += NextPage;
 
-        foreach (var page in logbookPages)
-        {
-            page.Logbook = this;
-        }
+
     }
 
     protected override void Start()
     {
         base.Start();
 
+        foreach (var page in logbookPages)
+        {
+            page.InitializePage(this);
+        }
         _pageCount = logbookPages.Count;
 
         DisplayStartingPage();
@@ -53,7 +54,6 @@ public class MovableLogbook : MovableObject
     {
         logbookPages.Insert(index, newPage);
         _pageCount++;
-        newPage.Logbook = this;
     }
 
     public int IndexOf(LogbookPage targetPage)

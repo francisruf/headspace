@@ -27,13 +27,11 @@ public class LogbookPage_Catalogue : LogbookPage
     public static int cataloguePageCount = 1;
     public static bool catalogueStarted;
 
-    private void Awake()
+    public override void InitializePage(MovableLogbook logbook)
     {
-        _currentCataloguePage = true;
-    }
+        base.InitializePage(logbook);
 
-    private void Start()
-    {
+        _currentCataloguePage = true;
         currentCataloguePageIndex = cataloguePageCount;
         pageParent = Instantiate(cataloguePagePrefab, Logbook.MainCanvas.transform);
         buyablesLayoutGroup = pageParent.GetComponentInChildren<VerticalLayoutGroup>();
@@ -138,6 +136,7 @@ public class LogbookPage_Catalogue : LogbookPage
                 LogbookPage_Catalogue newPage = Instantiate(cataloguePageControllerPrefab, transform.parent).GetComponent<LogbookPage_Catalogue>();
                 newPage.transform.SetSiblingIndex(transform.GetSiblingIndex() + 1);
                 int currentPageIndex = Logbook.IndexOf(this);
+                newPage.InitializePage(Logbook);
                 Logbook.AddPage(currentPageIndex + 1, newPage);
                 newPage.StartCoroutine(newPage.PopulatePage(remainingObjects));
                 break;
