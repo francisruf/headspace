@@ -51,14 +51,14 @@ MonoBehaviour:
   playerDeskObjects:
   - objectPrefab: {fileID: 8065276512556439008, guid: 9120a8f5fc4724c488f8d79c7359b36b,
       type: 3}
-    quantity: 5
+    quantity: 4
     spawnZone: 0
   - objectPrefab: {fileID: 5345643302154013521, guid: ce25cd5c00fdf764d9faf4b706818418,
       type: 3}
-    quantity: 5
+    quantity: 4
     spawnZone: 1
   - objectPrefab: {fileID: 6964936532800032168, guid: d9028355593f35d4e87d7dfe862424c7,
       type: 3}
-    quantity: 5
+    quantity: 4
     spawnZone: 2
-  startingCredits: 0
+  startingCredits: 10
