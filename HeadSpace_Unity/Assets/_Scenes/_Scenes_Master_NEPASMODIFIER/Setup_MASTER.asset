@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67108e063a91d044caf97bb97404d797, type: 3}
-  m_Name: Setup_Master
+  m_Name: Setup_MASTER
   m_EditorClassIdentifier: 
   Setups:
   - m_Path: Assets/_Scenes/_Scenes_Master_NEPASMODIFIER/_Master.unity
