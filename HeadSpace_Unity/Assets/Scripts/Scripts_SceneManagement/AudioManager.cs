@@ -59,10 +59,10 @@ public class AudioManager : MonoBehaviour {
     //Update function only to test feature. Remove when necessary.
    private void Update()
     { 
-     //   if (Input.GetKeyDown(KeyCode.S)) 
-       // {
-        //    PlaySound("Menu_Button_Select");
-      //  }
+     //  if (Input.GetKeyDown(KeyCode.S)) 
+      // {
+      //     PlaySound("Marker_Pin");
+    //   }
     }
      
     private void AssignMusicOnScene(Scene scene1, Scene scene2) {
@@ -137,10 +137,7 @@ public class AudioManager : MonoBehaviour {
         PlaySound("Writer_Signal");
     }
 
-    private void DrawerOpen()
-    {
-        
-    }
+ 
 
     private void OnMovableObjectSelected(MovableObject obj)
     {
@@ -187,5 +184,74 @@ public class AudioManager : MonoBehaviour {
     private void MenuButtonSelect()
     {
         PlaySound("Menu_Button_Select");
+    }
+
+    private void CoinReceived()
+    {
+        PlaySound("Coin_Received");
+    }
+
+    private void CoinStack()
+    {
+        PlaySound("Coin_Stack");
+    }
+
+    private void CoinStackSingle()
+    {
+        PlaySound("Coin_Stack_Single");
+    }
+
+    private void CommandGood()
+    {
+        PlaySound("Command_Good");
+    }
+
+    private void DrawerCloseOne()
+    {
+        PlaySound("Drawer_Close_One");
+    }
+    private void DrawerCloseTwo()
+    {
+        PlaySound("Drawer_Close_Two");
+    }
+    private void DrawerDragOne()
+    {
+        PlaySound("Drawer_Drag_One");
+    }
+    private void DrawerDragTwo()
+    {
+        PlaySound("Drawer_Drag_Two");
+    }
+    private void DrawerDragThree()
+    {
+        PlaySound("Drawer_Drag_Three");
+    }
+    private void DrawerOpen()
+    {
+        PlaySound("Drawer_Open");
+    }
+    private void DrawerOpenTwo()
+    {
+        PlaySound("Drawer_Open_Two");
+    }
+    private void DrawerPullOne()
+    {
+        PlaySound("Drawer_Pull_One");
+    }
+    private void DrawerPullTwo()
+    {
+        PlaySound("Drawer_Pull_Two");
+    }
+    private void MarkerDrop()
+    {
+        PlaySound("Marker_Drop");
+    }
+    private void MarkerPin()
+    {
+        PlaySound("Marker_Pin");
+    }
+    private void MarkerTake()
+    {
+        PlaySound("Marker_Take");
     }
 }
