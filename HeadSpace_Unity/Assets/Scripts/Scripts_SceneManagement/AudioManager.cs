@@ -254,4 +254,23 @@ public class AudioManager : MonoBehaviour {
     {
         PlaySound("Marker_Take");
     }
+
+    private void NumPadOut()
+    {
+        PlaySound("Numpad_Out");
+    }
+    private void NumPadClose()
+    {
+        PlaySound("Numpad_Close");
+    }
+
+    private void MessagePick()
+    {
+        PlaySound("Message_Pick");
+    }
+
+    private void MessageDrop()
+    {
+        PlaySound("Message_Drop");
+    }
 }
