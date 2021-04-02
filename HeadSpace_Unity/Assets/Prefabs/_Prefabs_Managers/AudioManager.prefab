@@ -43,6 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58d78464954726843a81020191a20595, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sfxFadeSpeed: 0.5
+  musicFadeSpeed: 2
   sounds:
   - name: Yes.
     clip: {fileID: 8300000, guid: 9503c640d002ccf4f836a104acd8a7c7, type: 3}
