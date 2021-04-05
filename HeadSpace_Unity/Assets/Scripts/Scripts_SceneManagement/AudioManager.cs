@@ -40,6 +40,12 @@ public class AudioManager : MonoBehaviour
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
+
+            if (s.loop)
+            {
+                // rendu ici
+                s.source2 = gameObject.AddComponent<AudioSource>();
+            }
         }
 
         SceneManager.activeSceneChanged += AssignMusicOnScene;
@@ -78,12 +84,12 @@ public class AudioManager : MonoBehaviour
     }
 
     //Update function only to test feature. Remove when necessary.
-   private void Update()
-    { 
-     //  if (Input.GetKeyDown(KeyCode.S)) 
-      // {
-      //     PlaySound("Marker_Pin");
-    //   }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            PlaySound("Shredder_Loop");
+        }
     }
      
     private void AssignMusicOnScene(Scene scene1, Scene scene2)

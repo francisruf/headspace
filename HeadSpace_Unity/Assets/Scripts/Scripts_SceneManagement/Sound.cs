@@ -17,4 +17,6 @@ public class Sound {
 
     [HideInInspector]
     public AudioSource source;
+    [HideInInspector]
+    public AudioSource source2;
 }
