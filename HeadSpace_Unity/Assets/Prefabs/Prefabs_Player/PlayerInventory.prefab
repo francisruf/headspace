@@ -49,7 +49,7 @@ MonoBehaviour:
     quantity: 1
     spawnZone: 5
   playerDeskObjects:
-  - objectPrefab: {fileID: 8065276512556439008, guid: 9120a8f5fc4724c488f8d79c7359b36b,
+  - objectPrefab: {fileID: 1869587051099370962, guid: e70da85313896c24ab901f899e01edb2,
       type: 3}
     quantity: 4
     spawnZone: 0

@@ -77,6 +77,9 @@ public class AudioManager : MonoBehaviour
         SlidableTool.drawerOpened += DrawerOpen;
         SlidableTool.drawerClosed += DrawerClose;
         SlidableOutbox.outboxAutoOpen += DrawerAutoOpen;
+
+        WritingMachineController.commandReadyToTear += WriterReady;
+        WritingMachineController.commandTeared += WriterNotReady;
     }
 
     private void OnDisable()
@@ -102,6 +105,9 @@ public class AudioManager : MonoBehaviour
         SlidableTool.drawerOpened -= DrawerOpen;
         SlidableTool.drawerClosed -= DrawerClose;
         SlidableOutbox.outboxAutoOpen -= DrawerAutoOpen;
+
+        WritingMachineController.commandReadyToTear -= WriterReady;
+        WritingMachineController.commandTeared -= WriterNotReady;
     }
 
     //Update function only to test feature. Remove when necessary.
@@ -470,6 +476,16 @@ public class AudioManager : MonoBehaviour
     private void WriterSignal()
     {
         PlaySound("Writer_Signal");
+    }
+
+    private void WriterReady()
+    {
+        PlaySoundLoop("Writer_Voyant");
+    }
+
+    private void WriterNotReady()
+    {
+        StopSoundLoop("Writer_Voyant");
     }
 
 }

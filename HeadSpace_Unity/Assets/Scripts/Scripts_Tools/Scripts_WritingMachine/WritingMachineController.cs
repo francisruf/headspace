@@ -6,6 +6,7 @@ using UnityEngine;
 public class WritingMachineController : MonoBehaviour
 {
     public static Action commandReadyToTear;
+    public static Action commandTeared;
 
     private SlidableWritingMachine _slidableMachine;
     private KeyPadController _keyPadController;
@@ -465,6 +466,9 @@ public class WritingMachineController : MonoBehaviour
         DisableAllButtons();
 
         _animator.SetBool("IsReady", false);
+        if (commandTeared != null)
+            commandTeared();
+
         ChangeButtonSection(ButtonSectionType.Commands);
 
         SpawnCommandDocument();
