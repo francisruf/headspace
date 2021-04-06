@@ -83,24 +83,29 @@ public class GridQuadrants
     public GridQuadrants(Bounds gridBounds)
     {
         // Les quadrants correspondent à la carte divisée en 6 (3 segments X, 2 segments Y)
-        float xThird = gridBounds.size.x / 3f;
-        float yHalf = gridBounds.size.y / 2f;
+        float xEight = gridBounds.size.x / 8f;
+        float xSixth = gridBounds.size.y / 6f;
 
         // Aller chercher le point (0.0) de la grille et assiger le centre (offset) et dimensions (quadrantsize) des bounds
         Vector3 originPos = gridBounds.min;
-        Vector3 offset = originPos + new Vector3(xThird / 2f, yHalf / 2f, 0f);
-        Vector3 quadrantSize = new Vector3(xThird, yHalf, gridBounds.size.z);
+        Vector3 offset = originPos + new Vector3(xEight, xSixth, 0f);
+        Vector3 quadrantSize = new Vector3(xEight * 2f, xSixth * 2f, gridBounds.size.z);
 
         // Assigner les dimensions et le bon centre pour chaque quandrant
-        TopLeft = new Bounds(offset + new Vector3(0f, yHalf, 0f), quadrantSize);
-        TopCenter = new Bounds(offset + new Vector3(xThird, yHalf, 0f), quadrantSize);
-        TopRight = new Bounds(offset + new Vector3(xThird * 2f, yHalf, 0f), quadrantSize);
-        BottomLeft = new Bounds(offset, quadrantSize);
-        BottomCenter = new Bounds(offset + new Vector3(xThird, 0f, 0f), quadrantSize);
-        BottomRight = new Bounds(offset + new Vector3(xThird * 2f, 0f, 0f), quadrantSize);
+        TopLeft = new Bounds(offset + new Vector3(xEight, xSixth * 3, 0f), quadrantSize);
+        //TopCenter = new Bounds(offset + new Vector3(xThird, yHalf, 0f), quadrantSize);
+        TopRight = new Bounds(offset + new Vector3(xEight * 5f, xSixth * 3, 0f), quadrantSize);
+        BottomLeft = new Bounds(offset + new Vector3(xEight, xSixth, 0f), quadrantSize);
+        //BottomCenter = new Bounds(offset + new Vector3(xThird, 0f, 0f), quadrantSize);
+        BottomRight = new Bounds(offset + new Vector3(xEight * 5f, xSixth, 0f), quadrantSize);
+
+        Debug.DrawLine(TopLeft.min, TopLeft.max, Color.red, 5f);
+        Debug.DrawLine(TopRight.min, TopRight.max, Color.red, 5f);
+        Debug.DrawLine(BottomLeft.min, BottomLeft.max, Color.red, 5f);
+        Debug.DrawLine(BottomRight.min, BottomRight.max, Color.red, 5f);
 
         // Ajout des cadrans à la liste
-        _allQuadrants = new Bounds[] { TopLeft, TopCenter, TopRight, BottomLeft, BottomCenter, BottomRight };
+        _allQuadrants = new Bounds[] { TopLeft, TopRight, BottomLeft, BottomRight };
     }
 
     public List<Bounds> GetOtherBounds(int positiveQuadrantIndex)
@@ -130,7 +135,7 @@ public class GridQuadrants
         if (superRandomPositiveDice < 5)
             randomPositiveIndex = Random.Range(0, count / 2);
         else
-            randomPositiveIndex = Random.Range((count / 2) + 1, count);
+            randomPositiveIndex = Random.Range(count / 2, count);
 
         positiveQuadrant = _allQuadrants[randomPositiveIndex];
         quadrantIndex = randomPositiveIndex;
@@ -139,7 +144,7 @@ public class GridQuadrants
         {
             // SI le cadran est TopLeft OU BottomLeft
             case 0:
-            case 3:
+            case 2:
                 if (superRandomNegativeDice < 5)
                     negativeQuadrant = TopRight;
                 else
@@ -147,28 +152,12 @@ public class GridQuadrants
                 break;
 
             // SI le cadran est TopRight OU BottomRight
-            case 2:
-            case 5:
-                if (superRandomNegativeDice < 5)
-                    negativeQuadrant = TopLeft;
-                else
-                    negativeQuadrant = BottomLeft;
-                break;
-
-            // SI le cadran est TopCenter
             case 1:
-                if (superRandomNegativeDice < 5)
-                    negativeQuadrant = BottomLeft;
-                else
-                    negativeQuadrant = BottomRight;
-                break;
-
-            // SI le cadran est BottomCenter
-            case 4:
+            case 3:
                 if (superRandomNegativeDice < 5)
                     negativeQuadrant = TopLeft;
                 else
-                    negativeQuadrant = TopRight;
+                    negativeQuadrant = BottomLeft;
                 break;
 
             // Default case (ne sera pas utilisé)

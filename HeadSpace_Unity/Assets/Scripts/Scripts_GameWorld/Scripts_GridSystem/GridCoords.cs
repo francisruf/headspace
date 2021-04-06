@@ -230,7 +230,7 @@ public class GridCoords : MonoBehaviour
             validCoords = false;
             return Vector2.zero;
         }
-        
+
         if (coords.x < -0.001f)
             validCoords = false;
 
@@ -247,5 +247,131 @@ public class GridCoords : MonoBehaviour
         roundedCoords.x = Mathf.Round(roundedCoords.x * 10.0f) * 0.1f;
         roundedCoords.y = Mathf.Round(roundedCoords.y * 10.0f) * 0.1f;
         return roundedCoords;
+    }
+
+    public static string GetTileName(TileCoordinates tileCoords)
+    {
+        char c = 'A';
+        int count = 0;
+
+        while (count < tileCoords.tileY)
+        {
+            c++;
+            count++;
+        }
+
+        string y = c.ToString();
+        string x = (tileCoords.tileX + 1).ToString();
+        return y + x;
+    }
+
+    public static string GetTileLetter(float tileYCoord)
+    {
+        char c = 'A';
+        int count = 0;
+
+        while (count < tileYCoord)
+        {
+            c++;
+            count++;
+        }
+
+        return c.ToString();
+    }
+
+    public static Vector2 FromTileNameToWorld(string tileName)
+    {
+        TileCoordinates tilePosition = FromTileNameToTilePosition(tileName);
+        return FromTilePositionToWorld(tilePosition);
+    }
+
+    public static TileCoordinates FromTileNameToTilePosition(string tileName)
+    {
+        int lenght = tileName.Length;
+        if (lenght < 2)
+        {
+            Debug.Log("INVALID TILE NAME");
+            return new TileCoordinates(0, 0);
+        }
+
+        int tileX = 0;
+        if (lenght == 2)
+        {
+            tileX = int.Parse(tileName[1].ToString()) - 1;
+        }
+        else if (lenght > 2)
+        {
+            tileX = int.Parse(tileName.Substring(1, lenght-1)) - 1;
+        }
+
+        char yChar = tileName[0];
+        int tileY = -((int)'A' - (int)yChar);
+        TileCoordinates tilePosition = new TileCoordinates(tileX, tileY);
+
+        return tilePosition;
+    }
+
+    public static Vector2 FromTilePositionToWorld(TileCoordinates tilePosition)
+    {
+        if (_currentGridInfo == null)
+        {
+            Debug.Log("GridCoords error : No current grid could be found");
+            return Vector2.zero;
+        }
+
+        if (tilePosition.tileX >= _currentGridInfo.gameGridSize.x || tilePosition.tileX < 0)
+        {
+            Debug.Log("GridCoords error : TileCoords outside of range");
+            return Vector2.zero;
+        }
+
+        if (tilePosition.tileY >= _currentGridInfo.gameGridSize.y || tilePosition.tileY < 0)
+        {
+            Debug.Log("GridCoords error : TileCoords outside of range");
+            return Vector2.zero;
+        }
+
+        GridTile targetTile = _currentGridInfo.gameGridTiles[tilePosition.tileX, tilePosition.tileY];
+        float tileSize = _currentGridInfo.gameGridWorldBounds.size.x / _currentGridInfo.gameGridSize.x;
+        Vector2 worldPos = targetTile.transform.position;
+        worldPos.x += tileSize / 2f;
+        worldPos.y -= tileSize / 2f;
+
+        return worldPos;
+    }
+
+    public static TileCoordinates FromWorldToTilePosition(Vector2 worldCoords)
+    {
+
+        float tileSize = _currentGridInfo.gameGridWorldBounds.size.x / _currentGridInfo.gameGridSize.x;
+        Vector2 gridZero = _currentGridInfo.gameGridWorldBounds.min;
+        gridZero.y = _currentGridInfo.gameGridWorldBounds.max.y;
+
+        Vector2 distFromZero = worldCoords - gridZero;
+        Vector2 decimalCoords = distFromZero / tileSize;
+        decimalCoords.y = -decimalCoords.y;
+
+        int tileX = Mathf.FloorToInt(decimalCoords.x);
+        int tileY = Mathf.FloorToInt(decimalCoords.y);
+
+        return new TileCoordinates(tileX, tileY);
+    }
+
+    public static bool IsInTile(Vector2 worldPos, out TileCoordinates tileCoords)
+    {
+        tileCoords = new TileCoordinates(0, 0);
+
+        if (_currentGridInfo == null)
+        {
+            return false;
+        }
+
+        bool inTile = _currentGridInfo.gameGridWorldBounds.Contains(worldPos);
+        if (inTile)
+        {
+            tileCoords = FromWorldToTilePosition(worldPos);
+        }
+
+        return inTile;
     }
 }

@@ -60,16 +60,16 @@ public class AnomalySegment
 
         switch (deadTile.tileType)
         {
-            case 1:
+            case 10:
                 {
-                    GridManager.instance.ReplaceTile(deadTile, 2, out newActiveTile);
+                    GridManager.instance.ReplaceTile(deadTile, 11, out newActiveTile);
                     break;
                 }
 
-            case 2:
+            case 11:
                 {
                     GridTile newFinishedTile;
-                    GridManager.instance.ReplaceTile(deadTile, 3, out newFinishedTile);
+                    GridManager.instance.ReplaceTile(deadTile, 12, out newFinishedTile);
                     AddTileToSegment(newFinishedTile);
 
                     TileCoordinates nextTileCoords;
@@ -77,7 +77,7 @@ public class AnomalySegment
 
                     if (gridHasEmptyTile)
                     {
-                        GridManager.instance.ReplaceTile(nextTileCoords, 1, out newActiveTile);
+                        GridManager.instance.ReplaceTile(nextTileCoords, 10, out newActiveTile);
                     }
                     else
                     {

@@ -1,9 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SlidableTool : InteractableObject
 {
+    public static Action drawerOpened;
+    public static Action drawerClosed;
+
     [Header("SlidableTool settings")]
     public SlidingDirection slidingDirection;
     public float slidingAmount;

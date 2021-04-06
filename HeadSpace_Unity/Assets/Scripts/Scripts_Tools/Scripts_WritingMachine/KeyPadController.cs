@@ -1,10 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class KeyPadController : MonoBehaviour
 {
+    public static Action keypadOpen;
+    public static Action keypadClose;
+
     public Animator animator;
     private KeyPadButtonController[] _allKeyPadButtons;
     public TextMeshProUGUI[] allVectorTexts = new TextMeshProUGUI[4];
@@ -63,8 +67,13 @@ public class KeyPadController : MonoBehaviour
     private IEnumerator RevealKeyPad()
     {
         animator.SetBool("IsOpen", true);
+        yield return new WaitForSeconds(0.15f);
 
-        yield return new WaitForSeconds(0.3f);
+        if (keypadOpen != null)
+            keypadOpen();
+
+        yield return new WaitForSeconds(0.15f);
+
         _isOpen = true;
         ToggleButtons(true);
 
@@ -91,6 +100,10 @@ public class KeyPadController : MonoBehaviour
     private IEnumerator HideKeyPad()
     {
         yield return new WaitForSeconds(0.1f);
+
+        if (keypadClose != null)
+            keypadClose();
+
         ToggleButtons(false);
         _isOpen = false;
 

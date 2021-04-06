@@ -14,6 +14,9 @@ public class GridTile : MonoBehaviour
     protected BoxCollider2D _boxCollider;
     private TextMeshProUGUI _lifeTimeText;
 
+    // Temp
+    public string tileName;
+
     // Propriétés des tuiles
     [Header("Life settings")]
     public bool liveForever;
@@ -33,6 +36,8 @@ public class GridTile : MonoBehaviour
     // Position sur la grille, assignee par le GridManager
     [HideInInspector] public int tileX;
     [HideInInspector] public int tileY;
+    public TileCoordinates TileCoordinates {  get { return new TileCoordinates(tileX, tileY); } }
+    public Bounds TileBounds { get { return _boxCollider.bounds; } }
 
     // Type de tuile en int, assigné par le GridManager
     [HideInInspector] public int tileType;
@@ -74,6 +79,14 @@ public class GridTile : MonoBehaviour
     public List<GridTile> EmptyNeighbours { get { return _emptyNeighbours; } }
     private List<GridTile> _anomalyNeighbours = new List<GridTile>();
     public List<GridTile> AnomalyNeighbours { get { return _anomalyNeighbours; } }
+
+    public Vector2 TileCenter
+    {
+        get
+        {
+            return _boxCollider.bounds.center;
+        }
+    }
 
     // SUBSRIPTION à l'Action de nouvelle grille
     private void OnEnable()
@@ -125,7 +138,11 @@ public class GridTile : MonoBehaviour
 
         _spriteRenderer.size = tileDimensions;
         _boxCollider.size = tileDimensions;
-        _boxCollider.offset = tileDimensions / 2f;
+        Vector2 colliderOffset = new Vector2();
+        colliderOffset = tileDimensions / 2f;
+        colliderOffset.y = -colliderOffset.y;
+
+        _boxCollider.offset = colliderOffset;
 
         _currentGridMode = gridMode;
 
@@ -212,6 +229,12 @@ public class GridTile : MonoBehaviour
             }
         }
         return planetList;
+    }
+
+    // Fonction qui permet de vérifier si un point (Vector3) envoyé en paramètre se trouve à L'INTÉRIEUR du cercle
+    public bool IsInTile(Vector2 targetPoint)
+    {
+        return _boxCollider.bounds.Contains(targetPoint);
     }
 
     private IEnumerator LifeTimer()

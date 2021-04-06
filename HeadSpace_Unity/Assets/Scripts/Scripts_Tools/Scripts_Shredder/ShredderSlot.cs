@@ -6,6 +6,7 @@ using UnityEngine;
 public class ShredderSlot : MonoBehaviour
 {
     public static Action shredderStarted;
+    public static Action shredderStopped;
 
     public Transform minObjectPosY;
     public Transform maxObjectPosY;
@@ -17,6 +18,9 @@ public class ShredderSlot : MonoBehaviour
     public bool canShred;
 
     private LightState currentLightState = LightState.Red;
+
+    private List<ShreddingRoutine> currentShreddingRoutines = new List<ShreddingRoutine>();
+    private int currentRoutineIndex = 0;
 
     private void Start()
     {
@@ -63,7 +67,10 @@ public class ShredderSlot : MonoBehaviour
                 objToShred.SetSortingLayer(parent.ObjSpriteRenderer.sortingLayerID);
                 objToShred.SetOrderInLayer(parent.ObjSpriteRenderer.sortingOrder + 1);
 
-                StartCoroutine(Shred(objToShred));
+                IEnumerator newShreddingRoutine = Shred(objToShred, currentRoutineIndex);
+                currentShreddingRoutines.Add(new ShreddingRoutine(currentRoutineIndex, newShreddingRoutine));
+                currentRoutineIndex++;
+                StartCoroutine(newShreddingRoutine);
                 //FindObjectOfType<AudioManager>().PlaySound("Shredder");
             }
         }
@@ -101,26 +108,65 @@ public class ShredderSlot : MonoBehaviour
 
     private void ShredStart()
     {
-        shredding = true;
+        if (!shredding)
+        {
+            if (shredderStarted != null)
+                shredderStarted();
+
+            shredding = true;
+        }
         UpdateLightState();
     }
 
     private void ShredEnd()
     {
-        shredding = false;
+        Debug.Log("SHRED ROUTINES COUNT : " + currentShreddingRoutines.Count);
+        Debug.Log("4");
+        if (shredding)
+        {
+            Debug.Log("5");
+            bool stillShredding = false;
+            for (int i = 0; i < currentShreddingRoutines.Count; i++)
+            {
+                if (currentShreddingRoutines[i].routine != null)
+                {
+                    Debug.Log("6");
+                    stillShredding = true;
+                    break;
+                }
+            }
+
+            if (!stillShredding)
+            {
+                shredding = false;
+
+                if (shredderStopped != null)
+                    shredderStopped();
+
+                Debug.Log("7");
+            }
+        }
         UpdateLightState();
     }
 
-    private IEnumerator Shred(MovableObject obj)
+    private IEnumerator Shred(MovableObject obj, int instanceID)
     {
         ShredStart();
 
-        if (shredderStarted != null)
-            shredderStarted();
-
         yield return StartCoroutine(LerpToPosition(obj));
-        ShredEnd();
+        Debug.Log("1");
+
+        for (int i = 0; i < currentShreddingRoutines.Count; i++)
+        {
+            if (currentShreddingRoutines[i].instanceID == instanceID)
+            {
+                Debug.Log(currentShreddingRoutines.Remove(currentShreddingRoutines[i]));
+                break;
+            }
+        }
+
         obj.DisableObject();
+        ShredEnd();
     }
 
     private IEnumerator LerpToPosition(MovableObject obj)
@@ -193,4 +239,21 @@ public class ShredderSlot : MonoBehaviour
     //    float ratio = 1 - (Mathf.Abs(parent.transform.position.x) / (Camera.main.orthographicSize * 2));
     //    return ratio > neededRatioValue;
     //}
+}
+
+public struct ShreddingRoutine
+{
+    public int instanceID;
+    public IEnumerator routine;
+
+    public ShreddingRoutine(int instanceID, IEnumerator routine)
+    {
+        this.instanceID = instanceID;
+        this.routine = routine;
+    }
+
+    public void NullRoutine()
+    {
+        routine = null;
+    }
 }

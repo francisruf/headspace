@@ -191,12 +191,53 @@ PrefabInstance:
     - target: {fileID: 7583935391869050567, guid: d0fd4a9b57b221d4884d9efa214196ff,
         type: 3}
       propertyPath: mapSizeX
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7583935391869050567, guid: d0fd4a9b57b221d4884d9efa214196ff,
         type: 3}
       propertyPath: mapSizeY
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 7583935391869050567, guid: d0fd4a9b57b221d4884d9efa214196ff,
+        type: 3}
+      propertyPath: rocktilePrefab
+      value: 
+      objectReference: {fileID: 328405606139326222, guid: d150f9a48d0470548a061772bf595a92,
+        type: 3}
+    - target: {fileID: 7583935391869050567, guid: d0fd4a9b57b221d4884d9efa214196ff,
+        type: 3}
+      propertyPath: deployTilePrefab
+      value: 
+      objectReference: {fileID: 328405606139326222, guid: 409dca98a11ccc04d956be1f674f73b9,
+        type: 3}
+    - target: {fileID: 7583935391869050567, guid: d0fd4a9b57b221d4884d9efa214196ff,
+        type: 3}
+      propertyPath: rockTileMapPrefab
+      value: 
+      objectReference: {fileID: 7992391782099493898, guid: fcf08ba37b9131e46bcfe912fdab5add,
+        type: 3}
+    - target: {fileID: 7583935391869050567, guid: d0fd4a9b57b221d4884d9efa214196ff,
+        type: 3}
+      propertyPath: rockTileMapPrefabs.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583935391869050567, guid: d0fd4a9b57b221d4884d9efa214196ff,
+        type: 3}
+      propertyPath: rockTileMapPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 6846862382468753643, guid: cf7b4bbe8a0772a4c95a0cf33156fb44,
+        type: 3}
+    - target: {fileID: 7583935391869050567, guid: d0fd4a9b57b221d4884d9efa214196ff,
+        type: 3}
+      propertyPath: rockTileMapPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 1486698571778897035, guid: f2904597e25b16f4ca927706dcb7eed0,
+        type: 3}
+    - target: {fileID: 7583935391869050567, guid: d0fd4a9b57b221d4884d9efa214196ff,
+        type: 3}
+      propertyPath: rockTileMapPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 1486698571778897035, guid: d68311a089662174da8b9b14e1e9a91b,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0fd4a9b57b221d4884d9efa214196ff, type: 3}

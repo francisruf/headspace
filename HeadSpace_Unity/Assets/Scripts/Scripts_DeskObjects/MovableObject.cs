@@ -17,7 +17,7 @@ public class MovableObject : InteractableObject
     public ObjectType objectType;
 
     // DropZone (container) dans lequel l'objet se trouve
-    private DropZone _currentDropZone;
+    protected DropZone _currentDropZone;
     public LayerMask dropZoneLayerMask;
 
     // Position de la souris lorsque l'objet est cliqué
@@ -207,5 +207,6 @@ public enum ObjectType
 {
     Marker,
     Document,
+    Message,
     Other
 }

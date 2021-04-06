@@ -357,7 +357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ignoreSelectedBringToFront: 0
-  objectType: 1
+  objectType: 2
   dropZoneLayerMask:
     serializedVersion: 2
     m_Bits: 0

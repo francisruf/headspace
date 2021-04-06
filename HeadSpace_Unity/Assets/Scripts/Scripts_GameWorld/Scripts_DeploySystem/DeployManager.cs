@@ -9,11 +9,13 @@ public class DeployManager : MonoBehaviour
 
     // Liste de tous les points de déploiement sur la map
     private List<DeployPoint> _allDeployPoints = new List<DeployPoint>();
+    private List<GridTile_DeployPoint> _allDeployTiles = new List<GridTile_DeployPoint>();
 
     // Subscription aux Actions
     private void OnEnable()
     {
         DeployPoint.newDeployPoint += OnNewDeployPoint;
+        GridTile_DeployPoint.newDeployTile += OnNewDeployTile;
         GridManager.gridDataDestroyed += OnGridDataDestroyed;
     }
 
@@ -21,6 +23,7 @@ public class DeployManager : MonoBehaviour
     private void OnDisable()
     {
         DeployPoint.newDeployPoint -= OnNewDeployPoint;
+        GridTile_DeployPoint.newDeployTile += OnNewDeployTile;
         GridManager.gridDataDestroyed -= OnGridDataDestroyed;
     }
 
@@ -44,10 +47,28 @@ public class DeployManager : MonoBehaviour
         _allDeployPoints.Add(deployPoint);
     }
 
+    private void OnNewDeployTile(GridTile_DeployPoint deployTile)
+    {
+        _allDeployTiles.Add(deployTile);
+    }
+
     // Vider la liste lorsque la grille est détruite
     private void OnGridDataDestroyed()
     {
         _allDeployPoints.Clear();
+        _allDeployTiles.Clear();
+    }
+
+    public bool IsInDeployTile(TileCoordinates tileCoords)
+    {
+        Vector2 worldCoords = GridCoords.FromTilePositionToWorld(tileCoords);
+
+        foreach (var deployTile in _allDeployTiles)
+        {
+            if (deployTile.IsInTile(worldCoords))
+                return true;
+        }
+        return false;
     }
 
     // Fonction qui permet de vérifier si une coordonnée donnée se trouve dans un point de déploiement
@@ -62,6 +83,11 @@ public class DeployManager : MonoBehaviour
         }
 
         return false;
+    }
+
+    public List<GridTile_DeployPoint> GetAllDeployTiles()
+    {
+        return _allDeployTiles;
     }
 
     public List<GridTile> GetAllDeployTouchingTiles()

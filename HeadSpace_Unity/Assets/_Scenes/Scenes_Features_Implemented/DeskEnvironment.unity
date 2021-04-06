@@ -439,6 +439,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: postit
       objectReference: {fileID: 0}
+    - target: {fileID: 1026667068131997271, guid: e45b24c6c9d1bd946a73a574e007c22b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e45b24c6c9d1bd946a73a574e007c22b, type: 3}
 --- !u!1001 &773084748
@@ -452,6 +457,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Gauge
+      objectReference: {fileID: 0}
+    - target: {fileID: 3610017984165236896, guid: be2fa1a05d785dd418f78f8763632d42,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3610017984165236903, guid: be2fa1a05d785dd418f78f8763632d42,
         type: 3}

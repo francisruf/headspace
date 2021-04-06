@@ -129,7 +129,7 @@ public class ObjectPlacer : MonoBehaviour
             }
         }
 
-        Debug.Log(obj.gameObject.name + " placed in drawer : " + targetDrawer.gameObject.name);
+        //Debug.Log(obj.gameObject.name + " placed in drawer : " + targetDrawer.gameObject.name);
 
         if (targetDrawer != null)
         {

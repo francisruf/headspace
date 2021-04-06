@@ -1,10 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class ShipMarker : MovableMarker
 {
+    public static Action<ShipMarker> shipMarkerReceived;
+
     // Références aux components
     private TextMeshProUGUI _markerText;
     private MovableMarker _movableMarker;
@@ -45,6 +48,9 @@ public class ShipMarker : MovableMarker
 
         if (placeObjectRequest != null)
             placeObjectRequest(this, ObjectSpawnZone.Outbox);
+
+        if (shipMarkerReceived != null)
+            shipMarkerReceived(this);
     }
 
     // TODO

@@ -26,12 +26,17 @@ public class GridManager : MonoBehaviour
     [Header("Map width if no WorldMap found")]
     public float mapWidth;
 
+    [Header("RockTileMap prefabs")]
+    public List<GameObject> rockTileMapPrefabs;
+
     [Header("Anomaly settings")]
     public int[] newSegmentAfterCount;
 
     [Header("Tile prefabs")]
     // Prefabs de tuiles et objets
     public GameObject emptyCellPrefab;
+    public GameObject deployTilePrefab;
+    public GameObject rocktilePrefab;
     public GameObject anomaly0Prefab;
     public GameObject anomaly1Prefab;
     public GameObject anomaly2Prefab;
@@ -107,6 +112,8 @@ public class GridManager : MonoBehaviour
         if (newGameGrid != null)
             newGameGrid(_currentGridInfo);
 
+        GenerateEnvironment();
+        GenerateDeployPoint();
         GenerateStartingObjects();
         Array.Sort(newSegmentAfterCount);
 
@@ -167,7 +174,10 @@ public class GridManager : MonoBehaviour
         }
 
         float tileWidth = actualWidth / mapSizeX;   // Dimensions d'une tuile en unités de unity
-        Vector3 spawnOffset = new Vector3(actualWidth / 2f, (tileWidth * mapSizeY) / 2, 0f);
+        Vector3 spawnOffset = new Vector3(actualWidth / 2f, (tileWidth * mapSizeY) / -2f, 0f);
+
+        char startChar = 'A';
+        startChar--;
 
         for (int x = 0; x < mapSizeX; x++)
         {
@@ -175,7 +185,7 @@ public class GridManager : MonoBehaviour
             {
                 // Instanciation des tuiles, à partir du array 2D de ints (voir fonction suivante)
                 GameObject tilePrefab = GetTileFromID(_gameGrid[x, y]);
-                Vector3 spawnPos = new Vector3(x * tileWidth, y * tileWidth, 0f);
+                Vector3 spawnPos = new Vector3(x * tileWidth, -y * tileWidth, 0f);
                 spawnPos -= spawnOffset;
 
                 // Assignation des tuiles et initialisation
@@ -193,6 +203,7 @@ public class GridManager : MonoBehaviour
                 gt.tileY = y;
                 gt.tileType = _gameGrid[x, y];
                 gt.InitializeTile(new Vector2(tileWidth, tileWidth), _currentGridMode);
+                gt.tileName = GridCoords.GetTileName(new TileCoordinates(x, y));
 
                 // Ajout de la tuile à l'array2D de tuiles
                 _gameGridTiles[x, y] = gt;
@@ -202,6 +213,127 @@ public class GridManager : MonoBehaviour
         // Assignation des informations de la grille et appel de l'ACTION de nouvelle grille
         Bounds newBounds = new Bounds(Vector3.zero, new Vector3(actualWidth, tileWidth * mapSizeY, 0f));
         _currentGridInfo = new GridInfo(_gameGridTiles, new Vector2(mapSizeX, mapSizeY), newBounds);
+    }
+
+    private void GenerateEnvironment()
+    {
+        int prefabCount = rockTileMapPrefabs.Count;
+
+        if (rockTileMapPrefabs.Count <= 0)
+            return;
+
+        int randomIndex = UnityEngine.Random.Range(0, prefabCount);
+        RockTileMapData rockTileMapData = Instantiate(rockTileMapPrefabs[randomIndex]).GetComponent<RockTileMapData>();
+
+        int[,] environmentData = rockTileMapData.GetTileData();
+        int xLenght = environmentData.GetLength(0);
+        int yLenght = environmentData.GetLength(1);
+        int[,] randomizedXData = new int[xLenght, yLenght];
+        int[,] randomizedYData = new int[xLenght, yLenght];
+
+        // Randomize X
+        int randomRoll = UnityEngine.Random.Range(0, 10);
+        for (int y = 0; y < yLenght; y++)
+        {
+            for (int x = 0; x < xLenght; x++)
+            {
+                // Invert X
+                if (randomRoll > 4)
+                {
+                    randomizedXData[xLenght - 1 - x, y] = environmentData[x, y];
+                }
+                // Don't invert X
+                else
+                {
+                    randomizedXData[x, y] = environmentData[x, y];
+                }
+            }
+        }
+
+        // Randomize Y
+        randomRoll = UnityEngine.Random.Range(0, 10);
+        for (int x = 0; x < xLenght; x++)
+        {
+            for (int y = 0; y < yLenght; y++)
+            {
+                // Invert X
+                if (randomRoll > 4)
+                {
+                    randomizedYData[x, yLenght - 1 -  y] = randomizedXData[x, y];
+                }
+                // Don't invert X
+                else
+                {
+                    randomizedYData[x, y] = randomizedXData[x, y];
+                }
+            }
+        }
+
+        for (int x = 0; x < xLenght; x++)
+        {
+            if (x + 1 >= (int)_currentGridInfo.gameGridSize.x)
+                break;
+
+            for (int y = 0; y < yLenght; y++)
+            {
+                if (y + 1 >= (int)_currentGridInfo.gameGridSize.y)
+                    break;
+
+                if (randomizedYData[x,y] == 1)
+                {
+                    ReplaceTile(_currentGridInfo.gameGridTiles[x, y], 1);
+                }
+            }
+        }
+        rockTileMapData.gameObject.SetActive(false);
+    }
+
+    private void GenerateDeployPoint()
+    {
+        // ------ DEPLOY POINTS -------
+        List<GridTile> candidateTiles = new List<GridTile>();
+        int candidatesCount = 0;
+
+        GridQuadrants.QuadrantMatch quadrantMatch = _currentGridInfo.gameGridQuadrants.GetRandomQuadrantMatch(out _currentGridInfo.positiveQuadrantIndex);
+
+        foreach (var tile in _currentGridInfo.gameGridTiles)
+        {
+            bool tileInQuadrant = false;
+
+            Vector2 bottomLeft = tile.TileBounds.min;
+            Vector2 topLeft = tile.TileBounds.min;
+            topLeft.y = tile.TileBounds.max.y;
+            Vector2 bottomRight = tile.TileBounds.max;
+            bottomRight.y = tile.TileBounds.min.y;
+            Vector2 topRight = tile.TileBounds.max;
+
+            if (quadrantMatch.positiveQuadrant.Contains(bottomLeft))
+                tileInQuadrant = true;
+            if (quadrantMatch.positiveQuadrant.Contains(topLeft))
+                tileInQuadrant = true;
+            if (quadrantMatch.positiveQuadrant.Contains(bottomRight))
+                tileInQuadrant = true;
+            if (quadrantMatch.positiveQuadrant.Contains(topRight))
+                tileInQuadrant = true;
+
+            if (tileInQuadrant && tile.tileType == 0)
+            {
+                candidateTiles.Add(tile);
+                candidatesCount++;
+            }
+        }
+
+        if (candidatesCount > 0)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, candidatesCount);
+
+            TileCoordinates targetTile = candidateTiles[randomIndex].TileCoordinates;
+            ReplaceTile(_currentGridInfo.gameGridTiles[targetTile.tileX, targetTile.tileY], 2);
+        }
+        else
+        {
+            Debug.Log("ERROR : No candidate tiles found for DeployTile");
+        }
     }
 
     // Fonction qui génère les premiers objets sur la grille (points de déploiement / planètes(TBD))
@@ -241,7 +373,7 @@ public class GridManager : MonoBehaviour
         //Debug.Log("X : " + startTile.tileX + "Y : " + startTile.tileY);
         GridTile tileToReplace = _gameGridTiles[startTile.tileX, startTile.tileY];
         GridTile newTile;
-        ReplaceTile(tileToReplace, 1, out newTile);
+        ReplaceTile(tileToReplace, 10, out newTile);
 
         AnomalySegment segment = new AnomalySegment();
         _allAnomalySegments.Add(segment);
@@ -290,7 +422,7 @@ public class GridManager : MonoBehaviour
         //Debug.Log("X : " + newAnomalyCoords.tileX + "Y : " + newAnomalyCoords.tileY);
         GridTile tileToReplace = _gameGridTiles[newAnomalyCoords.tileX, newAnomalyCoords.tileY];
         GridTile newTile;
-        ReplaceTile(tileToReplace, 1, out newTile);
+        ReplaceTile(tileToReplace, 10, out newTile);
 
         AnomalySegment segment = new AnomalySegment();
         _allAnomalySegments.Add(segment);
@@ -302,30 +434,15 @@ public class GridManager : MonoBehaviour
     {
         switch (tileID)
         {
-            case 0:
-                {
-                    return emptyCellPrefab;
-                }
+            case 0: return emptyCellPrefab;
+            case 1: return rocktilePrefab;
+            case 2: return deployTilePrefab;
 
-            case 1:
-                {
-                    return anomaly0Prefab;
-                }
+            case 10: return anomaly0Prefab;
+            case 11: return anomaly1Prefab;
+            case 12: return anomaly2Prefab;
 
-            case 2:
-                {
-                    return anomaly1Prefab;
-                }
-
-            case 3:
-                {
-                    return anomaly2Prefab;
-                }
-
-            default:
-                {
-                    return emptyCellPrefab;
-                }
+            default: return emptyCellPrefab;
         }
     }
 
@@ -461,13 +578,13 @@ public class GridManager : MonoBehaviour
     {
         if (obj.ParentTile.tileX < 0 || obj.ParentTile.tileX >= _currentGridInfo.gameGridSize.x)
         {
-            Debug.Log("INVALID OBJECT X POSITION");
+            //Debug.Log("INVALID OBJECT X POSITION");
             return;
         }
 
         if (obj.ParentTile.tileY < 0 || obj.ParentTile.tileY >= _currentGridInfo.gameGridSize.y)
         {
-            Debug.Log("INVALID OBJECT Y POSITION");
+            //Debug.Log("INVALID OBJECT Y POSITION");
             return;
         }
 
@@ -484,7 +601,7 @@ public class GridManager : MonoBehaviour
         int tileX = UnityEngine.Random.Range(0, mapSizeX);
         int tileY = UnityEngine.Random.Range(0, mapSizeY);
 
-        ReplaceTile(_gameGridTiles[tileX, tileY], 1);
+        ReplaceTile(_gameGridTiles[tileX, tileY], 10);
     }
 
     // Fonction utilitaire pour obtenir un point au hasard à l'intérieur de BOUNDS

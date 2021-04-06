@@ -67,7 +67,7 @@ public class DynamicWorldMap : MonoBehaviour
             if (bottomXCoordinates)
             {
                 TextMeshProUGUI txt = Instantiate(coordinatesTextPrefab, _coordinatesCanvas.transform).GetComponent<TextMeshProUGUI>();
-                txt.text = i.ToString();
+                txt.text = (i + 1).ToString();
                 txt.transform.position = spawnPos;
                 _allCoordinateTexts.Add(txt);
             }
@@ -76,7 +76,7 @@ public class DynamicWorldMap : MonoBehaviour
             {
                 TextMeshProUGUI txt2 = Instantiate(coordinatesTextPrefab, _coordinatesCanvas.transform).GetComponent<TextMeshProUGUI>();
                 spawnPos.y = _currentGridInfo.gameGridWorldBounds.max.y + coordinatesOffsetFromMap;
-                txt2.text = i.ToString();
+                txt2.text = (i + 1).ToString();
                 txt2.transform.position = spawnPos;
                 _allCoordinateTexts.Add(txt2);
             }
@@ -87,14 +87,14 @@ public class DynamicWorldMap : MonoBehaviour
         {
             Vector2 spawnPos = new Vector2();
             spawnPos.x = _currentGridInfo.gameGridWorldBounds.min.x - coordinatesOffsetFromMap;
-            spawnPos.y = _currentGridInfo.gameGridWorldBounds.min.y;
-            spawnPos.y += (tileSize / 2f);
-            spawnPos.y += (tileSize * i);
+            spawnPos.y = _currentGridInfo.gameGridWorldBounds.max.y;
+            spawnPos.y -= (tileSize / 2f);
+            spawnPos.y -= (tileSize * i);
 
             if (leftYCoordinates)
             {
                 TextMeshProUGUI txt = Instantiate(coordinatesTextPrefab, _coordinatesCanvas.transform).GetComponent<TextMeshProUGUI>();
-                txt.text = i.ToString();
+                txt.text = GridCoords.GetTileLetter(i);
                 txt.transform.position = spawnPos;
                 _allCoordinateTexts.Add(txt);
             }
@@ -103,7 +103,7 @@ public class DynamicWorldMap : MonoBehaviour
             {
                 TextMeshProUGUI txt2 = Instantiate(coordinatesTextPrefab, _coordinatesCanvas.transform).GetComponent<TextMeshProUGUI>();
                 spawnPos.x = _currentGridInfo.gameGridWorldBounds.max.x + coordinatesOffsetFromMap;
-                txt2.text = i.ToString();
+                txt2.text = GridCoords.GetTileLetter(i);
                 txt2.transform.position = spawnPos;
 
                 _allCoordinateTexts.Add(txt2);

@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SlidableOutbox : SlidableTool
 {
+    public static Action outboxAutoOpen;
+
     [Header("Animation settings")]
     public float smoothTime;
 
@@ -40,10 +43,20 @@ public class SlidableOutbox : SlidableTool
     //    }
     //}
 
+    protected override void OpenTool()
+    {
+        base.OpenTool();
+        if (drawerOpened != null)
+            drawerOpened();
+    }
+
     protected override void FullyCloseTool()
     {
         base.FullyCloseTool();
         _dropZone.SendCommands();
+
+        if (drawerClosed != null)
+            drawerClosed();
     }
 
     private void OnCommandReadyToTear()
@@ -68,6 +81,9 @@ public class SlidableOutbox : SlidableTool
 
     private IEnumerator OpenOutbox()
     {
+        if (outboxAutoOpen != null)
+            outboxAutoOpen();
+
         CheckOpenState();
         _lerpStartPos = transform.position;
         //float time = 0f;

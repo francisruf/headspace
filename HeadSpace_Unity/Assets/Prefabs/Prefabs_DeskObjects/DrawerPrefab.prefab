@@ -348,7 +348,7 @@ GameObject:
   - component: {fileID: 8184818431553381670}
   - component: {fileID: 6599837460224630839}
   - component: {fileID: 8184818431553381671}
-  - component: {fileID: 6563017401987483915}
+  - component: {fileID: 2066360591141662527}
   m_Layer: 13
   m_Name: DrawerPrefab
   m_TagString: Untagged
@@ -476,7 +476,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6563017401987483915
+--- !u!114 &2066360591141662527
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -485,7 +485,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8184818431553381665}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c81b332fe625f4cb1a7aa900986a4b, type: 3}
+  m_Script: {fileID: 11500000, guid: b38624d971af51642a6fce88c3522dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ignoreSelectedBringToFront: 1

@@ -14,9 +14,10 @@ public class Sound {
     public float pitch;
 
     public bool loop;
+    public int activeSource;
 
     [HideInInspector]
-    public AudioSource source;
+    public AudioSource source0;
     [HideInInspector]
-    public AudioSource source2;
+    public AudioSource source1;
 }
