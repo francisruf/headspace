@@ -147,6 +147,10 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
+        s.source0.volume = s.volume;
+        if (s.source1 != null)
+            s.source1.volume = s.volume;
+
         if (fadeIn)
             StartCoroutine(FadeIn(s, s.source0));
 
@@ -175,6 +179,7 @@ public class AudioManager : MonoBehaviour
             currentMusic.source0.Stop();
 
         currentMusic = s;
+        currentMusic.source0.volume = s.volume;
         currentMusic.source0.Play();
     }
 
@@ -208,6 +213,10 @@ public class AudioManager : MonoBehaviour
         s.activeSource = 0;
         float clipLength = s.source0.clip.length;
         float fadeSpeed = 0.25f;
+
+        s.source0.volume = s.volume;
+        if (s.source1 != null)
+            s.source1.volume = s.volume;
 
         if (fadeIn)
             StartCoroutine(FadeIn(s, s.source0));
