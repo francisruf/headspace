@@ -12,7 +12,7 @@ public class GridInfo
 {
     // Variables
     public GridTile[,] gameGridTiles;
-    public Vector2 gameGridSize;
+    public Vector2Int gameGridSize;
     public int tileCount;
     public Bounds gameGridWorldBounds;
     public GridQuadrants gameGridQuadrants;
@@ -20,7 +20,7 @@ public class GridInfo
 
     // CONSTRUCTEUR : Fonction qui sert à déclarer un nouvel objet de type GridInfo (avec new GridInfo(...))
     // - Et d'assigner les valeurs des variables, à l'aide des paramètres en appel (dans les parenthèses)
-    public GridInfo(GridTile[,] gameGridTiles, Vector2 gameGridSize, Bounds gameGridWorldBounds)
+    public GridInfo(GridTile[,] gameGridTiles, Vector2Int gameGridSize, Bounds gameGridWorldBounds)
     {
         this.gameGridTiles = gameGridTiles;
         this.gameGridSize = gameGridSize;

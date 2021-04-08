@@ -52,6 +52,11 @@ public class DeployManager : MonoBehaviour
         _allDeployTiles.Add(deployTile);
     }
 
+    public List<GridTile_DeployPoint> GetDeployTiles()
+    {
+        return _allDeployTiles;
+    }
+
     // Vider la liste lorsque la grille est détruite
     private void OnGridDataDestroyed()
     {

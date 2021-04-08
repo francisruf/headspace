@@ -98,10 +98,10 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1, y: 1}
+  m_Offset: {x: 1, y: -1}
   m_SpriteTilingProperty:
     border: {x: 0.125, y: 0.125, z: 0.125, w: 0.125}
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0, y: 1}
     oldSize: {x: 1, y: 1}
     newSize: {x: 2, y: 2}
     adaptiveTilingThreshold: 0.5
@@ -123,6 +123,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd87954a14b18fc4a8a119519332f880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifeTimeText: {fileID: 6821972760603423770}
+  heatText: {fileID: 0}
+  tileName: 
   liveForever: 1
   lifeTime: 0
   shipDPS: 15

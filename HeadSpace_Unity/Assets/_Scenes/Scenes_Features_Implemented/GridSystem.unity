@@ -212,6 +212,12 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 7583935391869050567, guid: d0fd4a9b57b221d4884d9efa214196ff,
         type: 3}
+      propertyPath: planetTilePrefab
+      value: 
+      objectReference: {fileID: 328405606139326222, guid: 08ecd1261a9155f458abd1fb60a69299,
+        type: 3}
+    - target: {fileID: 7583935391869050567, guid: d0fd4a9b57b221d4884d9efa214196ff,
+        type: 3}
       propertyPath: rockTileMapPrefab
       value: 
       objectReference: {fileID: 7992391782099493898, guid: fcf08ba37b9131e46bcfe912fdab5add,

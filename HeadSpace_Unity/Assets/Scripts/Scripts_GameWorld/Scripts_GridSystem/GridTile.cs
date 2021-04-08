@@ -10,9 +10,11 @@ public class GridTile : MonoBehaviour
     public Action<GridTile> tileLifeOver;
 
     // Références pour components
-    private SpriteRenderer _spriteRenderer;
+    protected SpriteRenderer _spriteRenderer;
     protected BoxCollider2D _boxCollider;
-    private TextMeshProUGUI _lifeTimeText;
+    protected Canvas _debugCanvas;
+    public TextMeshProUGUI lifeTimeText;
+    public TextMeshProUGUI heatText;
 
     // Temp
     public string tileName;
@@ -54,6 +56,8 @@ public class GridTile : MonoBehaviour
     // Voisins de la tuile
     [SerializeField] private GridTile[] _allNeighbours = new GridTile[4];
     [SerializeField] private GridTile[] _diagonalNeighbours = new GridTile[4];
+
+    public int PlanetHeat { get; set; }
 
     public List<GridTile> EightWayNeighbours
     {
@@ -107,8 +111,7 @@ public class GridTile : MonoBehaviour
         // Assigner les références de components
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _boxCollider = GetComponent<BoxCollider2D>();
-        _lifeTimeText = GetComponentInChildren<TextMeshProUGUI>();
-
+        _debugCanvas = GetComponentInChildren<Canvas>();
         _lifeRemaining = lifeTime;
         StartColliderDelay();
     }
@@ -117,7 +120,7 @@ public class GridTile : MonoBehaviour
     {
         // SI la tuile n'a pas de durée de vie, cacher le debug text
         if (liveForever)
-            _lifeTimeText.enabled = false;
+            lifeTimeText.enabled = false;
 
         // SINON, lancer le timer de durée de vie
         else
@@ -141,10 +144,10 @@ public class GridTile : MonoBehaviour
         Vector2 colliderOffset = new Vector2();
         colliderOffset = tileDimensions / 2f;
         colliderOffset.y = -colliderOffset.y;
-
         _boxCollider.offset = colliderOffset;
-
         _currentGridMode = gridMode;
+
+        _debugCanvas.GetComponent<RectTransform>().sizeDelta = tileDimensions;
 
         ToggleGridMode(_currentGridMode);
     }
@@ -156,7 +159,10 @@ public class GridTile : MonoBehaviour
 
         _spriteRenderer.size = tileDimensions;
         _boxCollider.size = tileDimensions;
-        _boxCollider.offset = tileDimensions / 2f;
+        Vector2 colliderOffset = new Vector2();
+        colliderOffset = tileDimensions / 2f;
+        colliderOffset.y = -colliderOffset.y;
+        _boxCollider.offset = colliderOffset;
 
         _currentGridMode = gridMode;
         AssignGridInfo(currentGridInfo);
@@ -171,10 +177,12 @@ public class GridTile : MonoBehaviour
             case GridMode.WorldMap:
                 _spriteRenderer.sprite = worldMapSprite;
                 ToggleLifetimeText(false);
+                ToggleHeatText(false);
                 break;
             case GridMode.Debug:
                 _spriteRenderer.sprite = debugSprite;
                 ToggleLifetimeText(true);
+                ToggleHeatText(true);
                 break;
             default:
                 break;
@@ -365,18 +373,36 @@ public class GridTile : MonoBehaviour
     {
         if (liveForever)
         {
-            _lifeTimeText.enabled = false;
+            lifeTimeText.enabled = false;
             return;
         }
-        _lifeTimeText.enabled = toggleON;
+        lifeTimeText.enabled = toggleON;
+    }
+
+    private void ToggleHeatText(bool toggleON)
+    {
+        if (heatText != null)
+            heatText.enabled = toggleON;
+    }
+
+    private void UpdateHeatText()
+    {
+        if (heatText != null)
+            heatText.text = PlanetHeat.ToString();
     }
 
     private void UpdateDebugText(float time)
     {
-        if (_lifeTimeText == null)
+        if (lifeTimeText == null)
             return;
 
-        _lifeTimeText.text = TimeSpan.FromSeconds(time).ToString(@"m\:ss");
+        lifeTimeText.text = TimeSpan.FromSeconds(time).ToString(@"m\:ss");
+    }
+
+    public void AddPlanetHeat(int amount)
+    {
+        PlanetHeat += amount;
+        UpdateHeatText();
     }
 }
 

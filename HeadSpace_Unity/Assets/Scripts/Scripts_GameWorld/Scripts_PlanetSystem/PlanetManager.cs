@@ -17,6 +17,13 @@ public class PlanetManager : MonoBehaviour
     public bool randomArchetypes;
     public int randomPlanetCount;
 
+    // Paramètres de spawning de TILES
+    [Header("Planet tile settings")]
+    public int planetTileCount;
+    public int minTilesBetweenDeployPoint;
+    public int planetHeatDistance;
+    public LayerMask tileLayerMask;
+
     [Header("Archetype population settings")]
     public List<PlanetArchetypeQuantity> allArchetypes;
 
@@ -29,9 +36,13 @@ public class PlanetManager : MonoBehaviour
 
     // Liste de toutes les planètes générées
     private List<Planet> _allPlanets = new List<Planet>();
+    private List<GridTile_Planet> _allPlanetTiles = new List<GridTile_Planet>();
 
     private int _currentSectorSouls;
     private int _totalSectorSouls;
+
+    // Database pour construire les planètes
+    private PlanetTemplateDB _planetTemplateDB;
 
     private void Awake()
     {
@@ -45,6 +56,8 @@ public class PlanetManager : MonoBehaviour
         {
             instance = this;
         }
+
+        _planetTemplateDB = GetComponentInChildren<PlanetTemplateDB>();
     }
 
     // Subscription à différentes actions
@@ -56,6 +69,7 @@ public class PlanetManager : MonoBehaviour
         Ship.soulsFromPlanetSaved += TrackSavedSouls;
         Ship.soulsUnloaded += OnSoulsUnloaded;
         Planet.soulsLost += OnSoulsLost;
+        GridTile_Planet.newPlanetTile += OnNewPlanetTileSpawned;
     }
 
     // Unsubscription
@@ -67,6 +81,7 @@ public class PlanetManager : MonoBehaviour
         Ship.soulsFromPlanetSaved -= TrackSavedSouls;
         Ship.soulsUnloaded -= OnSoulsUnloaded;
         Planet.soulsLost -= OnSoulsLost;
+        GridTile_Planet.newPlanetTile -= OnNewPlanetTileSpawned;
     }
 
     // Fonction appelée lorsqu'une nouvelle grille est générée qui stock les informations de cette grille
@@ -87,11 +102,131 @@ public class PlanetManager : MonoBehaviour
         //_allPlanets.Add(planet);
     }
 
+    // Fonction appelée lorsqu'un planète spawn, qui sert à garder à jour la liste de planètes
+    private void OnNewPlanetTileSpawned(GridTile_Planet planetTile)
+    {
+        _allPlanetTiles.Add(planetTile);
+
+        if (_planetTemplateDB != null)
+        {
+            PlanetInfo newInfo = new PlanetInfo(_planetTemplateDB.GetRandomPlanetName(), _planetTemplateDB.GetRandomPlanetSprite());
+            planetTile.AssignPlanetInfo(newInfo);
+        }
+    }
+
     // Fonction appelée lorsque la grille actuelle est détruite qui reset les variables et références
     private void OnGridDataDestroyed()
     {
         _allPlanets.Clear();
+        _allPlanetTiles.Clear();
         _currentGridInfo = null;
+
+        if (_planetTemplateDB != null)
+            _planetTemplateDB.ResetDB();
+    }
+
+    public void SpawnPlanetTiles()
+    {
+        if (_currentGridInfo == null)
+            return;
+
+        int planetCount = 0;
+
+        // Get all empty tiles
+        List<GridTile> allowedSpawnTiles = new List<GridTile>();
+        for (int x = 0; x < _currentGridInfo.gameGridSize.x; x++)
+        {
+            for (int y = 0; y < _currentGridInfo.gameGridSize.y; y++)
+            {
+                if (_currentGridInfo.gameGridTiles[x, y].tileType == 0)
+                {
+                    allowedSpawnTiles.Add(_currentGridInfo.gameGridTiles[x, y]);
+                }
+            }
+        }
+
+        // Remove tiles too close to deploy point
+        float tileSize = _currentGridInfo.gameGridWorldBounds.size.x / _currentGridInfo.gameGridSize.x;
+        float castRadius = tileSize * minTilesBetweenDeployPoint;
+
+        foreach (var tile in DeployManager.instance.GetAllDeployTiles())
+        {
+            Collider2D[] allHits = Physics2D.OverlapCircleAll(tile.TileCenter, castRadius, tileLayerMask);
+            foreach (var hit in allHits)
+            {
+                GridTile candidate = hit.GetComponent<GridTile>();
+                if (hit != null)
+                {
+                    allowedSpawnTiles.Remove(candidate);
+                    Debug.DrawLine(candidate.TileCenter, candidate.TileCenter + Vector2.up * 0.2f, Color.red, 5f);
+                }
+            }
+        }
+
+        // Add heat to tiles near map edge
+        foreach (var tile in allowedSpawnTiles)
+        {
+            bool addHeat = false;
+            if (tile.tileX == 0 || tile.tileX == _currentGridInfo.gameGridSize.x - 1)
+                addHeat = true;
+            if (tile.tileY == 0 || tile.tileY == _currentGridInfo.gameGridSize.y - 1)
+                addHeat = true;
+
+            // Add heat as if a planet was on this tile
+            if (addHeat)
+                tile.AddPlanetHeat(planetHeatDistance / 2);
+        }
+
+        // Spawn planets
+        for (int i = 0; i < planetTileCount; i++)
+        {
+            // Get best matching tiles
+            float lowestHeat = float.MaxValue;
+            int heatMargin = 2;
+            foreach (var tile in allowedSpawnTiles)
+            {
+                if (tile.PlanetHeat < lowestHeat)
+                    lowestHeat = tile.PlanetHeat;
+            }
+
+            List<GridTile> lowestHeatTiles = new List<GridTile>();
+            foreach (var tile in allowedSpawnTiles)
+            {
+                if (tile.PlanetHeat <= lowestHeat + heatMargin)
+                    lowestHeatTiles.Add(tile);
+            }
+
+            if (lowestHeatTiles.Count <= 0)
+            {
+                Debug.Log("Error in calculating lowest heat tile.");
+                break;
+            }
+
+            int randomIndex = UnityEngine.Random.Range(0, lowestHeatTiles.Count);
+            GridTile randomTile = lowestHeatTiles[randomIndex];
+            allowedSpawnTiles.Remove(randomTile);
+
+            // Add heat, one circle cast per heat distance
+            for (int j = 1; j <= planetHeatDistance; j++)
+            {
+                float heatCastRadius = tileSize * j;
+
+                Collider2D[] allHits = Physics2D.OverlapCircleAll(randomTile.TileCenter, heatCastRadius, tileLayerMask);
+                foreach (var hit in allHits)
+                {
+                    GridTile candidate = hit.GetComponent<GridTile>();
+                    if (hit != null)
+                    {
+                        candidate.AddPlanetHeat(1);
+                    }
+                }
+            }
+
+            if (GridManager.instance != null)
+                GridManager.instance.ReplaceTile(randomTile, 3);
+
+            planetCount++;
+        }
     }
 
     public void SpawnPlanets()
@@ -127,7 +262,6 @@ public class PlanetManager : MonoBehaviour
                     archetypesToSpawn.Add(new PlanetArchetype(planetName, randomMinPopulation, randomMaxPopulation, creditsBonus));
                 }
             }
-
         }
         else
         {
@@ -267,4 +401,16 @@ public struct PlanetArchetypeQuantity
 {
     public PlanetArchetype archetype;
     public int amountToSpawn;
+}
+
+public struct PlanetInfo
+{
+    public string planetName;
+    public Sprite planetSprite;
+
+    public PlanetInfo(string planetName, Sprite planetSprite)
+    {
+        this.planetName = planetName;
+        this.planetSprite = planetSprite;
+    }
 }

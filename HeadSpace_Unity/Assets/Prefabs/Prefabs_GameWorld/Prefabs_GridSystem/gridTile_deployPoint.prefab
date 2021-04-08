@@ -97,7 +97,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1, y: 1}
+  m_Offset: {x: 1, y: -1}
   m_SpriteTilingProperty:
     border: {x: 0.0625, y: 0.0625, z: 0.0625, w: 0.0625}
     pivot: {x: 0, y: 1}
@@ -122,6 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ee0709d1bd05e14caade2f8c5a1504a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifeTimeText: {fileID: 6821972760603423770}
+  heatText: {fileID: 0}
   tileName: 
   liveForever: 1
   lifeTime: 0

@@ -37,6 +37,7 @@ public class GridManager : MonoBehaviour
     public GameObject emptyCellPrefab;
     public GameObject deployTilePrefab;
     public GameObject rocktilePrefab;
+    public GameObject planetTilePrefab;
     public GameObject anomaly0Prefab;
     public GameObject anomaly1Prefab;
     public GameObject anomaly2Prefab;
@@ -119,6 +120,9 @@ public class GridManager : MonoBehaviour
 
         if (HazardManager.instance != null)
             HazardManager.instance.SpawnHazards();
+
+        if (PlanetManager.instance != null)
+            PlanetManager.instance.SpawnPlanetTiles();
 
         if (PlanetManager.instance != null)
             PlanetManager.instance.SpawnPlanets();
@@ -212,7 +216,7 @@ public class GridManager : MonoBehaviour
 
         // Assignation des informations de la grille et appel de l'ACTION de nouvelle grille
         Bounds newBounds = new Bounds(Vector3.zero, new Vector3(actualWidth, tileWidth * mapSizeY, 0f));
-        _currentGridInfo = new GridInfo(_gameGridTiles, new Vector2(mapSizeX, mapSizeY), newBounds);
+        _currentGridInfo = new GridInfo(_gameGridTiles, new Vector2Int(mapSizeX, mapSizeY), newBounds);
     }
 
     private void GenerateEnvironment()
@@ -437,7 +441,7 @@ public class GridManager : MonoBehaviour
             case 0: return emptyCellPrefab;
             case 1: return rocktilePrefab;
             case 2: return deployTilePrefab;
-
+            case 3: return planetTilePrefab;
             case 10: return anomaly0Prefab;
             case 11: return anomaly1Prefab;
             case 12: return anomaly2Prefab;
@@ -503,6 +507,8 @@ public class GridManager : MonoBehaviour
         newTile.tileX = deadTile.tileX;
         newTile.tileY = deadTile.tileY;
         newTile.tileType = newTileType;
+        newTile.tileName = deadTile.tileName;
+        newTile.PlanetHeat = deadTile.PlanetHeat;
         newTile.InitializeTile(deadTile.tileDimensions, _currentGridMode, _currentGridInfo);
 
         newTile.TransferObjectList(deadTile.CurrentObjectsInTile);
