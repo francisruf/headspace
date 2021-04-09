@@ -917,9 +917,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bc4096b16f56d845af41aabe420aa45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deployedColor: {r: 0, g: 0.09019613, b: 1, a: 1}
-  unloadingColor: {r: 1, g: 0.7118232, b: 0, a: 1}
-  atBaseColor: {r: 0.10670447, g: 1, b: 0, a: 1}
+  idleColor: {r: 0.032397628, g: 1, b: 0, a: 1}
+  busyColor: {r: 1, g: 0.8469602, b: 0, a: 1}
   destroyedColor: {r: 1, g: 0, b: 0, a: 1}
   shipNameText: {fileID: 6830016929040317680}
   shipCallsignText: {fileID: 6830016929487738618}

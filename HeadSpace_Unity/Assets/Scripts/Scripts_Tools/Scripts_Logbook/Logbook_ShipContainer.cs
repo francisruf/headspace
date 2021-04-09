@@ -9,9 +9,8 @@ public class Logbook_ShipContainer : MonoBehaviour
     private Ship _linkedShip;
     public Ship LinkedShip { get { return _linkedShip; } }
 
-    public Color deployedColor;
-    public Color unloadingColor;
-    public Color atBaseColor;
+    public Color idleColor;
+    public Color busyColor;
     public Color destroyedColor;
 
     public TextMeshProUGUI shipNameText;
@@ -78,17 +77,13 @@ public class Logbook_ShipContainer : MonoBehaviour
 
         switch (targetState)
         {
-            case ShipState.Deployed:
-                statusText = "Deployed";
-                textColor = deployedColor;
+            case ShipState.Idle:
+                statusText = "Idle";
+                textColor = idleColor;
                 break;
-            case ShipState.Unloading:
-                statusText = "Unloading";
-                textColor = unloadingColor;
-                break;
-            case ShipState.AtBase:
-                statusText = "At Base";
-                textColor = atBaseColor;
+            case ShipState.Busy:
+                statusText = "Busy";
+                textColor = busyColor;
                 break;
             case ShipState.Destroyed:
                 statusText = "Destroyed";

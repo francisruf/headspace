@@ -63,6 +63,11 @@ public class GameManager : MonoBehaviour
             gameStarted();
     }
 
+    public void ForceStartGame()
+    {
+        OnFirstDeploy();
+    }
+
     private void OnLevelTimerEnded()
     {
         EndSector();

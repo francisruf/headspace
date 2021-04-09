@@ -614,6 +614,32 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerInventory
       objectReference: {fileID: 0}
+    - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
+        type: 3}
+      propertyPath: playerStartingShips.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
+        type: 3}
+      propertyPath: playerStartingShips.Array.data[0].quantity
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
+        type: 3}
+      propertyPath: playerStartingShips.Array.data[1].quantity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
+        type: 3}
+      propertyPath: playerStartingShips.Array.data[1].spawnZone
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
+        type: 3}
+      propertyPath: playerStartingShips.Array.data[1].objectPrefab
+      value: 
+      objectReference: {fileID: 8519948865630102667, guid: 3bee59208df45904b9deb47acc3b7742,
+        type: 3}
     - target: {fileID: 369095420613360459, guid: de954636cb16d674cbfd41aa70361a8b,
         type: 3}
       propertyPath: m_RootOrder

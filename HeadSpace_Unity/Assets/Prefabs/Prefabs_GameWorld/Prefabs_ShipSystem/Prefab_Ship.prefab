@@ -166,13 +166,14 @@ MonoBehaviour:
   currentHealthPoints: 0
   cargoCapacity: 10
   currentCargo: 0
-  moveSpeed: 0.2
+  moveSpeed: 1
   pickupSpeedInSeconds: 2
   soulsUnloadedPerSec: 2
   detectionRadius: 0.2
   targetWorldCoords: {x: 0, y: 0}
   isMoving: 0
-  shipStartingState: 2
+  destinations: []
+  shipStartingState: 0
   currentPositionInGridCoords: {x: 0, y: 0}
   isInDeployPoint: 0
   isInPlanetOrbit: 0

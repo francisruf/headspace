@@ -304,11 +304,51 @@ public class GridCoords : MonoBehaviour
             tileX = int.Parse(tileName.Substring(1, lenght-1)) - 1;
         }
 
-        char yChar = tileName[0];
+        char yChar = char.ToUpper(tileName[0]);
         int tileY = -((int)'A' - (int)yChar);
         TileCoordinates tilePosition = new TileCoordinates(tileX, tileY);
 
         return tilePosition;
+    }
+
+    public static bool FromTileNameToTilePosition(string tileName, out TileCoordinates tileCoordinates)
+    {
+        int lenght = tileName.Length;
+        tileCoordinates = new TileCoordinates(0, 0);
+        if (lenght < 2)
+        {
+            Debug.Log("INVALID TILE NAME");
+            return false;
+        }
+        tileCoordinates = FromTileNameToTilePosition(tileName);
+        if (tileCoordinates.tileX < 0 || tileCoordinates.tileX >= _currentGridInfo.gameGridSize.x)
+            return false;
+        if (tileCoordinates.tileY < 0 || tileCoordinates.tileY >= _currentGridInfo.gameGridSize.y)
+            return false;
+
+        return true;
+    }
+
+    public static bool FromTileNameToWorldPos(string tileName, out Vector2 worldPos)
+    {
+        int lenght = tileName.Length;
+        worldPos = Vector2.zero;
+
+        if (_currentGridInfo == null)
+            return false;
+
+        if (lenght < 2)
+            return false;
+
+        TileCoordinates tileCoordinates = FromTileNameToTilePosition(tileName);
+        if (tileCoordinates.tileX < 0 || tileCoordinates.tileX >= _currentGridInfo.gameGridSize.x)
+            return false;
+        if (tileCoordinates.tileY < 0 || tileCoordinates.tileY >= _currentGridInfo.gameGridSize.y)
+            return false;
+
+        worldPos = FromTilePositionToWorld(tileCoordinates);
+
+        return true;
     }
 
     public static Vector2 FromTilePositionToWorld(TileCoordinates tilePosition)
@@ -342,6 +382,11 @@ public class GridCoords : MonoBehaviour
 
     public static TileCoordinates FromWorldToTilePosition(Vector2 worldCoords)
     {
+        if (_currentGridInfo == null)
+        {
+            Debug.Log("GridCoords error : No current grid could be found");
+            return new TileCoordinates(0,0);
+        }
 
         float tileSize = _currentGridInfo.gameGridWorldBounds.size.x / _currentGridInfo.gameGridSize.x;
         Vector2 gridZero = _currentGridInfo.gameGridWorldBounds.min;
@@ -371,7 +416,19 @@ public class GridCoords : MonoBehaviour
         {
             tileCoords = FromWorldToTilePosition(worldPos);
         }
-
         return inTile;
+    }
+
+    public static bool IsInGrid(int x, int y)
+    {
+        if (_currentGridInfo == null)
+            return false;
+
+        if (x < 0 || x >= _currentGridInfo.gameGridSize.x)
+            return false;
+        if (y < 0 || y >= _currentGridInfo.gameGridSize.y)
+            return false;
+
+        return true;
     }
 }

@@ -33,7 +33,7 @@ public class SpawnShipWindow : MonoBehaviour
         else
         {
             Ship newShip = Instantiate(shipPrefab).GetComponent<Ship>();
-            newShip.InitializeShip(shipName, shipCallsign, ShipState.AtBase);
+            newShip.InitializeShip(shipName, shipCallsign, ShipState.Idle);
             this.gameObject.SetActive(false);
         }
     }

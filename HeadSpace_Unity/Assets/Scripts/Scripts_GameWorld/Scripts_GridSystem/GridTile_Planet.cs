@@ -35,7 +35,6 @@ public class GridTile_Planet : GridTile
     public override void InitializeTile(Vector2 tileDimensions, GridMode gridMode, GridInfo currentGridInfo)
     {
         base.InitializeTile(tileDimensions, gridMode, currentGridInfo);
-        PlacePlanetRenderer();
 
         if (newPlanetTile != null)
             newPlanetTile(this);

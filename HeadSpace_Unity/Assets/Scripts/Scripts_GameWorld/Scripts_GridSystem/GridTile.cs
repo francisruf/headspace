@@ -59,6 +59,9 @@ public class GridTile : MonoBehaviour
 
     public int PlanetHeat { get; set; }
 
+    // PathFinding
+    public PathNode PathNode { get; set; }
+
     public List<GridTile> EightWayNeighbours
     {
         get
@@ -131,10 +134,11 @@ public class GridTile : MonoBehaviour
     private void AssignGridInfo(GridInfo currentGridInfo)
     {
         _gridInfo = currentGridInfo;
+        PathNode = new PathNode(currentGridInfo.gameGridTiles, this, tileX, tileY);
         UpdateNeighbours();
     }
 
-    // Fonction pour initialiser les components de la tuile, lorsqu'elle spawn
+    //Fonction pour initialiser les components de la tuile, lorsqu'elle spawn
     public virtual void InitializeTile(Vector2 tileDimensions, GridMode gridMode)
     {
         this.tileDimensions = tileDimensions;
@@ -155,19 +159,8 @@ public class GridTile : MonoBehaviour
     // Fonction pour initialiser les components de la tuile, lorsqu'elle spawn
     public virtual void InitializeTile(Vector2 tileDimensions, GridMode gridMode, GridInfo currentGridInfo)
     {
-        this.tileDimensions = tileDimensions;
-
-        _spriteRenderer.size = tileDimensions;
-        _boxCollider.size = tileDimensions;
-        Vector2 colliderOffset = new Vector2();
-        colliderOffset = tileDimensions / 2f;
-        colliderOffset.y = -colliderOffset.y;
-        _boxCollider.offset = colliderOffset;
-
-        _currentGridMode = gridMode;
         AssignGridInfo(currentGridInfo);
-
-        ToggleGridMode(_currentGridMode);
+        InitializeTile(tileDimensions, gridMode);
     }
 
     protected virtual void ToggleGridMode(GridMode newGridMode)

@@ -11,6 +11,8 @@ public class DeployManager : MonoBehaviour
     private List<DeployPoint> _allDeployPoints = new List<DeployPoint>();
     private List<GridTile_DeployPoint> _allDeployTiles = new List<GridTile_DeployPoint>();
 
+    public GridTile_DeployPoint CurrentDeployTile { get; private set; }
+
     // Subscription aux Actions
     private void OnEnable()
     {
@@ -50,6 +52,7 @@ public class DeployManager : MonoBehaviour
     private void OnNewDeployTile(GridTile_DeployPoint deployTile)
     {
         _allDeployTiles.Add(deployTile);
+        CurrentDeployTile = deployTile;
     }
 
     public List<GridTile_DeployPoint> GetDeployTiles()
@@ -62,6 +65,7 @@ public class DeployManager : MonoBehaviour
     {
         _allDeployPoints.Clear();
         _allDeployTiles.Clear();
+        CurrentDeployTile = null;
     }
 
     public bool IsInDeployTile(TileCoordinates tileCoords)

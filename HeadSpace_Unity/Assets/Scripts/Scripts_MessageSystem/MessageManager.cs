@@ -219,6 +219,17 @@ public class MessageManager : MonoBehaviour
         QueueMessage(newMessageText);
     }
 
+    public void InvalidDestinationNotif(Ship ship, string message)
+    {
+        string newMessageText = ship.shipName + " reports nav problem";
+        if (message != "")
+            newMessageText += " : " + message;
+        else
+            newMessageText += ".";
+
+        QueueMessage(newMessageText);
+    }
+
     public void PickupFinishedNotif(Ship ship) {
 
         string newMessageText = ship.shipName + " finished its PICKUP command at " + ship.currentPositionInGridCoords + ". Cargo status: " + ship.currentCargo + " / " + ship.cargoCapacity;

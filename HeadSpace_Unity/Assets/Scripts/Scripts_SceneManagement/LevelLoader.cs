@@ -35,6 +35,9 @@ public class LevelLoader : MonoBehaviour
 
         if (GridManager.instance != null)
             GridManager.instance.GenerateNewGrid();
+
+        if (GameManager.instance != null)
+            GameManager.instance.ForceStartGame();
     }
 
     public void StartGameDebug()

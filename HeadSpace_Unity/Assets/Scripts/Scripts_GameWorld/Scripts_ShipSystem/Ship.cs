@@ -59,11 +59,15 @@ public class Ship : MonoBehaviour
     [Range(0, 1)]
     public float detectionRadius;
 
-
     //MOVEMENT
     private Vector2 displayedGridCoords;
     [HideInInspector] public Vector2 targetWorldCoords;
     [HideInInspector] public bool isMoving;
+
+    public List<string> destinations;
+    private Queue<string> _currentDestinations = new Queue<string>();
+    private IEnumerator _currentRoute;
+    private IEnumerator _currentMove;
 
     //LEAVE
     private Vector2 basePosition;
@@ -92,6 +96,16 @@ public class Ship : MonoBehaviour
 
     private IEnumerator pickupCoroutine;
     private IEnumerator damageTickCoroutine;
+
+    private void OnEnable()
+    {
+        GameManager.gameStarted += OnGameStart;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.gameStarted -= OnGameStart;
+    }
 
     private void Awake()
     {
@@ -126,12 +140,12 @@ public class Ship : MonoBehaviour
             shipCallsign = shipCallsign.Substring(0, 3);
         }
 
-        //Assign basePosition
-        //basePosition = new Vector2(100f, 100f);
-        basePosition = new Vector2(0f, 0f); //ONLY FOR TESTING
+        ////Assign basePosition
+        ////basePosition = new Vector2(100f, 100f);
+        //basePosition = new Vector2(0f, 0f); //ONLY FOR TESTING
 
-        //Start ships at basePosition
-        transform.position = basePosition;
+        ////Start ships at basePosition
+        //transform.position = basePosition;
 
         //Fire the newShipAvaible action (received by the ShipManager)
         if (newShipAvailable != null)
@@ -142,11 +156,134 @@ public class Ship : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            StartShipMove();
+        }
+
         CheckForAnomaly();
         MoveShip();
 
         //Finds current position at all times in Grid Coords
         currentPositionInGridCoords = GridCoords.FromWorldToGrid(transform.position);
+    }
+
+    private void StartShipMove()
+    {
+        if (_currentRoute != null)
+        {
+            StopCoroutine(_currentRoute);
+            _currentRoute = null;
+
+            if (_currentMove != null)
+            {
+                StopCoroutine(_currentMove);
+                _currentMove = null;
+            }
+        }
+
+        _currentDestinations.Clear();
+
+        for (int i = 0; i < destinations.Count; i++)
+        {
+            _currentDestinations.Enqueue(destinations[i]);
+        }
+
+        _currentRoute = ExecuteRoute();
+        StartCoroutine(_currentRoute);
+    }
+
+    private IEnumerator ExecuteRoute()
+    {
+        while (_currentDestinations.Count > 0)
+        {
+            string newDest = _currentDestinations.Dequeue();
+            TileCoordinates destCoords;
+            if (ValidateDestination(newDest, out destCoords))
+            {
+                yield return StartCoroutine(MoveToDestination(destCoords, newDest));
+            }
+            else
+            {
+                CancelRoute("Invalid destination - " + newDest);
+                break;
+            }
+        }
+        _currentRoute = null;
+    }
+
+    private bool ValidateDestination(string dest, out TileCoordinates destCoords)
+    {
+        destCoords = new TileCoordinates(0, 0);
+        bool valid = GridCoords.FromTileNameToTilePosition(dest, out destCoords);
+
+        return valid;
+    }
+
+    private IEnumerator MoveToDestination(TileCoordinates destCoords, string destName)
+    {
+        if (PathFinder.instance == null)
+            yield break;
+
+        TileCoordinates currentTileCoords = GridCoords.FromWorldToTilePosition(transform.position);
+        float nodeCost = 0f;
+        List<PathNode> pathNodes = PathFinder.instance.FindLinearPath(currentTileCoords.tileX, currentTileCoords.tileY, destCoords.tileX, destCoords.tileY, out nodeCost);
+        if (pathNodes == null)
+        {
+            CancelRoute("Invalid path to destination - " + destName);
+            yield break;
+        }
+
+        List<Vector2> pathPositions = new List<Vector2>();
+        foreach (var node in pathNodes)
+            pathPositions.Add(node.tile.TileCenter);
+
+        PathNode previousNode = null;
+        for (int i = 0; i < pathNodes.Count; i++)
+        {
+            // IF HIT A ROCK
+            if (!pathNodes[i].isTraversable)
+            {
+                CancelRoute("OBSTACLE IN THE WAY!");
+                break;
+            }
+
+            if (previousNode != null)
+                if (!PathFinder.instance.GetValidNeighbourList(previousNode).Contains(pathNodes[i]))
+                {
+                    CancelRoute("DIAGONAL OBSTACLE IN THE WAY!");
+                    break;
+                }
+
+            previousNode = pathNodes[i];
+
+            if (i == 0)
+                continue;
+
+            yield return new WaitForSeconds(moveSpeed * nodeCost);
+            transform.position = pathPositions[i];
+        }
+        _currentMove = null;
+        yield return null;
+    }
+
+    private void CancelRoute(string errorMessage = "")
+    {
+        _currentDestinations.Clear();
+
+        if (_currentRoute != null)
+        {
+            StopCoroutine(_currentRoute);
+            _currentRoute = null;
+
+            if (_currentMove != null)
+            {
+                StopCoroutine(_currentMove);
+                _currentMove = null;
+            }
+        }
+
+        mM.InvalidDestinationNotif(this, errorMessage);
     }
 
     private void MoveShip()
@@ -180,6 +317,18 @@ public class Ship : MonoBehaviour
         }
     }
 
+    private void OnGameStart()
+    {
+        if (DeployManager.instance != null)
+        {
+            GridTile_DeployPoint deployPoint = DeployManager.instance.CurrentDeployTile;
+            if (deployPoint != null)
+            {
+                transform.position = deployPoint.TileCenter;
+            }
+        }
+    }
+
     // Function that initializes ship parameters when instantiated
     public void InitializeShip(string shipName, string shipCallsign, ShipState startingState)
     {
@@ -203,61 +352,55 @@ public class Ship : MonoBehaviour
 
     public void Deploy(Vector2 gridCoords) {
 
-        //Stops function if Ship cannot be Deployed
-        if (CurrentShipState == ShipState.Deployed) {
-            Debug.Log("Ship already Deployed");
-            return;
-        }
+        ////Stops function if Ship cannot be Deployed
+        //if (CurrentShipState == ShipState.Deployed) {
+        //    Debug.Log("Ship already Deployed");
+        //    return;
+        //}
 
-        //Stops function if Ship cannot be Deployed
-        if (CurrentShipState == ShipState.Unloading)
-        {
-            Debug.Log("Ship is still unloading");
-            return;
-        }
+        ////Stops function if Ship cannot be Deployed
+        //if (CurrentShipState == ShipState.Unloading)
+        //{
+        //    Debug.Log("Ship is still unloading");
+        //    return;
+        //}
 
-        //Debug.Log("SHIP NAME: " + shipName + " | COMMAND: Deploy " + gridCoords + " | STATUS: Deployed");
+        ////Debug.Log("SHIP NAME: " + shipName + " | COMMAND: Deploy " + gridCoords + " | STATUS: Deployed");
 
-        //Convert gridCoords entered into worldCoords
-        targetWorldCoords = GridCoords.FromGridToWorld(gridCoords);
-        //Place ship on the entered coordinates
-        transform.position = targetWorldCoords;
-        currentPositionInGridCoords = GridCoords.FromWorldToGrid(transform.position);
+        ////Convert gridCoords entered into worldCoords
+        //targetWorldCoords = GridCoords.FromGridToWorld(gridCoords);
+        ////Place ship on the entered coordinates
+        //transform.position = targetWorldCoords;
+        //currentPositionInGridCoords = GridCoords.FromWorldToGrid(transform.position);
 
-        //Change the status of the ship from "At Base" to "Deployed"
-        ChangeShipState(ShipState.Deployed);
+        ////Change the status of the ship from "At Base" to "Deployed"
+        //ChangeShipState(ShipState.Deployed);
 
-        //Notify player that Ship has Deployed
-        mM.ShipDeployedNotif(this);
+        ////Notify player that Ship has Deployed
+        //mM.ShipDeployedNotif(this);
     }
 
     public void Leave() {
 
-        //Stops function if Ship cannot be Leave
-        if (CurrentShipState != ShipState.Deployed) {
-            Debug.Log("Ship is already At Base");
-            return;
-        }
+        ////Stops function if Ship cannot be Leave
+        //if (CurrentShipState != ShipState.Deployed) {
+        //    Debug.Log("Ship is already At Base");
+        //    return;
+        //}
 
-        if (isMoving)
-            isMoving = false;
+        //if (isMoving)
+        //    isMoving = false;
 
-        //Debug.Log("SHIP NAME: " + shipName + " | COMMAND: Leave | STATUS: On it's way to base");
+        ////Debug.Log("SHIP NAME: " + shipName + " | COMMAND: Leave | STATUS: On it's way to base");
 
 
-        //Place ship on the entered coordinates
-        transform.position = basePosition;
+        ////Place ship on the entered coordinates
+        //transform.position = basePosition;
 
-        ChangeShipState(ShipState.Unloading);
+        //ChangeShipState(ShipState.Unloading);
     }
 
-    public void Move(Vector2 gridCoords) {
-
-        if (CurrentShipState != ShipState.Deployed)
-        {
-            Debug.Log("Ship is not deployed");
-            return;
-        }
+    public void Move(Vector2 gridCoords){
 
         if (pickupCoroutine != null) {
             StopCoroutine(pickupCoroutine);
@@ -271,11 +414,6 @@ public class Ship : MonoBehaviour
     }
 
     public void Pickup() {
-
-        if (CurrentShipState != ShipState.Deployed) {
-            Debug.Log("Ship is not deployed");
-            return;
-        }
 
         if (planetInOrbit != null) {
 
@@ -315,24 +453,18 @@ public class Ship : MonoBehaviour
         switch (CurrentShipState)
         {
             //Enable the ship and all it's components
-            case ShipState.Deployed:
+            case ShipState.Idle:
                 //spriteRenderer.enabled = true;
                 shipCollider.enabled = true;
                 detectionZone.enabled = true;
                 break;
 
             //Disable the ship and all it's components
-            case ShipState.Unloading:
+            case ShipState.Busy:
                 //spriteRenderer.enabled = false;
-                shipCollider.enabled = false;
-                detectionZone.enabled = false;
-                StartCoroutine(UnloadSouls());
-                break;
-
-            case ShipState.AtBase:
-                //spriteRenderer.enabled = false;
-                shipCollider.enabled = false;
-                detectionZone.enabled = false;
+                shipCollider.enabled = true;
+                detectionZone.enabled = true;
+                //StartCoroutine(UnloadSouls());
                 break;
 
             //Remove the ship from play
@@ -516,15 +648,14 @@ public class Ship : MonoBehaviour
         }
         _allSoulsAndPlanets.Clear();
 
-        ChangeShipState(ShipState.AtBase);
+        //ChangeShipState(ShipState.AtBase);
     }
 }
 
 public enum ShipState
 {
-    Deployed,
-    Unloading,
-    AtBase,
+    Idle,
+    Busy,
     Destroyed
 }
 

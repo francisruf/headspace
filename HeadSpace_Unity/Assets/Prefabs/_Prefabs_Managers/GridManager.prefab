@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6129731023839162508}
   - component: {fileID: 6129731023839162511}
   - component: {fileID: 6129731023839162509}
+  - component: {fileID: 2244560872403986687}
   m_Layer: 0
   m_Name: GridManager
   m_TagString: Untagged
@@ -47,9 +48,13 @@ MonoBehaviour:
   mapSizeX: 8
   mapSizeY: 4
   mapWidth: 15
+  rockTileMapPrefabs: []
   newSegmentAfterCount: 030000000800000010000000
   emptyCellPrefab: {fileID: 328405606139326222, guid: 2057765f4f76ef74c847f46818749518,
     type: 3}
+  deployTilePrefab: {fileID: 0}
+  rocktilePrefab: {fileID: 0}
+  planetTilePrefab: {fileID: 0}
   anomaly0Prefab: {fileID: 328405606139326222, guid: 94ef9c610ebb79e44ae91bb5f42aadc5,
     type: 3}
   anomaly1Prefab: {fileID: 328405606139326222, guid: 28512cbdf5ea93f4688969f202564516,
@@ -70,5 +75,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd44e88b0e503b34fb1b28ea556339f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TestCoords: {x: 3.254, y: 2.763}
-  TestWorldCoords: {x: 0, y: 0}
+--- !u!114 &2244560872403986687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6129731023839162510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7981086521e3a6049b895ac0f1437433, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
