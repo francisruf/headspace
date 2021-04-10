@@ -223,4 +223,14 @@ public class KeyPadController : MonoBehaviour
 
         return new Vector2(x, y);
     }
+
+    public int GetNumberValue()
+    {
+        int val = _vectorValues[0] * 1000;
+        val += _vectorValues[1] * 100;
+        val += _vectorValues[2] * 10;
+        val += _vectorValues[3];
+
+        return val;
+    }
 }

@@ -41,5 +41,6 @@ public enum ButtonSectionType
     Ships,
     KeyPadVector,
     KeyPadCode,
+    RouteScreen,
     End
 }

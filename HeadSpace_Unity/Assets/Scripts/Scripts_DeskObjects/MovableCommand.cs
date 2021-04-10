@@ -21,6 +21,7 @@ public class MovableCommand : MovableObject
     public string ShipName { get; private set; } = "";
     public string TargetGridCoords { get; private set; } = "";
     public string ProductCode { get; private set; } = "";
+    public List<string> Route { get; private set; }
 
     private Queue<string> _printingQueue = new Queue<string>();
     private int _printQueueCount;
@@ -84,6 +85,17 @@ public class MovableCommand : MovableObject
     public void AssignProductCode(string productCode, string printText)
     {
         ProductCode = productCode;
+        PrintLine(printText);
+    }
+
+    public void AssignRoute(List<string> route, string printText)
+    {
+        Route = route;
+        PrintLine(printText);
+    }
+
+    public void AssignErrorMessage(string printText)
+    {
         PrintLine(printText);
     }
 

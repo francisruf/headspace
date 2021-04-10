@@ -64,7 +64,7 @@ public class Ship : MonoBehaviour
     [HideInInspector] public Vector2 targetWorldCoords;
     [HideInInspector] public bool isMoving;
 
-    public List<string> destinations;
+    public List<string> Destinations { get; private set; }
     private Queue<string> _currentDestinations = new Queue<string>();
     private IEnumerator _currentRoute;
     private IEnumerator _currentMove;
@@ -156,16 +156,22 @@ public class Ship : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            StartShipMove();
-        }
+        //if (Input.GetKeyDown(KeyCode.M))
+        //{
+        //    StartShipMove();
+        //}
 
         CheckForAnomaly();
         MoveShip();
 
         //Finds current position at all times in Grid Coords
         currentPositionInGridCoords = GridCoords.FromWorldToGrid(transform.position);
+    }
+
+    public void StartNewRoute(List<string> route)
+    {
+        Destinations = route;
+        StartShipMove();
     }
 
     private void StartShipMove()
@@ -184,9 +190,9 @@ public class Ship : MonoBehaviour
 
         _currentDestinations.Clear();
 
-        for (int i = 0; i < destinations.Count; i++)
+        for (int i = 0; i < Destinations.Count; i++)
         {
-            _currentDestinations.Enqueue(destinations[i]);
+            _currentDestinations.Enqueue(Destinations[i]);
         }
 
         _currentRoute = ExecuteRoute();
@@ -299,20 +305,17 @@ public class Ship : MonoBehaviour
                 isMoving = false;
                 //Debug.Log("Movement has ended");
 
-                if (planetInOrbit != null)
-                {
-                    mM.EnteredPlanetOrbitNotif(this, planetInOrbit);
-                }
+                mM.MoveFinishedNotif(this);
 
-                else if (deployP != null)
-                {
-                    mM.EnteredDeployPointNotif(this, deployP);
-                }
+                //if (planetInOrbit != null)
+                //{
+                //    //mM.EnteredPlanetOrbitNotif(this, planetInOrbit);
+                //}
 
-                else
-                {
-                    mM.MoveFinishedNotif(this);
-                }
+                //else
+                //{
+                //    mM.MoveFinishedNotif(this);
+                //}
             }
         }
     }

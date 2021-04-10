@@ -23,8 +23,6 @@ public class MovableLogbook : MovableObject
 
         leftCorner.interactRequest += PreviousPage;
         rightCorner.interactRequest += NextPage;
-
-
     }
 
     protected override void Start()

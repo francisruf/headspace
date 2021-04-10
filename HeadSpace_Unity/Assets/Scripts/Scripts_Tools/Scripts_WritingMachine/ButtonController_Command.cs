@@ -7,4 +7,5 @@ public class ButtonController_Command : ButtonController
     public bool openShipButtons;
     public bool openKeyPadVector;
     public bool openKeyPadCode;
+    public bool openRouteScreen;
 }

@@ -46,7 +46,10 @@ public class CommandManager : MonoBehaviour
             else
             {
                 string errorMessage = "";
-                commandIsValid = foundCommand.TryExecution(cmd.ShipName, cmd.TargetGridCoords, cmd.ProductCode, out errorMessage);
+                if (cmd.Route != null)
+                    commandIsValid = foundCommand.TryExecution(cmd.ShipName, cmd.Route, out errorMessage);
+                else
+                    commandIsValid = foundCommand.TryExecution(cmd.ShipName, cmd.TargetGridCoords, cmd.ProductCode, out errorMessage);
             }
 
             if (commandIsValid)

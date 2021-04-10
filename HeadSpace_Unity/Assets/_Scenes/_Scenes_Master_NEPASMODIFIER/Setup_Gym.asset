@@ -33,10 +33,6 @@ MonoBehaviour:
     m_IsLoaded: 1
     m_IsActive: 0
     m_IsSubScene: 0
-  - m_Path: Assets/_Scenes/Scenes_Features_Implemented/UserInterface_Gameplay.unity
-    m_IsLoaded: 1
-    m_IsActive: 0
-    m_IsSubScene: 0
   - m_Path: Assets/_Scenes/Scenes_Levels/00_Gym.unity
     m_IsLoaded: 1
     m_IsActive: 0

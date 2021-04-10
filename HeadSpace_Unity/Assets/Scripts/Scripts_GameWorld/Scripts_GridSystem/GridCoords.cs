@@ -279,37 +279,44 @@ public class GridCoords : MonoBehaviour
         return c.ToString();
     }
 
-    public static Vector2 FromTileNameToWorld(string tileName)
+    public static bool FromTileNameToWorld(string tileName, out Vector2 worldPos)
     {
-        TileCoordinates tilePosition = FromTileNameToTilePosition(tileName);
-        return FromTilePositionToWorld(tilePosition);
+        worldPos = Vector2.zero;
+        TileCoordinates tilePosition;
+        bool success = FromTileNameToTilePosition(tileName, out tilePosition);
+
+        if (success == false)
+            return false;
+
+        worldPos = FromTilePositionToWorld(tilePosition);
+        return true;
     }
 
-    public static TileCoordinates FromTileNameToTilePosition(string tileName)
-    {
-        int lenght = tileName.Length;
-        if (lenght < 2)
-        {
-            Debug.Log("INVALID TILE NAME");
-            return new TileCoordinates(0, 0);
-        }
+    //public static TileCoordinates FromTileNameToTilePosition(string tileName)
+    //{
+    //    int lenght = tileName.Length;
+    //    if (lenght < 2)
+    //    {
+    //        Debug.Log("INVALID TILE NAME");
+    //        return new TileCoordinates(0, 0);
+    //    }
 
-        int tileX = 0;
-        if (lenght == 2)
-        {
-            tileX = int.Parse(tileName[1].ToString()) - 1;
-        }
-        else if (lenght > 2)
-        {
-            tileX = int.Parse(tileName.Substring(1, lenght-1)) - 1;
-        }
+    //    int tileX = 0;
+    //    if (lenght == 2)
+    //    {
+    //        tileX = int.Parse(tileName[1].ToString()) - 1;
+    //    }
+    //    else if (lenght > 2)
+    //    {
+    //        tileX = int.Parse(tileName.Substring(1, lenght-1)) - 1;
+    //    }
 
-        char yChar = char.ToUpper(tileName[0]);
-        int tileY = -((int)'A' - (int)yChar);
-        TileCoordinates tilePosition = new TileCoordinates(tileX, tileY);
+    //    char yChar = char.ToUpper(tileName[0]);
+    //    int tileY = -((int)'A' - (int)yChar);
+    //    TileCoordinates tilePosition = new TileCoordinates(tileX, tileY);
 
-        return tilePosition;
-    }
+    //    return tilePosition;
+    //}
 
     public static bool FromTileNameToTilePosition(string tileName, out TileCoordinates tileCoordinates)
     {
@@ -320,7 +327,27 @@ public class GridCoords : MonoBehaviour
             Debug.Log("INVALID TILE NAME");
             return false;
         }
-        tileCoordinates = FromTileNameToTilePosition(tileName);
+
+        int tileX = 0;
+        if (lenght == 2)
+        {
+            if (int.TryParse(tileName[1].ToString(), out tileX) == false)
+                return false;
+            tileX -= 1;
+        }
+        else if (lenght > 2)
+        {
+            if (int.TryParse(tileName.Substring(1, lenght - 1), out tileX) == false)
+                return false;
+            tileX -= 1;
+        }
+
+        char yChar = char.ToUpper(tileName[0]);
+        int tileY = -((int)'A' - (int)yChar);
+
+        tileCoordinates.tileX = tileX;
+        tileCoordinates.tileY = tileY;
+
         if (tileCoordinates.tileX < 0 || tileCoordinates.tileX >= _currentGridInfo.gameGridSize.x)
             return false;
         if (tileCoordinates.tileY < 0 || tileCoordinates.tileY >= _currentGridInfo.gameGridSize.y)
@@ -340,7 +367,12 @@ public class GridCoords : MonoBehaviour
         if (lenght < 2)
             return false;
 
-        TileCoordinates tileCoordinates = FromTileNameToTilePosition(tileName);
+        TileCoordinates tileCoordinates;
+        bool success = FromTileNameToTilePosition(tileName, out tileCoordinates);
+
+        if (success == false)
+            return false;
+
         if (tileCoordinates.tileX < 0 || tileCoordinates.tileX >= _currentGridInfo.gameGridSize.x)
             return false;
         if (tileCoordinates.tileY < 0 || tileCoordinates.tileY >= _currentGridInfo.gameGridSize.y)

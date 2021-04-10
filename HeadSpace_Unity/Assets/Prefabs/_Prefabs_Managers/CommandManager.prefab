@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 3628148880506788856}
   - component: {fileID: 3628148880506788358}
   - component: {fileID: 5604044782574627855}
-  - component: {fileID: 3628148880506788857}
   - component: {fileID: 3685609706471039415}
   - component: {fileID: 2302959481840722337}
   - component: {fileID: 522285936153810917}
   - component: {fileID: 6602827340882840358}
+  - component: {fileID: 7814220178644714585}
   m_Layer: 0
   m_Name: CommandManager
   m_TagString: Untagged
@@ -62,19 +62,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keyWord: Send
---- !u!114 &3628148880506788857
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3628148880506788859}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 954a40ecbd984734d92259cebba52312, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  keyWord: Move
 --- !u!114 &3685609706471039415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,3 +114,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keyWord: Buy
+--- !u!114 &7814220178644714585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3628148880506788859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43970656f2dde844eba55410ba3e7ab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyWord: Move

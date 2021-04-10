@@ -10,6 +10,7 @@ public class WritingMachineController : MonoBehaviour
 
     private SlidableWritingMachine _slidableMachine;
     private KeyPadController _keyPadController;
+    private RouteScreenController _routeScreenController;
     private Animator _animator;
 
     private List<ButtonController> _allButtons;
@@ -48,6 +49,7 @@ public class WritingMachineController : MonoBehaviour
     {
         _slidableMachine = GetComponent<SlidableWritingMachine>();
         _keyPadController = GetComponentInChildren<KeyPadController>();
+        _routeScreenController = GetComponentInChildren<RouteScreenController>();
         _animator = GetComponent<Animator>();
 
         _allButtons = new List<ButtonController>(GetComponentsInChildren<ButtonController>());
@@ -60,6 +62,8 @@ public class WritingMachineController : MonoBehaviour
     {
         commandButtonSection.AssignButtonPositions(allCommandButtons);
         shipButtonSection.AssignButtonPositions(allShipButtons);
+
+        _currentButtonSectionType = ButtonSectionType.Ships;
     }
 
     private void OnEnable()
@@ -93,8 +97,11 @@ public class WritingMachineController : MonoBehaviour
 
     public void OnMachineClose()
     {
-        DisableAllButtons();
+        DisableAllButtons(true);
         _keyPadController.CloseKeyPad();
+        _routeScreenController.CloseRouteScreen(false);
+        _currentString = "";
+        _currentCharIndex = 0;
 
         _animator.SetBool("IsOpen", false);
     }
@@ -121,9 +128,17 @@ public class WritingMachineController : MonoBehaviour
 
         string playerInput = Input.inputString;
 
-        if (_currentButtonSectionType == ButtonSectionType.KeyPadVector || _currentButtonSectionType == ButtonSectionType.KeyPadCode)
+        if (_currentButtonSectionType == ButtonSectionType.KeyPadVector)
         {
-            HandleKeyPadInput(playerInput);
+            HandleKeyPadVectorInput(playerInput);
+        }
+        else if (_currentButtonSectionType == ButtonSectionType.KeyPadCode)
+        {
+            HandleKeyPadCodeInput(playerInput);
+        }
+        else if (_currentButtonSectionType == ButtonSectionType.RouteScreen)
+        {
+            HandleRouteInput(playerInput);
         }
         else
         {
@@ -153,7 +168,7 @@ public class WritingMachineController : MonoBehaviour
         }
     }
 
-    private void HandleKeyPadInput(string playerInput)
+    private void HandleKeyPadVectorInput(string playerInput)
     {
         if (playerInput.Length > 0)
         {
@@ -176,6 +191,64 @@ public class WritingMachineController : MonoBehaviour
             AssignButtonFields(keypadVector);
 
             _keyPadController.OnEnterInput();
+            ChangeButtonSection(VerifyNextSection());
+        }
+    }
+
+    private void HandleKeyPadCodeInput(string playerInput)
+    {
+        if (playerInput.Length > 0)
+        {
+            for (int i = 0; i < playerInput.Length; i++)
+            {
+                _keyPadController.OnCharInput(playerInput[i]);
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            _keyPadController.OnBackspaceInput();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            int keypadCode = _keyPadController.GetNumberValue();
+            //Debug.Log(keypadVector);
+            
+            AssignButtonFields(keypadCode);
+
+            _keyPadController.OnEnterInput();
+            ChangeButtonSection(VerifyNextSection());
+        }
+    }
+
+    private void HandleRouteInput(string playerInput)
+    {
+        if (playerInput.Length > 0)
+        {
+            for (int i = 0; i < playerInput.Length; i++)
+            {
+                _routeScreenController.OnCharInput(playerInput[i]);
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            _routeScreenController.OnBackspaceInput();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            _routeScreenController.OnTabInput();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            List<string> routeInput = _routeScreenController.GetRouteInput();
+            //Debug.Log(keypadVector);
+
+            AssignButtonFields(routeInput);
+            _routeScreenController.OnEnterInput();
             ChangeButtonSection(VerifyNextSection());
         }
     }
@@ -259,12 +332,24 @@ public class WritingMachineController : MonoBehaviour
 
             string buttonText = candidateButton.PressButton();
             AssignButtonFields(candidateButton);
-            ChangeButtonSection(VerifyNextSection());
-            // Debug.Log(buttonText);
-
-            _currentCharIndex = 0;
-            _currentString = "";
         }
+        else if (_currentString != "")
+        {
+            AssignCommandErrorMessage(_currentString);
+        }
+        else
+        {
+            _currentCommandDocument.AssignErrorMessage("-- General directive --");
+        }
+
+        ChangeButtonSection(VerifyNextSection());
+        _currentCharIndex = 0;
+        _currentString = "";
+    }
+
+    private void AssignCommandErrorMessage(string playerInput)
+    {
+        _currentCommandDocument.AssignErrorMessage("ERROR : Invalid input - " + playerInput);
     }
 
     private void AssignButtonFields(ButtonController currentButton)
@@ -278,6 +363,34 @@ public class WritingMachineController : MonoBehaviour
                 _currentCommandDocument.AssignShipName(currentButton.GetButtonCommandField(), currentButton.GetButtonPrintText());
                 break;
             case ButtonSectionType.End:
+                break;
+        }
+    }
+
+    private void AssignButtonFields(int keyPadEntry)
+    {
+        string printText = "";
+
+        switch (_currentButtonSectionType)
+        {
+            case ButtonSectionType.KeyPadCode:
+
+                string stringCode = keyPadEntry.ToString();
+                //string actualCode = "";
+                //for (int i = 0; i < stringCode.Length; i++)
+                //{
+                //    if (stringCode[i] < 48 || stringCode[i] > 57)
+                //    {
+
+                //    }
+                //    else
+                //    {
+                //        actualCode += stringCode[i];
+                //    }
+                //}
+
+                printText = "Product code : " + stringCode;
+                _currentCommandDocument.AssignProductCode(stringCode, printText);
                 break;
         }
     }
@@ -314,6 +427,37 @@ public class WritingMachineController : MonoBehaviour
         }
     }
 
+    private void AssignButtonFields(List<string> routeEntry)
+    {
+        if (routeEntry == null)
+            return;
+
+        int count = routeEntry.Count;
+        if (count <= 0)
+            return;
+
+        string printText = "";
+
+        if (count == 1)
+            printText = "Towards this destination : " + routeEntry[0] + ".";
+        else
+        {
+            printText = "Following this route : ";
+            for (int i = 0; i < count; i++)
+            {
+                if (i == 3)
+                    printText += "\n";
+
+                printText += routeEntry[i];
+                if (i < count - 1)
+                    printText += " - ";
+                else
+                    printText += ".";
+            }
+        }
+        _currentCommandDocument.AssignRoute(routeEntry, printText);
+    }
+
     private void ChangeButtonSection(ButtonSectionType nextSection)
     {
         if (_currentAvailableButtonsCount > 0)
@@ -326,32 +470,42 @@ public class WritingMachineController : MonoBehaviour
         }
 
         _currentButtonSectionType = nextSection;
-        //Debug.Log("new button section : " + nextSection);
+        Debug.Log("new button section : " + nextSection);
 
         switch (_currentButtonSectionType)
         {
             case ButtonSectionType.Commands:
                 _currentAvailableButtons = allCommandButtons;
                 _keyPadController.CloseKeyPad();
+                _routeScreenController.CloseRouteScreen(true);
                 break;
 
             case ButtonSectionType.Ships:
                 _currentAvailableButtons = allShipButtons;
                 _keyPadController.CloseKeyPad();
+                _routeScreenController.CloseRouteScreen(true);
                 break;
 
             case ButtonSectionType.KeyPadVector:
                 _currentAvailableButtons = null;
                 _keyPadController.OpenKeyPad();
+                _routeScreenController.CloseRouteScreen(true);
                 break;
 
             case ButtonSectionType.KeyPadCode:
                 _currentAvailableButtons = null;
                 _keyPadController.OpenKeyPad();
+                _routeScreenController.CloseRouteScreen(true);
+                break;
+
+            case ButtonSectionType.RouteScreen:
+                _currentAvailableButtons = null;
+                _routeScreenController.OpenRouteScreen();
                 break;
 
             case ButtonSectionType.End:
                 _currentAvailableButtons = null;
+                _routeScreenController.CloseRouteScreen(true);
                 StartCoroutine(EndCommand());
                 break;
 
@@ -382,38 +536,28 @@ public class WritingMachineController : MonoBehaviour
         switch (_currentButtonSectionType)
         {
             case ButtonSectionType.Commands:
-                if (_openShipButtons)
-                    return ButtonSectionType.Ships;
-
-                else if (_openKeyPadVector)
-                    return ButtonSectionType.KeyPadVector;
-
-                else if (_openKeyPadCode)
+                if (_currentCommandButton.openKeyPadCode)
                     return ButtonSectionType.KeyPadCode;
+
+                else if (_currentCommandButton.openRouteScreen)
+                    return ButtonSectionType.RouteScreen;
 
                 else
                     return ButtonSectionType.End;
 
             case ButtonSectionType.Ships:
-                //Debug.Log("YO1");
-                //Debug.Log(_currentCommandButton.gameObject.name);
-                //Debug.Log(_currentCommandButton.openKeyPadVector);
-                if (_currentCommandButton.openKeyPadVector)
-                {
-                    //Debug.Log("YO2");
-                    return ButtonSectionType.KeyPadVector;
-                }
-                else
-                    return ButtonSectionType.End;
+                return ButtonSectionType.Commands;
         }
-
         return ButtonSectionType.End;
     }
 
-    private void DisableAllButtons()
+    private void DisableAllButtons(bool forceReset = false)
     {
         foreach (var btn in _allButtons)
         {
+            if (forceReset)
+                btn.ClearHighlighting();
+
             btn.ToggleAvailable(false, true);
         }
     }
@@ -436,6 +580,7 @@ public class WritingMachineController : MonoBehaviour
 
         yield return new WaitForSeconds(0.05f);
         _keyPadController.CloseKeyPad();
+        _routeScreenController.CloseRouteScreen(true);
 
         if (commandReadyToTear != null)
             commandReadyToTear();
@@ -463,14 +608,16 @@ public class WritingMachineController : MonoBehaviour
         _currentCommandDocument.transform.parent = null;
         _currentCommandDocument = null;
         _currentPressedButtons.Clear();
-        DisableAllButtons();
+        DisableAllButtons(true);
+
+        _currentCharIndex = 0;
+        _currentString = "";
 
         _animator.SetBool("IsReady", false);
         if (commandTeared != null)
             commandTeared();
 
-        ChangeButtonSection(ButtonSectionType.Commands);
-
+        ChangeButtonSection(ButtonSectionType.Ships);
         SpawnCommandDocument();
     }
 

@@ -8,10 +8,19 @@ public class SlidableTool : InteractableObject
     public static Action drawerOpened;
     public static Action drawerClosed;
 
+    public Action<SlidableTool> toolAutoOpened;
+
     [Header("SlidableTool settings")]
     public SlidingDirection slidingDirection;
     public float slidingAmount;
     public float drawerHandleSize = 1f;
+
+    [Header("Animation settings")]
+    public float smoothTime;
+
+    protected Vector2 _lerpStartPos;
+    protected IEnumerator _openingRoutine;
+    protected IEnumerator _closingRoutine;
 
     private float boxHalfSize;
     private Vector3 mouseOffset;
@@ -22,7 +31,7 @@ public class SlidableTool : InteractableObject
     protected float minPosY;
     protected float maxPosY;
     protected Vector2 openPos = new Vector2();
-    private Vector2 fullyClosedPos = new Vector2();
+    protected Vector2 fullyClosedPos = new Vector2();
 
     public bool IsOpen { get; private set; }
     public bool IsFullyClosed { get; private set; }
@@ -236,6 +245,12 @@ public class SlidableTool : InteractableObject
     {
         base.Select();
         mouseOffset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        if (_openingRoutine != null)
+        {
+            StopCoroutine(_openingRoutine);
+            _openingRoutine = null;
+        }
     }
 
     public enum SlidingDirection
@@ -244,5 +259,81 @@ public class SlidableTool : InteractableObject
         VerticalUp,   // 1
         HorizontalLeft,   // 2
         HorizontalRight   // 3
+    }
+
+    public void TriggerAutoOpen()
+    {
+        if (_openingRoutine != null)
+            return;
+
+        if (_closingRoutine != null)
+        {
+            StopCoroutine(_closingRoutine);
+            _closingRoutine = null;
+        }
+
+        _openingRoutine = AutoOpenTool();
+        StartCoroutine(_openingRoutine);
+    }
+
+    public void TriggerAutoClose()
+    {
+        if (_closingRoutine != null)
+            return;
+
+        if (_openingRoutine != null)
+        {
+            StopCoroutine(_openingRoutine);
+            _openingRoutine = null;
+        }
+
+        _closingRoutine = AutoCloseTool();
+        StartCoroutine(_closingRoutine);
+    }
+
+    protected virtual IEnumerator AutoOpenTool()
+    {
+        if (toolAutoOpened != null)
+            toolAutoOpened(this);
+
+        Debug.Log("BASE");
+
+        CheckOpenState();
+        _lerpStartPos = transform.position;
+        //float time = 0f;
+        Vector2 velocity = new Vector2();
+
+        while (Vector2.Distance(transform.position, openPos) > 0.01f)
+        {
+            Vector2 smooth = Vector2.SmoothDamp(transform.position, openPos, ref velocity, smoothTime);
+            transform.position = smooth;
+
+            yield return new WaitForEndOfFrame();
+        }
+        transform.position = openPos;
+        _openingRoutine = null;
+    }
+
+    protected virtual IEnumerator AutoCloseTool()
+    {
+        if (toolAutoOpened != null)
+            toolAutoOpened(this);
+
+        Debug.Log("BASE");
+
+        CheckOpenState();
+        _lerpStartPos = transform.position;
+        //float time = 0f;
+        Vector2 velocity = new Vector2();
+
+        while (Vector2.Distance(transform.position, fullyClosedPos) > 0.01f)
+        {
+            Vector2 smooth = Vector2.SmoothDamp(transform.position, fullyClosedPos, ref velocity, smoothTime);
+            transform.position = smooth;
+
+            yield return new WaitForEndOfFrame();
+        }
+        transform.position = fullyClosedPos;
+        _closingRoutine = null;
     }
 }

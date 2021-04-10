@@ -10,7 +10,13 @@ public class ObjectInteractionZone : MonoBehaviour
     private Collider2D _collider;
     private SpriteRenderer _spriteRenderer;
 
+    public bool startEnabled;
     private bool _isEnabled;
+
+    private void Start()
+    {
+        ToggleZone(startEnabled);
+    }
 
     private void Awake()
     {

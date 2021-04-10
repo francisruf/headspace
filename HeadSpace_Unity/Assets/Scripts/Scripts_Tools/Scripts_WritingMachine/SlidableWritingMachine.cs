@@ -7,11 +7,40 @@ public class SlidableWritingMachine : SlidableTool
 {
     public SpriteRenderer machineBGRenderer;
     private WritingMachineController _machineController;
+    private ObjectInteractionZone _openCloseInteractionZone;
 
     protected override void Awake()
     {
         base.Awake();
         _machineController = GetComponent<WritingMachineController>();
+
+        _openCloseInteractionZone = GetComponentInChildren<ObjectInteractionZone>();
+        _openCloseInteractionZone.interactRequest += TriggerOpenClose;
+    }
+
+    private void OnDisable()
+    {
+        _openCloseInteractionZone.interactRequest -= TriggerOpenClose;
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            TriggerOpenClose(null);
+        }
+    }
+
+    private void TriggerOpenClose(ObjectInteractionZone zone)
+    {
+        Debug.Log("YO");
+
+        if (IsOpen)
+            TriggerAutoClose();
+        else
+            TriggerAutoOpen();
     }
 
     protected override void OpenTool()

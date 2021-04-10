@@ -17,6 +17,11 @@ public abstract class Command : MonoBehaviour
     // Le CommandManager appelle toujours cette fonction et envoie les paramètres STRING
     public abstract bool TryExecution(string playerText, out string errorMessage);
     public abstract bool TryExecution(string shipName, string coordinatesText, string productCode, out string errorMessage);
+    public virtual bool TryExecution(string shipName, List<string> route, out string errorMessage)
+    {
+        errorMessage = "";
+        return false;
+    }
 
     // Fonctions vides qui peuvent être override (remplacées) dans les classes qui héritent de Command
     protected virtual void ExecuteCommand()
@@ -28,6 +33,10 @@ public abstract class Command : MonoBehaviour
     }
 
     protected virtual void ExecuteCommand(Ship targetShip, Vector2 gridCoordinates)
+    {
+    }
+
+    protected virtual void ExecuteCommand(Ship targetShip, List<string> route)
     {
     }
 
