@@ -207,7 +207,8 @@ public class Ship : MonoBehaviour
             TileCoordinates destCoords;
             if (ValidateDestination(newDest, out destCoords))
             {
-                yield return StartCoroutine(MoveToDestination(destCoords, newDest));
+                _currentMove = MoveToDestination(destCoords, newDest);
+                yield return StartCoroutine(_currentMove);
             }
             else
             {
@@ -273,7 +274,7 @@ public class Ship : MonoBehaviour
         yield return null;
     }
 
-    private void CancelRoute(string errorMessage = "")
+    private void CancelRoute(string errorMessage = "", bool error = true)
     {
         _currentDestinations.Clear();
 
@@ -281,15 +282,15 @@ public class Ship : MonoBehaviour
         {
             StopCoroutine(_currentRoute);
             _currentRoute = null;
-
-            if (_currentMove != null)
-            {
-                StopCoroutine(_currentMove);
-                _currentMove = null;
-            }
+        }
+        if (_currentMove != null)
+        {
+            StopCoroutine(_currentMove);
+            _currentMove = null;
         }
 
-        mM.InvalidDestinationNotif(this, errorMessage);
+        if (error)
+            mM.InvalidDestinationNotif(this, errorMessage);
     }
 
     private void MoveShip()
@@ -440,6 +441,7 @@ public class Ship : MonoBehaviour
             mM.PickupAbortedNotif(this);
         }
 
+        CancelRoute("", false);
         //if (isLoadingSouls) {
         //    StopCoroutine(LoadingSouls());
         //    isLoadingSouls = false;
