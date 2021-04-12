@@ -393,7 +393,89 @@ public class PlanetManager : MonoBehaviour
                 noMoreSoulsInSector();
         }
     }
+    
+    public void RevealStartingPlanets(PlanetSettings settings)
+    {
+        
+        int totalPlanetsRevealed = 0;
 
+        int planetCount = _allPlanetTiles.Count;
+
+        int totalDistance = 0;
+        int averageDistance = 0;
+
+        foreach (var planet in _allPlanetTiles)
+        {
+            totalDistance += planet.DistanceRating;
+        }
+        averageDistance = totalDistance / planetCount;
+
+        //Debug.Log("Average distance : " + averageDistance);
+
+        List<GridTile_Planet> allCandidatePlanets = new List<GridTile_Planet>(_allPlanetTiles);
+        List<GridTile_Planet> closePlanets = new List<GridTile_Planet>();
+        List<GridTile_Planet> farPlanets = new List<GridTile_Planet>();
+
+        foreach (var planet in _allPlanetTiles)
+        {
+            if (planet.DistanceRating >= averageDistance)
+                farPlanets.Add(planet);
+            else
+                closePlanets.Add(planet);
+        }
+
+        int closeCount = closePlanets.Count;
+        int farCount = farPlanets.Count;
+        //Debug.Log("0");
+        for (int i = 0; i < settings.planetsRevealedCloseToDeploy; i++)
+        {
+            if (i < closeCount)
+            {
+                int randomIndex = UnityEngine.Random.Range(0, closeCount);
+                closePlanets[randomIndex].RevealPlanet();
+
+                //Debug.Log("Close planet chosen : " + closePlanets[randomIndex].DistanceRating);
+
+                allCandidatePlanets.Remove(closePlanets[randomIndex]);
+                closePlanets.RemoveAt(randomIndex);
+                closeCount--;
+                totalPlanetsRevealed++;
+            }
+            else
+                break;
+        }
+        //Debug.Log("1");
+        for (int i = 0; i < settings.planetsRevealedFarFromDeploy; i++)
+        {
+            if (i < farCount)
+            {
+                int randomIndex = UnityEngine.Random.Range(0, farCount);
+                farPlanets[randomIndex].RevealPlanet();
+
+                //Debug.Log("Far planet chosen : " + farPlanets[randomIndex].DistanceRating);
+
+                allCandidatePlanets.Remove(closePlanets[randomIndex]);
+                farPlanets.RemoveAt(randomIndex);
+                farCount--;
+                totalPlanetsRevealed++;
+            }
+            else
+                break;
+        }
+        //Debug.Log("2");
+        while (totalPlanetsRevealed < settings.planetsRevealedOnStart)
+        {
+            int allCandidatesCount = allCandidatePlanets.Count;
+            if (allCandidatesCount == 0)
+                break;
+
+            int randomIndex = UnityEngine.Random.Range(0, allCandidatesCount);
+            allCandidatePlanets[randomIndex].RevealPlanet();
+            allCandidatePlanets.RemoveAt(randomIndex);
+            totalPlanetsRevealed++;
+        }
+        //Debug.Log("3");
+    }
 }
 
 [System.Serializable]

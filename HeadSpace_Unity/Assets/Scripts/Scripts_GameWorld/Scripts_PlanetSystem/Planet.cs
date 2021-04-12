@@ -173,7 +173,6 @@ public class Planet : GridStaticObject
 
                     BonusAwarded = true;
                 }
-                
             }
         }
     }

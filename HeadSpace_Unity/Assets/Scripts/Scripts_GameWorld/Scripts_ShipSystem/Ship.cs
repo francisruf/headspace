@@ -450,6 +450,11 @@ public class Ship : MonoBehaviour
 
     }
 
+    public void Status()
+    {
+        mM.ShipStatusNotif(this);
+    }
+
     // Function that changes and tracks the ship state (AtBase / Deployed) and notifies other scripts
     private void ChangeShipState(ShipState newState)
     {

@@ -43,6 +43,12 @@ public class Ship_Collider : MonoBehaviour {
             mM.ContactWithCloudNotif(ship);
         }
 
+        GridTile_Planet planet = col.GetComponent<GridTile_Planet>();
+        if (planet != null)
+        {
+            planet.RevealPlanet();
+        }
+
         // Wormhole
         WormHole candidateWormhole = col.GetComponent<WormHole>();
 

@@ -243,7 +243,6 @@ public class PathFinder : MonoBehaviour
                     continue;
                 }
                     
-
                 int tentativeGCost = currentNode.gCost + CalculateDistanceCost(currentNode, neighbourNode);
                 if (tentativeGCost < neighbourNode.gCost)
                 {

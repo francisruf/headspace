@@ -242,10 +242,24 @@ public class MessageManager : MonoBehaviour
         string creditText = planet.CompletionCreditsBonus > 1 ? "credits" : "credit";
 
         string newMessageText = "Relayed message :";
-        newMessageText += "\nThank you for saving all of our people. Please take this as a toekn of our gratitude";
+        newMessageText += "\nThank you for saving all of our people. Please take this as a token of our gratitude";
         newMessageText += "\n\n[" + planet.CompletionCreditsBonus + " additional " + creditText + " awarded.]";
 
         QueueMessage(newMessageText);
     }
+
+    public void ShipStatusNotif(Ship ship)
+    {
+        TileCoordinates shipTile = GridCoords.FromWorldToTilePosition(ship.transform.position);
+        string tileName = GridCoords.GetTileName(shipTile);
+
+        string newMessageText = "Ship status request : ";
+        newMessageText += ship.shipName + " at position " + tileName;
+        newMessageText += "\nMental health : " + ship.currentHealthPoints;
+        newMessageText += "\nClients on board : TBD";
+
+        QueueMessage(newMessageText);
+    }
+
     #endregion
 }

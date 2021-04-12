@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 522285936153810917}
   - component: {fileID: 6602827340882840358}
   - component: {fileID: 7814220178644714585}
+  - component: {fileID: 4735108477039757510}
   m_Layer: 0
   m_Name: CommandManager
   m_TagString: Untagged
@@ -127,3 +128,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keyWord: Move
+--- !u!114 &4735108477039757510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3628148880506788859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91a4ccb4c8861d544848c8e86f690246, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyWord: Stat
