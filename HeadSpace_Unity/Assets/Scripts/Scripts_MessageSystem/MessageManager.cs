@@ -12,7 +12,7 @@ public class MessageManager : MonoBehaviour
     public static MessageManager instance;
 
     // Référence au récepteur
-    private SlidableReceptor _receptor;
+    private Receiver _receiver;
 
     // File d'attente des messages
     private Queue<string> _messageQueue = new Queue<string>();
@@ -35,7 +35,7 @@ public class MessageManager : MonoBehaviour
             instance = this;
         }
 
-        _receptor = GetComponentInParent<SlidableReceptor>();
+        _receiver = GetComponentInParent<Receiver>();
     }
 
     // Assigner les éléments de UI initiaux
@@ -51,7 +51,7 @@ public class MessageManager : MonoBehaviour
     {
         if (_messageCount > 0)
         {
-            if (_receptor.CanPrintMessages())
+            if (_receiver.CanPrintMessages())
             {
                 PrintNextMessage();
             }
@@ -97,7 +97,7 @@ public class MessageManager : MonoBehaviour
             currentMessageText.enabled = true;
         }
 
-        _receptor.PrintMessage(messageToPrint);
+        _receiver.PrintMessage(messageToPrint);
         UpdateMessageCount();
     }
 

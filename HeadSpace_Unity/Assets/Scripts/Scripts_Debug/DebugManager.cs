@@ -20,7 +20,6 @@ public class DebugManager : MonoBehaviour
     public GameObject objectsPanel;
     public MouseTooltip mouseToolTip;
     public GameObject gridDebug;
-    public TextMeshProUGUI shipInventoryText;
     public GameObject ressourcePanel;
 
     [Header("Ressource texts")]
@@ -78,7 +77,6 @@ public class DebugManager : MonoBehaviour
     {
         GameManager.gameStarted += StartGameTimer;
         GridManager.totalGridAnomaly += StopGameTimer;
-        ShipManager.shipInventoryUpdate += UpdateShipInventoryUI;
         RessourceManager.ressourcesUpdate += UpdateRessourceTexts;
     }
 
@@ -86,7 +84,6 @@ public class DebugManager : MonoBehaviour
     {
         GameManager.gameStarted -= StartGameTimer;
         GridManager.totalGridAnomaly -= StopGameTimer;
-        ShipManager.shipInventoryUpdate -= UpdateShipInventoryUI;
         RessourceManager.ressourcesUpdate -= UpdateRessourceTexts;
     }
 
@@ -100,8 +97,7 @@ public class DebugManager : MonoBehaviour
         //debugText.enabled = true;
         gameTimeText.enabled = false;
         commandDebugWindow.SetActive(false);
-        shipInventoryText.enabled = true;
-        ressourcePanel.SetActive(false);
+        //ressourcePanel.SetActive(false);
 
         UpdateTimeScaleText();
     }
@@ -120,7 +116,7 @@ public class DebugManager : MonoBehaviour
             objectsPanel.SetActive(!objectsPanel.activeSelf);
             //debugText.enabled = !buttonsPanel.activeSelf;
             gameTimeText.enabled = !gameTimeText.enabled;
-            ressourcePanel.SetActive(!ressourcePanel.activeSelf);
+            //ressourcePanel.SetActive(!ressourcePanel.activeSelf);
         }
 
         //if (Input.GetKeyDown(KeyCode.Space) && !commandDebugWindow.activeSelf)
@@ -159,21 +155,6 @@ public class DebugManager : MonoBehaviour
 
         if (mouseToolTipActiveState != null)
             mouseToolTipActiveState(_mouseTooltipVisible);
-    }
-
-    public void ToggleShipInventory()
-    {
-        shipInventoryText.enabled = !shipInventoryText.enabled;
-    }
-
-    private void UpdateShipInventoryUI(List<Ship> allShips)
-    {
-        string inventoryText = "<size=150%><b>Ship Inventory</size></b>";
-        foreach (var ship in allShips)
-        {
-            inventoryText += "\n<b>" + ship.shipName + "</b> : " + ship.CurrentShipState.ToString();
-        }
-        shipInventoryText.text = inventoryText;
     }
 
     public void NewGrid()

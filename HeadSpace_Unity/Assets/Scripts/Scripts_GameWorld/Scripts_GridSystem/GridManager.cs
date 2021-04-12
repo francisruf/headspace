@@ -8,7 +8,6 @@ public class GridManager : MonoBehaviour
 {
     // ACTION / EVENT qui est appelé à chaque fois qu'une grille est créée, qui envoie les informations de cette grille
     public static Action<GridInfo> newGameGrid;
-    public static Action firstAnomalyTile;
     public static Action totalGridAnomaly;
     public static Action gridDataDestroyed;
     public static Action<GridMode> newGridMode;
@@ -115,17 +114,11 @@ public class GridManager : MonoBehaviour
 
         GenerateEnvironment();
         GenerateDeployPoint();
-        GenerateStartingObjects();
-        Array.Sort(newSegmentAfterCount);
-
-        if (HazardManager.instance != null)
-            HazardManager.instance.SpawnHazards();
+        //GenerateStartingObjects();
+        //Array.Sort(newSegmentAfterCount);
 
         if (PlanetManager.instance != null)
             PlanetManager.instance.SpawnPlanetTiles();
-
-        if (PlanetManager.instance != null)
-            PlanetManager.instance.SpawnPlanets();
     }
 
     // Fonction qui détruit l'ancienne grille, si elle existe
@@ -364,12 +357,12 @@ public class GridManager : MonoBehaviour
 
         // ------ ANOMALY ------
 
-        // Placer l'anomalie selon un point au hasard dans le cadran opposé
-        Vector3 randomAnomalyPoint = RandomPointInBounds(quadrantMatch.negativeQuadrant);
-        //Debug.Log("RANDOM NEGATIVE POINT : " + randomAnomalyPoint);
-        TileCoordinates startTile = GridCoords.FromWorldToTile(randomAnomalyPoint);
+        //// Placer l'anomalie selon un point au hasard dans le cadran opposé
+        //Vector3 randomAnomalyPoint = RandomPointInBounds(quadrantMatch.negativeQuadrant);
+        ////Debug.Log("RANDOM NEGATIVE POINT : " + randomAnomalyPoint);
+        //TileCoordinates startTile = GridCoords.FromWorldToTile(randomAnomalyPoint);
 
-        InstantiateAnomalySegment(startTile);
+        //InstantiateAnomalySegment(startTile);
     }
 
     private void InstantiateAnomalySegment(TileCoordinates startTile)
@@ -382,9 +375,6 @@ public class GridManager : MonoBehaviour
         AnomalySegment segment = new AnomalySegment();
         _allAnomalySegments.Add(segment);
         segment.AssignActiveTile(newTile);
-
-        if (firstAnomalyTile != null)
-            firstAnomalyTile();
     }
 
     private void InstantiateAnomalySegment(int positiveQuadrantIndex)

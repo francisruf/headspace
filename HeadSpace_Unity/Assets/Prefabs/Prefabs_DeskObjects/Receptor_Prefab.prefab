@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 3391058004764032110}
   - component: {fileID: 8478995645959105591}
   - component: {fileID: 4147367968629102520}
+  - component: {fileID: 798593709}
   m_Layer: 13
   m_Name: Receptor_Prefab
   m_TagString: Untagged
@@ -344,7 +345,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3391058004764032106}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0819166f47e7de4996a57a74b3ac140, type: 3}
   m_Name: 
@@ -353,6 +354,24 @@ MonoBehaviour:
   slidingDirection: 0
   slidingAmount: 2.5
   drawerHandleSize: 1
+  smoothTime: 0
+  messagePrefab: {fileID: 8898473608756375696, guid: cf0ee7b8e9cbe5a48adaac6eb7d9d8d2,
+    type: 3}
+  printPoint: {fileID: 7386924865294376313}
+  timeText: {fileID: 442499450496654991}
+--- !u!114 &798593709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3391058004764032106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed90890d43cfb114eaf4a207c10059e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ignoreSelectedBringToFront: 1
   messagePrefab: {fileID: 8898473608756375696, guid: cf0ee7b8e9cbe5a48adaac6eb7d9d8d2,
     type: 3}
   printPoint: {fileID: 7386924865294376313}
