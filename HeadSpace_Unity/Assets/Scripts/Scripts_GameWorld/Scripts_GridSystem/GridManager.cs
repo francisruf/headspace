@@ -461,6 +461,7 @@ public class GridManager : MonoBehaviour
         GridTile gt = go.GetComponent<GridTile>();
         gt.tileX = deadTile.tileX;
         gt.tileY = deadTile.tileY;
+        gt.tileName = deadTile.tileName;
         gt.tileType = newTileType;
         gt.InitializeTile(deadTile.tileDimensions, _currentGridMode, _currentGridInfo);
 
@@ -534,6 +535,7 @@ public class GridManager : MonoBehaviour
         newTile = go.GetComponent<GridTile>();
         newTile.tileX = deadTile.tileX;
         newTile.tileY = deadTile.tileY;
+        newTile.tileName = deadTile.tileName;
         newTile.tileType = newTileType;
         newTile.InitializeTile(deadTile.tileDimensions, _currentGridMode, _currentGridInfo);
 

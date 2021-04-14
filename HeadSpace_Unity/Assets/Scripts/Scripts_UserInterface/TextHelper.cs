@@ -46,6 +46,5 @@ public class TextHelper : MonoBehaviour
             textMesh.maxVisibleCharacters = count;
             yield return new WaitForSeconds(1f / charactersPerSec);
         }
-        Debug.Log("END");
     }
 }

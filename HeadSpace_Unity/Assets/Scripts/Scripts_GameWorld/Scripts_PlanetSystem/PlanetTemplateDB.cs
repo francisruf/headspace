@@ -9,9 +9,9 @@ public class PlanetTemplateDB : MonoBehaviour
     private List<string> remainingNames = new List<string>();
 
     [Header("Planet sprites")]
-    public Sprite defaultSprite;
-    public List<Sprite> planetSprites = new List<Sprite>();
-    private List<Sprite> remainingSprites = new List<Sprite>();
+    public PlanetSpriteMatch defaultSpriteMatch;
+    public List<PlanetSpriteMatch> planetSprites = new List<PlanetSpriteMatch>();
+    private List<PlanetSpriteMatch> remainingSprites = new List<PlanetSpriteMatch>();
 
     private void Awake()
     {
@@ -37,14 +37,14 @@ public class PlanetTemplateDB : MonoBehaviour
         return planetName;
     }
 
-    public Sprite GetRandomPlanetSprite()
+    public PlanetSpriteMatch GetRandomPlanetSpriteMatch()
     {
         int count = remainingSprites.Count;
         if (count <= 0)
-            return defaultSprite;
+            return defaultSpriteMatch;
 
         int randomIndex = UnityEngine.Random.Range(0, count);
-        Sprite spr = remainingSprites[randomIndex];
+        PlanetSpriteMatch spr = remainingSprites[randomIndex];
         remainingSprites.RemoveAt(randomIndex);
 
         if (count - 1 == 0)
@@ -71,4 +71,11 @@ public class PlanetTemplateDB : MonoBehaviour
             remainingSprites.Add(s);
         }
     }
+}
+
+[System.Serializable]
+public struct PlanetSpriteMatch
+{
+    public Sprite mapSprite;
+    public Sprite contractSprite;
 }

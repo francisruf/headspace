@@ -71,6 +71,9 @@ TagManager:
   - name: ToolsUI
     uniqueID: 4206615015
     locked: 0
+  - name: ObjectsOnTools
+    uniqueID: 1176445009
+    locked: 0
   - name: SelectedObject
     uniqueID: 461311847
     locked: 0

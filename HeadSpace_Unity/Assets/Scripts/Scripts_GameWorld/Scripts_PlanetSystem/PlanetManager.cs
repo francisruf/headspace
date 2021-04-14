@@ -109,7 +109,7 @@ public class PlanetManager : MonoBehaviour
 
         if (_planetTemplateDB != null)
         {
-            PlanetInfo newInfo = new PlanetInfo(_planetTemplateDB.GetRandomPlanetName(), _planetTemplateDB.GetRandomPlanetSprite());
+            PlanetInfo newInfo = new PlanetInfo(_planetTemplateDB.GetRandomPlanetName(), _planetTemplateDB.GetRandomPlanetSpriteMatch());
             planetTile.AssignPlanetInfo(newInfo);
         }
     }
@@ -476,6 +476,25 @@ public class PlanetManager : MonoBehaviour
         }
         //Debug.Log("3");
     }
+
+    public List<GridTile_Planet> GetRandomPlanetMatch()
+    {
+        List<GridTile_Planet> availablePlanets = new List<GridTile_Planet>(_allPlanetTiles);
+        List<GridTile_Planet> planetMatch = new List<GridTile_Planet>();
+        int count = _allPlanetTiles.Count;
+
+        int randomIndex = UnityEngine.Random.Range(0, count);
+        planetMatch.Add(availablePlanets[randomIndex]);
+        availablePlanets.RemoveAt(randomIndex);
+        count--;
+
+        randomIndex = UnityEngine.Random.Range(0, count);
+        planetMatch.Add(availablePlanets[randomIndex]);
+        availablePlanets.RemoveAt(randomIndex);
+        count--;
+
+        return planetMatch;
+    }
 }
 
 [System.Serializable]
@@ -488,11 +507,11 @@ public struct PlanetArchetypeQuantity
 public struct PlanetInfo
 {
     public string planetName;
-    public Sprite planetSprite;
+    public PlanetSpriteMatch spriteMatch;
 
-    public PlanetInfo(string planetName, Sprite planetSprite)
+    public PlanetInfo(string planetName, PlanetSpriteMatch spriteMatch)
     {
         this.planetName = planetName;
-        this.planetSprite = planetSprite;
+        this.spriteMatch = spriteMatch;
     }
 }

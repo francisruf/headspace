@@ -61,6 +61,8 @@ public class GameManager : MonoBehaviour
 
         if (gameStarted != null)
             gameStarted();
+
+        Debug.Log("GAME STARTED");
     }
 
     public void ForceStartGame()

@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6584510059659434664
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7325107042745401108}
+  - component: {fileID: 7003277830798999805}
+  m_Layer: 0
+  m_Name: ContractsDB
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7325107042745401108
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6584510059659434664}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2756499472058052606}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7003277830798999805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6584510059659434664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21c61e59cf1a919468f7f92248989ea4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clientFirstNames:
+  - Benoit
+  - Laurent
+  - Paul
+  - Francis
+  clientLastNames:
+  - Lemieux
+  - Corriveau
+  - Tremblay
+  - Rufiange
+  defaultSprite: {fileID: 21300000, guid: 0f0291e82fb7f834895a7c8903f3e0e9, type: 3}
+  clientFaceSprites:
+  - {fileID: 21300000, guid: 624375cc07de06e46b21b8e6934d16ad, type: 3}
+  - {fileID: 21300000, guid: 30365ae65e3bbd54cb8478e451b5bc72, type: 3}
+  - {fileID: 21300000, guid: 0f0291e82fb7f834895a7c8903f3e0e9, type: 3}
+  - {fileID: 21300000, guid: d6372acf62fc8e54cae4245f5e1e1c12, type: 3}
+--- !u!1 &8095210373961893094
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2756499472058052606}
+  - component: {fileID: 53472012391462150}
+  m_Layer: 0
+  m_Name: ContractManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2756499472058052606
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8095210373961893094}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 7325107042745401108}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &53472012391462150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8095210373961893094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6019579f1db07544995c890b1f477bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstContractSpawnTime: 3
+  contractSpawnInterval: 30
+  singleContractPrefab: {fileID: 9029962078798673231, guid: 51f25231ccf4cf64c837d431f8db918f,
+    type: 3}

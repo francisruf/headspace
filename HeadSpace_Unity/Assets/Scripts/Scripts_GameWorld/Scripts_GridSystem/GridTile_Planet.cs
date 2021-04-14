@@ -11,7 +11,7 @@ public class GridTile_Planet : GridTile
 
     public PlanetInfo CurrentPlanetInfo { get; private set; }
     public string PlanetName;
-    public Sprite PlanetSprite { get; private set; }
+    public PlanetSpriteMatch SpriteMatch { get; private set; }
 
     public GameObject planetRenderer;
     private SpriteRenderer _planetSpriteRenderer;
@@ -59,10 +59,10 @@ public class GridTile_Planet : GridTile
     {
         CurrentPlanetInfo = info;
         PlanetName = info.planetName;
-        PlanetSprite = info.planetSprite;
+        SpriteMatch = info.spriteMatch;
 
         if (_planetSpriteRenderer != null)
-            _planetSpriteRenderer.sprite = PlanetSprite;
+            _planetSpriteRenderer.sprite = SpriteMatch.mapSprite;
         if (_planetNameText != null)
         {
             _planetNameText.text = PlanetName;
