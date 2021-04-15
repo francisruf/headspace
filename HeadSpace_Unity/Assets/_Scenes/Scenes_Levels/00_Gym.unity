@@ -299,6 +299,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   planetLevelSettings: {fileID: 11400000, guid: cd9a12451108a044480dab21c8ae034b,
     type: 2}
+  allClientRules:
+  - startPlanetState: 1
+    endPlanetState: 2
+    distanceRating: 1
+    challengeType: 1
+  - startPlanetState: 1
+    endPlanetState: 2
+    distanceRating: 1
+    challengeType: 2
+  - startPlanetState: 2
+    endPlanetState: 2
+    distanceRating: 3
+    challengeType: 1
 --- !u!1 &841591217
 GameObject:
   m_ObjectHideFlags: 0

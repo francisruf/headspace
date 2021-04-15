@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class LevelSettings : MonoBehaviour
 {
+    [Header("Planets")]
     public PlanetSettings planetLevelSettings;
+    [Header("Contracts")]
+    public List<ClientRules> allClientRules;
 }

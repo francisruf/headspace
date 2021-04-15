@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 7351512111264075066}
   - component: {fileID: 2301115870000024480}
   m_Layer: 14
-  m_Name: ClientFace
+  m_Name: Client0Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -260,7 +260,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3175114948256062287}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.09375, y: -0.875, z: 0}
+  m_LocalPosition: {x: 0.09375, y: -0.46875, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7014596700423436575}
@@ -386,7 +386,7 @@ SpriteRenderer:
   m_SortingLayerID: 1351713243
   m_SortingLayer: 6
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 8cb63ac3472120e4e9122af79e889ee9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a98a1646efe8abf46b23902a61e70a9e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -431,8 +431,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.23437501, y: -0.421875}
-  m_SizeDelta: {x: -0.46874997, y: -0.84375}
+  m_AnchoredPosition: {x: 0.23437501, y: -0.234375}
+  m_SizeDelta: {x: -0.46874997, y: -0.46875}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9091043008908726946
 CanvasRenderer:
@@ -565,8 +565,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.23437501, y: -0.234375}
-  m_SizeDelta: {x: -0.46874997, y: -0.46875}
+  m_AnchoredPosition: {x: 0.23437501, y: -0.421875}
+  m_SizeDelta: {x: -0.46874997, y: -0.84375}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1408695426435773066
 CanvasRenderer:
@@ -765,7 +765,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.25, y: -0.625}
+  m_Offset: {x: 1.233682, y: -0.62173665}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 1}
@@ -776,7 +776,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.5, y: 1.25}
+  m_Size: {x: 2.532636, y: 1.3087447}
   m_EdgeRadius: 0
 --- !u!114 &4653302477041527746
 MonoBehaviour:
@@ -814,6 +814,9 @@ MonoBehaviour:
   targetClientCount: 1
   startPlanetSpriteRenderer: {fileID: 5990496607734664773}
   startPlanetText: {fileID: 760342120384286831}
-  client0NameText: {fileID: 2052710902808022564}
-  client0SpriteRenderer: {fileID: 2301115870000024480}
-  client0DestinationText: {fileID: 6107357212059194321}
+  clientNameTexts:
+  - {fileID: 2052710902808022564}
+  clientFaceRenderers:
+  - {fileID: 2301115870000024480}
+  clientDestinationTexts:
+  - {fileID: 6107357212059194321}

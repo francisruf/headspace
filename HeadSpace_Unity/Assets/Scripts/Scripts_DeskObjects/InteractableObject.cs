@@ -148,7 +148,20 @@ public abstract class InteractableObject : MonoBehaviour
         // Si l'objet a bel et bien un sprite renderer
         if (_spriteRenderer != null)
         {
-            return _spriteRenderer.sortingOrder;
+            int maxOrder = _spriteRenderer.sortingOrder;
+            foreach (var sr in _childSpriteRenderers)
+            {
+                if (sr.sortingOrder > maxOrder)
+                    maxOrder = sr.sortingOrder;
+            }
+
+            foreach (var c in _childCanvases)
+            {
+                if (c.sortingOrder > maxOrder)
+                    maxOrder = c.sortingOrder;
+            }
+
+            return maxOrder;
         }
         // Sinon, retourner 0 (ne devrait pas arriver)
         else

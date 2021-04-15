@@ -81,7 +81,6 @@ public class ObjectsManager : MonoBehaviour
     private void SelectObjectOnMouseDown()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Debug.DrawRay(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.up, Color.red, 5f);
 
         RaycastHit2D[] hitsInfo = Physics2D.GetRayIntersectionAll(ray, Mathf.Infinity, objectLayers);
 
@@ -211,6 +210,11 @@ public class ObjectsManager : MonoBehaviour
             }
         }
         _currentClickRoutine = null;
+    }
+
+    public void ForceTopRenderingOrder(InteractableObject obj)
+    {
+        AssignTopRenderingOrder(obj);
     }
 
     // TODO : Increase performance of this crap. (?)

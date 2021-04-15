@@ -37,6 +37,7 @@ public class PlanetManager : MonoBehaviour
     // Liste de toutes les planètes générées
     private List<Planet> _allPlanets = new List<Planet>();
     private List<GridTile_Planet> _allPlanetTiles = new List<GridTile_Planet>();
+    public List<GridTile_Planet> AllPlanetTiles { get { return _allPlanetTiles; } }
 
     private int _currentSectorSouls;
     private int _totalSectorSouls;
@@ -396,7 +397,6 @@ public class PlanetManager : MonoBehaviour
     
     public void RevealStartingPlanets(PlanetSettings settings)
     {
-        
         int totalPlanetsRevealed = 0;
 
         int planetCount = _allPlanetTiles.Count;
@@ -426,7 +426,7 @@ public class PlanetManager : MonoBehaviour
 
         int closeCount = closePlanets.Count;
         int farCount = farPlanets.Count;
-        //Debug.Log("0");
+
         for (int i = 0; i < settings.planetsRevealedCloseToDeploy; i++)
         {
             if (i < closeCount)
@@ -444,7 +444,6 @@ public class PlanetManager : MonoBehaviour
             else
                 break;
         }
-        //Debug.Log("1");
         for (int i = 0; i < settings.planetsRevealedFarFromDeploy; i++)
         {
             if (i < farCount)
@@ -454,7 +453,7 @@ public class PlanetManager : MonoBehaviour
 
                 //Debug.Log("Far planet chosen : " + farPlanets[randomIndex].DistanceRating);
 
-                allCandidatePlanets.Remove(closePlanets[randomIndex]);
+                allCandidatePlanets.Remove(farPlanets[randomIndex]);
                 farPlanets.RemoveAt(randomIndex);
                 farCount--;
                 totalPlanetsRevealed++;
@@ -462,7 +461,6 @@ public class PlanetManager : MonoBehaviour
             else
                 break;
         }
-        //Debug.Log("2");
         while (totalPlanetsRevealed < settings.planetsRevealedOnStart)
         {
             int allCandidatesCount = allCandidatePlanets.Count;
@@ -474,7 +472,6 @@ public class PlanetManager : MonoBehaviour
             allCandidatePlanets.RemoveAt(randomIndex);
             totalPlanetsRevealed++;
         }
-        //Debug.Log("3");
     }
 
     public List<GridTile_Planet> GetRandomPlanetMatch()

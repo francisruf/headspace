@@ -17,7 +17,13 @@ public class GameManager : MonoBehaviour
     [Header("Level duration")]
     public float levelDurationInMinutes;
 
-    private int _minimumCreditsNeeded;
+    [Header("Cursor settings")]
+    public Sprite baseCursor;
+    public Sprite objectCursor;
+    public Sprite interactCursor;
+    public GameObject cursorObj;
+    public LayerMask objectLayers;
+    private SpriteRenderer _cursorRenderer;
 
     private void Awake()
     {
@@ -30,6 +36,15 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
+
+        _cursorRenderer = cursorObj.GetComponent<SpriteRenderer>();
+        Cursor.visible = false;
+    }
+
+    private void Update()
+    {
+        MoveCursor();
+        SetCursor();
     }
 
     private void OnEnable()
@@ -50,14 +65,9 @@ public class GameManager : MonoBehaviour
 
     private void OnFirstDeploy()
     {
-        if (BuyablesDatabase.instance != null)
-            _minimumCreditsNeeded = BuyablesDatabase.instance.GetMinimumShipPrice();
-        else
-            _minimumCreditsNeeded = 0;
-
         GameStarted = true;
         
-        StartCoroutine(CheckPlayerRessources());
+        //StartCoroutine(CheckPlayerRessources());
 
         if (gameStarted != null)
             gameStarted();
@@ -96,35 +106,76 @@ public class GameManager : MonoBehaviour
             gameOver();
     }
 
-    private IEnumerator CheckPlayerRessources()
+    private void MoveCursor()
     {
-        bool hasShips = false;
-        bool hasEnoughCredits = false;
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        cursorObj.transform.position = mousePos;
 
-        while (GameStarted)
-        {    
-            yield return new WaitForSeconds(1f);
+        if (Input.GetMouseButtonDown(0))
+            Debug.DrawLine(mousePos, mousePos + Vector2.up, Color.cyan, 5f);
+    }
 
-            hasShips = true;
-            hasEnoughCredits = true;
+    private void SetCursor()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit2D[] hitsInfo = Physics2D.GetRayIntersectionAll(ray, Mathf.Infinity, objectLayers);
 
-            if (RessourceManager.instance != null)
-                if (RessourceManager.instance.CurrentCredits < _minimumCreditsNeeded)
-                    hasEnoughCredits = false;
+        bool overObject = false;
+        bool interactionZone = false;
+        int length = hitsInfo.Length;
 
-            if (ShipManager.instance != null)
-                if (ShipManager.instance.ActiveShipsCount <= 0)
-                    hasShips = false;
+        if (length > 0)
+            overObject = true;
 
-            if (ShopManager.instance != null)
-                if (!ShopManager.instance.TransactionInProgress)
-                {
-                    if (hasShips == false && hasEnoughCredits == false)
-                    {
-                        GameOver();
-                        break;
-                    }
-                }
+        for (int i = 0; i < length; i++)
+        {
+            if (hitsInfo[i].collider.GetComponent<ObjectInteractionZone>() != null)
+            {
+                interactionZone = true;
+                break;
+            }
+        }
+
+        if (_cursorRenderer != null)
+        {
+            if (interactionZone)
+                _cursorRenderer.sprite = interactCursor;
+            else if (overObject)
+                _cursorRenderer.sprite = objectCursor;
+            else
+                _cursorRenderer.sprite = baseCursor;
         }
     }
+
+    //private IEnumerator CheckPlayerRessources()
+    //{
+    //    bool hasShips = false;
+    //    bool hasEnoughCredits = false;
+
+    //    while (GameStarted)
+    //    {    
+    //        yield return new WaitForSeconds(1f);
+
+    //        hasShips = true;
+    //        hasEnoughCredits = true;
+
+    //        if (RessourceManager.instance != null)
+    //            if (RessourceManager.instance.CurrentCredits < _minimumCreditsNeeded)
+    //                hasEnoughCredits = false;
+
+    //        if (ShipManager.instance != null)
+    //            if (ShipManager.instance.ActiveShipsCount <= 0)
+    //                hasShips = false;
+
+    //        if (ShopManager.instance != null)
+    //            if (!ShopManager.instance.TransactionInProgress)
+    //            {
+    //                if (hasShips == false && hasEnoughCredits == false)
+    //                {
+    //                    GameOver();
+    //                    break;
+    //                }
+    //            }
+    //    }
+    //}
 }

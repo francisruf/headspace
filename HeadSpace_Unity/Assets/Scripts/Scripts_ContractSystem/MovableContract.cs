@@ -12,14 +12,10 @@ public class MovableContract : MovableObject
     public static Action<MovableContract> contractOnBelt;
     public static Action<MovableContract> contractExitBelt;
 
-    public int ContractID { get; private set; }
-
     private IEnumerator _currentMovingRoutine;
 
-    public virtual void InitializeContract(int contractID, Vector2 animationEndPos)
+    public virtual void InitializeContract(Vector2 animationEndPos)
     {
-        ContractID = contractID;
-
         _currentMovingRoutine = MoveContractOnBelt(animationEndPos);
         StartCoroutine(_currentMovingRoutine);
     }
@@ -30,7 +26,9 @@ public class MovableContract : MovableObject
         {
             StopCoroutine(_currentMovingRoutine);
             _currentMovingRoutine = null;
-            _spriteRenderer.sortingLayerID = SortingLayer.NameToID("DeskObjects");
+
+            SetSortingLayer(SortingLayer.NameToID("DeskObjects"));
+            ObjectsManager.instance.ForceTopRenderingOrder(this);
 
             if (contractExitBelt != null)
                 contractExitBelt(this);
@@ -43,7 +41,10 @@ public class MovableContract : MovableObject
         if (contractOnBelt != null)
             contractOnBelt(this);
 
-        _spriteRenderer.sortingLayerID = SortingLayer.NameToID("ObjectsOnTools");
+        SetSortingLayer(SortingLayer.NameToID("ObjectsOnTools"));
+        ObjectsManager.instance.ForceTopRenderingOrder(this);
+
+        //_spriteRenderer.sortingLayerID = SortingLayer.NameToID("ObjectsOnTools");
 
         while (Vector2.Distance(transform.position, animationEndPos) > 0.01f)
         {
@@ -51,34 +52,38 @@ public class MovableContract : MovableObject
             yield return new WaitForEndOfFrame();
         }
         transform.position = animationEndPos;
-        _spriteRenderer.sortingLayerID = SortingLayer.NameToID("DeskObjects");
 
-        List<Collider2D> allOverlappedColliders = new List<Collider2D>();
-        ContactFilter2D filter = new ContactFilter2D();
-        filter.SetLayerMask(documentsLayerMask);
-        int colliderCount = _collider.OverlapCollider(filter, allOverlappedColliders);
+        SetSortingLayer(SortingLayer.NameToID("DeskObjects"));
+        ObjectsManager.instance.ForceTopRenderingOrder(this);
 
-        MovableContract latestContract = null;
-        foreach (var col in allOverlappedColliders)
-        {
-            MovableContract other = col.GetComponent<MovableContract>();
-            if (other != null)
-            {
-                if (latestContract == null)
-                    latestContract = other;
-                else
-                {
-                    if (other.ContractID > latestContract.ContractID)
-                        latestContract = other;
-                }
-            }
-        }
+        //_spriteRenderer.sortingLayerID = SortingLayer.NameToID("DeskObjects");
 
-        if (latestContract != null)
-        {
-            Vector2 offset = new Vector2(0f, 1 / 32f);
-            transform.position = latestContract.transform.position + (Vector3)offset;
-        }
+        //List<Collider2D> allOverlappedColliders = new List<Collider2D>();
+        //ContactFilter2D filter = new ContactFilter2D();
+        //filter.SetLayerMask(documentsLayerMask);
+        //int colliderCount = _collider.OverlapCollider(filter, allOverlappedColliders);
+
+        //MovableContract latestContract = null;
+        //foreach (var col in allOverlappedColliders)
+        //{
+        //    MovableContract other = col.GetComponent<MovableContract>();
+        //    if (other != null)
+        //    {
+        //        if (latestContract == null)
+        //            latestContract = other;
+        //        else
+        //        {
+        //            if (other.ContractID > latestContract.ContractID)
+        //                latestContract = other;
+        //        }
+        //    }
+        //}
+
+        //if (latestContract != null)
+        //{
+        //    Vector2 offset = new Vector2(0f, 1 / 32f);
+        //    transform.position = latestContract.transform.position + (Vector3)offset;
+        //}
 
         if (contractExitBelt != null)
             contractExitBelt(this);

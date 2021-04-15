@@ -11,6 +11,7 @@ public class MovableObject : InteractableObject
     public static Action<MovableObject> movableObjectDeselected;
     public static Action<MovableObject, ObjectSpawnZone> placeObjectRequest;
 
+    protected SpriteRenderer _shadowRenderer;
     protected Rigidbody2D _rigidBody;
     public Rigidbody2D Rigidbody { get { return _rigidBody; } }
 
@@ -33,6 +34,30 @@ public class MovableObject : InteractableObject
     {
         base.Awake();
         _rigidBody = GetComponentInChildren<Rigidbody2D>();
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+
+        
+        GameObject shadow = new GameObject();
+        shadow.gameObject.name = this.gameObject.name + "_shadow";
+        shadow.transform.SetParent(this.transform);
+        shadow.transform.localPosition = Vector2.zero;
+        Vector2 position = shadow.transform.position;
+        position.x += ((1 / 32f) * 1);
+        position.y -= ((1 / 32f) * 3);
+        shadow.transform.position = position;
+
+        _shadowRenderer = shadow.AddComponent(typeof(SpriteRenderer)) as SpriteRenderer;
+        _shadowRenderer.sprite = _spriteRenderer.sprite;
+        Color shadowColor = Color.black;
+        shadowColor.a = 0.2f;
+        _shadowRenderer.color = shadowColor;
+        _shadowRenderer.sortingLayerID = _spriteRenderer.sortingLayerID;
+        _shadowRenderer.sortingOrder = GetOrderInLayer();
+        _shadowRenderer.enabled = false;
     }
 
     protected virtual void Update()
@@ -69,6 +94,9 @@ public class MovableObject : InteractableObject
         _mouseOffset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
         CalculateMinMaxPosition();
 
+        if (_shadowRenderer != null)
+            _shadowRenderer.enabled = true;
+
         if (movableObjectSelected != null)
             movableObjectSelected(this);
     }
@@ -85,6 +113,9 @@ public class MovableObject : InteractableObject
         {
             base.Deselect();
         }
+
+        if (_shadowRenderer != null)
+            _shadowRenderer.enabled = false;
 
         if (movableObjectDeselected != null)
             movableObjectDeselected(this);

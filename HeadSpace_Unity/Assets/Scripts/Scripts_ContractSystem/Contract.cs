@@ -14,6 +14,11 @@ public abstract class Contract : MonoBehaviour
     public SpriteRenderer startPlanetSpriteRenderer;
     public TextMeshProUGUI startPlanetText;
 
+    [Header("Client components")]
+    public List<TextMeshProUGUI> clientNameTexts;
+    public List<SpriteRenderer> clientFaceRenderers;
+    public List<TextMeshProUGUI> clientDestinationTexts;
+
     protected List<Client> _allClients = new List<Client>();
 
     public void AssignClients(List<Client> clients)
@@ -26,19 +31,23 @@ public abstract class Contract : MonoBehaviour
         else
             startPlanetText.text = "Some planet";
 
-        foreach (var cl in clients)
+        for (int i = 0; i < clients.Count; i++)
         {
-            if (currentClientCount < targetClientCount)
-            {
-                AddClient(cl);
-                targetClientCount++;
-            }
+            if (i >= targetClientCount)
+                break;
+
+            AddClient(clients[i], i);
         }
     }
 
-    protected virtual void AddClient(Client client)
+    protected virtual void AddClient(Client client, int index)
     {
         _allClients.Add(client);
+
+        clientNameTexts[index].text = client.GetDisplayName();
+        Debug.Log("hello");
+        clientFaceRenderers[index].sprite = client.clientSprite;
+        clientDestinationTexts[index].text = client.GetDestinationInfo();
     }
 
     public bool CheckCompletion()

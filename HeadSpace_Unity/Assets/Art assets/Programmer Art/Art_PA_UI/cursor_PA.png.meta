@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: 67358cb04ef1e104986495f706033da1
+guid: e5d2cc469fa9bf145b6ce80a8aede9d1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4145437221721686396
-    second: conveyorBelt_PA_0
+      213: -7807972551516172448
+    second: cursor_PA_0
   - first:
-      213: -239785005974903152
-    second: conveyorBelt_PA_1
+      213: -9071327144090708232
+    second: cursor_PA_1
+  - first:
+      213: 6135539791680474821
+    second: cursor_PA_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -67,7 +70,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 128
+    maxTextureSize: 64
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -79,7 +82,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 128
+    maxTextureSize: 64
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -91,7 +94,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: iPhone
-    maxTextureSize: 128
+    maxTextureSize: 64
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -103,7 +106,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
-    maxTextureSize: 128
+    maxTextureSize: 64
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -117,43 +120,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: conveyorBelt_PA_0
+      name: cursor_PA_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 32
-        width: 96
-        height: 32
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 8}
+        y: 0
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.4055, y: 0.875}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 48eb8907fc27876c0800000000000000
-      internalID: -4145437221721686396
+      spriteID: 06fc0e2355284a390800000000000000
+      internalID: -7807972551516172448
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: conveyorBelt_PA_1
+      name: cursor_PA_1
       rect:
         serializedVersion: 2
-        x: 0
+        x: 16
         y: 0
-        width: 96
-        height: 32
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 8}
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.4055, y: 0.875}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 096a668becc1cacf0800000000000000
-      internalID: -239785005974903152
+      spriteID: 8f65d1f360c2c1280800000000000000
+      internalID: -9071327144090708232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cursor_PA_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.4055, y: 0.875}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ce836cdee0d52550800000000000000
+      internalID: 6135539791680474821
       vertices: []
       indices: 
       edges: []

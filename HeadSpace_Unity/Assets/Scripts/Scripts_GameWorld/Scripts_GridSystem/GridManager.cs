@@ -119,6 +119,8 @@ public class GridManager : MonoBehaviour
 
         if (PlanetManager.instance != null)
             PlanetManager.instance.SpawnPlanetTiles();
+
+        Debug.Log("New grid generated");
     }
 
     // Fonction qui détruit l'ancienne grille, si elle existe

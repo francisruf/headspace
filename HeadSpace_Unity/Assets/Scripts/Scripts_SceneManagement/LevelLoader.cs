@@ -50,6 +50,9 @@ public class LevelLoader : MonoBehaviour
         if (_levelSettings.planetLevelSettings != null)
             if (PlanetManager.instance != null)
                 PlanetManager.instance.RevealStartingPlanets(_levelSettings.planetLevelSettings);
+
+        if (ContractManager.instance != null)
+            ContractManager.instance.AssignLevelSettings(_levelSettings.allClientRules);
     }
 
     public void StartGameDebug()
