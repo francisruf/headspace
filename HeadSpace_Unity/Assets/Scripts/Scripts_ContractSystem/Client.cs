@@ -8,7 +8,9 @@ public abstract class Client
     public string clientLastName;
     public Sprite clientSprite;
     public GridTile_Planet startPlanet;
+    public GridTile_Planet endPlanet;
     public int maxCompletionTimeInGameMinutes;
+    public ChallengeType challengeType;
     [HideInInspector] public ClientState currentState;
 
     public virtual string GetDisplayName()

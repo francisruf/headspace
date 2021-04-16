@@ -109,3 +109,4 @@ MonoBehaviour:
     type: 3}
   doubleContractPrefab: {fileID: 5697276903824523097, guid: 5af592715e62d12418ab2d5c4a258702,
     type: 3}
+  pointSettings: {fileID: 11400000, guid: 09a1f19010dd0a04d9af7b90ae7e955c, type: 2}

@@ -15,6 +15,7 @@ MonoBehaviour:
   targetClientCount: 2
   startPlanetSpriteRenderer: {fileID: 7017331073466008659}
   startPlanetText: {fileID: 4093018496989944441}
+  rewardsText: {fileID: 8591195919957622647}
   clientNameTexts:
   - {fileID: 3331718362509345842}
   - {fileID: 6312361792926758812}
@@ -380,6 +381,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 424709305894555930, guid: 51f25231ccf4cf64c837d431f8db918f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 807239489773497242, guid: 51f25231ccf4cf64c837d431f8db918f,
         type: 3}
       propertyPath: m_SizeDelta.y
@@ -547,6 +553,18 @@ RectTransform:
 --- !u!114 &4093018496989944441 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 760342120384286831, guid: 51f25231ccf4cf64c837d431f8db918f,
+    type: 3}
+  m_PrefabInstance: {fileID: 3620917750332230166}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8591195919957622647 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5006343251640087905, guid: 51f25231ccf4cf64c837d431f8db918f,
     type: 3}
   m_PrefabInstance: {fileID: 3620917750332230166}
   m_PrefabAsset: {fileID: 0}

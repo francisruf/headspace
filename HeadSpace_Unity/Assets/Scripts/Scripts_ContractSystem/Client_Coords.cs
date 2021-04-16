@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Client_Coords : Client
 {
-    public GridTile_Planet endPlanet;
-
     public override bool CheckSuccessCondition(GridTile_Planet currentPlanet)
     {
         if (currentPlanet == endPlanet)

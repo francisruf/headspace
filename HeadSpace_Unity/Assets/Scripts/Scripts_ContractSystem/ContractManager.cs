@@ -14,6 +14,9 @@ public class ContractManager : MonoBehaviour
     public GameObject singleContractPrefab;
     public GameObject doubleContractPrefab;
 
+    [Header("Points settings")]
+    public ContractPointsSettings pointSettings;
+
     private ContractsDB _contractsDB;
     private ConveyorBelt _belt;
 
@@ -126,11 +129,13 @@ public class ContractManager : MonoBehaviour
         {
             Contract_Single contract = movableContract.GetComponent<Contract_Single>();
             contract.AssignClients(allClients);
+            contract.CalculatePointsReward(pointSettings);
         }
         else if (contractSize == 2)
         {
             Contract_Double contract = movableContract.GetComponent<Contract_Double>();
             contract.AssignClients(allClients);
+            contract.CalculatePointsReward(pointSettings);
         }
     }
 
@@ -354,6 +359,7 @@ public class ContractManager : MonoBehaviour
             client.startPlanet = startPlanet;
             client.endPlanet = endPlanet;
             client.maxCompletionTimeInGameMinutes = 0;
+            client.challengeType = challengeType;
             return client;
         }
         else
@@ -365,6 +371,7 @@ public class ContractManager : MonoBehaviour
             client.startPlanet = startPlanet;
             client.endPlanet = endPlanet;
             client.maxCompletionTimeInGameMinutes = 0;
+            client.challengeType = challengeType;
             return client;
         }
     }
