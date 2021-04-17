@@ -432,7 +432,7 @@ public class PlanetManager : MonoBehaviour
             if (i < closeCount)
             {
                 int randomIndex = UnityEngine.Random.Range(0, closeCount);
-                closePlanets[randomIndex].RevealPlanet();
+                closePlanets[randomIndex].RevealPlanet(true);
 
                 //Debug.Log("Close planet chosen : " + closePlanets[randomIndex].DistanceRating);
 
@@ -449,7 +449,7 @@ public class PlanetManager : MonoBehaviour
             if (i < farCount)
             {
                 int randomIndex = UnityEngine.Random.Range(0, farCount);
-                farPlanets[randomIndex].RevealPlanet();
+                farPlanets[randomIndex].RevealPlanet(true);
 
                 //Debug.Log("Far planet chosen : " + farPlanets[randomIndex].DistanceRating);
 
@@ -468,7 +468,7 @@ public class PlanetManager : MonoBehaviour
                 break;
 
             int randomIndex = UnityEngine.Random.Range(0, allCandidatesCount);
-            allCandidatePlanets[randomIndex].RevealPlanet();
+            allCandidatePlanets[randomIndex].RevealPlanet(true);
             allCandidatePlanets.RemoveAt(randomIndex);
             totalPlanetsRevealed++;
         }

@@ -192,7 +192,7 @@ public class ObjectsManager : MonoBehaviour
             {
                 if (simpleClick)
                 {
-                    Debug.Log("CLICK");
+                    //Debug.Log("CLICK");
                     for (int i = 0; i < interactionZonesCount; i++)
                     {
                         if (candidateInteractionZones[i].IsInBounds(currentMousePos))

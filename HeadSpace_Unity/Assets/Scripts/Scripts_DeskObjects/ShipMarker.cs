@@ -47,7 +47,7 @@ public class ShipMarker : MovableMarker
         UpdateMarkerText();
 
         if (placeObjectRequest != null)
-            placeObjectRequest(this, ObjectSpawnZone.Outbox);
+            placeObjectRequest(this, ObjectSpawnZone.Desk);
 
         if (shipMarkerReceived != null)
             shipMarkerReceived(this);

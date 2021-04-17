@@ -21,4 +21,15 @@ public class Client_PlanetName : Client
     {
         return endPlanet.PlanetName;
     }
+
+    public override bool CheckStartPlanet(GridTile_Planet currentPlanet)
+    {
+        if (currentState != ClientState.Waiting)
+            return false;
+
+        if (currentPlanet == startPlanet)
+            return true;
+
+        return false;
+    }
 }

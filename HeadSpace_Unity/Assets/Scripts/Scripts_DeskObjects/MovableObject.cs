@@ -78,7 +78,7 @@ public class MovableObject : InteractableObject
     }
 
     // Fonction appelée par le ObjectsManager
-    public override void Select()
+    public override void Select(bool fireEvent = true)
     {
         if (_currentDropZone != null)
         {
@@ -88,7 +88,7 @@ public class MovableObject : InteractableObject
         }
         else
         {
-            base.Select();
+            base.Select(fireEvent);
         }
 
         _mouseOffset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -97,12 +97,13 @@ public class MovableObject : InteractableObject
         if (_shadowRenderer != null)
             _shadowRenderer.enabled = true;
 
-        if (movableObjectSelected != null)
-            movableObjectSelected(this);
+        if (fireEvent)
+            if (movableObjectSelected != null)
+                movableObjectSelected(this);
     }
 
     // Fonction qui force l'objet à être déposé
-    public override void Deselect()
+    public override void Deselect(bool fireEvent = true)
     {
         if (CheckForDropZone(out _currentDropZone))
         {
@@ -111,14 +112,15 @@ public class MovableObject : InteractableObject
         }
         else
         {
-            base.Deselect();
+            base.Deselect(fireEvent);
         }
 
         if (_shadowRenderer != null)
             _shadowRenderer.enabled = false;
 
-        if (movableObjectDeselected != null)
-            movableObjectDeselected(this);
+        if (fireEvent)
+            if (movableObjectDeselected != null)
+                movableObjectDeselected(this);
     }
 
     // Fonction qui désactive l'objet (fonctionnalité complète dans classe de base - InteractableObject)
@@ -132,7 +134,7 @@ public class MovableObject : InteractableObject
         }
     }
 
-    private bool CheckForDropZone(out DropZone dropZone)
+    protected virtual bool CheckForDropZone(out DropZone dropZone)
     {
         dropZone = null;
         bool found = false;
@@ -160,12 +162,12 @@ public class MovableObject : InteractableObject
         return found;
     }
 
-    private void AssignToDropZone()
+    protected virtual void AssignToDropZone()
     {
         _currentDropZone.AddObjectToDropZone(this);
     }
 
-    private void RemoveFromDropZone()
+    protected virtual void RemoveFromDropZone()
     {
         _currentDropZone.RemoveObjectFromDropZone(this);
         _currentDropZone = null;
@@ -239,5 +241,6 @@ public enum ObjectType
     Marker,
     Document,
     Message,
+    Contract,
     Other
 }

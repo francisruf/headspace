@@ -241,9 +241,9 @@ public class SlidableTool : InteractableObject
         IsFullyClosed = true;
     }
 
-    public override void Select()
+    public override void Select(bool fireEvent = true)
     {
-        base.Select();
+        base.Select(fireEvent);
         mouseOffset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         if (_openingRoutine != null)
@@ -296,7 +296,7 @@ public class SlidableTool : InteractableObject
         if (toolAutoOpened != null)
             toolAutoOpened(this);
 
-        Debug.Log("BASE");
+        //Debug.Log("BASE");
 
         CheckOpenState();
         _lerpStartPos = transform.position;
@@ -319,7 +319,7 @@ public class SlidableTool : InteractableObject
         if (toolAutoOpened != null)
             toolAutoOpened(this);
 
-        Debug.Log("BASE");
+        //Debug.Log("BASE");
 
         CheckOpenState();
         _lerpStartPos = transform.position;

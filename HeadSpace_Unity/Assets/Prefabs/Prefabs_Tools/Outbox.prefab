@@ -410,5 +410,5 @@ MonoBehaviour:
   ignoreSelectedBringToFront: 1
   slidingDirection: 2
   slidingAmount: 6
-  drawerHandleSize: 0.5
+  drawerHandleSize: 0.1
   smoothTime: 0.15

@@ -23,4 +23,15 @@ public class Client_Coords : Client
     {
         return null;
     }
+
+    public override bool CheckStartPlanet(GridTile_Planet currentPlanet)
+    {
+        if (currentState != ClientState.Waiting)
+            return false;
+
+        if (currentPlanet == startPlanet)
+            return true;
+
+        return false;
+    }
 }

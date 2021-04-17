@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class GridTile_Planet : GridTile
+public class GridTile_Planet : GridTile, PointOfInterest
 {
     public static Action<GridTile_Planet> newPlanetTile;
     public static Action<GridTile_Planet> newPlanetFound;
@@ -24,6 +24,8 @@ public class GridTile_Planet : GridTile
 
     public List<Sprite> planetMaskSprites;
 
+    private MapPointOfInterest _mapPointOfInterest;
+
     protected override void Awake()
     {
         base.Awake();
@@ -31,6 +33,7 @@ public class GridTile_Planet : GridTile
         _planetNameText = planetRenderer.GetComponentInChildren<TextMeshProUGUI>();
         _planetAnimator = planetRenderer.GetComponent<Animator>();
         _planetMask = planetRenderer.GetComponent<SpriteMask>();
+        _mapPointOfInterest = GetComponentInChildren<MapPointOfInterest>();
 
         PlanetFound = false;
         _planetAnimator.SetBool("Visible", false);
@@ -94,9 +97,11 @@ public class GridTile_Planet : GridTile
         float maxY = _spriteRenderer.bounds.max.y - planetRadius - margin;
         Vector2 randomPos = new Vector2(UnityEngine.Random.Range(minX, maxX), UnityEngine.Random.Range(minY, maxY));
         planetRenderer.transform.position = randomPos;
+
+        SetStartingState(_mapPointOfInterest, true);
     }
 
-    public void RevealPlanet()
+    public void RevealPlanet(bool startOfGame)
     {
         if (PlanetFound)
             return;
@@ -106,13 +111,26 @@ public class GridTile_Planet : GridTile
         if (newPlanetFound != null)
             newPlanetFound(this);
 
-        StartCoroutine(RevealPlanetSprite());
+        if (!startOfGame)
+        {
+            StartCoroutine(RevealPlanetSprite());
+        }
+        else
+        {
+            SetStartingState(_mapPointOfInterest, false);
+            _planetAnimator.SetBool("Visible", true);
+            _planetNameText.enabled = true;
+        }
     }
 
     private IEnumerator RevealPlanetSprite()
     {
+        yield return _mapPointOfInterest.HideMapPointAnimation();
+
         int spriteCount = planetMaskSprites.Count;
         int count = 0;
+
+        yield return new WaitForSeconds(0.1f);
 
         _planetSpriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
         _planetAnimator.SetBool("Visible", true);
@@ -121,11 +139,21 @@ public class GridTile_Planet : GridTile
         {
             _planetMask.sprite = planetMaskSprites[count];
             count++;
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(1 / 60f);
         }
         _planetSpriteRenderer.maskInteraction = SpriteMaskInteraction.None;
 
         if (TextHelper.instance != null)
             TextHelper.instance.TypeAnimation(_planetNameText);
+    }
+
+    public void RevealPoint(MapPointOfInterest point)
+    {
+        point.HideMapPoint();
+    }
+
+    public void SetStartingState(MapPointOfInterest point, bool isVisible)
+    {
+        _mapPointOfInterest.SetStartingState(isVisible, this);
     }
 }

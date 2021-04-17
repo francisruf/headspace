@@ -237,6 +237,16 @@ public class MessageManager : MonoBehaviour
         QueueMessage(newMessageText);
     }
 
+    public void RouteFinishedNotif(Ship ship)
+    {
+        TileCoordinates shipTile = GridCoords.FromWorldToTilePosition(ship.transform.position);
+        string tileName = GridCoords.GetTileName(shipTile);
+
+        string newMessageText = ship.shipName + " has completed his route at " + tileName + ".";
+
+        QueueMessage(newMessageText);
+    }
+
     public void BonusCreditsNotif(Planet planet)
     {
         string creditText = planet.CompletionCreditsBonus > 1 ? "credits" : "credit";
@@ -256,8 +266,25 @@ public class MessageManager : MonoBehaviour
         string newMessageText = "Ship status request : ";
         newMessageText += ship.shipName + " at position " + tileName;
         newMessageText += "\nMental health : " + ship.currentHealthPoints;
-        newMessageText += "\nClients on board : TBD";
+        newMessageText += "\nClients on board : ";
 
+        int clientCount = ship.ClientsOnBoard.Count;
+        if (clientCount > 0)
+        {
+            for (int i = 0; i < clientCount; i++)
+            {
+                newMessageText += ship.ClientsOnBoard[i].clientFirstName[0] + ". " + ship.ClientsOnBoard[i].clientLastName[0];
+
+                if (i == clientCount - 1)
+                    newMessageText += ".";
+                else
+                    newMessageText += ", ";
+            }
+        }
+        else
+        {
+            newMessageText += "none.";
+        }
         QueueMessage(newMessageText);
     }
 

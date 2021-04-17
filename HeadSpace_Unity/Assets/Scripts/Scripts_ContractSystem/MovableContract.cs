@@ -14,13 +14,25 @@ public class MovableContract : MovableObject
 
     private IEnumerator _currentMovingRoutine;
 
+    private Contract _contractInfo;
+    public Contract ContractInfo { get { return _contractInfo; } }
+    public int ClientAmount;
+    private List<DropZone_ContractSlot> contractDropZones = new List<DropZone_ContractSlot>();
+    private DropZone_Board boardDropZone;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        _contractInfo = GetComponent<Contract>();
+    }
+
     public virtual void InitializeContract(Vector2 animationEndPos)
     {
         _currentMovingRoutine = MoveContractOnBelt(animationEndPos);
         StartCoroutine(_currentMovingRoutine);
     }
 
-    public override void Select()
+    public override void Select(bool fireEvent = true)
     {
         if (_currentMovingRoutine != null)
         {
@@ -33,7 +45,8 @@ public class MovableContract : MovableObject
             if (contractExitBelt != null)
                 contractExitBelt(this);
         }
-        base.Select();
+        base.Select(fireEvent);
+
     }
 
     private IEnumerator MoveContractOnBelt(Vector2 animationEndPos)
@@ -89,5 +102,104 @@ public class MovableContract : MovableObject
             contractExitBelt(this);
 
         _currentMovingRoutine = null;
+    }
+
+    protected override bool CheckForDropZone(out DropZone dropZone)
+    {
+        dropZone = null;
+        bool found = false;
+
+        Vector2 topCenterPoint = _spriteRenderer.bounds.center;
+        topCenterPoint.y = _spriteRenderer.bounds.max.y + (-19 * (1 / 32f));// - ((ClientAmount - 1) * (38 * (1 / 32f)));
+
+        Debug.DrawLine(topCenterPoint, topCenterPoint + Vector2.up * 0.5f, Color.yellow, 5f);
+
+        Collider2D[] allColliders = Physics2D.OverlapPointAll(topCenterPoint, dropZoneLayerMask);
+        int colliderCount = allColliders.Length;
+
+        for (int i = 0; i < colliderCount; i++)
+        {
+            DropZone candidate = allColliders[i].GetComponent<DropZone_ContractSlot>();
+
+            if (candidate != null)
+            {
+                if (candidate.CheckIfAccepted(this))
+                {
+                    dropZone = candidate;
+                    found = true;
+                    break;
+                }
+            }
+        }
+
+        for (int i = 0; i < colliderCount; i++)
+        {
+            DropZone_Board candidate = allColliders[i].GetComponent<DropZone_Board>();
+            if (candidate != null)
+            {
+                if (candidate.CheckIfAccepted(this))
+                {
+                    if (!found)
+                    {
+                        dropZone = candidate;
+                        boardDropZone = candidate;
+                        found = true;
+                    }
+                    else
+                    {
+                        boardDropZone = candidate;
+                    }
+                    break;
+                }
+            }
+        }
+
+        return found;
+    }
+
+    protected override void AssignToDropZone()
+    {
+        DropZone_ContractSlot contractDropZone = _currentDropZone.GetComponent<DropZone_ContractSlot>();
+
+        if (contractDropZone != null)
+        {
+            if (contractDropZone.CheckIfContractAccepted(this, out contractDropZones))
+            {
+                foreach (var dz in contractDropZones)
+                {
+                    dz.AddObjectToDropZone(this);
+                }
+
+                Vector2 newPos = contractDropZones[0].ColliderBounds.max;
+                newPos.x = contractDropZones[0].ColliderBounds.min.x;
+                transform.position = newPos;
+                boardDropZone = null;
+            }
+            else if (boardDropZone != null)
+            {
+                boardDropZone.AddObjectToDropZone(this);
+            }
+        }
+
+        else if (boardDropZone != null)
+        {
+            boardDropZone.AddObjectToDropZone(this);
+        }
+    }
+
+    protected override void RemoveFromDropZone()
+    {
+        foreach (var dz in contractDropZones)
+        {
+            dz.Occupied = false;
+            dz.RemoveObjectFromDropZone(this);
+        }
+
+        if (boardDropZone != null)
+            boardDropZone.RemoveObjectFromDropZone(this);
+
+        contractDropZones.Clear();
+        _currentDropZone = null;
+        boardDropZone = null;
     }
 }

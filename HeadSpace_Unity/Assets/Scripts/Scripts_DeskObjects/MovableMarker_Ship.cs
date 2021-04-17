@@ -12,9 +12,9 @@ public class MovableMarker_Ship : MovableMarker
         _callSignCanvas = GetComponentInChildren<Canvas>();
     }
 
-    public override void Select()
+    public override void Select(bool fireEvent = true)
     {
-        base.Select();
+        base.Select(fireEvent);
 
         if (_callSignCanvas != null)
         {
@@ -23,9 +23,9 @@ public class MovableMarker_Ship : MovableMarker
         }
     }
 
-    public override void Deselect()
+    public override void Deselect(bool fireEvent = true)
     {
-        base.Deselect();
+        base.Deselect(fireEvent);
 
         if (_callSignCanvas != null)
         {

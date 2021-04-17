@@ -35,7 +35,7 @@ public class SlidableWritingMachine : SlidableTool
 
     private void TriggerOpenClose(ObjectInteractionZone zone)
     {
-        Debug.Log("YO");
+        //Debug.Log("YO");
 
         if (IsOpen)
             TriggerAutoClose();

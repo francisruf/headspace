@@ -19,8 +19,16 @@ public abstract class Contract : MonoBehaviour
     public List<TextMeshProUGUI> clientNameTexts;
     public List<SpriteRenderer> clientFaceRenderers;
     public List<TextMeshProUGUI> clientDestinationTexts;
+    public List<SpriteRenderer> clientChipRenderers;
+
+    [Header("Chip states sprites")]
+    public Sprite chipWaitingSprite;
+    public Sprite chipEmbarkedSprite;
+    public Sprite chipDebarkedSprite;
+    public Sprite chipDeadSprite;
 
     protected List<Client> _allClients = new List<Client>();
+    public List<Client> AllClients { get { return _allClients; } }
 
     public void AssignClients(List<Client> clients)
     {
@@ -46,18 +54,50 @@ public abstract class Contract : MonoBehaviour
         _allClients.Add(client);
 
         clientNameTexts[index].text = client.GetDisplayName();
-        Debug.Log("hello");
         clientFaceRenderers[index].sprite = client.clientSprite;
         clientDestinationTexts[index].text = client.GetDestinationInfo();
+
+        client.clientStateChanged += OnClientStateChanged;
+    }
+
+    private void OnClientStateChanged(Client client)
+    {
+        int index = _allClients.IndexOf(client);
+        Sprite targetSprite = null;
+
+        switch (client.currentState)
+        {
+            case ClientState.Waiting:
+                targetSprite = chipWaitingSprite;
+                break;
+
+            case ClientState.Embarked:
+                targetSprite = chipEmbarkedSprite;
+                break;
+
+            case ClientState.Debarked:
+                targetSprite = chipDebarkedSprite;
+                CheckCompletion();
+                break;
+
+            case ClientState.Dead:
+                targetSprite = chipDeadSprite;
+                break;
+
+            default:
+                break;
+        }
+        clientChipRenderers[index].sprite = targetSprite;
     }
 
     public bool CheckCompletion()
     {
         foreach (var client in _allClients)
         {
-            if (client.currentState != ClientState.Arrived)
+            if (client.currentState != ClientState.Debarked)
                 return false;
         }
+        Debug.Log("CONTRACT COMPLETE! HURRAY!");
         return true;
     }
 
@@ -66,13 +106,13 @@ public abstract class Contract : MonoBehaviour
         foreach (var client in _allClients)
         {
             pointsReward += GetChallengePoints(settings, client);
-            Debug.Log("Challenge points : " + GetChallengePoints(settings, client));
+            //Debug.Log("Challenge points : " + GetChallengePoints(settings, client));
             pointsReward += GetStartPlanetPoints(settings, client);
-            Debug.Log("Start planet points : " + GetStartPlanetPoints(settings, client));
+            //Debug.Log("Start planet points : " + GetStartPlanetPoints(settings, client));
             pointsReward += GetEndPlanetPoints(settings, client);
-            Debug.Log("End planet points : " + GetEndPlanetPoints(settings, client));
+            //Debug.Log("End planet points : " + GetEndPlanetPoints(settings, client));
             pointsReward += GetDistanceTravelledPoints(settings, client);
-            Debug.Log("DistanceTravelled points : " + GetDistanceTravelledPoints(settings, client));
+            //Debug.Log("DistanceTravelled points : " + GetDistanceTravelledPoints(settings, client));
         }
         rewardsText.text = pointsReward + "c";
     }

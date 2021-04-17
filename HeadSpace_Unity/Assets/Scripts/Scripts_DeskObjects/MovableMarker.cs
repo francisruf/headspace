@@ -21,17 +21,17 @@ public class MovableMarker : MovableObject
         base.Update();
     }
 
-    public override void Select()
+    public override void Select(bool fireEvent = true)
     {
-        base.Select();
+        base.Select(fireEvent);
         _mouseOffset = new Vector2(0.04f, 0f);
 
         //Debug.Log(GridCoords.FromWorldToGrid(transform.position));
     }
 
-    public override void Deselect()
+    public override void Deselect(bool fireEvent = true)
     {
-        base.Deselect();
+        base.Deselect(fireEvent);
         if (_currentDropZone == null)
             CheckIfInTile();
     }

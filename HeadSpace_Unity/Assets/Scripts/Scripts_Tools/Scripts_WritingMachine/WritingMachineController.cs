@@ -470,7 +470,7 @@ public class WritingMachineController : MonoBehaviour
         }
 
         _currentButtonSectionType = nextSection;
-        Debug.Log("new button section : " + nextSection);
+        //Debug.Log("new button section : " + nextSection);
 
         switch (_currentButtonSectionType)
         {

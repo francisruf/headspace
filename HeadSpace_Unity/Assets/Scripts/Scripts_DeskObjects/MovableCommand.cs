@@ -43,7 +43,7 @@ public class MovableCommand : MovableObject
         AssignSpriteStartSize();
     }
 
-    public override void Select()
+    public override void Select(bool fireEvent = true)
     {
         if (!_wasTeared)
         {
@@ -53,7 +53,7 @@ public class MovableCommand : MovableObject
                 commandTeared();
         }
 
-        base.Select();
+        base.Select(fireEvent);
     }
 
     private void LateUpdate()

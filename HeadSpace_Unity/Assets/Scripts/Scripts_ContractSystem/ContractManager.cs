@@ -98,6 +98,7 @@ public class ContractManager : MonoBehaviour
 
         movableContract.transform.position = spawnPos;
         movableContract.InitializeContract(endPos);
+        movableContract.ClientAmount = contractSize;
 
         // Client settings
         // Start planet
@@ -400,17 +401,17 @@ public class ContractManager : MonoBehaviour
     private int ContractSizeRandomizer()
     {
         int randomRoll = UnityEngine.Random.Range(1, 101);
-        Debug.Log("Random roll... " + randomRoll);
+        //Debug.Log("Random roll... " + randomRoll);
         if (randomRoll < _doubleContractChance)
         {
-            Debug.Log("DOUBLE CONTRACT");
+            //Debug.Log("DOUBLE CONTRACT");
 
             _doubleContractChance = 0;
             return 2;
         }
         else
         {
-            Debug.Log("SINGLE CONTRACT");
+            //Debug.Log("SINGLE CONTRACT");
 
             _doubleContractChance += 100;
             return 1;

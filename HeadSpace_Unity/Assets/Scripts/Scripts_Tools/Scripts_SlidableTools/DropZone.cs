@@ -7,10 +7,11 @@ public abstract class DropZone : MonoBehaviour
 {
     protected SpriteRenderer _containerSpriteRenderer;
     protected Collider2D _collider;
+    public Bounds ColliderBounds { get { return _collider.bounds; } }
 
     [SerializeField] protected ObjectType[] acceptedObjects;
     public int ContainerSortingLayer { get { return _containerSpriteRenderer.sortingLayerID; } }
-    public int HighestSortingOrder { get; private set; } = 0;
+    public int HighestSortingOrder { get; protected set; } = 0;
 
     protected virtual void Awake()
     {
@@ -22,6 +23,7 @@ public abstract class DropZone : MonoBehaviour
         {
             _containerSpriteRenderer = GetComponent<SpriteRenderer>();
         }
+        HighestSortingOrder = _containerSpriteRenderer.sortingOrder + 1;
     }
 
     public bool CheckIfAccepted(MovableObject obj)
@@ -64,18 +66,18 @@ public abstract class DropZone : MonoBehaviour
         obj.SetSortingLayer(ContainerSortingLayer);
         obj.SetOrderInLayer(HighestSortingOrder);
 
-        if (obj.Rigidbody != null)
-        {
-            obj.Rigidbody.bodyType = RigidbodyType2D.Dynamic;
-        }
+        //if (obj.Rigidbody != null)
+        //{
+        //    obj.Rigidbody.bodyType = RigidbodyType2D.Dynamic;
+        //}
     }
 
     public virtual void RemoveObjectFromDropZone(MovableObject obj)
     {
-        if (obj.Rigidbody != null)
-        {
-            obj.Rigidbody.bodyType = RigidbodyType2D.Kinematic;
-        }
+        //if (obj.Rigidbody != null)
+        //{
+        //    obj.Rigidbody.bodyType = RigidbodyType2D.Kinematic;
+        //}
 
         obj.transform.parent = null;
         HighestSortingOrder--;

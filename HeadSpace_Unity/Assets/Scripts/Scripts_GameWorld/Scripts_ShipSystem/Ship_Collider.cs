@@ -46,7 +46,8 @@ public class Ship_Collider : MonoBehaviour {
         GridTile_Planet planet = col.GetComponent<GridTile_Planet>();
         if (planet != null)
         {
-            planet.RevealPlanet();
+            planet.RevealPlanet(false);
+            ship.CheckForClients(planet);
         }
 
         // Wormhole

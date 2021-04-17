@@ -73,7 +73,7 @@ public class SlidableOutbox : SlidableTool
         if (outboxAutoOpen != null)
             outboxAutoOpen();
 
-        Debug.Log("DERIVED");
+        //Debug.Log("DERIVED");
 
         yield return base.AutoOpenTool();
     }

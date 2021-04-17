@@ -21,7 +21,7 @@ public class MovableMessage : MovableObject
         _collider.enabled = false;
     }
 
-    public override void Select()
+    public override void Select(bool fireEvent = true)
     {
         // Appeler l'action messageTeared, la première fois que l'objet est Selected
         if (!_wasTeared)
@@ -31,7 +31,7 @@ public class MovableMessage : MovableObject
             if (messageTeared != null)
                 messageTeared();
         }
-        base.Select();
+        base.Select(fireEvent);
     }
 
     public void EnableCollider()

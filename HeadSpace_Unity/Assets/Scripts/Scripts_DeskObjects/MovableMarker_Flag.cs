@@ -13,15 +13,15 @@ public class MovableMarker_Flag : MovableMarker
         _tileText = GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    public override void Select()
+    public override void Select(bool fireEvent = true)
     {
-        base.Select();
+        base.Select(fireEvent);
         _tileText.enabled = false;
     }
 
-    public override void Deselect()
+    public override void Deselect(bool fireEvent = true)
     {
-        base.Deselect();
+        base.Deselect(fireEvent);
     }
 
     protected override void CheckIfInTile()

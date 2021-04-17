@@ -41,13 +41,13 @@ public class Ship : MonoBehaviour
     public int healthPoints;
     public int currentHealthPoints;
 
-    [Range(0, 100)]
+    [Range(0, 4)]
     //How many souls can the Ship carry
     public int cargoCapacity;
     [HideInInspector] public int currentCargo;
 
     [Range(0, 100)]
-    public float moveSpeed;
+    public float tileTravelSpeed;
 
     [Range(0, 10)]
     //How many seconds to pickup ONE Soul
@@ -58,6 +58,11 @@ public class Ship : MonoBehaviour
 
     [Range(0, 1)]
     public float detectionRadius;
+
+    // CONTRACT INFO
+    private List<Contract> _assignedContracts = new List<Contract>();
+    private List<Client> _clientsOnBoard = new List<Client>();
+    public List<Client> ClientsOnBoard { get { return _clientsOnBoard; } }
 
     //MOVEMENT
     private Vector2 displayedGridCoords;
@@ -201,6 +206,7 @@ public class Ship : MonoBehaviour
 
     private IEnumerator ExecuteRoute()
     {
+        bool error = false;
         while (_currentDestinations.Count > 0)
         {
             string newDest = _currentDestinations.Dequeue();
@@ -213,9 +219,11 @@ public class Ship : MonoBehaviour
             else
             {
                 CancelRoute("Invalid destination - " + newDest);
+                error = true;
                 break;
             }
         }
+        mM.RouteFinishedNotif(this);
         _currentRoute = null;
     }
 
@@ -267,7 +275,7 @@ public class Ship : MonoBehaviour
             if (i == 0)
                 continue;
 
-            yield return new WaitForSeconds(moveSpeed * nodeCost);
+            yield return new WaitForSeconds(tileTravelSpeed * nodeCost);
             transform.position = pathPositions[i];
         }
         _currentMove = null;
@@ -299,7 +307,7 @@ public class Ship : MonoBehaviour
         if (isMoving)
         {
             //Debug.Log("SHIP NAME: " + shipName + " | COMMAND: Move " + displayedGridCoords + " | STATUS: Moving");
-            transform.position = Vector2.MoveTowards(transform.position, targetWorldCoords, moveSpeed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, targetWorldCoords, tileTravelSpeed * Time.deltaTime);
 
             if (targetWorldCoords == (Vector2)transform.position)
             {
@@ -441,7 +449,7 @@ public class Ship : MonoBehaviour
             mM.PickupAbortedNotif(this);
         }
 
-        CancelRoute("", false);
+        CancelRoute("Route stop manualy triggered.", true);
         //if (isLoadingSouls) {
         //    StopCoroutine(LoadingSouls());
         //    isLoadingSouls = false;
@@ -659,6 +667,64 @@ public class Ship : MonoBehaviour
         _allSoulsAndPlanets.Clear();
 
         //ChangeShipState(ShipState.AtBase);
+    }
+
+    public void AssignContract(Contract contract)
+    {
+        _assignedContracts.Add(contract);
+    }
+
+    public void RemoveContract(Contract contract)
+    {
+        _assignedContracts.Remove(contract);
+    }
+
+    public void CheckForClients(GridTile_Planet planet)
+    {
+        List<Client> clientsList = new List<Client>();
+        // Check for clients on contracts that can be picked up, if planet is right
+        foreach (var contract in _assignedContracts)
+        {
+            foreach (var client in contract.AllClients)
+            {
+                if (client.currentState == ClientState.Waiting && client.startPlanet == planet)
+                    clientsList.Add(client);
+            }
+        }
+        foreach (var client in clientsList)
+        {
+            EmbarkClient(client);
+        }
+        clientsList.Clear();
+
+        // Check for onboard clients that can debark
+        foreach (var client in _clientsOnBoard)
+        {
+            if (client.CheckSuccessCondition(planet))
+            {
+                clientsList.Add(client);
+            }
+        }
+
+        foreach (var client in clientsList)
+        {
+            DebarkClient(client);
+        }
+    }
+
+    private void EmbarkClient(Client client)
+    {
+        if (!_clientsOnBoard.Contains(client))
+        {
+            _clientsOnBoard.Add(client);
+            client.ChangeState(ClientState.Embarked);
+        }
+    }
+
+    private void DebarkClient(Client client)
+    {
+        if (_clientsOnBoard.Remove(client))
+            client.ChangeState(ClientState.Debarked);
     }
 }
 

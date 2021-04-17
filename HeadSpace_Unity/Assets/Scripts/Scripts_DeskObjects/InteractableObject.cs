@@ -22,6 +22,7 @@ public abstract class InteractableObject : MonoBehaviour
     // Canvas des child objects
     protected Canvas[] _childCanvases;
     protected int _childCanvasesCount;
+    public int RendererAmount { get { return _childCanvasesCount + _childSpriteRenderersCount + 1; } }
 
     protected ObjectInteractionZone[] _interactionZones;
 
@@ -54,7 +55,7 @@ public abstract class InteractableObject : MonoBehaviour
     }
 
     // Fonction ABSTRACT : Une fonction qui doit être définie par chacune des classes qui HÉRITENT de celle-ci
-    public virtual void Select()
+    public virtual void Select(bool fireEvent = true)
     {
         _isSelected = true;
         
@@ -65,7 +66,7 @@ public abstract class InteractableObject : MonoBehaviour
             SetSortingLayer(SortingLayer.NameToID("SelectedObject"));
         }
     }
-    public virtual void Deselect()
+    public virtual void Deselect(bool fireEvent = true)
     {
         _isSelected = false;
 

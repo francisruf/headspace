@@ -687,12 +687,27 @@ PrefabInstance:
     - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
         type: 3}
       propertyPath: playerDeskObjects.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
         type: 3}
       propertyPath: playerStartingShips.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
+        type: 3}
+      propertyPath: playerDeskObjects.Array.data[0].quantity
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
+        type: 3}
+      propertyPath: playerDeskObjects.Array.data[0].spawnZone
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
+        type: 3}
+      propertyPath: playerDeskObjects.Array.data[1].spawnZone
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
         type: 3}
