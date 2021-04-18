@@ -288,5 +288,20 @@ public class MessageManager : MonoBehaviour
         QueueMessage(newMessageText);
     }
 
+    public void ShipAnomalyNotif(Ship ship, int soulsLost)
+    {
+        TileCoordinates shipTile = GridCoords.FromWorldToTilePosition(ship.transform.position);
+        string tileName = GridCoords.GetTileName(shipTile);
+        string newMessageText = ship.shipName + " has been attacked by an anomaly. ";
+
+        if (soulsLost > 1)
+            newMessageText += soulsLost + " souls on board have been lost to folley. ";
+        else if (soulsLost == 1)
+            newMessageText += soulsLost + " soul on board has been lost to folley. ";
+
+        newMessageText += "Please wait for auto-reinitialization.";
+        QueueMessage(newMessageText);
+    }
+
     #endregion
 }

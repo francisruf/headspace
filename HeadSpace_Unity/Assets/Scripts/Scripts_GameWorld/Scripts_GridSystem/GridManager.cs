@@ -25,7 +25,10 @@ public class GridManager : MonoBehaviour
     [Header("Map width if no WorldMap found")]
     public float mapWidth;
 
-    [Header("RockTileMap prefabs")]
+    [Header("Static anomaly settings")]
+    public float anomalySpreadTime;
+
+    [Header("AnomalyTileMap prefabs")]
     public List<GameObject> rockTileMapPrefabs;
 
     [Header("Anomaly settings")]
@@ -37,6 +40,8 @@ public class GridManager : MonoBehaviour
     public GameObject deployTilePrefab;
     public GameObject rocktilePrefab;
     public GameObject planetTilePrefab;
+    public GameObject staticAnomalyPrefab;
+    public GameObject spawningStaticAnomalyPrefab;
     public GameObject anomaly0Prefab;
     public GameObject anomaly1Prefab;
     public GameObject anomaly2Prefab;
@@ -58,6 +63,10 @@ public class GridManager : MonoBehaviour
     // Segments de l'anomalie
     private List<AnomalySegment> _allAnomalySegments = new List<AnomalySegment>();
     private int _anomalyCompletedTileCount;
+
+    // Nouveaux segments d'anomalie
+    private List<AnomalyPatch> _allAnomalyPatches = new List<AnomalyPatch>();
+    private IEnumerator _currentSpreadingRoutine;
 
     // Référence à la world map pour assigner la grosseur de la grille
     private DynamicWorldMap _worldMap;
@@ -120,6 +129,9 @@ public class GridManager : MonoBehaviour
         if (PlanetManager.instance != null)
             PlanetManager.instance.SpawnPlanetTiles();
 
+        _currentSpreadingRoutine = AnomalySpreadingTimer();
+        StartCoroutine(_currentSpreadingRoutine);
+
         Debug.Log("New grid generated");
     }
 
@@ -133,8 +145,15 @@ public class GridManager : MonoBehaviour
 
         _allStaticObjects.Clear();
         _allAnomalySegments.Clear();
+        _allAnomalyPatches.Clear();
         _anomalyCompletedTileCount = 0;
         _worldMap = null;
+
+        if (_currentSpreadingRoutine != null)
+        {
+            StopCoroutine(_currentSpreadingRoutine);
+            _currentSpreadingRoutine = null;
+        }
 
         if (gridDataDestroyed != null)
             gridDataDestroyed();
@@ -201,7 +220,7 @@ public class GridManager : MonoBehaviour
                 gt.tileX = x;
                 gt.tileY = y;
                 gt.tileType = _gameGrid[x, y];
-                gt.InitializeTile(new Vector2(tileWidth, tileWidth), _currentGridMode);
+                //gt.InitializeTile(new Vector2(tileWidth, tileWidth), _currentGridMode);
                 gt.tileName = GridCoords.GetTileName(new TileCoordinates(x, y));
 
                 // Ajout de la tuile à l'array2D de tuiles
@@ -212,6 +231,11 @@ public class GridManager : MonoBehaviour
         // Assignation des informations de la grille et appel de l'ACTION de nouvelle grille
         Bounds newBounds = new Bounds(Vector3.zero, new Vector3(actualWidth, tileWidth * mapSizeY, 0f));
         _currentGridInfo = new GridInfo(_gameGridTiles, new Vector2Int(mapSizeX, mapSizeY), newBounds);
+
+        foreach (var tile in _gameGridTiles)
+        {
+            tile.InitializeTile(new Vector2(tileWidth, tileWidth), _currentGridMode, _currentGridInfo);
+        }
     }
 
     private void GenerateEnvironment()
@@ -222,9 +246,9 @@ public class GridManager : MonoBehaviour
             return;
 
         int randomIndex = UnityEngine.Random.Range(0, prefabCount);
-        RockTileMapData rockTileMapData = Instantiate(rockTileMapPrefabs[randomIndex]).GetComponent<RockTileMapData>();
+        AnomalyTileMapData anomalyTileMapData = Instantiate(rockTileMapPrefabs[randomIndex]).GetComponent<AnomalyTileMapData>();
 
-        int[,] environmentData = rockTileMapData.GetTileData();
+        int[,] environmentData = anomalyTileMapData.GetTileData();
         int xLenght = environmentData.GetLength(0);
         int yLenght = environmentData.GetLength(1);
         int[,] randomizedXData = new int[xLenght, yLenght];
@@ -282,9 +306,90 @@ public class GridManager : MonoBehaviour
                 {
                     ReplaceTile(_currentGridInfo.gameGridTiles[x, y], 1);
                 }
+                else if (randomizedYData[x, y] == 4)
+                {
+                    ReplaceTile(_currentGridInfo.gameGridTiles[x, y], 4);
+                }
             }
         }
-        rockTileMapData.gameObject.SetActive(false);
+        anomalyTileMapData.gameObject.SetActive(false);
+
+        AssignAnomalyPatches();
+    }
+
+    private void AssignAnomalyPatches()
+    {
+        List<GridTile> foundTiles = new List<GridTile>();
+        while (true)
+        {
+            int x = 0;
+            int y = 0;
+
+            GridTile newTileFound = null;
+            for (x = 0; x < mapSizeX; x++)
+            {
+                bool found = false;
+                for (y = 0; y < mapSizeY; y++)
+                {
+                    if (_currentGridInfo.gameGridTiles[x, y].tileType == 4)
+                    {
+                        if (!foundTiles.Contains(_currentGridInfo.gameGridTiles[x, y]))
+                        {
+                            newTileFound = _currentGridInfo.gameGridTiles[x, y];
+                            foundTiles.Add(newTileFound);
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+                if (found)
+                    break;
+            }
+
+            if (newTileFound != null)
+            {
+                List<GridTile> currentSegment = new List<GridTile>();
+                currentSegment.Add(newTileFound);
+                int countBeforeCheck = 0;
+
+                while (currentSegment.Count != countBeforeCheck)
+                {
+                    countBeforeCheck = currentSegment.Count;
+                    List<GridTile> newTiles = new List<GridTile>();
+
+                    foreach (var tile in currentSegment)
+                    {
+                        List<GridTile> neighbours = tile.EightWayNeighbours;
+                        foreach (var neighbour in neighbours)
+                        {
+                            if (neighbour != null)
+                                if (neighbour.tileType == 4 && !currentSegment.Contains(neighbour))
+                                {
+                                    if (!newTiles.Contains(neighbour))
+                                        newTiles.Add(neighbour);
+                                }
+                        }
+                    }
+
+                    foreach (var tile in newTiles)
+                    {
+                        currentSegment.Add(tile);
+                    }
+                }
+
+                foreach (var tile in currentSegment)
+                {
+                    foundTiles.Add(tile);
+                    Debug.DrawLine(tile.TileCenter, tile.TileCenter + Vector2.up * 0.5f, Color.blue, 5f);
+                }
+
+                _allAnomalyPatches.Add(new AnomalyPatch(currentSegment));
+            }
+
+            if (x >= _currentGridInfo.gameGridSize.x - 1 && y >= _currentGridInfo.gameGridSize.y)
+                break;
+        }
+        Debug.Log("SEGMENT COUNT " + _allAnomalyPatches.Count);
     }
 
     private void GenerateDeployPoint()
@@ -434,6 +539,8 @@ public class GridManager : MonoBehaviour
             case 1: return rocktilePrefab;
             case 2: return deployTilePrefab;
             case 3: return planetTilePrefab;
+            case 4: return staticAnomalyPrefab;
+            case 5: return spawningStaticAnomalyPrefab;
             case 10: return anomaly0Prefab;
             case 11: return anomaly1Prefab;
             case 12: return anomaly2Prefab;
@@ -472,7 +579,6 @@ public class GridManager : MonoBehaviour
         // Remplacement de la tuile dans les arrays2D
         _gameGrid[deadTile.tileX, deadTile.tileY] = newTileType;
         _gameGridTiles[deadTile.tileX, deadTile.tileY] = gt;
-
         deadTile.TriggerNeighbourTilesUpdates();
         deadTile.DisableTile();
     }
@@ -509,7 +615,6 @@ public class GridManager : MonoBehaviour
         // Remplacement de la tuile dans les arrays2D
         _gameGrid[deadTile.tileX, deadTile.tileY] = newTileType;
         _gameGridTiles[deadTile.tileX, deadTile.tileY] = newTile;
-
         deadTile.TriggerNeighbourTilesUpdates();
         deadTile.DisableTile();
     }
@@ -546,7 +651,6 @@ public class GridManager : MonoBehaviour
         // Remplacement de la tuile dans les arrays2D
         _gameGrid[deadTile.tileX, deadTile.tileY] = newTileType;
         _gameGridTiles[deadTile.tileX, deadTile.tileY] = newTile;
-
         deadTile.TriggerNeighbourTilesUpdates();
         deadTile.DisableTile();
     }
@@ -643,6 +747,44 @@ public class GridManager : MonoBehaviour
 
         if (newGridMode != null)
             newGridMode(_currentGridMode);
+    }
+
+    private void OnSpawningAnomalyTileLifeOver(GridTile tile)
+    {
+        tile.tileLifeOver -= OnSpawningAnomalyTileLifeOver;
+        GridTile_SpawningStaticAnomaly anomalyTile = tile.GetComponent<GridTile_SpawningStaticAnomaly>();
+        AnomalyPatch parentPatch = anomalyTile.ParentPatch;
+        int tileX = tile.tileX;
+        int tileY = tile.tileY;
+
+        ReplaceTile(tile, 4);
+        parentPatch.AddTileToPatch(_currentGridInfo.gameGridTiles[tileX, tileY]);
+    }
+
+    private IEnumerator AnomalySpreadingTimer()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(anomalySpreadTime);
+            foreach (var patch in _allAnomalyPatches)
+            {
+                GridTile randomTile = patch.GetRandomNewTile();
+
+                if (randomTile == null)
+                    continue;
+
+                int tileX = randomTile.tileX;
+                int tileY = randomTile.tileY;
+
+                ReplaceTile(randomTile, 5);
+
+                GridTile newTile = _currentGridInfo.gameGridTiles[tileX, tileY];
+                GridTile_SpawningStaticAnomaly anomalyTile = newTile.GetComponent<GridTile_SpawningStaticAnomaly>();
+                anomalyTile.ParentPatch = patch;
+
+                newTile.tileLifeOver += OnSpawningAnomalyTileLifeOver;
+            }
+        }
     }
 }
 

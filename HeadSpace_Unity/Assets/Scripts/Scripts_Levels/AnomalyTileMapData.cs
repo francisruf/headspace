@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class RockTileMapData : MonoBehaviour
+public class AnomalyTileMapData : MonoBehaviour
 {
     private void Start()
     {
@@ -29,6 +29,10 @@ public class RockTileMapData : MonoBehaviour
                 if (tilemap.GetTile(tilePosition).name == "TileMapTool_RockTile")
                 {
                     tileData[x, tilemapSize.y - 1 - y] = 1;
+                }
+                else if (tilemap.GetTile(tilePosition).name == "TileMapTool_StaticAnomalyTile")
+                {
+                    tileData[x, tilemapSize.y - 1 - y] = 4;
                 }
                 else
                 {

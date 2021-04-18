@@ -12,4 +12,10 @@ public class GridTile_DeployPoint : GridTile
         if (newDeployTile != null)
             newDeployTile(this);
     }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        Debug.Log("DEPLOY POINT TYPE : " + tileType);
+    }
 }

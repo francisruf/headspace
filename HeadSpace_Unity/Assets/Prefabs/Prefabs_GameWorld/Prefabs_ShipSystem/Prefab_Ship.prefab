@@ -167,6 +167,7 @@ MonoBehaviour:
   cargoCapacity: 2
   currentCargo: 0
   tileTravelSpeed: 5
+  disabledCooldownTime: 10
   pickupSpeedInSeconds: 2
   soulsUnloadedPerSec: 2
   detectionRadius: 0.2

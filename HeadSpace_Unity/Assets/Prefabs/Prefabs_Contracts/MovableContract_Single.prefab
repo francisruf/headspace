@@ -897,7 +897,7 @@ GameObject:
   - component: {fileID: 6571372113320757154}
   m_Layer: 14
   m_Name: MovableContract_Single
-  m_TagString: Untagged
+  m_TagString: Destruc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -50,6 +50,12 @@ public class Ship_Collider : MonoBehaviour {
             ship.CheckForClients(planet);
         }
 
+        GridTile_StaticAnomaly staticAnomaly = col.GetComponent<GridTile_StaticAnomaly>();
+        if (staticAnomaly != null)
+        {
+            ship.DisableShip();
+        }
+
         // Wormhole
         WormHole candidateWormhole = col.GetComponent<WormHole>();
 

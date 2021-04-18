@@ -234,7 +234,7 @@ public class ShipManager : MonoBehaviour
             // Si un ship correspondant trouvé, retourner VRAI et assigner le foundShip en paramètre de sortie
             if (ship.shipName.ToLower() == shipNameLowerCase)
             {
-                if (ship.CurrentShipState != ShipState.Destroyed)
+                if (ship.CurrentShipState != ShipState.Disabled)
                 {
                     foundShip = ship;
                     shipNameFound = true;

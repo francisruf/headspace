@@ -42,7 +42,7 @@ public class GridTile : MonoBehaviour
     public Bounds TileBounds { get { return _boxCollider.bounds; } }
 
     // Type de tuile en int, assigné par le GridManager
-    [HideInInspector] public int tileType;
+    public int tileType;
     [HideInInspector] public Vector2 tileDimensions;
 
     // Informations de la grille
@@ -55,6 +55,7 @@ public class GridTile : MonoBehaviour
 
     // Voisins de la tuile
     [SerializeField] private GridTile[] _allNeighbours = new GridTile[4];
+    public GridTile[] AllNeighbours { get { return _allNeighbours; } }
     [SerializeField] private GridTile[] _diagonalNeighbours = new GridTile[4];
 
     public int PlanetHeat { get; set; }
@@ -262,12 +263,12 @@ public class GridTile : MonoBehaviour
                 tileLifeOver(this);
         }
 
-        // IF ANOMALY TILE IS COMPLETING
-        if (tileType == 2)
-        {
-            if (anomalyTileComplete != null)
-                anomalyTileComplete(this);
-        }
+        //// IF ANOMALY TILE IS COMPLETING
+        //if (tileType == 2)
+        //{
+        //    if (anomalyTileComplete != null)
+        //        anomalyTileComplete(this);
+        //}
 
         ToggleLifetimeText(false);
     }

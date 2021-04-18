@@ -261,7 +261,50 @@ public class PathFinder : MonoBehaviour
         return null;
     }
 
-    public List<PathNode> GetValidNeighbourList(PathNode currentNode)
+    public List<PathNode> GetNeighbours(PathNode currentNode)
+    {
+        List<PathNode> neighbourList = new List<PathNode>();
+
+        // Down
+        if (currentNode.y - 1 >= 0)
+        {
+            neighbourList.Add(grid[currentNode.x, currentNode.y - 1].PathNode);
+        }
+        // Up
+        if (currentNode.y + 1 < currentGridInfo.gameGridSize.y)
+        {
+            neighbourList.Add(grid[currentNode.x, currentNode.y + 1].PathNode);
+        }
+
+        if (currentNode.x - 1 >= 0)
+        {
+            // Left
+            neighbourList.Add(grid[currentNode.x - 1, currentNode.y].PathNode);
+
+
+            if (currentNode.y - 1 >= 0)
+            neighbourList.Add(grid[currentNode.x - 1, currentNode.y - 1].PathNode);
+
+
+            if (currentNode.y + 1 < currentGridInfo.gameGridSize.y)
+            neighbourList.Add(grid[currentNode.x - 1, currentNode.y + 1].PathNode);
+        }
+
+        if (currentNode.x + 1 < currentGridInfo.gameGridSize.x)
+        {
+            // Right
+            neighbourList.Add(grid[currentNode.x + 1, currentNode.y].PathNode);
+
+            if (currentNode.y - 1 >= 0)
+            neighbourList.Add(grid[currentNode.x + 1, currentNode.y - 1].PathNode);
+
+            if (currentNode.y + 1 < currentGridInfo.gameGridSize.y)
+            neighbourList.Add(grid[currentNode.x + 1, currentNode.y + 1].PathNode);
+        }
+        return neighbourList;
+    }
+
+    public List<PathNode> GetValidNeighbourList(PathNode currentNode, bool validAnomaly = false)
     {
         List<PathNode> neighbourList = new List<PathNode>();
 
@@ -276,12 +319,16 @@ public class PathFinder : MonoBehaviour
             neighbourList.Add(grid[currentNode.x, currentNode.y - 1].PathNode);
             if (grid[currentNode.x, currentNode.y - 1].PathNode.tile.tileType == 1)
                 downBlocked = true;
+            if (validAnomaly && grid[currentNode.x, currentNode.y - 1].PathNode.tile.tileType == 4)
+                downBlocked = true;
         }
         // Up
         if (currentNode.y + 1 < currentGridInfo.gameGridSize.y)
         {
             neighbourList.Add(grid[currentNode.x, currentNode.y + 1].PathNode);
             if (grid[currentNode.x, currentNode.y + 1].PathNode.tile.tileType == 1)
+                upBlocked = true;
+            if (validAnomaly && grid[currentNode.x, currentNode.y + 1].PathNode.tile.tileType == 4)
                 upBlocked = true;
         }
 
@@ -290,6 +337,8 @@ public class PathFinder : MonoBehaviour
             // Left
             neighbourList.Add(grid[currentNode.x - 1, currentNode.y].PathNode);
             if (grid[currentNode.x - 1, currentNode.y].PathNode.tile.tileType == 1)
+                leftBlocked = true;
+            if (validAnomaly && grid[currentNode.x - 1, currentNode.y].PathNode.tile.tileType == 4)
                 leftBlocked = true;
 
             // Left down
@@ -311,6 +360,8 @@ public class PathFinder : MonoBehaviour
             // Right
             neighbourList.Add(grid[currentNode.x + 1, currentNode.y].PathNode);
             if (grid[currentNode.x + 1, currentNode.y].PathNode.tile.tileType == 1)
+                rightBlocked = true;
+            if (validAnomaly && grid[currentNode.x + 1, currentNode.y].PathNode.tile.tileType == 4)
                 rightBlocked = true;
 
             // Right down

@@ -99,10 +99,10 @@ public class GridQuadrants
         //BottomCenter = new Bounds(offset + new Vector3(xThird, 0f, 0f), quadrantSize);
         BottomRight = new Bounds(offset + new Vector3(xEight * 5f, xSixth, 0f), quadrantSize);
 
-        Debug.DrawLine(TopLeft.min, TopLeft.max, Color.red, 5f);
-        Debug.DrawLine(TopRight.min, TopRight.max, Color.red, 5f);
-        Debug.DrawLine(BottomLeft.min, BottomLeft.max, Color.red, 5f);
-        Debug.DrawLine(BottomRight.min, BottomRight.max, Color.red, 5f);
+        //Debug.DrawLine(TopLeft.min, TopLeft.max, Color.red, 5f);
+        //Debug.DrawLine(TopRight.min, TopRight.max, Color.red, 5f);
+        //Debug.DrawLine(BottomLeft.min, BottomLeft.max, Color.red, 5f);
+        //Debug.DrawLine(BottomRight.min, BottomRight.max, Color.red, 5f);
 
         // Ajout des cadrans à la liste
         _allQuadrants = new Bounds[] { TopLeft, TopRight, BottomLeft, BottomRight };

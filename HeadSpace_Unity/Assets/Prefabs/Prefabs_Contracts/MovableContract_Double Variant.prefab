@@ -82,42 +82,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &210853781901446136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5697276903824523097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07d910d45ab45a14196649542f303218, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetClientCount: 2
-  startPlanetSpriteRenderer: {fileID: 7017331073466008659}
-  startPlanetText: {fileID: 4093018496989944441}
-  rewardsText: {fileID: 8591195919957622647}
-  clientNameTexts:
-  - {fileID: 3331718362509345842}
-  - {fileID: 6312361792926758812}
-  clientFaceRenderers:
-  - {fileID: 3291886356886192566}
-  - {fileID: 7893260393600356000}
-  clientDestinationTexts:
-  - {fileID: 7386365754335091143}
-  - {fileID: 2849065762099378448}
-  clientChipRenderers:
-  - {fileID: 691599480581639570}
-  - {fileID: 6999273770168508693}
-  chipWaitingSprite: {fileID: -6702425880795381643, guid: a45aec98ecaff844e8496d4f4670b96d,
-    type: 3}
-  chipEmbarkedSprite: {fileID: 7581760757616605966, guid: a45aec98ecaff844e8496d4f4670b96d,
-    type: 3}
-  chipDebarkedSprite: {fileID: -133969569189862280, guid: a45aec98ecaff844e8496d4f4670b96d,
-    type: 3}
-  chipDeadSprite: {fileID: 444748307311873999, guid: a45aec98ecaff844e8496d4f4670b96d,
-    type: 3}
 --- !u!1 &5624657180067559505
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,6 +216,42 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &210853781901446136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5697276903824523097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07d910d45ab45a14196649542f303218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetClientCount: 2
+  startPlanetSpriteRenderer: {fileID: 7017331073466008659}
+  startPlanetText: {fileID: 4093018496989944441}
+  rewardsText: {fileID: 8591195919957622647}
+  clientNameTexts:
+  - {fileID: 3331718362509345842}
+  - {fileID: 6312361792926758812}
+  clientFaceRenderers:
+  - {fileID: 3291886356886192566}
+  - {fileID: 7893260393600356000}
+  clientDestinationTexts:
+  - {fileID: 7386365754335091143}
+  - {fileID: 2849065762099378448}
+  clientChipRenderers:
+  - {fileID: 691599480581639570}
+  - {fileID: 6999273770168508693}
+  chipWaitingSprite: {fileID: -6702425880795381643, guid: a45aec98ecaff844e8496d4f4670b96d,
+    type: 3}
+  chipEmbarkedSprite: {fileID: 7581760757616605966, guid: a45aec98ecaff844e8496d4f4670b96d,
+    type: 3}
+  chipDebarkedSprite: {fileID: -133969569189862280, guid: a45aec98ecaff844e8496d4f4670b96d,
+    type: 3}
+  chipDeadSprite: {fileID: 444748307311873999, guid: a45aec98ecaff844e8496d4f4670b96d,
+    type: 3}
 --- !u!1 &5722123626699878215
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,6 +614,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MovableContract_Double Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 9029962078798673231, guid: 51f25231ccf4cf64c837d431f8db918f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Destruc
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6571372113320757154, guid: 51f25231ccf4cf64c837d431f8db918f, type: 3}

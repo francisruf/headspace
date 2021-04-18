@@ -85,7 +85,7 @@ public class Logbook_ShipContainer : MonoBehaviour
                 statusText = "Busy";
                 textColor = busyColor;
                 break;
-            case ShipState.Destroyed:
+            case ShipState.Disabled:
                 statusText = "Destroyed";
                 textColor = destroyedColor;
                 break;

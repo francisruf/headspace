@@ -49,6 +49,9 @@ public class Ship : MonoBehaviour
     [Range(0, 100)]
     public float tileTravelSpeed;
 
+    [Range(0, 120)]
+    public float disabledCooldownTime;
+
     [Range(0, 10)]
     //How many seconds to pickup ONE Soul
     public float pickupSpeedInSeconds;
@@ -166,11 +169,10 @@ public class Ship : MonoBehaviour
         //    StartShipMove();
         //}
 
-        CheckForAnomaly();
-        MoveShip();
+        //MoveShip();
 
         //Finds current position at all times in Grid Coords
-        currentPositionInGridCoords = GridCoords.FromWorldToGrid(transform.position);
+        //currentPositionInGridCoords = GridCoords.FromWorldToGrid(transform.position);
     }
 
     public void StartNewRoute(List<string> route)
@@ -206,6 +208,7 @@ public class Ship : MonoBehaviour
 
     private IEnumerator ExecuteRoute()
     {
+        ChangeShipState(ShipState.Busy);
         bool error = false;
         while (_currentDestinations.Count > 0)
         {
@@ -223,6 +226,7 @@ public class Ship : MonoBehaviour
                 break;
             }
         }
+        ChangeShipState(ShipState.Idle);
         mM.RouteFinishedNotif(this);
         _currentRoute = null;
     }
@@ -264,7 +268,7 @@ public class Ship : MonoBehaviour
             }
 
             if (previousNode != null)
-                if (!PathFinder.instance.GetValidNeighbourList(previousNode).Contains(pathNodes[i]))
+                if (!PathFinder.instance.GetValidNeighbourList(previousNode, false).Contains(pathNodes[i]))
                 {
                     CancelRoute("DIAGONAL OBSTACLE IN THE WAY!");
                     break;
@@ -296,6 +300,8 @@ public class Ship : MonoBehaviour
             StopCoroutine(_currentMove);
             _currentMove = null;
         }
+
+        ChangeShipState(ShipState.Idle);
 
         if (error)
             mM.InvalidDestinationNotif(this, errorMessage);
@@ -473,26 +479,27 @@ public class Ship : MonoBehaviour
             //Enable the ship and all it's components
             case ShipState.Idle:
                 //spriteRenderer.enabled = true;
-                shipCollider.enabled = true;
-                detectionZone.enabled = true;
+                //shipCollider.enabled = true;
+                //detectionZone.enabled = true;
                 break;
 
             //Disable the ship and all it's components
             case ShipState.Busy:
                 //spriteRenderer.enabled = false;
-                shipCollider.enabled = true;
-                detectionZone.enabled = true;
+                //shipCollider.enabled = true;
+                //detectionZone.enabled = true;
                 //StartCoroutine(UnloadSouls());
                 break;
 
             //Remove the ship from play
-            case ShipState.Destroyed:
-                DestroyShip();
+            case ShipState.Disabled:
                 break;
 
             default:
                 break;
         }
+
+        Debug.Log("NEW SHIP STATE : " + CurrentShipState.ToString());
 
         // Action call when a ship changes state
         if (shipStateChange != null)
@@ -538,7 +545,7 @@ public class Ship : MonoBehaviour
     }
     // Safety net - When a ship is disabled, sends info to the ShipManager (TODO : Nothing calls DisableShip yet)
     // Function to be implemented when a ship is fully destroyed, or when the scene changes
-    private void DisableShip()
+    private void RemoveShipFromFGame()
     {
         if (linkedMarker != null)
             linkedMarker.DisableObject();
@@ -601,82 +608,93 @@ public class Ship : MonoBehaviour
     }
 
     // Verify, on everyframe, if ship is in anomaly tile
-    private void CheckForAnomaly()
-    {
-        // If ship is in an anomaly tile
-        if (anomalyTile != null)
-        {
-            // If no damage routine yet
-            if (damageTickCoroutine == null)
-            {
-                damageTickCoroutine = DamageTick();
-                StartCoroutine(damageTickCoroutine);
-            }
-        }
-        // If ship is not in anomaly tile
-        else
-        {
-            // If damage routine is active
-            if (damageTickCoroutine != null)
-            {
-                StopCoroutine(damageTickCoroutine);
-                damageTickCoroutine = null;
-            }
-        }
-    }
+    //private void CheckForAnomaly()
+    //{
+    //    // If ship is in an anomaly tile
+    //    if (anomalyTile != null)
+    //    {
+    //        // If no damage routine yet
+    //        if (damageTickCoroutine == null)
+    //        {
+    //            damageTickCoroutine = DamageTick();
+    //            StartCoroutine(damageTickCoroutine);
+    //        }
+    //    }
+    //    // If ship is not in anomaly tile
+    //    else
+    //    {
+    //        // If damage routine is active
+    //        if (damageTickCoroutine != null)
+    //        {
+    //            StopCoroutine(damageTickCoroutine);
+    //            damageTickCoroutine = null;
+    //        }
+    //    }
+    //}
 
-    private IEnumerator DamageTick()
-    {
-        //Debug.Log("DAMAGE STARTED");
-        while (currentHealthPoints > 0)
-        {
-            if (anomalyTile == null)
-                break;
+    //private IEnumerator DamageTick()
+    //{
+    //    //Debug.Log("DAMAGE STARTED");
+    //    while (currentHealthPoints > 0)
+    //    {
+    //        if (anomalyTile == null)
+    //            break;
 
-            yield return new WaitForSeconds(1f);
-            currentHealthPoints -= (int)anomalyTile.shipDPS;
-        }
+    //        yield return new WaitForSeconds(1f);
+    //        currentHealthPoints -= (int)anomalyTile.shipDPS;
+    //    }
 
-        currentHealthPoints = 0;
-        ChangeShipState(ShipState.Destroyed);
-        damageTickCoroutine = null;
-        yield return null;
-    }
+    //    currentHealthPoints = 0;
+    //    ChangeShipState(ShipState.Disabled);
+    //    damageTickCoroutine = null;
+    //    yield return null;
+    //}
 
-    private IEnumerator UnloadSouls()
-    {
-        while (currentCargo > 0)
-        {
-            yield return new WaitForSeconds(1f);
-            int previousSouls = currentCargo;
-            currentCargo = Mathf.Clamp(currentCargo - soulsUnloadedPerSec, 0, cargoCapacity);
+    //private IEnumerator UnloadSouls()
+    //{
+    //    while (currentCargo > 0)
+    //    {
+    //        yield return new WaitForSeconds(1f);
+    //        int previousSouls = currentCargo;
+    //        currentCargo = Mathf.Clamp(currentCargo - soulsUnloadedPerSec, 0, cargoCapacity);
 
-            int soulsRemoved = previousSouls - currentCargo;
+    //        int soulsRemoved = previousSouls - currentCargo;
 
-            if (soulsUnloaded != null)
-                soulsUnloaded(soulsRemoved);
-        }
+    //        if (soulsUnloaded != null)
+    //            soulsUnloaded(soulsRemoved);
+    //    }
 
-        foreach (var match in _allSoulsAndPlanets)
-        {
-            if (soulsFromPlanetSaved != null)
-                soulsFromPlanetSaved(match);
+    //    foreach (var match in _allSoulsAndPlanets)
+    //    {
+    //        if (soulsFromPlanetSaved != null)
+    //            soulsFromPlanetSaved(match);
 
-            Debug.Log("Sending match action with souls :  " + match.soulsAmount);
-        }
-        _allSoulsAndPlanets.Clear();
+    //        Debug.Log("Sending match action with souls :  " + match.soulsAmount);
+    //    }
+    //    _allSoulsAndPlanets.Clear();
 
-        //ChangeShipState(ShipState.AtBase);
-    }
+    //    //ChangeShipState(ShipState.AtBase);
+    //}
 
     public void AssignContract(Contract contract)
     {
         _assignedContracts.Add(contract);
+        CheckForClients();
     }
 
     public void RemoveContract(Contract contract)
     {
         _assignedContracts.Remove(contract);
+    }
+
+    private void CheckForClients()
+    {
+        TileCoordinates currentTile = GridCoords.FromWorldToTilePosition(transform.position);
+        GridTile tile = GridCoords.CurrentGridInfo.gameGridTiles[currentTile.tileX, currentTile.tileY];
+        GridTile_Planet planet = tile.GetComponent<GridTile_Planet>();
+
+        if (planet != null)
+            CheckForClients(planet);
     }
 
     public void CheckForClients(GridTile_Planet planet)
@@ -716,15 +734,46 @@ public class Ship : MonoBehaviour
     {
         if (!_clientsOnBoard.Contains(client))
         {
-            _clientsOnBoard.Add(client);
-            client.ChangeState(ClientState.Embarked);
+            if (currentCargo < cargoCapacity)
+            {
+                _clientsOnBoard.Add(client);
+                client.ChangeState(ClientState.Embarked);
+                currentCargo++;
+            }
         }
     }
 
     private void DebarkClient(Client client)
     {
         if (_clientsOnBoard.Remove(client))
+        {
             client.ChangeState(ClientState.Debarked);
+            currentCargo--;
+        }
+    }
+
+    public void DisableShip()
+    {
+        CancelRoute("", false);
+
+        int count = 0;
+        foreach (var client in _clientsOnBoard)
+        {
+            client.ChangeState(ClientState.Dead);
+            currentCargo--;
+            count++;
+        }
+
+        _clientsOnBoard.Clear();
+        mM.ShipAnomalyNotif(this, count);
+        StartCoroutine(DisableCooldown());
+    }
+
+    private IEnumerator DisableCooldown()
+    {
+        ChangeShipState(ShipState.Disabled);
+        yield return new WaitForSeconds(disabledCooldownTime);
+        ChangeShipState(ShipState.Idle);
     }
 }
 
@@ -732,6 +781,6 @@ public enum ShipState
 {
     Idle,
     Busy,
-    Destroyed
+    Disabled
 }
 

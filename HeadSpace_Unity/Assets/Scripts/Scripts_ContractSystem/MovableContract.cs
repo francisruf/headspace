@@ -112,7 +112,7 @@ public class MovableContract : MovableObject
         Vector2 topCenterPoint = _spriteRenderer.bounds.center;
         topCenterPoint.y = _spriteRenderer.bounds.max.y + (-19 * (1 / 32f));// - ((ClientAmount - 1) * (38 * (1 / 32f)));
 
-        Debug.DrawLine(topCenterPoint, topCenterPoint + Vector2.up * 0.5f, Color.yellow, 5f);
+        //Debug.DrawLine(topCenterPoint, topCenterPoint + Vector2.up * 0.5f, Color.yellow, 5f);
 
         Collider2D[] allColliders = Physics2D.OverlapPointAll(topCenterPoint, dropZoneLayerMask);
         int colliderCount = allColliders.Length;

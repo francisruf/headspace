@@ -65,7 +65,13 @@ PrefabInstance:
     - target: {fileID: 6129731023839162510, guid: 6c443e8432b675c4cb502969fc5382e9,
         type: 3}
       propertyPath: m_Name
-      value: GridManager
+      value: GridManager_Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 6129731023839162511, guid: 6c443e8432b675c4cb502969fc5382e9,
+        type: 3}
+      propertyPath: staticAnomalyPrefab
+      value: 
+      objectReference: {fileID: 328405606139326222, guid: f08a46d0f41c4c74f952edc811f98bbe,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c443e8432b675c4cb502969fc5382e9, type: 3}

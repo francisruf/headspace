@@ -159,7 +159,7 @@ public class PlanetManager : MonoBehaviour
                 if (hit != null)
                 {
                     allowedSpawnTiles.Remove(candidate);
-                    Debug.DrawLine(candidate.TileCenter, candidate.TileCenter + Vector2.up * 0.2f, Color.red, 5f);
+                    //Debug.DrawLine(candidate.TileCenter, candidate.TileCenter + Vector2.up * 0.2f, Color.red, 5f);
                 }
             }
         }

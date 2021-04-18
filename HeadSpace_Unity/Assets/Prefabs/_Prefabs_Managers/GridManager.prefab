@@ -45,16 +45,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62dd4c6e1021f4d40b0655b57a94dfdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapSizeX: 8
-  mapSizeY: 4
+  mapSizeX: 20
+  mapSizeY: 10
   mapWidth: 15
-  rockTileMapPrefabs: []
+  anomalySpreadTime: 120
+  rockTileMapPrefabs:
+  - {fileID: 6846862382468753643, guid: cf7b4bbe8a0772a4c95a0cf33156fb44, type: 3}
+  - {fileID: 1486698571778897035, guid: f2904597e25b16f4ca927706dcb7eed0, type: 3}
+  - {fileID: 1486698571778897035, guid: d68311a089662174da8b9b14e1e9a91b, type: 3}
   newSegmentAfterCount: 030000000800000010000000
   emptyCellPrefab: {fileID: 328405606139326222, guid: 2057765f4f76ef74c847f46818749518,
     type: 3}
-  deployTilePrefab: {fileID: 0}
-  rocktilePrefab: {fileID: 0}
-  planetTilePrefab: {fileID: 0}
+  deployTilePrefab: {fileID: 328405606139326222, guid: 409dca98a11ccc04d956be1f674f73b9,
+    type: 3}
+  rocktilePrefab: {fileID: 328405606139326222, guid: d150f9a48d0470548a061772bf595a92,
+    type: 3}
+  planetTilePrefab: {fileID: 328405606139326222, guid: 08ecd1261a9155f458abd1fb60a69299,
+    type: 3}
+  staticAnomalyPrefab: {fileID: 328405606139326222, guid: f08a46d0f41c4c74f952edc811f98bbe,
+    type: 3}
+  spawningStaticAnomalyPrefab: {fileID: 328405606139326222, guid: a39a0d8cf4afc204dba43df0a9b591ed,
+    type: 3}
   anomaly0Prefab: {fileID: 328405606139326222, guid: 94ef9c610ebb79e44ae91bb5f42aadc5,
     type: 3}
   anomaly1Prefab: {fileID: 328405606139326222, guid: 28512cbdf5ea93f4688969f202564516,

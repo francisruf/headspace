@@ -110,9 +110,6 @@ public class GameManager : MonoBehaviour
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         cursorObj.transform.position = mousePos;
-
-        if (Input.GetMouseButtonDown(0))
-            Debug.DrawLine(mousePos, mousePos + Vector2.up, Color.cyan, 5f);
     }
 
     private void SetCursor()

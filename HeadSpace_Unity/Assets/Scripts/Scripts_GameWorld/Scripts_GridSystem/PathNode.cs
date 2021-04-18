@@ -22,7 +22,10 @@ public class PathNode
         this.tile = tile;
         this.x = x;
         this.y = y;
-        isTraversable = tile.tileType == 1? false : true;
+        isTraversable = true;
+
+        if (tile.tileType == 1)
+            isTraversable = false;
     }
 
     public void CalculateFCost()
