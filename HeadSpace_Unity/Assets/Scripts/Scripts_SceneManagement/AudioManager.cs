@@ -111,18 +111,18 @@ public class AudioManager : MonoBehaviour
     }
 
     //Update function only to test feature. Remove when necessary.
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.S))
-    //    {
-    //        PlaySoundLoop("Shredder_Loop");
-    //    }
+    private void Update()
+   {
+      if (Input.GetKeyDown(KeyCode.S))
+     {
+         PlaySound("Ship_Route_End");
+     }
 
     //    if (Input.GetKeyDown(KeyCode.D))
     //    {
     //        StopSoundLoop("Shredder_Loop", true);
     //    }
-    //}
+    }
 
     private void AssignMusicOnScene(Scene scene1, Scene scene2)
     {
@@ -362,7 +362,8 @@ public class AudioManager : MonoBehaviour
     #region commands
     private void DrawerError()
     {
-        PlaySound("Error_One");
+        // PlaySound("Error_One");
+        PlaySound("Command_Wrong_Two");
     }
 
     private void CommandGood()
