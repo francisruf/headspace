@@ -48,4 +48,15 @@ public class ObjectInteractionZone : MonoBehaviour
 
         _isEnabled = toggleON;
     }
+
+    public void ToggleZoneWithoutSprite(bool toggleON)
+    {
+        if (_collider != null)
+            _collider.enabled = toggleON;
+
+        if (_spriteRenderer != null)
+            _spriteRenderer.enabled = false;
+
+        _isEnabled = toggleON;
+    }
 }

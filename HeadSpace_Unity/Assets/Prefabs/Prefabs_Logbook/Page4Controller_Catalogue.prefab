@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce55378dccbd42542899feaf6ae6821b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pageSprite: {fileID: -8783753264642846812, guid: a61133466880d094d9cfc42eeb54e5cc,
+  pageSprite: {fileID: -8142618869659526127, guid: 302b80513ab623b428ef17261aa484c0,
     type: 3}
   maxBuyableContainers: 3
   pageParent: {fileID: 0}
@@ -53,4 +53,3 @@ MonoBehaviour:
   cataloguePagePrefab: {fileID: 5863437844114974983, guid: 3c9e2dba016cc604fbe69a2d05096dbc,
     type: 3}
   buyablesLayoutGroup: {fileID: 0}
-  cataloguePageCountText: {fileID: 0}

@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MapPointOfInterest : MonoBehaviour
 {
+    public static Action newDiscovery;
+
     private SpriteRenderer _spriteRenderer;
     private SpriteMask _spriteMask;
     public List<Sprite> maskSprites;
@@ -38,6 +41,9 @@ public class MapPointOfInterest : MonoBehaviour
             return;
 
         StartCoroutine(HideMapPointAnimation());
+
+        if (newDiscovery != null)
+            newDiscovery();
     }
 
     public IEnumerator HideMapPointAnimation()

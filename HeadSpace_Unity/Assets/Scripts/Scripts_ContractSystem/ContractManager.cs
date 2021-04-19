@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ContractManager : MonoBehaviour
 {
+    public static Action newContractReceived;
     public static ContractManager instance;
 
     [Header("Spawn settings")]
@@ -138,6 +140,9 @@ public class ContractManager : MonoBehaviour
             contract.AssignClients(allClients);
             contract.CalculatePointsReward(pointSettings);
         }
+
+        if (newContractReceived != null)
+            newContractReceived();
     }
 
     private GridTile_Planet ExtractRandomPlanet(List<GridTile_Planet> originalList)
@@ -392,7 +397,7 @@ public class ContractManager : MonoBehaviour
     private IEnumerator SpawnContractTimer(float spawnInterval)
     {
         float halfTime = spawnInterval / 4f;
-        float randomTime = Random.Range(0f, halfTime);
+        float randomTime = UnityEngine.Random.Range(0f, halfTime);
 
         yield return new WaitForSeconds(randomTime);
         CreateNewSingleContract();

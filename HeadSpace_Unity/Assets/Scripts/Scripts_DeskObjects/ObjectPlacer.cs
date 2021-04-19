@@ -60,16 +60,12 @@ public class ObjectPlacer : MonoBehaviour
                 PlaceObjectOutOfBounds(obj.gameObject);
                 break;
 
-            case ObjectSpawnZone.DrawerLeft:
-                StartCoroutine(PlaceObjectInDrawer(obj, DrawerTray.left));
+            case ObjectSpawnZone.DrawerTop:
+                StartCoroutine(PlaceObjectInDrawer(obj, DrawerTray.top));
                 break;
 
-            case ObjectSpawnZone.DrawerCenter:
-                StartCoroutine(PlaceObjectInDrawer(obj, DrawerTray.center));
-                break;
-
-            case ObjectSpawnZone.DrawerRight:
-                StartCoroutine(PlaceObjectInDrawer(obj, DrawerTray.right));
+            case ObjectSpawnZone.DrawerBottom:
+                StartCoroutine(PlaceObjectInDrawer(obj, DrawerTray.bottom));
                 break;
 
             case ObjectSpawnZone.Outbox:
@@ -93,9 +89,8 @@ public class ObjectPlacer : MonoBehaviour
         switch (targetZone)
         {
             case ObjectSpawnZone.Desk:
-            case ObjectSpawnZone.DrawerLeft:
-            case ObjectSpawnZone.DrawerCenter:
-            case ObjectSpawnZone.DrawerRight:
+            case ObjectSpawnZone.DrawerTop:
+            case ObjectSpawnZone.DrawerBottom:
             case ObjectSpawnZone.Outbox:
                 PlaceObjectInCenter(go);
                 break;
@@ -184,9 +179,8 @@ public class ObjectPlacer : MonoBehaviour
 
 public enum ObjectSpawnZone
 {
-    DrawerLeft,
-    DrawerCenter,
-    DrawerRight,
+    DrawerTop,
+    DrawerBottom,
     Outbox,
     Desk,
     OutOfBounds

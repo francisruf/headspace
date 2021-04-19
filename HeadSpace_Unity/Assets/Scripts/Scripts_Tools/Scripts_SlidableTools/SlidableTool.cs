@@ -54,6 +54,7 @@ public class SlidableTool : InteractableObject
                 break;
         }
 
+        fullyClosedPos = transform.position;
         AssignStartingValues();
         CheckOpenState();
         transform.position = fullyClosedPos;
@@ -112,13 +113,13 @@ public class SlidableTool : InteractableObject
                 {
                     case SlidingDirection.HorizontalLeft:
                         minPosX = horExtent - (slidingAmount / 2f);
-                        maxPosX = horExtent + (slidingAmount / 2f) - drawerHandleSize;
+                        maxPosX = fullyClosedPos.x;
                         float clampedXPosLeft = Mathf.Clamp(mousePos.x + mouseOffset.x, minPosX, maxPosX);
                         gameObject.transform.position = new Vector3(clampedXPosLeft, transform.position.y, 0);
                         break;
 
                     case SlidingDirection.HorizontalRight:
-                        minPosX = -horExtent - (slidingAmount / 2f) + drawerHandleSize;
+                        minPosX = fullyClosedPos.x;
                         maxPosX = -horExtent + (slidingAmount / 2f);
                         float clampedXPosRight = Mathf.Clamp(mousePos.x + mouseOffset.x, minPosX, maxPosX);
                         gameObject.transform.position = new Vector3(clampedXPosRight, transform.position.y, 0);
@@ -126,13 +127,13 @@ public class SlidableTool : InteractableObject
 
                     case SlidingDirection.VerticalDown:
                         minPosY = vertExtent - (slidingAmount / 2f);
-                        maxPosY = vertExtent + boxHalfSize - drawerHandleSize;
+                        maxPosY = fullyClosedPos.y;
                         float clampedYPosDown = Mathf.Clamp(mousePos.y + mouseOffset.y, minPosY, maxPosY);
                         gameObject.transform.position = new Vector3(transform.position.x, clampedYPosDown, 0);
                         break;
 
                     case SlidingDirection.VerticalUp:
-                        minPosY = -vertExtent - (slidingAmount / 2f) + drawerHandleSize;
+                        minPosY = fullyClosedPos.y;
                         maxPosY = -vertExtent + boxHalfSize;
                         float clampedYPosUp = Mathf.Clamp(mousePos.y + mouseOffset.y, minPosY, maxPosY);
                         gameObject.transform.position = new Vector3(transform.position.x, clampedYPosUp, 0);
@@ -163,8 +164,8 @@ public class SlidableTool : InteractableObject
                 openPos.y = minPosY;
                 openDistance = Vector2.Distance(transform.position, openPos) <= openDistanceBuffer;
 
-                fullyClosedPos.x = transform.position.x;
-                fullyClosedPos.y = maxPosY;
+                //fullyClosedPos.x = transform.position.x;
+                //fullyClosedPos.y = maxPosY;
                 fullyClosedDistance = Vector2.Distance(transform.position, fullyClosedPos) <= openDistanceBuffer;
 
                 break;
@@ -174,8 +175,8 @@ public class SlidableTool : InteractableObject
                 openPos.y = maxPosY;
                 openDistance = Vector2.Distance(transform.position, openPos) <= openDistanceBuffer;
 
-                fullyClosedPos.x = transform.position.x;
-                fullyClosedPos.y = minPosY;
+                //fullyClosedPos.x = transform.position.x;
+                //fullyClosedPos.y = minPosY;
                 fullyClosedDistance = Vector2.Distance(transform.position, fullyClosedPos) <= openDistanceBuffer;
 
                 break;
@@ -185,8 +186,8 @@ public class SlidableTool : InteractableObject
                 openPos.y = transform.position.y;
                 openDistance = Vector2.Distance(transform.position, openPos) <= openDistanceBuffer;
 
-                fullyClosedPos.x = maxPosX;
-                fullyClosedPos.y = transform.position.y;
+                //fullyClosedPos.x = maxPosX;
+                //fullyClosedPos.y = transform.position.y;
                 fullyClosedDistance = Vector2.Distance(transform.position, fullyClosedPos) <= openDistanceBuffer;
 
                 break;
@@ -196,8 +197,8 @@ public class SlidableTool : InteractableObject
                 openPos.y = transform.position.y;
                 openDistance = Vector2.Distance(transform.position, openPos) <= openDistanceBuffer;
 
-                fullyClosedPos.x = minPosX;
-                fullyClosedPos.y = transform.position.y;
+                //fullyClosedPos.x = minPosX;
+                //fullyClosedPos.y = transform.position.y;
                 fullyClosedDistance = Vector2.Distance(transform.position, fullyClosedPos) <= openDistanceBuffer;
 
                 break;

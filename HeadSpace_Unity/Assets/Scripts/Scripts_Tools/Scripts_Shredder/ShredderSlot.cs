@@ -14,6 +14,7 @@ public class ShredderSlot : MonoBehaviour
     public SpriteRenderer GreenButton;
     public SpriteRenderer RedButton;
     private SlidableShredder parent = null;
+    private Animator lightAnimator;
     private bool shredding = false;
     public bool canShred;
 
@@ -21,6 +22,11 @@ public class ShredderSlot : MonoBehaviour
 
     private List<ShreddingRoutine> currentShreddingRoutines = new List<ShreddingRoutine>();
     private int currentRoutineIndex = 0;
+
+    private void Awake()
+    {
+        lightAnimator = GetComponentInParent<Animator>();
+    }
 
     private void Start()
     {
@@ -75,11 +81,11 @@ public class ShredderSlot : MonoBehaviour
             }
         }
 
-        // TODO
-        if (collision.gameObject.layer == 14 && collision.gameObject.tag == "Indestruc")
-        {
-            ChangeLights(LightState.Red);
-        }
+        if (canShred)
+            if (collision.gameObject.layer == 14 && collision.gameObject.tag == "Indestruc")
+            {
+                lightAnimator.SetTrigger("Error");
+            }
     }
 
     private void AssignObjectPosition(MovableObject objToShred)
@@ -174,7 +180,7 @@ public class ShredderSlot : MonoBehaviour
         Vector3 startingPosition = obj.transform.localPosition;
         Vector3 endingPosition = startingPosition;
 
-        endingPosition.x += obj.ObjSpriteRenderer.bounds.size.x + 0.1f;
+        endingPosition.x -= obj.ObjSpriteRenderer.bounds.size.x + 0.1f;
 
         float longuestSide = obj.ObjSpriteRenderer.bounds.size.x;
         if (obj.ObjSpriteRenderer.bounds.size.y > longuestSide)
@@ -192,20 +198,8 @@ public class ShredderSlot : MonoBehaviour
 
     public void UpdateLightState()
     {
-        if (canShred)
-        {
-            ChangeLights(LightState.Green);
-
-            //if (shredding)
-            //    ChangeLights(LightState.Red);
-
-            //else
-            //    ChangeLights(LightState.Green);
-        }
-        else
-        {
-            ChangeLights(LightState.Red);
-        }
+        lightAnimator.SetBool("Shredding", shredding);
+        lightAnimator.SetBool("CanShred", canShred);
     }
 
     private void ChangeLights(LightState newState)

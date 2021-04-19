@@ -78,8 +78,17 @@ public class AudioManager : MonoBehaviour
         SlidableTool.drawerClosed += DrawerClose;
         SlidableOutbox.outboxAutoOpen += DrawerAutoOpen;
 
-        WritingMachineController.commandReadyToTear += WriterReady;
-        WritingMachineController.commandTeared += WriterNotReady;
+        MapPointOfInterest.newDiscovery += NewDiscovery;
+        Ship.routeFinished += ShipRouteFinished;
+        MessageManager.newMessageReceived += MessageReceived;
+        MovableMessage.messageTearedFromReceiver += MessageRip;
+        ContractManager.newContractReceived += NewContract;
+        MovableLogbook.pageChange += PageTurn;
+        MovableLogbook.logbookPickup += ManualPickup;
+        MovableLogbook.logbookDrop += ManualDrop;
+        Receiver.singlePrint += SinglePrint;
+        WritingMachineController.lightFlash += VoyantFlash;
+        MovableCommand.commandInOutbox += CommandInOutbox;
     }
 
     private void OnDisable()
@@ -106,8 +115,17 @@ public class AudioManager : MonoBehaviour
         SlidableTool.drawerClosed -= DrawerClose;
         SlidableOutbox.outboxAutoOpen -= DrawerAutoOpen;
 
-        WritingMachineController.commandReadyToTear -= WriterReady;
-        WritingMachineController.commandTeared -= WriterNotReady;
+        MapPointOfInterest.newDiscovery -= NewDiscovery;
+        Ship.routeFinished -= ShipRouteFinished;
+        MessageManager.newMessageReceived -= MessageReceived;
+        MovableMessage.messageTearedFromReceiver -= MessageRip;
+        ContractManager.newContractReceived -= NewContract;
+        MovableLogbook.pageChange -= PageTurn;
+        MovableLogbook.logbookPickup -= ManualPickup;
+        MovableLogbook.logbookDrop -= ManualDrop;
+        Receiver.singlePrint -= SinglePrint;
+        WritingMachineController.lightFlash -= VoyantFlash;
+        MovableCommand.commandInOutbox -= CommandInOutbox;
     }
 
     //Update function only to test feature. Remove when necessary.
@@ -124,6 +142,7 @@ public class AudioManager : MonoBehaviour
     //    }
     }
 
+    #region Main functions
     private void AssignMusicOnScene(Scene scene1, Scene scene2)
     {
 
@@ -317,7 +336,7 @@ public class AudioManager : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
     }
-
+    #endregion
     #region Tools
     private void ShredderStarted()
     {
@@ -369,6 +388,11 @@ public class AudioManager : MonoBehaviour
     private void CommandGood()
     {
         PlaySound("Command_Good");
+    }
+
+    private void CommandInOutbox()
+    {
+        PlaySound("Message_Drop_inDrawer");
     }
     #endregion
     #region movableObjects
@@ -459,6 +483,23 @@ public class AudioManager : MonoBehaviour
     {
         PlaySound("Marker_Take");
     }
+    private void PageTurn(bool previousPage)
+    {
+        if (previousPage)
+            PlaySound("PageTurn_One");
+        else
+            PlaySound("PageTurn_Two");
+    }
+    private void ManualPickup()
+    {
+        PlaySound("Manual_PickUp");
+    }
+    private void ManualDrop()
+    {
+        PlaySound("Manual_Drop");
+    }
+
+
     #endregion
     #region menus
     private void MenuButtonSelect()
@@ -480,6 +521,54 @@ public class AudioManager : MonoBehaviour
     private void ButtonPress()
     {
         PlayRandomSound("Button_One", "Button_Two");
+    }
+
+    private void VoyantFlash(bool isOn)
+    {
+        if (isOn)
+            PlaySound("Writer_Voyant_Two");
+        else
+            PlaySound("Writer_Voyant_One");
+    }
+
+    #endregion
+    #region Ships
+    private void NewDiscovery()
+    {
+        PlaySound("Ship_Route_Discovery");
+    }
+    private void ShipRouteFinished(Ship ship)
+    {
+        PlaySound("Ship_Route_End");
+    }
+    private void ShipDisabled(Ship ship)
+    {
+        PlaySound("Notification_Received");
+    }
+    #endregion
+    #region Messages
+    private void MessageReceived()
+    {
+        PlaySound("Message_Received");
+    }
+    private void MessageRip()
+    {
+        PlayRandomSound("Message_Rip_One", "Message_Rip_Two");
+    }
+    private void SinglePrint(bool lastPrint)
+    {
+        if (lastPrint)
+            PlaySound("Paper_Print_One");
+        else
+            PlaySound("Paper_Print_Solo");
+    }
+    
+
+    #endregion
+    #region Contracts
+    private void NewContract()
+    {
+        PlaySound("Contract_Print");
     }
     #endregion
 

@@ -31,6 +31,11 @@ public class TextHelper : MonoBehaviour
         StartCoroutine(TypeAnimationRoutine(textMesh));
     }
 
+    public IEnumerator GetTypeAnimation(TextMeshProUGUI textMesh)
+    {
+        return TypeAnimationRoutine(textMesh);
+    }
+
     private IEnumerator TypeAnimationRoutine(TextMeshProUGUI textMesh)
     {
         TMP_TextInfo info = textMesh.textInfo;

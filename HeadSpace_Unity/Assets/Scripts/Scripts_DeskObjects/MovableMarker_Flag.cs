@@ -28,6 +28,12 @@ public class MovableMarker_Flag : MovableMarker
     {
         base.CheckIfInTile();
 
+        if (_currentDropZone != null)
+        {
+            _tileText.enabled = false;
+            return;
+        }
+
         if (_isInTile)
         {
             _tileText.text = GridCoords.GetTileName(_currentTile);

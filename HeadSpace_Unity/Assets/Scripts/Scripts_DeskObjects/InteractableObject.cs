@@ -95,6 +95,16 @@ public abstract class InteractableObject : MonoBehaviour
 
         if (objectDisabled != null)
             objectDisabled(this);
+
+        foreach (var sr in _childSpriteRenderers)
+        {
+            sr.enabled = false;
+        }
+
+        foreach (var c in _childCanvases)
+        {
+            c.enabled = false;
+        }
     }
 
     // Fonction qui retourne le sorting layer en INT d'un sprite renderer,

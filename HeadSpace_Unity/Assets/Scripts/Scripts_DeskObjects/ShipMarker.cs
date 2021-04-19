@@ -17,6 +17,12 @@ public class ShipMarker : MovableMarker
     private Ship _linkedShip;
     private string _shipCallsign;
 
+    [Header("Light sprites")]
+    public Sprite lightOn;
+    public Sprite lightOff;
+    public List<SpriteRenderer> allLights;
+    private int _lightCount;
+
     protected override void Awake()
     {
         base.Awake();
@@ -25,6 +31,8 @@ public class ShipMarker : MovableMarker
         _markerText = GetComponentInChildren<TextMeshProUGUI>();
         _movableMarker = GetComponent<MovableMarker>();
         _markerAnimator = GetComponentInParent<ShipMarker_Animator>();
+        _lightCount = allLights.Count;
+        UpdateLights(0);
     }
 
     // Subscribe aux changements d'informations des Ships
@@ -94,5 +102,16 @@ public class ShipMarker : MovableMarker
     private void UpdateMarkerText()
     {
         _markerText.text = _linkedShip.shipCallsign.ToUpper();
+    }
+
+    public void UpdateLights(int currentCargo)
+    {
+        for (int i = 0; i < _lightCount; i++)
+        {
+            if (i < currentCargo)
+                allLights[i].sprite = lightOn;
+            else
+                allLights[i].sprite = lightOff;
+        }
     }
 }

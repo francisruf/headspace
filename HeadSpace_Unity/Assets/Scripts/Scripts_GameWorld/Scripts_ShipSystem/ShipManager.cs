@@ -51,7 +51,7 @@ public class ShipManager : MonoBehaviour
     {
         Ship.newShipAvailable += OnNewShipAvailable;
         Ship.shipUnavailable += OnShipUnavailable;
-        Ship.shipDestroyed += OnShipDestroyed;
+        Ship.shipRemoved += OnShipDestroyed;
         Ship.shipStateChange += OnShipStateChange;
     }
 
@@ -60,7 +60,7 @@ public class ShipManager : MonoBehaviour
     {
         Ship.newShipAvailable -= OnNewShipAvailable;
         Ship.shipUnavailable -= OnShipUnavailable;
-        Ship.shipDestroyed -= OnShipDestroyed;
+        Ship.shipRemoved -= OnShipDestroyed;
         Ship.shipStateChange -= OnShipStateChange;
     }
 

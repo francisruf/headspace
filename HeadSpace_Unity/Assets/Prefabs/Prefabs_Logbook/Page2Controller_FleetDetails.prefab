@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42b740c2253fe734ba82cf14f29dcd78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pageSprite: {fileID: -8783753264642846812, guid: a61133466880d094d9cfc42eeb54e5cc,
+  pageSprite: {fileID: -8142618869659526127, guid: 302b80513ab623b428ef17261aa484c0,
     type: 3}
   maxShipContainers: 5
   pageParent: {fileID: 0}

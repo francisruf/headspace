@@ -1,9 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MovableLogbook : MovableObject
 {
+    public static Action<bool> pageChange;
+    public static Action logbookPickup;
+    public static Action logbookDrop;
+
     public ObjectInteractionZone leftCorner;
     public ObjectInteractionZone rightCorner;
 
@@ -38,14 +43,35 @@ public class MovableLogbook : MovableObject
         DisplayStartingPage();
     }
 
+    public override void Select(bool fireEvent = true)
+    {
+        base.Select(fireEvent);
+
+        if (logbookPickup != null)
+            logbookPickup();
+    }
+
+    public override void Deselect(bool fireEvent = true)
+    {
+        base.Deselect(fireEvent);
+
+        if (logbookDrop != null)
+            logbookDrop();
+    }
+
     private void NextPage(ObjectInteractionZone interactionZone)
     {
         ChangePage(_currentPageIndex + 1);
+        if (pageChange != null)
+            pageChange(false);
+
     }
 
     private void PreviousPage(ObjectInteractionZone interactionZone)
     {
         ChangePage(_currentPageIndex - 1);
+        if (pageChange != null)
+            pageChange(true);
     }
 
     public void AddPage(int index, LogbookPage newPage)
@@ -104,7 +130,9 @@ public class MovableLogbook : MovableObject
             leftCorner.ToggleZone(true);
 
         // IF has next page
-        if (_currentPageIndex + 1 <= _pageCount - 1)
+        if (_currentPageIndex == 0)
+            rightCorner.ToggleZoneWithoutSprite(true);
+        else if (_currentPageIndex + 1 <= _pageCount - 1)
             rightCorner.ToggleZone(true);
     }
 }

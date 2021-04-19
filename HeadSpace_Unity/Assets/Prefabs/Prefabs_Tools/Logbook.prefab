@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaf15a9afee408c41b143ffeb1bb4792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pageSprite: {fileID: 676999700145605074, guid: a61133466880d094d9cfc42eeb54e5cc,
+  pageSprite: {fileID: -5023179931347310665, guid: 302b80513ab623b428ef17261aa484c0,
     type: 3}
 --- !u!1 &1218995807975562713
 GameObject:
@@ -659,7 +659,8 @@ SpriteRenderer:
   m_SortingLayerID: 1351713243
   m_SortingLayer: 6
   m_SortingOrder: 1
-  m_Sprite: {fileID: 676999700145605074, guid: a61133466880d094d9cfc42eeb54e5cc, type: 3}
+  m_Sprite: {fileID: -5023179931347310665, guid: 302b80513ab623b428ef17261aa484c0,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -687,7 +688,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.5, y: 4.5}
+    oldSize: {x: 2.875, y: 3.5}
     newSize: {x: 3.5, y: 4.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -709,7 +710,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ignoreSelectedBringToFront: 0
-  objectType: 1
+  objectType: 4
   dropZoneLayerMask:
     serializedVersion: 2
     m_Bits: 0
@@ -1525,7 +1526,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1218995809329567379}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.25, y: -1.75, z: 0}
+  m_LocalPosition: {x: 1.15625, y: -1.3125, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1218995808782181055}
@@ -1570,7 +1571,8 @@ SpriteRenderer:
   m_SortingLayerID: 1351713243
   m_SortingLayer: 6
   m_SortingOrder: 2
-  m_Sprite: {fileID: 869766706387074185, guid: f67445cf30135cd4ba2fca25177204cb, type: 3}
+  m_Sprite: {fileID: -4469861750221925572, guid: 7057e8f4e8ee9c04584741a1bcb4bae7,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1594,18 +1596,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.375, y: -0.25}
+  m_Offset: {x: 0.080632746, y: 0.009406567}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0.15625, y: 0.15625}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4, y: 0.4}
+  m_Size: {x: 0.3457135, y: 0.39059353}
   m_EdgeRadius: 0
 --- !u!114 &1218995809329567380
 MonoBehaviour:
@@ -1619,6 +1621,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fddf01bdf9286254f8c4a4fa0c6cc8f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startEnabled: 0
 --- !u!1 &1218995809469678830
 GameObject:
   m_ObjectHideFlags: 0
@@ -1646,7 +1649,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1218995809469678830}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.25, y: -1.75, z: 0}
+  m_LocalPosition: {x: -1.25, y: -1.3125, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1218995808782181055}
@@ -1691,7 +1694,7 @@ SpriteRenderer:
   m_SortingLayerID: 1351713243
   m_SortingLayer: 6
   m_SortingOrder: 2
-  m_Sprite: {fileID: -4719872112894583740, guid: f67445cf30135cd4ba2fca25177204cb,
+  m_Sprite: {fileID: 6268463756367248466, guid: 7057e8f4e8ee9c04584741a1bcb4bae7,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1716,18 +1719,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.225, y: -0.25}
+  m_Offset: {x: 0.05879408, y: 0.009406567}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0.15625, y: 0.15625}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4, y: 0.4}
+  m_Size: {x: 0.3733605, y: 0.39059353}
   m_EdgeRadius: 0
 --- !u!114 &1218995809469678817
 MonoBehaviour:
@@ -1741,6 +1744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fddf01bdf9286254f8c4a4fa0c6cc8f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startEnabled: 0
 --- !u!1 &1218995809560855424
 GameObject:
   m_ObjectHideFlags: 0
@@ -1918,7 +1922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f355bb917c503740818be3d60fece38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pageSprite: {fileID: -8783753264642846812, guid: a61133466880d094d9cfc42eeb54e5cc,
+  pageSprite: {fileID: -8142618869659526127, guid: 302b80513ab623b428ef17261aa484c0,
     type: 3}
   pageParent: {fileID: 1218995808309203046}
   soulsSavedAmountText: {fileID: 1218995808424628669}

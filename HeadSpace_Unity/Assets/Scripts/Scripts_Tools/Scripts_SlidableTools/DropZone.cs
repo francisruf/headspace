@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public abstract class DropZone : MonoBehaviour
 {
+    public int minSortingOrder;
+
     protected SpriteRenderer _containerSpriteRenderer;
     protected Collider2D _collider;
     public Bounds ColliderBounds { get { return _collider.bounds; } }
@@ -23,7 +25,7 @@ public abstract class DropZone : MonoBehaviour
         {
             _containerSpriteRenderer = GetComponent<SpriteRenderer>();
         }
-        HighestSortingOrder = _containerSpriteRenderer.sortingOrder + 1;
+        HighestSortingOrder = minSortingOrder;
     }
 
     public bool CheckIfAccepted(MovableObject obj)

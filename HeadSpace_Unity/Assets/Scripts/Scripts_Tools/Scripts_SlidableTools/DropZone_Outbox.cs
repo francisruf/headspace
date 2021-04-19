@@ -35,7 +35,29 @@ public class DropZone_Outbox : DropZone
 
     public override void AddObjectToDropZone(MovableObject obj)
     {
-        base.AddObjectToDropZone(obj);
+        Bounds objBounds = obj.ColliderBounds;
+        Vector2 centerOffset = objBounds.center - obj.transform.position;
+
+        float minX = _collider.bounds.min.x + (objBounds.size.x / 2f) - centerOffset.x;
+        float maxX = _collider.bounds.max.x - (objBounds.size.x / 2f) - centerOffset.x;
+        float minY = _collider.bounds.min.y + (objBounds.size.y / 2f) - centerOffset.y;
+        float maxY = _collider.bounds.max.y - (objBounds.size.y / 2f) - centerOffset.y;
+
+        Vector2 newPos = obj.transform.position;
+        newPos.y -= 0.25f;
+        newPos.x = Mathf.Clamp(newPos.x, minX, maxX);
+        newPos.y = Mathf.Clamp(newPos.y, minY, maxY);
+
+        obj.transform.position = newPos;
+        obj.transform.parent = this.transform;
+        HighestSortingOrder++;
+        obj.SetSortingLayer(ContainerSortingLayer);
+        obj.SetOrderInLayer(HighestSortingOrder);
+
+        //if (obj.Rigidbody != null)
+        //{
+        //    obj.Rigidbody.bodyType = RigidbodyType2D.Dynamic;
+        //}
 
         MovableCommand cmd = obj.GetComponent<MovableCommand>();
         if (cmd != null)

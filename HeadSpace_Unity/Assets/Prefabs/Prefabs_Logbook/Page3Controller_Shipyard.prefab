@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46eb5e30621b9474ba5df897d8e3e108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pageSprite: {fileID: -8783753264642846812, guid: a61133466880d094d9cfc42eeb54e5cc,
+  pageSprite: {fileID: -8142618869659526127, guid: 302b80513ab623b428ef17261aa484c0,
     type: 3}
   maxShipBuyableContainers: 2
   pageParent: {fileID: 0}
@@ -53,4 +53,3 @@ MonoBehaviour:
   shipyardPagePrefab: {fileID: 9220948654717600572, guid: 4f18e80a080368741af288a7b39299f0,
     type: 3}
   shipBuyablesLayoutGroup: {fileID: 0}
-  shipPageCountText: {fileID: 0}

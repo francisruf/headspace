@@ -7,6 +7,7 @@ using TMPro;
 public class MovableCommand : MovableObject
 {
     public Action commandTeared;
+    public static Action commandInOutbox;
 
     private TextMeshProUGUI _commandText;
     private Canvas _canvas;
@@ -189,6 +190,18 @@ public class MovableCommand : MovableObject
         base.DisableObject();
         _commandText.enabled = false;
         _canvas.enabled = false;
+    }
+
+    protected override void AssignToDropZone()
+    {
+        base.AssignToDropZone();
+        if (_currentDropZone != null)
+        {
+            DropZone_Outbox drawer = _currentDropZone.GetComponent<DropZone_Outbox>();
+            if (drawer != null)
+                if (commandInOutbox != null)
+                    commandInOutbox();
+        }
     }
 }
 

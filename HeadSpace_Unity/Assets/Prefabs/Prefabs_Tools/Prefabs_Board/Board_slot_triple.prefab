@@ -45,7 +45,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 3.171875}
+  m_Offset: {x: 1.296875, y: 3.109375}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -70,8 +70,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 762b72ed1a2aeb64b82e3bb0a20a29f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minSortingOrder: 2
   acceptedObjects: 03000000
-  linkedShipBoardSlot: {fileID: 0}
 --- !u!1 &5498260992951422896
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,7 +117,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1.921875}
+  m_Offset: {x: 1.296875, y: 1.890625}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -142,8 +142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 762b72ed1a2aeb64b82e3bb0a20a29f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minSortingOrder: 2
   acceptedObjects: 03000000
-  linkedShipBoardSlot: {fileID: 0}
 --- !u!1001 &3085659601780636569
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -175,6 +175,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Board_slot_triple
+      objectReference: {fileID: 0}
+    - target: {fileID: 2130095578248092867, guid: 75f304aaa3e163d4194df051e6c06f96,
+        type: 3}
+      propertyPath: minSortingOrder
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4858954206852921532, guid: 75f304aaa3e163d4194df051e6c06f96,
         type: 3}
@@ -240,7 +245,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -37637115926225368, guid: 49d0fe59e47120c438f5d2cf43cb94d3,
+      objectReference: {fileID: -6949380156104211139, guid: 9d110c037a4711a47a6e853848638971,
         type: 3}
     - target: {fileID: 6699751022901243681, guid: 75f304aaa3e163d4194df051e6c06f96,
         type: 3}
@@ -260,7 +265,7 @@ PrefabInstance:
     - target: {fileID: 9011756386511349551, guid: 75f304aaa3e163d4194df051e6c06f96,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 3.84375
+      value: 3.78125
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75f304aaa3e163d4194df051e6c06f96, type: 3}

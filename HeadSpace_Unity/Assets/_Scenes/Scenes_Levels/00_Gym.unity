@@ -687,32 +687,37 @@ PrefabInstance:
     - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
         type: 3}
       propertyPath: playerDeskObjects.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
         type: 3}
       propertyPath: playerStartingShips.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
         type: 3}
       propertyPath: playerDeskObjects.Array.data[0].quantity
-      value: 6
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
+        type: 3}
+      propertyPath: playerDeskObjects.Array.data[1].quantity
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
         type: 3}
       propertyPath: playerDeskObjects.Array.data[0].spawnZone
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
         type: 3}
       propertyPath: playerDeskObjects.Array.data[1].spawnZone
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
         type: 3}
       propertyPath: playerStartingShips.Array.data[0].quantity
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
         type: 3}
@@ -721,20 +726,47 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
         type: 3}
+      propertyPath: playerStartingShips.Array.data[2].quantity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
+        type: 3}
+      propertyPath: playerStartingShips.Array.data[0].spawnZone
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
+        type: 3}
       propertyPath: playerStartingShips.Array.data[1].spawnZone
-      value: 5
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
+        type: 3}
+      propertyPath: playerStartingShips.Array.data[2].spawnZone
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
         type: 3}
       propertyPath: playerDeskObjects.Array.data[1].objectPrefab
       value: 
-      objectReference: {fileID: 6964936532800032168, guid: d9028355593f35d4e87d7dfe862424c7,
+      objectReference: {fileID: 6037366158495630749, guid: 016d9a26d5eb6ec46a91df7afaec465c,
+        type: 3}
+    - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
+        type: 3}
+      propertyPath: playerStartingShips.Array.data[0].objectPrefab
+      value: 
+      objectReference: {fileID: 2659199698218941218, guid: f8d210add64fac84890ac52c8524c074,
         type: 3}
     - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
         type: 3}
       propertyPath: playerStartingShips.Array.data[1].objectPrefab
       value: 
-      objectReference: {fileID: 8519948865630102667, guid: 3bee59208df45904b9deb47acc3b7742,
+      objectReference: {fileID: 6646203166681230381, guid: e8682e1fc6565a2499adc6fd67c4ad2c,
+        type: 3}
+    - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
+        type: 3}
+      propertyPath: playerStartingShips.Array.data[2].objectPrefab
+      value: 
+      objectReference: {fileID: 7349531544248608185, guid: a26b9364346bc494289944ca00dec6f9,
         type: 3}
     - target: {fileID: 369095420613360459, guid: de954636cb16d674cbfd41aa70361a8b,
         type: 3}

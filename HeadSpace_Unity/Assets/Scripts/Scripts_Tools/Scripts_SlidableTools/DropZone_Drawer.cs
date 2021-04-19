@@ -9,7 +9,6 @@ public class DropZone_Drawer : DropZone
 
 public enum DrawerTray
 {
-    left,
-    center,
-    right
+    top,
+    bottom
 }

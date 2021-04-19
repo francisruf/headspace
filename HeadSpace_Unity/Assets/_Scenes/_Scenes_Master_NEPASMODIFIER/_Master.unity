@@ -266,6 +266,7 @@ MonoBehaviour:
   baseScenes:
   - Camera
   - AudioManager
+  - Utilities
   mainMenuScenes:
   - MainMenu
   essentialLevelScenes:

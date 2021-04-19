@@ -5,6 +5,8 @@ using TMPro;
 
 public class ShipBoardSlot : MonoBehaviour
 {
+    public Transform contractSlotPos;
+
     private SlidableBoard _board;
     private ContractBoardSlot _currentContractSlots;
 
@@ -121,7 +123,7 @@ public class ShipBoardSlot : MonoBehaviour
         if (targetPrefab == null)
             return;
 
-        _currentContractSlots = Instantiate(targetPrefab, transform).GetComponent<ContractBoardSlot>();
+        _currentContractSlots = Instantiate(targetPrefab, contractSlotPos).GetComponent<ContractBoardSlot>();
     }
 
     public void AssignContractToShip(MovableContract movableContract)

@@ -45,7 +45,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1.921875}
+  m_Offset: {x: 1.296875, y: 1.890625}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -70,8 +70,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 762b72ed1a2aeb64b82e3bb0a20a29f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minSortingOrder: 2
   acceptedObjects: 03000000
-  linkedShipBoardSlot: {fileID: 0}
 --- !u!1001 &3926576721565512588
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -98,6 +98,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Board_slot_double
+      objectReference: {fileID: 0}
+    - target: {fileID: 2130095578248092867, guid: 75f304aaa3e163d4194df051e6c06f96,
+        type: 3}
+      propertyPath: minSortingOrder
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4858954206852921532, guid: 75f304aaa3e163d4194df051e6c06f96,
         type: 3}
@@ -163,22 +168,22 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1045325402420590980, guid: 785a2dce91b4be24c84dd005f41a23b0,
+      objectReference: {fileID: -5769547097366024011, guid: 1dd002d0ed4613043a35a33724a0034b,
         type: 3}
     - target: {fileID: 9011756386511349551, guid: 75f304aaa3e163d4194df051e6c06f96,
         type: 3}
       propertyPath: m_Size.y
-      value: 2.59375
+      value: 2.5625
       objectReference: {fileID: 0}
     - target: {fileID: 9011756386511349551, guid: 75f304aaa3e163d4194df051e6c06f96,
         type: 3}
       propertyPath: m_Offset.y
-      value: 1.296875
+      value: 1.28125
       objectReference: {fileID: 0}
     - target: {fileID: 9011756386511349551, guid: 75f304aaa3e163d4194df051e6c06f96,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 2.59375
+      value: 2.5625
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75f304aaa3e163d4194df051e6c06f96, type: 3}

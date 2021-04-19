@@ -7,6 +7,7 @@ public class WritingMachineController : MonoBehaviour
 {
     public static Action commandReadyToTear;
     public static Action commandTeared;
+    public static Action<bool> lightFlash;
 
     private SlidableWritingMachine _slidableMachine;
     private KeyPadController _keyPadController;
@@ -633,5 +634,13 @@ public class WritingMachineController : MonoBehaviour
                 _currentAvailableButtons[i].ClearHighlighting();
             }
         }
+    }
+
+    public void TriggerClickSound(int lightOn)
+    {
+        bool on = lightOn == 1 ? true : false;
+
+        if (lightFlash != null)
+            lightFlash(on);
     }
 }

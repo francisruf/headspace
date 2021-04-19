@@ -13,11 +13,12 @@ public class Ship : MonoBehaviour
     // Actions that send various updates regarding their state/availability
     public static Action<Ship> newShipAvailable;
     public static Action<Ship> shipUnavailable;
+    public static Action<Ship> shipRemoved;
     public static Action<Ship> shipDisabled;
-    public static Action<Ship> shipDestroyed;
     public static Action<Ship> shipStateChange;
     public static Action<Ship> shipInfoChange;
     public static Action<int> soulsUnloaded;
+    public static Action<Ship> routeFinished;
     public static Action<PlanetSoulsMatch> soulsFromPlanetSaved;
 
     // Components
@@ -228,6 +229,10 @@ public class Ship : MonoBehaviour
         }
         ChangeShipState(ShipState.Idle);
         mM.RouteFinishedNotif(this);
+
+        if (routeFinished != null)
+            routeFinished(this);
+
         _currentRoute = null;
     }
 
@@ -533,8 +538,8 @@ public class Ship : MonoBehaviour
         if (linkedMarker != null)
             linkedMarker.DestroyMarker();
 
-        if (shipDestroyed != null)
-            shipDestroyed(this);
+        if (shipRemoved != null)
+            shipRemoved(this);
 
         spriteRenderer.enabled = false;
 
@@ -550,8 +555,8 @@ public class Ship : MonoBehaviour
         if (linkedMarker != null)
             linkedMarker.DisableObject();
 
-        if (shipDisabled != null)
-            shipDisabled(this);
+        if (shipRemoved != null)
+            shipRemoved(this);
 
         this.gameObject.SetActive(false);
     }
@@ -741,6 +746,7 @@ public class Ship : MonoBehaviour
                 currentCargo++;
             }
         }
+        linkedMarker.UpdateLights(currentCargo);
     }
 
     private void DebarkClient(Client client)
@@ -750,6 +756,7 @@ public class Ship : MonoBehaviour
             client.ChangeState(ClientState.Debarked);
             currentCargo--;
         }
+        linkedMarker.UpdateLights(currentCargo);
     }
 
     public void DisableShip()
@@ -764,9 +771,13 @@ public class Ship : MonoBehaviour
             count++;
         }
 
+        linkedMarker.UpdateLights(currentCargo);
         _clientsOnBoard.Clear();
         mM.ShipAnomalyNotif(this, count);
         StartCoroutine(DisableCooldown());
+
+        if (shipDisabled != null)
+            shipDisabled(this);
     }
 
     private IEnumerator DisableCooldown()

@@ -53,7 +53,8 @@ public class DropZone_ContractSlot : DropZone
     {
         obj.transform.parent = this.transform;
 
-        int sortingOrder = _containerSpriteRenderer.sortingOrder;
+        Debug.Log("Container : " + _containerSpriteRenderer.gameObject.name);
+        int sortingOrder = _containerSpriteRenderer.sortingOrder + 1;
         sortingOrder += obj.RendererAmount * ((NeighbourCount - 1) - ZoneIndex);
 
         obj.SetSortingLayer(ContainerSortingLayer);

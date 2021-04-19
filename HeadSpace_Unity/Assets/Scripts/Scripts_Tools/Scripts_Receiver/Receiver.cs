@@ -6,6 +6,8 @@ using TMPro;
 
 public class Receiver : StaticTool
 {
+    public static Action<bool> singlePrint;
+
     [Header("Receiver settings")]
     public GameObject messagePrefab;
     public Transform printPoint;
@@ -67,6 +69,8 @@ public class Receiver : StaticTool
         _messageInSlot = Instantiate(messagePrefab, printPoint).GetComponent<MovableMessage>();
         _messageInSlot.transform.localPosition = Vector2.zero;
         _messageInSlot.SetText(messageText);
+        _messageInSlot.SetSortingLayer(_spriteRenderer.sortingLayerID);
+        _messageInSlot.SetOrderInLayer(_spriteRenderer.sortingOrder + 1);
 
         _printerAnimator.SetBool("MessageInSlot", true);
         _messageInSlot.messageTeared += ClearSlot;
@@ -92,4 +96,11 @@ public class Receiver : StaticTool
         timeText.text = currentTime;
     }
 
+    public void TriggerPrintSound(int lastPrint)
+    {
+        bool lp = lastPrint == 1 ? true : false;
+
+        if (singlePrint != null)
+            singlePrint(lp);
+    }
 }
