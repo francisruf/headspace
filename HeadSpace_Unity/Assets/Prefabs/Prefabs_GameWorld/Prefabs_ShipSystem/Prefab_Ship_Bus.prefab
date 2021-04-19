@@ -23,6 +23,11 @@ PrefabInstance:
       propertyPath: cargoCapacity
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8519948865630102664, guid: 3bee59208df45904b9deb47acc3b7742,
+        type: 3}
+      propertyPath: tileTravelSpeed
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 8519948865630102665, guid: 3bee59208df45904b9deb47acc3b7742,
         type: 3}
       propertyPath: m_RootOrder

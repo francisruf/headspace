@@ -44,14 +44,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planetNames:
-  - Earth
-  - Mars
-  - Mercury
-  - Jupiter
-  - Saturn
-  - Sun
-  - Pluto
-  - Ganimede
+  - Chankeon
+  - Vilwilmer
+  - Leera - 34
+  - Nogawa 2
+  - Zlenda
+  - Aeriss
+  - Ivyus 21
+  - Beethord
+  - Haxia 3
+  - Pulimeus
+  - Red Iris
+  - Yio 16
+  - AP-134
+  - Xa Per 77
   defaultSpriteMatch:
     mapSprite: {fileID: 21300000, guid: 8cb63ac3472120e4e9122af79e889ee9, type: 3}
     contractSprite: {fileID: 21300000, guid: a98a1646efe8abf46b23902a61e70a9e, type: 3}

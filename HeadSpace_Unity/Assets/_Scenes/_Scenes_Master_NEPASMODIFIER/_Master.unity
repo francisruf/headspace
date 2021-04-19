@@ -271,7 +271,6 @@ MonoBehaviour:
   - MainMenu
   essentialLevelScenes:
   - Managers
-  - UserInterface_Gameplay
   environmentScenes:
   - DeskEnvironment
   - GridSystem

@@ -27,6 +27,7 @@ public class ContractManager : MonoBehaviour
     private bool _allRulesApplied;
     private int _doubleContractChance;
     private int _tripleContractChance;
+    private int _spawnCount;
 
     private void Awake()
     {
@@ -86,6 +87,10 @@ public class ContractManager : MonoBehaviour
 
         Vector2 spawnPos = Vector2.zero;
         Vector2 endPos = Vector2.zero;
+
+        if (_belt == null)
+            _belt = FindObjectOfType<ConveyorBelt>();
+
         if (_belt != null)
         {
             spawnPos = _belt.contractsStartPos.position;
@@ -140,6 +145,8 @@ public class ContractManager : MonoBehaviour
             contract.AssignClients(allClients);
             contract.CalculatePointsReward(pointSettings);
         }
+
+        _spawnCount++;
 
         if (newContractReceived != null)
             newContractReceived();
@@ -387,6 +394,10 @@ public class ContractManager : MonoBehaviour
         yield return new WaitForSeconds(firstContractSpawnTime);
         CreateNewSingleContract();
 
+        // 2e contrat
+        yield return new WaitForSeconds(40f);
+        CreateNewSingleContract();
+
         while (true)
         {
             yield return new WaitForSeconds(contractSpawnInterval);
@@ -418,7 +429,7 @@ public class ContractManager : MonoBehaviour
         {
             //Debug.Log("SINGLE CONTRACT");
 
-            _doubleContractChance += 100;
+            _doubleContractChance += 5;
             return 1;
         }
     }

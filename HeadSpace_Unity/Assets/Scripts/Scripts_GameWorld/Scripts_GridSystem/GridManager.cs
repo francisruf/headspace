@@ -766,24 +766,26 @@ public class GridManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(anomalySpreadTime);
-            foreach (var patch in _allAnomalyPatches)
-            {
-                GridTile randomTile = patch.GetRandomNewTile();
 
-                if (randomTile == null)
-                    continue;
+            int randomIndex = UnityEngine.Random.Range(0, _allAnomalyPatches.Count);
+            AnomalyPatch targetPatch = _allAnomalyPatches[randomIndex];
 
-                int tileX = randomTile.tileX;
-                int tileY = randomTile.tileY;
+            GridTile randomTile = targetPatch.GetRandomNewTile();
 
-                ReplaceTile(randomTile, 5);
+            if (randomTile == null)
+                continue;
 
-                GridTile newTile = _currentGridInfo.gameGridTiles[tileX, tileY];
-                GridTile_SpawningStaticAnomaly anomalyTile = newTile.GetComponent<GridTile_SpawningStaticAnomaly>();
-                anomalyTile.ParentPatch = patch;
+            int tileX = randomTile.tileX;
+            int tileY = randomTile.tileY;
 
-                newTile.tileLifeOver += OnSpawningAnomalyTileLifeOver;
-            }
+            ReplaceTile(randomTile, 5);
+
+            GridTile newTile = _currentGridInfo.gameGridTiles[tileX, tileY];
+            GridTile_SpawningStaticAnomaly anomalyTile = newTile.GetComponent<GridTile_SpawningStaticAnomaly>();
+            anomalyTile.ParentPatch = targetPatch;
+
+            newTile.tileLifeOver += OnSpawningAnomalyTileLifeOver;
+
         }
     }
 }

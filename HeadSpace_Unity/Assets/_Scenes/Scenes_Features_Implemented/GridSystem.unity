@@ -188,5 +188,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: GridManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6129731023839162511, guid: 6c443e8432b675c4cb502969fc5382e9,
+        type: 3}
+      propertyPath: mapSizeX
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6129731023839162511, guid: 6c443e8432b675c4cb502969fc5382e9,
+        type: 3}
+      propertyPath: mapSizeY
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6129731023839162511, guid: 6c443e8432b675c4cb502969fc5382e9,
+        type: 3}
+      propertyPath: anomalySpreadTime
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 6129731023839162511, guid: 6c443e8432b675c4cb502969fc5382e9,
+        type: 3}
+      propertyPath: rockTileMapPrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6129731023839162511, guid: 6c443e8432b675c4cb502969fc5382e9,
+        type: 3}
+      propertyPath: rockTileMapPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 7992391782099493898, guid: d3408abd7ce21fc469629bd083546c97,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c443e8432b675c4cb502969fc5382e9, type: 3}

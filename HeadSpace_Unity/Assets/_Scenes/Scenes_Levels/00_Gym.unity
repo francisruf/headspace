@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -305,13 +305,21 @@ MonoBehaviour:
     distanceRating: 1
     challengeType: 1
   - startPlanetState: 1
-    endPlanetState: 2
+    endPlanetState: 1
     distanceRating: 1
     challengeType: 2
-  - startPlanetState: 2
+  - startPlanetState: 1
     endPlanetState: 2
+    distanceRating: 2
+    challengeType: 1
+  - startPlanetState: 2
+    endPlanetState: 1
     distanceRating: 3
     challengeType: 1
+  - startPlanetState: 0
+    endPlanetState: 0
+    distanceRating: 2
+    challengeType: 2
 --- !u!1 &841591217
 GameObject:
   m_ObjectHideFlags: 0

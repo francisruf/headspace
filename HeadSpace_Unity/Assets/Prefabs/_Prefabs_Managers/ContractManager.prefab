@@ -44,11 +44,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clientFirstNames:
+  - Tom
+  - Barry
+  - Clint
+  - Larry
+  - Ty
+  - Alice
+  - Lily
+  - Ann
+  - Lizzie
+  - Joe
+  - Willy
+  - Sondra
   - Benoit
-  - Laurent
   - Paul
   - Francis
+  - Laurent
   clientLastNames:
+  - Moss
+  - Hariss
+  - Ashford
+  - Evans
+  - Rock
+  - Urkhal
+  - Musk
+  - Welman
+  - Sanfers
+  - Ranold
+  - Rippley
+  - Carter
   - Lemieux
   - Corriveau
   - Tremblay

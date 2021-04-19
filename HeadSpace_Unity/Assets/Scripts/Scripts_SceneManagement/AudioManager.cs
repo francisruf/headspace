@@ -131,10 +131,10 @@ public class AudioManager : MonoBehaviour
     //Update function only to test feature. Remove when necessary.
     private void Update()
    {
-      if (Input.GetKeyDown(KeyCode.S))
-     {
-         PlaySound("Ship_Route_End");
-     }
+     // if (Input.GetKeyDown(KeyCode.S))
+     //{
+     //    PlaySound("Ship_Route_End");
+     //}
 
     //    if (Input.GetKeyDown(KeyCode.D))
     //    {
