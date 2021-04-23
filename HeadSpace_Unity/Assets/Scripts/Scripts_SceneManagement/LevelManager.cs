@@ -2,17 +2,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
     public static Action baseLoadingDone;
     public static Action loadingDone;
-    
+    public static Action unloadingDone;
+
     // Singleton
     public static LevelManager instance;
 
     // Scenes
+    [Header("SCENES")]
     public string[] baseScenes;
     public string[] mainMenuScenes;
     public string[] essentialLevelScenes;
@@ -21,12 +24,21 @@ public class LevelManager : MonoBehaviour
     // Run-time scene tracking
     private string[] _currentMenuScenes;
     private string _currentLevelScene;
+    private string _currentSingleScene = "";
 
     // Sector info
     private SectorInfo _previousSectorInfo;
     public SectorInfo PreviousSectorInfo { get { return _previousSectorInfo; } }
 
     private IEnumerator _currentLoadingRoutine;
+
+    // Scene transitions
+    [Header("TRANSITIONS")]
+    public Image blackSolid;
+    public Canvas transitionCanvas;
+    public float fadeSpeed;
+
+    private int _currentDay;
 
     private void Awake()
     {
@@ -52,6 +64,10 @@ public class LevelManager : MonoBehaviour
         EndMenuController.playAgainButtonPressed += OnPlayAgainButtonPressed;
         EndMenuController.quitButtonPressed += OnQuitButtonPressed;
         SectorManager.sectorInfoUpdate += OnSectorInfoUpdate;
+        CutsceneController.cutsceneOver += OnCutsceneOver;
+        DaySceneController.daySceneOver += OnDaySceneOver;
+        LeaderboardController.dayStart += OnDayStart;
+        TutorialPromptController.tutorialPrompt += OnTutorialPrompt;
     }
 
     private void OnDisable()
@@ -63,6 +79,10 @@ public class LevelManager : MonoBehaviour
         EndMenuController.playAgainButtonPressed -= OnPlayAgainButtonPressed;
         EndMenuController.quitButtonPressed -= OnQuitButtonPressed;
         SectorManager.sectorInfoUpdate -= OnSectorInfoUpdate;
+        CutsceneController.cutsceneOver -= OnCutsceneOver;
+        DaySceneController.daySceneOver -= OnDaySceneOver;
+        LeaderboardController.dayStart -= OnDayFinish;
+        TutorialPromptController.tutorialPrompt -= OnTutorialPrompt;
     }
 
     private void Start()
@@ -75,12 +95,17 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator LoadStartScenes()
     {
+        blackSolid.enabled = true;
+        transitionCanvas.enabled = true;
+
         _currentMenuScenes = mainMenuScenes;
 
         yield return LoadScenes(baseScenes);
         yield return LoadScenes(_currentMenuScenes);
 
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(mainMenuScenes[0]));
+        //SceneManager.SetActiveScene(SceneManager.GetSceneByName(mainMenuScenes[0]));
+
+        yield return FadeIn();
 
         if (baseLoadingDone != null)
             baseLoadingDone();
@@ -88,7 +113,8 @@ public class LevelManager : MonoBehaviour
 
     private void OnPlayButtonPressed()
     {
-        StartCoroutine(LoadLevelScenes("00_Gym"));
+        StartCoroutine(LoadSingleScene("Cutscene_Intro", 0.5f));
+        //StartCoroutine(LoadLevelScenes("00_Gym"));
     }
 
     private void OnQuitButtonPressed()
@@ -96,52 +122,95 @@ public class LevelManager : MonoBehaviour
         Application.Quit();
     }
 
+
     private void OnPlayAgainButtonPressed()
     {
-        StartCoroutine(LoadLevelScenes("00_Gym"));
+        StartCoroutine(LoadLevelScenes("00_Gym", 0.5f));
     }
 
 
     private void OnLevelTimerEnded()
     {
-        StartCoroutine(LoadMenuSceneFromGame("EndScreen"));
+        StartCoroutine(LoadMenuSceneFromGame("EndScreen", 0.5f));
     }
 
     private void OnGameOver()
     {
-        StartCoroutine(LoadMenuSceneFromGame("GameOverScreen"));
+        StartCoroutine(LoadMenuSceneFromGame("GameOverScreen", 0f));
     }
 
-    private IEnumerator LoadLevelScenes(string targetLevelName)
+
+    private IEnumerator LoadLevelScenes(string targetLevelName, float timeBeforeFade)
     {
+        yield return FadeOut();
+
         if (_currentMenuScenes != null)
         {
             yield return UnloadScenes(_currentMenuScenes);
             _currentMenuScenes = null;
         }
 
-        _currentLevelScene = targetLevelName;
+        if (_currentSingleScene != "")
+        {
+            yield return UnloadScenes(_currentSingleScene);
+            _currentSingleScene = "";
+        }
 
+        if (unloadingDone != null)
+            unloadingDone();
+
+        _currentLevelScene = targetLevelName;
         yield return LoadScenes(essentialLevelScenes);
         yield return LoadScenes(environmentScenes);
         yield return LoadScenes(_currentLevelScene);
-
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(_currentLevelScene));
+        yield return FadeIn(timeBeforeFade);
 
         if (loadingDone != null)
             loadingDone();
     }
 
-    private IEnumerator LoadMenuSceneFromGame(string targetScreenName)
+    private IEnumerator LoadSingleScene(string targetScene, float timeBeforeFade)
+    {
+        yield return FadeOut();
+
+        if (_currentMenuScenes != null)
+        {
+            yield return UnloadScenes(_currentMenuScenes);
+            _currentMenuScenes = null;
+        }
+
+        if (_currentSingleScene != "")
+        {
+            yield return UnloadScenes(_currentSingleScene);
+            _currentSingleScene = "";
+        }
+
+        if (unloadingDone != null)
+            unloadingDone();
+
+        _currentSingleScene = targetScene;
+        yield return LoadScenes(_currentSingleScene);
+        yield return FadeIn(timeBeforeFade);
+
+        if (loadingDone != null)
+            loadingDone();
+    }
+
+
+    private IEnumerator LoadMenuSceneFromGame(string targetScreenName, float timeBeforeFade)
     {
         _currentMenuScenes = new string[] { targetScreenName };
 
+        yield return FadeOut();
         yield return UnloadScenes(essentialLevelScenes);
         yield return UnloadScenes(environmentScenes);
         yield return UnloadScenes(_currentLevelScene);
-        yield return LoadScenes(_currentMenuScenes);
 
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(targetScreenName));
+        if (unloadingDone != null)
+            unloadingDone();
+
+        yield return LoadScenes(_currentMenuScenes);
+        yield return FadeIn(timeBeforeFade);
 
         if (loadingDone != null)
             loadingDone();
@@ -200,5 +269,96 @@ public class LevelManager : MonoBehaviour
         _previousSectorInfo = sectorInfo;
     }
 
+    private IEnumerator FadeOut()
+    {
+        Color newColor = blackSolid.color;
+        newColor.a = 0f;
+        blackSolid.color = newColor;
+        blackSolid.enabled = true;
+        transitionCanvas.enabled = true;
+
+        while (blackSolid.color.a < 0.99f)
+        {
+            newColor.a += Time.deltaTime * fadeSpeed;
+            blackSolid.color = newColor;
+            yield return new WaitForEndOfFrame();
+        }
+
+        newColor.a = 1f;
+        blackSolid.color = newColor;
+    }
+
+    private IEnumerator FadeIn(float timeBeforeFade = 0f)
+    {
+        yield return new WaitForSeconds(timeBeforeFade);
+
+        Color newColor = blackSolid.color;
+        newColor.a = 1f;
+        blackSolid.color = newColor;
+        blackSolid.enabled = true;
+        transitionCanvas.enabled = true;
+
+        while (blackSolid.color.a > 0.01f)
+        {
+            newColor.a -= Time.deltaTime * fadeSpeed;
+            blackSolid.color = newColor;
+            yield return new WaitForEndOfFrame();
+        }
+
+        newColor.a = 0f;
+        blackSolid.color = newColor;
+
+        blackSolid.enabled = false;
+        transitionCanvas.enabled = false;
+    }
+
+    private void OnCutsceneOver(string nextSceneName, SceneLoadType sceneLoadType)
+    {
+        switch (sceneLoadType)
+        {
+            case SceneLoadType.SingleScene:
+                StartCoroutine(LoadSingleScene(nextSceneName, 1f));
+                break;
+            case SceneLoadType.MenuFromGame:
+                StartCoroutine(LoadMenuSceneFromGame(nextSceneName, 1f));
+                break;
+            case SceneLoadType.Level:
+                StartCoroutine(LoadLevelScenes(nextSceneName, 1f));
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void OnTutorialPrompt(bool tutorial)
+    {
+        int day = tutorial == true ? 0 : 1;
+        GameManager.instance.SetDay(day);
+        StartCoroutine(LoadSingleScene("Leaderboard", 1f));
+    }
+
+    private void OnDaySceneOver()
+    {
+        StartCoroutine(LoadSingleScene("Leaderboard", 1f));
+    }
+
+    private void OnDayStart()
+    {
+        Debug.Log("On day start!");
+
+        StartCoroutine(LoadLevelScenes("00_Gym", 1f));
+    }
+
+    private void OnDayFinish()
+    {
+        //TODO
+    }
+}
+
+public enum SceneLoadType
+{
+    SingleScene,
+    MenuFromGame,
+    Level
 }
 

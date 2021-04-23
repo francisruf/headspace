@@ -61,7 +61,7 @@ public class WritingMachineController : MonoBehaviour
 
     private void Start()
     {
-        commandButtonSection.AssignButtonPositions(allCommandButtons);
+        commandButtonSection.AssignCommandDisplaysPositions(allCommandButtons);
         shipButtonSection.AssignButtonPositions(allShipButtons);
 
         _currentButtonSectionType = ButtonSectionType.Ships;
@@ -99,7 +99,8 @@ public class WritingMachineController : MonoBehaviour
     public void OnMachineClose()
     {
         DisableAllButtons(true);
-        _keyPadController.CloseKeyPad();
+        if (_keyPadController != null)
+            _keyPadController.CloseKeyPad();
         _routeScreenController.CloseRouteScreen(false);
         _currentString = "";
         _currentCharIndex = 0;
@@ -323,6 +324,7 @@ public class WritingMachineController : MonoBehaviour
             _currentPressedButtons.Add(candidateButton);
 
             ButtonController_Command cmdButton = candidateButton.GetComponent<ButtonController_Command>();
+
             if (cmdButton != null)
             {
                 _currentCommandButton = cmdButton;
@@ -477,36 +479,46 @@ public class WritingMachineController : MonoBehaviour
         {
             case ButtonSectionType.Commands:
                 _currentAvailableButtons = allCommandButtons;
-                _keyPadController.CloseKeyPad();
+                if (_keyPadController != null)
+                    _keyPadController.CloseKeyPad();
                 _routeScreenController.CloseRouteScreen(true);
+                _animator.SetInteger("ButtonSection", 2);
                 break;
 
             case ButtonSectionType.Ships:
                 _currentAvailableButtons = allShipButtons;
-                _keyPadController.CloseKeyPad();
+                if (_keyPadController != null)
+                    _keyPadController.CloseKeyPad();
                 _routeScreenController.CloseRouteScreen(true);
+                _animator.SetInteger("ButtonSection", 1);
                 break;
 
             case ButtonSectionType.KeyPadVector:
                 _currentAvailableButtons = null;
-                _keyPadController.OpenKeyPad();
+                if (_keyPadController != null)
+                    _keyPadController.OpenKeyPad();
                 _routeScreenController.CloseRouteScreen(true);
+                _animator.SetInteger("ButtonSection", 9);
                 break;
 
             case ButtonSectionType.KeyPadCode:
                 _currentAvailableButtons = null;
-                _keyPadController.OpenKeyPad();
+                if (_keyPadController != null)
+                    _keyPadController.OpenKeyPad();
                 _routeScreenController.CloseRouteScreen(true);
+                _animator.SetInteger("ButtonSection", 4);
                 break;
 
             case ButtonSectionType.RouteScreen:
                 _currentAvailableButtons = null;
                 _routeScreenController.OpenRouteScreen();
+                _animator.SetInteger("ButtonSection", 3);
                 break;
 
             case ButtonSectionType.End:
                 _currentAvailableButtons = null;
                 _routeScreenController.CloseRouteScreen(true);
+                _animator.SetInteger("ButtonSection", 0);
                 StartCoroutine(EndCommand());
                 break;
 
@@ -580,7 +592,9 @@ public class WritingMachineController : MonoBehaviour
         _animator.SetBool("IsReady", true);
 
         yield return new WaitForSeconds(0.05f);
-        _keyPadController.CloseKeyPad();
+
+        if (_keyPadController != null)
+            _keyPadController.CloseKeyPad();
         _routeScreenController.CloseRouteScreen(true);
 
         if (commandReadyToTear != null)

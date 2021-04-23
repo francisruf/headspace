@@ -107,6 +107,17 @@ public abstract class InteractableObject : MonoBehaviour
         }
     }
 
+    public virtual void DisableInteractions()
+    {
+        if (_collider != null)
+            _collider.enabled = false;
+
+        foreach (var col in GetComponentsInChildren<Collider2D>())
+        {
+            col.enabled = false;
+        }
+    }
+
     // Fonction qui retourne le sorting layer en INT d'un sprite renderer,
     // pour déterminer lequel est sélectionné selon sa priorité de rendering
     public virtual int GetSortingLayer()

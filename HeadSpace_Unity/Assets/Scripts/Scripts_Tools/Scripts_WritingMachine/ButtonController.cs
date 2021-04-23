@@ -29,7 +29,9 @@ public abstract class ButtonController : MonoBehaviour
 
     protected virtual void Start()
     {
-        BaseButtonText = _buttonTextMesh.text;
+        if (_buttonTextMesh != null)
+            BaseButtonText = _buttonTextMesh.text;
+
         ChangeButtonState(ButtonState.Unavailable);
     }
 
@@ -47,7 +49,7 @@ public abstract class ButtonController : MonoBehaviour
         return BaseButtonText;
     }
 
-    public void HighlightCharacter(int charIndex)
+    public virtual void HighlightCharacter(int charIndex)
     {
         if (charIndex > _highlightedCharCount)
             return;
@@ -82,9 +84,10 @@ public abstract class ButtonController : MonoBehaviour
         }
     }
 
-    public void ClearHighlighting()
+    public virtual void ClearHighlighting()
     {
-        _buttonTextMesh.text = BaseButtonText;
+        if (_buttonTextMesh != null)
+            _buttonTextMesh.text = BaseButtonText;
         _highlightedCharCount = 0;
 
         ChangeButtonState(ButtonState.Available);
@@ -115,7 +118,8 @@ public abstract class ButtonController : MonoBehaviour
         if (forceDisable)
         {
             ChangeButtonState(ButtonState.Unavailable);
-            _buttonTextMesh.text = BaseButtonText;
+            if (_buttonTextMesh != null)
+                _buttonTextMesh.text = BaseButtonText;
         }
 
         if (CurrentState != ButtonState.Pressed)
@@ -131,7 +135,7 @@ public abstract class ButtonController : MonoBehaviour
         }
     }
 
-    protected void ChangeButtonState(ButtonState newState)
+    protected virtual void ChangeButtonState(ButtonState newState)
     {
         if (newState == CurrentState)
             return;

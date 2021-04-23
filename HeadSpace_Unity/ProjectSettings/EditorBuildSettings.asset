@@ -27,7 +27,7 @@ EditorBuildSettings:
     path: Assets/_Scenes/Scenes_Features_Implemented/UserInterface_Gameplay.unity
     guid: 03deadbd39f5ed746948af7a237a8e90
   - enabled: 1
-    path: Assets/_Scenes/Scenes_Features_WIP/Balancing.unity
+    path: Assets/_Scenes/Scenes_Features_Implemented/Scenes_Features_WIP/Balancing.unity
     guid: 4cdde0e18d7ad2e4fac3cdcd7e2d4500
   - enabled: 1
     path: Assets/_Scenes/Scenes_Menus/MainMenu.unity
@@ -42,6 +42,18 @@ EditorBuildSettings:
     path: Assets/_Scenes/Scenes_Menus/GameOverScreen.unity
     guid: 6ae6578aa2d67014cb1ebc9b4867a356
   - enabled: 1
+    path: Assets/_Scenes/Scenes_Menus/Cutscene_Intro.unity
+    guid: 6a51df88c68b73248a1e8be86db34f97
+  - enabled: 1
+    path: Assets/_Scenes/Scenes_Menus/DayMenu.unity
+    guid: b734e4a48106b5540a3d4dc8c701e0c7
+  - enabled: 1
+    path: Assets/_Scenes/Scenes_Menus/Leaderboard.unity
+    guid: fe03248c323f31648b34296488b41ff6
+  - enabled: 1
     path: Assets/_Scenes/Scenes_Features_Implemented/Utilities.unity
     guid: de18ea34c1e024b499f409284b705091
+  - enabled: 1
+    path: Assets/_Scenes/Scenes_Menus/TutorialPrompt.unity
+    guid: 12fcced7478cf6e46a600e275f007027
   m_configObjects: {}

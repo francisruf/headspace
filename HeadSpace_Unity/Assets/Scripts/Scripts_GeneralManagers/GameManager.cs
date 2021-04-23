@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,7 +24,9 @@ public class GameManager : MonoBehaviour
     public Sprite interactCursor;
     public GameObject cursorObj;
     public LayerMask objectLayers;
-    private SpriteRenderer _cursorRenderer;
+    private Image _cursorRenderer;
+
+    public int CurrentDay { get; private set; }
 
     private void Awake()
     {
@@ -37,7 +40,7 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
 
-        _cursorRenderer = cursorObj.GetComponent<SpriteRenderer>();
+        _cursorRenderer = cursorObj.GetComponent<Image>();
         Cursor.visible = false;
     }
 
@@ -109,7 +112,7 @@ public class GameManager : MonoBehaviour
     private void MoveCursor()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        cursorObj.transform.position = mousePos;
+        cursorObj.transform.position = Input.mousePosition;
     }
 
     private void SetCursor()
@@ -142,6 +145,16 @@ public class GameManager : MonoBehaviour
             else
                 _cursorRenderer.sprite = baseCursor;
         }
+    }
+
+    public void SetDay(int newDay)
+    {
+        CurrentDay = newDay;
+    }
+
+    private void TrackDay()
+    {
+
     }
 
     //private IEnumerator CheckPlayerRessources()

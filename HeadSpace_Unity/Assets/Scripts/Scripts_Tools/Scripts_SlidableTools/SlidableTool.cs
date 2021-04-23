@@ -71,22 +71,22 @@ public class SlidableTool : InteractableObject
         {
             case SlidingDirection.HorizontalLeft:
                 minPosX = horExtent - (slidingAmount / 2f);
-                maxPosX = horExtent + (slidingAmount / 2f) - drawerHandleSize;
+                maxPosX = fullyClosedPos.x;
                 break;
 
             case SlidingDirection.HorizontalRight:
-                minPosX = -horExtent - (slidingAmount / 2f) + drawerHandleSize;
+                minPosX = fullyClosedPos.x;
                 maxPosX = -horExtent + (slidingAmount / 2f);
                 break;
 
             case SlidingDirection.VerticalDown:
                 minPosY = vertExtent - (slidingAmount / 2f);
-                maxPosY = vertExtent + boxHalfSize - drawerHandleSize;
+                maxPosY = fullyClosedPos.y;
                 break;
 
             case SlidingDirection.VerticalUp:
-                minPosY = -vertExtent - (slidingAmount / 2f) + drawerHandleSize;
-                maxPosY = -vertExtent + boxHalfSize;
+                minPosY = fullyClosedPos.y;
+                maxPosY = -vertExtent + (slidingAmount / 2f);
                 break;
 
             default:
@@ -134,7 +134,7 @@ public class SlidableTool : InteractableObject
 
                     case SlidingDirection.VerticalUp:
                         minPosY = fullyClosedPos.y;
-                        maxPosY = -vertExtent + boxHalfSize;
+                        maxPosY = -vertExtent + (slidingAmount / 2f);
                         float clampedYPosUp = Mathf.Clamp(mousePos.y + mouseOffset.y, minPosY, maxPosY);
                         gameObject.transform.position = new Vector3(transform.position.x, clampedYPosUp, 0);
                         break;

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   printText: 'Vessel '
+  printButtonName: 0
   buttonType: 0
   nextButtonSection: 2
 --- !u!1001 &5454767520818536833
@@ -25,17 +26,62 @@ PrefabInstance:
     - target: {fileID: 2056810582559047548, guid: 10abd794e51fedb498e2c482e9fee0ee,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0.8
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 2056810582559047548, guid: 10abd794e51fedb498e2c482e9fee0ee,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0.4
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2056810582559047548, guid: 10abd794e51fedb498e2c482e9fee0ee,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.375
+      objectReference: {fileID: 0}
+    - target: {fileID: 2056810582559047548, guid: 10abd794e51fedb498e2c482e9fee0ee,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2056810582591299366, guid: 10abd794e51fedb498e2c482e9fee0ee,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2056810582591299366, guid: 10abd794e51fedb498e2c482e9fee0ee,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2056810582591299367, guid: 10abd794e51fedb498e2c482e9fee0ee,
         type: 3}
       propertyPath: m_text
       value: AAA
+      objectReference: {fileID: 0}
+    - target: {fileID: 2056810582591299367, guid: 10abd794e51fedb498e2c482e9fee0ee,
+        type: 3}
+      propertyPath: m_margin.y
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2056810582591299367, guid: 10abd794e51fedb498e2c482e9fee0ee,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2056810582591299367, guid: 10abd794e51fedb498e2c482e9fee0ee,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2056810582591299367, guid: 10abd794e51fedb498e2c482e9fee0ee,
+        type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2056810582591299367, guid: 10abd794e51fedb498e2c482e9fee0ee,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 2056810583202852955, guid: 10abd794e51fedb498e2c482e9fee0ee,
         type: 3}
@@ -52,10 +98,31 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 0.4
       objectReference: {fileID: 0}
+    - target: {fileID: 2056810583202852956, guid: 10abd794e51fedb498e2c482e9fee0ee,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 7892927358240434617, guid: fa4e9155e569e324b9b63da28b3b900d,
+        type: 3}
+    - target: {fileID: 2056810583202852956, guid: 10abd794e51fedb498e2c482e9fee0ee,
+        type: 3}
+      propertyPath: m_DrawMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2056810583202852957, guid: 10abd794e51fedb498e2c482e9fee0ee,
         type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2056810583202852957, guid: 10abd794e51fedb498e2c482e9fee0ee,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2056810583202852957, guid: 10abd794e51fedb498e2c482e9fee0ee,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2056810583202852957, guid: 10abd794e51fedb498e2c482e9fee0ee,
         type: 3}

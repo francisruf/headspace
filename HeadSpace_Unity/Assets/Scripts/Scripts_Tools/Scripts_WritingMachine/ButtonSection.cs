@@ -5,11 +5,15 @@ using UnityEngine;
 public class ButtonSection : MonoBehaviour
 {
     public List<Transform> allButtonSlots;
+    public GameObject charPrefab;
+
     private int _buttonSlotsCount;
+    private WritingMachineSpriteDB _spriteDB;
 
     private void Awake()
     {
         _buttonSlotsCount = allButtonSlots.Count;
+        _spriteDB = GetComponentInParent<WritingMachineSpriteDB>();
     }
 
     public void AssignButtonPositions(List<ButtonController> buttons)
@@ -18,6 +22,35 @@ public class ButtonSection : MonoBehaviour
         {
             buttons[i].transform.parent = allButtonSlots[i];
             buttons[i].transform.localPosition = Vector3.zero;
+        }
+    }
+
+    public void AssignCommandDisplaysPositions(List<ButtonController> buttons)
+    {
+        List<DisplayController_Command> displays = new List<DisplayController_Command>();
+        foreach (var b in buttons)
+        {
+            DisplayController_Command disp = b.GetComponent<DisplayController_Command>();
+            if (disp != null)
+                displays.Add(disp);
+        }
+
+        if (displays.Count <= 0)
+            return;
+
+        Vector2 spawnPos = transform.position;
+        int count = displays.Count;
+        for (int i = 0; i < count; i++)
+        {
+            displays[i].InitializeDisplay(spawnPos);
+            spawnPos.x += (_spriteDB.CommandLetterWidth + _spriteDB.CommandLetterSpace) * (displays[i].CharCount);
+
+            if (i < count - 1)
+            {
+                SpriteRenderer emptySpace = Instantiate(charPrefab, spawnPos, Quaternion.identity, transform).GetComponent<SpriteRenderer>();
+                emptySpace.sprite = _spriteDB.emptyCommandChar;
+                spawnPos.x += _spriteDB.CommandLetterWidth + _spriteDB.CommandLetterSpace;
+            }
         }
     }
 

@@ -235,6 +235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSortingOrder: 2
+  targetSortingLayer: 
   acceptedObjects: 01000000000000000300000002000000
 --- !u!1 &3109835221133976821
 GameObject:
@@ -409,6 +410,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ignoreSelectedBringToFront: 1
   slidingDirection: 2
-  slidingAmount: 3.5
+  slidingAmount: 2.8
   drawerHandleSize: 0
   smoothTime: 0.15

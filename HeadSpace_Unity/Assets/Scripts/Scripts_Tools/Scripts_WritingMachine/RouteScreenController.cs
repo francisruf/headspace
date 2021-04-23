@@ -16,8 +16,31 @@ public class RouteScreenController : MonoBehaviour
     private List<string> _allTextValues = new List<string>();
     private int _currentScreenIndex;
 
+    public GameObject coordTextPrefab;
+    private WritingMachineSpriteDB _spriteDB;
+    private List<SpriteRenderer> _allCoordsRenderers = new List<SpriteRenderer>();
+    public List<Transform> _allTextPositions;
+
     private bool _isOpen;
     private IEnumerator _currentAnimRoutine;
+
+    private void Awake()
+    {
+        _spriteDB = GetComponentInParent<WritingMachineSpriteDB>();
+
+        foreach (var pos in _allTextPositions)
+        {
+            Debug.Log("huh?");
+            Vector2 spawnPos = pos.position;
+
+            for (int i = 0; i < 3; i++)
+            {
+                SpriteRenderer sr = Instantiate(coordTextPrefab, spawnPos, Quaternion.identity, pos).GetComponent<SpriteRenderer>();
+                _allCoordsRenderers.Add(sr);
+                spawnPos.x += 0.21875f;
+            }
+        }
+    }
 
     private void Start()
     {
@@ -102,23 +125,28 @@ public class RouteScreenController : MonoBehaviour
 
     private void UpdateTexts()
     {
-        for (int i = 0; i < allScreens.Count; i++)
+        for (int i = 0; i < _allTextValues.Count; i++)
         {
-            if (i == _currentScreenIndex)
+            int count = 0;
+            for (int j = 0; j < _allTextValues[i].Length; j++)
             {
-                allScreens[i].text = "<color=#EEDF84>" + _allTextValues[i] + "</color>";
+                _allCoordsRenderers[(i * 3) + j].sprite = _spriteDB.GetCoordChar(_allTextValues[i][j]);
+                count++;
             }
-            else
+            if (count < 3)
             {
-                allScreens[i].text = _allTextValues[i];
+                for (int h = count; h < 3; h++)
+                {
+                    _allCoordsRenderers[i * 3 + h].sprite = null;
+                }
             }
         }
+
         float rectWidth = allScreens[_currentScreenIndex].GetComponent<RectTransform>().rect.width;
         int textLength = _allTextValues[_currentScreenIndex].Length;
-        Vector2 caretPos = allScreens[_currentScreenIndex].transform.position;
-        caretPos.x -= rectWidth / 2f;
-        caretPos.x += textLength * (rectWidth / 3f);
-        caret.transform.position = caretPos;
+
+        Vector2 targetCaretPos = _allCoordsRenderers[(_currentScreenIndex * 3) + textLength].transform.position;
+        caret.transform.position = targetCaretPos;
 
         if (_currentScreenIndex == allScreens.Count - 1 && textLength >= 3)
             caretAnimator.SetBool("Complete", true);
@@ -179,11 +207,11 @@ public class RouteScreenController : MonoBehaviour
 
     private IEnumerator RevealRouteScreen()
     {
-        animator.SetBool("IsOpen", true);
-        yield return new WaitForSeconds(0.15f);
-
         if (routeScreenOpen != null)
             routeScreenOpen();
+
+        animator.SetBool("IsOpen", true);
+        yield return new WaitForSeconds(0.15f);
 
         yield return new WaitForSeconds(0.15f);
 

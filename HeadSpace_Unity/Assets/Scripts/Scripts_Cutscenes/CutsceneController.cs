@@ -1,13 +1,20 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class CutsceneController : MonoBehaviour
 {
+    public static Action<string, SceneLoadType> cutsceneOver;
+
     [Header("Cutscene contents")]
     public List<CutsceneFrame> allCutsceneFrames;
     private int frameCount;
+
+    [Header("Next scene info")]
+    public string nextSceneName;
+    public SceneLoadType sceneType;
 
     private SpriteRenderer _spriteRenderer;
     private TextMeshProUGUI _cutSceneText;
@@ -18,12 +25,27 @@ public class CutsceneController : MonoBehaviour
 
     private int _charactersPerSec;
     private IEnumerator _currentTextRoutine;
+    private IEnumerator _currentFrameRoutine;
+
+    private void OnEnable()
+    {
+        LevelManager.loadingDone += StartCutscene;
+    }
+
+    private void OnDisable()
+    {
+        LevelManager.loadingDone -= StartCutscene;
+    }
 
     private void Awake()
     {
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _cutSceneText = GetComponentInChildren<TextMeshProUGUI>();
         frameCount = allCutsceneFrames.Count;
+        _cutSceneText.text = "";
+
+        _spriteRenderer.sprite = allCutsceneFrames[_frameIndex].frame;
+        _textIndex = 0;
     }
 
     private void Start()
@@ -32,18 +54,26 @@ public class CutsceneController : MonoBehaviour
             _charactersPerSec = TextHelper.instance.charactersPerSec;
         else
             _charactersPerSec = 30;
-
-        StartCutscene();
     }
 
     private void StartCutscene()
     {
-        DisplayNextFrame();
+        _currentFrameRoutine = DisplayNextFrame();
+        StartCoroutine(_currentFrameRoutine);
     }
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
+            OnPlayerInput();
+
+        if (Input.GetKeyDown(KeyCode.Space))
+            OnPlayerInput();
+
+        if (Input.GetKeyDown(KeyCode.KeypadEnter))
+            OnPlayerInput();
+
+        if (Input.GetKeyDown(KeyCode.Return))
             OnPlayerInput();
     }
 
@@ -55,21 +85,28 @@ public class CutsceneController : MonoBehaviour
         if (frameCount <= 0)
             return;
 
+        if (_currentFrameRoutine != null)
+            return;
+
         if (_currentTextRoutine != null)
         {
             StopCoroutine(_currentTextRoutine);
             _currentTextRoutine = null;
             ForceFullText();
         }
+
         else if (_textIndex < allCutsceneFrames[_frameIndex].allLines.Count)
         {
             DisplayNextLine();
         }
+
         else if (_frameIndex + 1 < frameCount)
         {
             _frameIndex++;
-            DisplayNextFrame();
+            _currentFrameRoutine = DisplayNextFrame();
+            StartCoroutine(_currentFrameRoutine);
         }
+
         else
         {
             EndCutscene();
@@ -87,19 +124,9 @@ public class CutsceneController : MonoBehaviour
         _textIndex++;
     }
 
-    private void DisplayNextFrame()
-    {
-        _spriteRenderer.sprite = allCutsceneFrames[_frameIndex].frame;
-        _textIndex = 0;
-
-        if (allCutsceneFrames[_frameIndex].allLines.Count > 0)
-            DisplayNextLine();
-        else
-            ClearText();
-    }
-
     private void ForceFullText()
     {
+        _cutSceneText.enabled = true;
         _cutSceneText.maxVisibleCharacters = int.MaxValue;
         _cutSceneText.ForceMeshUpdate();
     }
@@ -113,11 +140,16 @@ public class CutsceneController : MonoBehaviour
     private void EndCutscene()
     {
         _ended = true;
-        Debug.Log("END");
+
+        if (cutsceneOver != null)
+            cutsceneOver(nextSceneName, sceneType);
     }
 
     private IEnumerator TypeAnimationRoutine(TextMeshProUGUI textMesh)
     {
+        textMesh.enabled = false;
+        yield return new WaitForSeconds(0.25f);
+
         TMP_TextInfo info = textMesh.textInfo;
         int count = 0;
         textMesh.enabled = true;
@@ -132,6 +164,22 @@ public class CutsceneController : MonoBehaviour
             yield return new WaitForSeconds(1f / _charactersPerSec);
         }
         _currentTextRoutine = null;
+    }
+
+    private IEnumerator DisplayNextFrame()
+    {
+        yield return new WaitForSeconds(0.05f);
+        _cutSceneText.text = "";
+        _spriteRenderer.sprite = allCutsceneFrames[_frameIndex].frame;
+
+        _textIndex = 0;
+
+        if (allCutsceneFrames[_frameIndex].allLines.Count > 0)
+            DisplayNextLine();
+        else
+            ClearText();
+
+        _currentFrameRoutine = null;
     }
 }
 

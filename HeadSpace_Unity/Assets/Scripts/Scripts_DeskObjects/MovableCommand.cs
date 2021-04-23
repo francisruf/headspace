@@ -129,10 +129,7 @@ public class MovableCommand : MovableObject
         _commandText.text = "";
         _commandText.ForceMeshUpdate();
 
-        _boxCollider2D.size = _spriteRenderer.size;
-        Vector2 offset = _boxCollider2D.offset;
-        offset.y = _boxCollider2D.size.y / -2f;
-        _boxCollider2D.offset = offset;
+        UpdateVisuals();
     }
 
     private void AssignSpriteSize()
@@ -142,10 +139,7 @@ public class MovableCommand : MovableObject
         spriteSize.y = _commandText.textBounds.size.y + _commandText.margin.y * 2;
         _spriteRenderer.size = spriteSize;
 
-        _boxCollider2D.size = _spriteRenderer.size;
-        Vector2 offset = _boxCollider2D.offset;
-        offset.y = _boxCollider2D.size.y / -2f;
-        _boxCollider2D.offset = offset;
+        UpdateVisuals();
     }
 
     private IEnumerator PrintRoutine(string newLine)
@@ -202,6 +196,21 @@ public class MovableCommand : MovableObject
                 if (commandInOutbox != null)
                     commandInOutbox();
         }
+    }
+
+    private void UpdateVisuals()
+    {
+        Vector2 size = _spriteRenderer.size;
+        size.x += 0.0625f;
+        size.y += 0.0625f;
+        _boxCollider2D.size = size;
+        Vector2 offset = new Vector2();
+        offset.x = _spriteRenderer.size.x / 2f;
+        offset.y = _spriteRenderer.size.y / -2f;
+        _boxCollider2D.offset = offset;
+
+        _shadowRenderer.drawMode = SpriteDrawMode.Sliced;
+        _shadowRenderer.size = _spriteRenderer.size;
     }
 }
 

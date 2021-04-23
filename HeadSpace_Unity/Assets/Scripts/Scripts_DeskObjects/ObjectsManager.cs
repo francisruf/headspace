@@ -44,6 +44,7 @@ public class ObjectsManager : MonoBehaviour
         InteractableObject.objectEnabled += OnObjectEnabled;
         InteractableObject.objectDisabled += OnObjectDisabled;
         MovableObject.movableObjectSelected += OnMovableObjectSelected;
+        LevelManager.unloadingDone += OnSceneUnload;
     }
 
     // Unsubscription
@@ -52,6 +53,12 @@ public class ObjectsManager : MonoBehaviour
         InteractableObject.objectEnabled -= OnObjectEnabled;
         InteractableObject.objectDisabled -= OnObjectDisabled;
         MovableObject.movableObjectSelected -= OnMovableObjectSelected;
+        LevelManager.unloadingDone -= OnSceneUnload;
+    }
+
+    private void OnSceneUnload()
+    {
+        _allActiveObjects.Clear();
     }
 
     // TEMP : Envoyer cette fonctionnalité dans le playerStateMachine

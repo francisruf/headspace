@@ -429,7 +429,7 @@ public class ContractManager : MonoBehaviour
         {
             //Debug.Log("SINGLE CONTRACT");
 
-            _doubleContractChance += 5;
+            _doubleContractChance += 0;
             return 1;
         }
     }

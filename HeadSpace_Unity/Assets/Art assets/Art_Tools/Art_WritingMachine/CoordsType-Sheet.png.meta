@@ -1,0 +1,1040 @@
+fileFormatVersion: 2
+guid: e61e2c05dff5f614d9873b12e0bea6cd
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3232907191886833708
+    second: CoordsType-Sheet_0
+  - first:
+      213: -7237454586628978866
+    second: CoordsType-Sheet_1
+  - first:
+      213: 5600270279028066253
+    second: CoordsType-Sheet_2
+  - first:
+      213: -6818148913716131792
+    second: CoordsType-Sheet_3
+  - first:
+      213: -2402174124944378770
+    second: CoordsType-Sheet_4
+  - first:
+      213: -9076501607952374131
+    second: CoordsType-Sheet_5
+  - first:
+      213: -7312977673575206421
+    second: CoordsType-Sheet_6
+  - first:
+      213: 5649810410618090277
+    second: CoordsType-Sheet_7
+  - first:
+      213: 6817686604767282384
+    second: CoordsType-Sheet_8
+  - first:
+      213: 4447394855639952247
+    second: CoordsType-Sheet_9
+  - first:
+      213: 2844035808638585812
+    second: CoordsType-Sheet_10
+  - first:
+      213: -6172520204132387811
+    second: CoordsType-Sheet_11
+  - first:
+      213: 7636205545513097977
+    second: CoordsType-Sheet_12
+  - first:
+      213: 3571992576541622785
+    second: CoordsType-Sheet_13
+  - first:
+      213: -28117035344187454
+    second: CoordsType-Sheet_14
+  - first:
+      213: 7670473826775218739
+    second: CoordsType-Sheet_15
+  - first:
+      213: 8152574170745699640
+    second: CoordsType-Sheet_16
+  - first:
+      213: 7803877359762704699
+    second: CoordsType-Sheet_17
+  - first:
+      213: -8381919793617538785
+    second: CoordsType-Sheet_18
+  - first:
+      213: 6582518142637847630
+    second: CoordsType-Sheet_19
+  - first:
+      213: 4821873330595148435
+    second: CoordsType-Sheet_20
+  - first:
+      213: 4144545694904855004
+    second: CoordsType-Sheet_21
+  - first:
+      213: 6543675743446444586
+    second: CoordsType-Sheet_22
+  - first:
+      213: 1567380175861011916
+    second: CoordsType-Sheet_23
+  - first:
+      213: 5366961354813449586
+    second: CoordsType-Sheet_24
+  - first:
+      213: 7468040564162480918
+    second: CoordsType-Sheet_25
+  - first:
+      213: -5340410851922749224
+    second: CoordsType-Sheet_26
+  - first:
+      213: 6996470842285066443
+    second: CoordsType-Sheet_27
+  - first:
+      213: -2074549776194964052
+    second: CoordsType-Sheet_28
+  - first:
+      213: 5741310208612361863
+    second: CoordsType-Sheet_29
+  - first:
+      213: 3167104087488229368
+    second: CoordsType-Sheet_30
+  - first:
+      213: -6181156705716233827
+    second: CoordsType-Sheet_31
+  - first:
+      213: -2963198148313747420
+    second: CoordsType-Sheet_32
+  - first:
+      213: -8940027791994005434
+    second: CoordsType-Sheet_33
+  - first:
+      213: -8360249587890767998
+    second: CoordsType-Sheet_34
+  - first:
+      213: -5324342829085379282
+    second: CoordsType-Sheet_35
+  - first:
+      213: 717156838814154678
+    second: CoordsType-Sheet_36
+  - first:
+      213: -3674977075235086833
+    second: CoordsType-Sheet_37
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 128
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 128
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 128
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 128
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: CoordsType-Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 63
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c28683c56f79ddc20800000000000000
+      internalID: 3232907191886833708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 63
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4745fd26656f8b90800000000000000
+      internalID: -7237454586628978866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 63
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc745a3b52828bd40800000000000000
+      internalID: 5600270279028066253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 63
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0380c34efa11161a0800000000000000
+      internalID: -6818148913716131792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 63
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e643e025c53c9aed0800000000000000
+      internalID: -2402174124944378770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 63
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d86acbe70e9c90280800000000000000
+      internalID: -9076501607952374131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 63
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be1ff2c3d85138a90800000000000000
+      internalID: -7312977673575206421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 51
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 523f13d62a8286e40800000000000000
+      internalID: 5649810410618090277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 51
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d4c71b68d94d9e50800000000000000
+      internalID: 6817686604767282384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 51
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77ba152de0258bd30800000000000000
+      internalID: 4447394855639952247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 51
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4dbc466ef7b087720800000000000000
+      internalID: 2844035808638585812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_11
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 51
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1474c7e39dc65aa0800000000000000
+      internalID: -6172520204132387811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_12
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 51
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fa1d2c3c7049f960800000000000000
+      internalID: 7636205545513097977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_13
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 51
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1028819b254429130800000000000000
+      internalID: 3571992576541622785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 39
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cf2c2094bb1c9ff0800000000000000
+      internalID: -28117035344187454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_15
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 39
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33a3ed73e4ff27a60800000000000000
+      internalID: 7670473826775218739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_16
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 39
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83d725c9303c32170800000000000000
+      internalID: 8152574170745699640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_17
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 39
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b398e5bac11fc4c60800000000000000
+      internalID: 7803877359762704699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_18
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 39
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f117c956b507dab80800000000000000
+      internalID: -8381919793617538785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_19
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 39
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e443e73006dc95b50800000000000000
+      internalID: 6582518142637847630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_20
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 39
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 392bd0e2f3cbae240800000000000000
+      internalID: 4821873330595148435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_21
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 27
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd9ad2cc952648930800000000000000
+      internalID: 4144545694904855004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_22
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 27
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2a27753b6ecfca50800000000000000
+      internalID: 6543675743446444586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_23
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 27
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc55f2237f370c510800000000000000
+      internalID: 1567380175861011916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_24
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 27
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 275a7e4bae64b7a40800000000000000
+      internalID: 5366961354813449586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_25
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 27
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61bcc13635fc3a760800000000000000
+      internalID: 7468040564162480918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_26
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 27
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d8d088ff9c03e5b0800000000000000
+      internalID: -5340410851922749224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_27
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 27
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc887c38925781160800000000000000
+      internalID: 6996470842285066443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_28
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 15
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca5780158f7b533e0800000000000000
+      internalID: -2074549776194964052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_29
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 15
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 786e9a9473b3daf40800000000000000
+      internalID: 5741310208612361863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_30
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 15
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ff6c653360d3fb20800000000000000
+      internalID: 3167104087488229368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_31
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 15
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9992cea9be183aa0800000000000000
+      internalID: -6181156705716233827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_32
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 15
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 420f9aadbfa90e6d0800000000000000
+      internalID: -2963198148313747420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_33
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 15
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 648d318e614aee380800000000000000
+      internalID: -8940027791994005434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_34
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 15
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2873a285b4d6afb80800000000000000
+      internalID: -8360249587890767998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_35
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e25b7f118622c16b0800000000000000
+      internalID: -5324342829085379282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_36
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 3
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bf72c1685ad3f900800000000000000
+      internalID: 717156838814154678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoordsType-Sheet_37
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 3
+        width: 6
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0e98e822dbdffcc0800000000000000
+      internalID: -3674977075235086833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

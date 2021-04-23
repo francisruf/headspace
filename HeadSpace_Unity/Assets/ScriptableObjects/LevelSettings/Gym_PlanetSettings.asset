@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d29382ba62647d04fa6305f2fc0411f0, type: 3}
   m_Name: Gym_PlanetSettings
   m_EditorClassIdentifier: 
-  planetsRevealedOnStart: 3
+  planetsRevealedOnStart: 10
   planetsRevealedCloseToDeploy: 2
   planetsRevealedFarFromDeploy: 1

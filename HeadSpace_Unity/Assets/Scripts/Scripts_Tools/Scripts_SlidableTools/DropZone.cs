@@ -6,6 +6,7 @@ using UnityEngine;
 public abstract class DropZone : MonoBehaviour
 {
     public int minSortingOrder;
+    public string targetSortingLayer;
 
     protected SpriteRenderer _containerSpriteRenderer;
     protected Collider2D _collider;

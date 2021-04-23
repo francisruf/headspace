@@ -73,6 +73,8 @@ public class AudioManager : MonoBehaviour
 
         KeyPadController.keypadOpen += NumPadOut;
         KeyPadController.keypadClose += NumPadClose;
+        RouteScreenController.routeScreenOpen += NumPadOut;
+        RouteScreenController.routeScreenClose += NumPadClose;
 
         SlidableTool.drawerOpened += DrawerOpen;
         SlidableTool.drawerClosed += DrawerClose;
@@ -110,6 +112,8 @@ public class AudioManager : MonoBehaviour
 
         KeyPadController.keypadOpen -= NumPadOut;
         KeyPadController.keypadClose -= NumPadClose;
+        RouteScreenController.routeScreenOpen -= NumPadOut;
+        RouteScreenController.routeScreenClose -= NumPadClose;
 
         SlidableTool.drawerOpened -= DrawerOpen;
         SlidableTool.drawerClosed -= DrawerClose;
