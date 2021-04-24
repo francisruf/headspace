@@ -29,7 +29,7 @@ public class DaySceneController : MonoBehaviour
 
         int currentDay = 0;
         if (GameManager.instance != null)
-            currentDay = GameManager.instance.CurrentDay;
+            currentDay = GameManager.instance.CurrentDayInfo.day;
 
         if (currentDay == 0)
         {

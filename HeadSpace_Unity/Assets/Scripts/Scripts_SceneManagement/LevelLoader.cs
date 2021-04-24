@@ -39,7 +39,7 @@ public class LevelLoader : MonoBehaviour
             GridManager.instance.GenerateNewGrid();
 
         if (GameManager.instance != null)
-            GameManager.instance.ForceStartGame();
+            GameManager.instance.StartLevel();
 
         if (_levelSettings != null)
             AssignLevelSettings();

@@ -1,28 +1,34 @@
 fileFormatVersion: 2
-guid: d32063a5a24c6be449b0ae8dbba88427
+guid: d8037e645df6dec4ba91300e728257a0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7454401371687827062
-    second: Cutscene_TestFrames_0
+      213: -2009739235161314606
+    second: LB_TimeCard-Sheet_0
   - first:
-      213: 3261840738970259679
-    second: Cutscene_TestFrames_1
+      213: -6030027876586031683
+    second: LB_TimeCard-Sheet_1
   - first:
-      213: 3549399559826818699
-    second: Cutscene_TestFrames_2
+      213: 250110997983256443
+    second: LB_TimeCard-Sheet_2
   - first:
-      213: -2318615565200658058
-    second: Cutscene_TestFrames_3
+      213: -1651949883755579660
+    second: LB_TimeCard-Sheet_3
   - first:
-      213: 1640864383783234604
-    second: Cutscene_TestFrames_4
+      213: 8157018401005525980
+    second: LB_TimeCard-Sheet_4
   - first:
-      213: 5951614300355461573
-    second: Cutscene_TestFrames_5
+      213: -5082297812882330591
+    second: LB_TimeCard-Sheet_5
   - first:
-      213: -5379024997501827949
-    second: Cutscene_TestFrames_6
+      213: 253797958141054322
+    second: LB_TimeCard-Sheet_6
+  - first:
+      213: 7390535963833806971
+    second: LB_TimeCard-Sheet_7
+  - first:
+      213: 436299662432220422
+    second: LB_TimeCard-Sheet_8
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -82,10 +88,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -94,10 +100,10 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 1024
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -106,10 +112,10 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: iPhone
-    maxTextureSize: 1024
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -118,10 +124,10 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
-    maxTextureSize: 1024
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -132,148 +138,190 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cutscene_TestFrames_0
+      name: LB_TimeCard-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 480
-        width: 272
-        height: 160
+        y: 100
+        width: 49
+        height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a89cc539275ac8890800000000000000
-      internalID: -7454401371687827062
+      spriteID: 2da6b0d40d8fb14e0800000000000000
+      internalID: -2009739235161314606
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cutscene_TestFrames_1
+      name: LB_TimeCard-Sheet_1
       rect:
         serializedVersion: 2
-        x: 272
-        y: 480
-        width: 272
-        height: 160
+        x: 52
+        y: 100
+        width: 49
+        height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fd05830ced2644d20800000000000000
-      internalID: 3261840738970259679
+      spriteID: db5f26e3899015ca0800000000000000
+      internalID: -6030027876586031683
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cutscene_TestFrames_2
+      name: LB_TimeCard-Sheet_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 320
-        width: 272
-        height: 160
+        x: 104
+        y: 100
+        width: 49
+        height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b86c7691810024130800000000000000
-      internalID: 3549399559826818699
+      spriteID: b7fd535a0a2987300800000000000000
+      internalID: 250110997983256443
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cutscene_TestFrames_3
+      name: LB_TimeCard-Sheet_3
       rect:
         serializedVersion: 2
-        x: 272
-        y: 320
-        width: 272
-        height: 160
+        x: 156
+        y: 100
+        width: 49
+        height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 671f5819d6f92dfd0800000000000000
-      internalID: -2318615565200658058
+      spriteID: 4f6300845581319e0800000000000000
+      internalID: -1651949883755579660
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cutscene_TestFrames_4
+      name: LB_TimeCard-Sheet_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 160
-        width: 272
-        height: 160
+        x: 208
+        y: 100
+        width: 49
+        height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c2c6dff967585c610800000000000000
-      internalID: 1640864383783234604
+      spriteID: cdb524a940d833170800000000000000
+      internalID: 8157018401005525980
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cutscene_TestFrames_5
-      rect:
-        serializedVersion: 2
-        x: 272
-        y: 160
-        width: 272
-        height: 160
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5c182d45ca1689250800000000000000
-      internalID: 5951614300355461573
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Cutscene_TestFrames_6
+      name: LB_TimeCard-Sheet_5
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 272
-        height: 160
+        width: 49
+        height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 39405f9934dd955b0800000000000000
-      internalID: -5379024997501827949
+      spriteID: 12c676cf01d0879b0800000000000000
+      internalID: -5082297812882330591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LB_TimeCard-Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 0
+        width: 49
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27d87b3f5eba58300800000000000000
+      internalID: 253797958141054322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LB_TimeCard-Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 0
+        width: 49
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7030186d45709660800000000000000
+      internalID: 7390535963833806971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LB_TimeCard-Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 0
+        width: 49
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60535ea3b3c0e0600800000000000000
+      internalID: 436299662432220422
       vertices: []
       indices: 
       edges: []

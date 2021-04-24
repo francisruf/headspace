@@ -75,16 +75,14 @@ public class DebugManager : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.gameStarted += StartGameTimer;
+        GameManager.levelStarted += StartGameTimer;
         GridManager.totalGridAnomaly += StopGameTimer;
-        RessourceManager.ressourcesUpdate += UpdateRessourceTexts;
     }
 
     private void OnDisable()
     {
-        GameManager.gameStarted -= StartGameTimer;
+        GameManager.levelStarted -= StartGameTimer;
         GridManager.totalGridAnomaly -= StopGameTimer;
-        RessourceManager.ressourcesUpdate -= UpdateRessourceTexts;
     }
 
     private void Start()
@@ -313,13 +311,13 @@ public class DebugManager : MonoBehaviour
 
     #region Ressource management
 
-    private void UpdateRessourceTexts(int soulsSaved, int soulBuffer, int currentCredits, int totalCredits)
-    {
-        soulsSavedText.text = "Souls saved : <b>" + soulsSaved + "</b>";
-        soulsBufferText.text = "Soul buffer : <b>" + soulBuffer + "</b>";
-        currentCreditsText.text = "Current credits : <b>" + currentCredits + "</b>";
-        totalCreditsText.text = "Total credits : <b>" + totalCredits + "</b>";
-    }
+    //private void UpdateRessourceTexts(int soulsSaved, int soulBuffer, int currentCredits, int totalCredits)
+    //{
+    //    soulsSavedText.text = "Souls saved : <b>" + soulsSaved + "</b>";
+    //    soulsBufferText.text = "Soul buffer : <b>" + soulBuffer + "</b>";
+    //    currentCreditsText.text = "Current credits : <b>" + currentCredits + "</b>";
+    //    totalCreditsText.text = "Total credits : <b>" + totalCredits + "</b>";
+    //}
 
     #endregion
 }

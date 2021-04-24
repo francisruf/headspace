@@ -155,26 +155,26 @@ public class Planet : GridStaticObject
 
     public void OnSoulsSaved(int savedAmount)
     {
-        _soulsSaved += savedAmount;
-        Debug.Log("hello");
-        if (!BonusAwarded)
-        {
-            if (_soulsSaved >= TotalSouls)
-            {
-                if (RessourceManager.instance != null)
-                {
-                    RessourceManager.instance.AddBonusCredits(CompletionCreditsBonus);
+        //_soulsSaved += savedAmount;
+        //Debug.Log("hello");
+        //if (!BonusAwarded)
+        //{
+        //    if (_soulsSaved >= TotalSouls)
+        //    {
+        //        if (RessourceManager.instance != null)
+        //        {
+        //            RessourceManager.instance.AddBonusCredits(CompletionCreditsBonus);
 
-                    if (MessageManager.instance != null)
-                        MessageManager.instance.BonusCreditsNotif(this);
+        //            if (MessageManager.instance != null)
+        //                MessageManager.instance.BonusCreditsNotif(this);
 
-                    if (planetFullySaved != null)
-                        planetFullySaved(this);
+        //            if (planetFullySaved != null)
+        //                planetFullySaved(this);
 
-                    BonusAwarded = true;
-                }
-            }
-        }
+        //            BonusAwarded = true;
+        //        }
+        //    }
+        //}
     }
 }
 

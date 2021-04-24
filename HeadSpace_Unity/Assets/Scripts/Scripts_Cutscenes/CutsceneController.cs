@@ -115,6 +115,13 @@ public class CutsceneController : MonoBehaviour
 
     private void DisplayNextLine()
     {
+        if (_currentTextRoutine != null)
+        {
+            StopCoroutine(_currentTextRoutine);
+            _currentTextRoutine = null;
+            ForceFullText();
+        }
+
         ClearText();
         _cutSceneText.text = allCutsceneFrames[_frameIndex].allLines[_textIndex];
 

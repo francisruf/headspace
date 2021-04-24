@@ -57,7 +57,7 @@ public class LevelManager : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.gameEnded += OnLevelTimerEnded;
+        GameManager.levelEnded += OnLevelTimerEnded;
         GameManager.gameOver += OnGameOver;
         MainMenuController.playButtonPressed += OnPlayButtonPressed;
         MainMenuController.quitButtonPressed += OnQuitButtonPressed;
@@ -72,7 +72,7 @@ public class LevelManager : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.gameEnded -= OnLevelTimerEnded;
+        GameManager.levelEnded -= OnLevelTimerEnded;
         GameManager.gameOver -= OnGameOver;
         MainMenuController.playButtonPressed -= OnPlayButtonPressed;
         MainMenuController.quitButtonPressed -= OnQuitButtonPressed;
@@ -81,7 +81,7 @@ public class LevelManager : MonoBehaviour
         SectorManager.sectorInfoUpdate -= OnSectorInfoUpdate;
         CutsceneController.cutsceneOver -= OnCutsceneOver;
         DaySceneController.daySceneOver -= OnDaySceneOver;
-        LeaderboardController.dayStart -= OnDayFinish;
+        LeaderboardController.dayStart -= OnDayStart;
         TutorialPromptController.tutorialPrompt -= OnTutorialPrompt;
     }
 
@@ -128,10 +128,9 @@ public class LevelManager : MonoBehaviour
         StartCoroutine(LoadLevelScenes("00_Gym", 0.5f));
     }
 
-
     private void OnLevelTimerEnded()
     {
-        StartCoroutine(LoadMenuSceneFromGame("EndScreen", 0.5f));
+        StartCoroutine(LoadSingleSceneFromGame("Leaderboard", 0.5f));
     }
 
     private void OnGameOver()
@@ -139,6 +138,29 @@ public class LevelManager : MonoBehaviour
         StartCoroutine(LoadMenuSceneFromGame("GameOverScreen", 0f));
     }
 
+    private void OnTutorialPrompt(bool tutorial)
+    {
+        int day = tutorial == true ? 0 : 1;
+        GameManager.instance.SetDay(day);
+        StartCoroutine(LoadSingleScene("Leaderboard", 1f));
+    }
+
+    private void OnDaySceneOver()
+    {
+        StartCoroutine(LoadSingleScene("Leaderboard", 1f));
+    }
+
+    private void OnDayStart()
+    {
+        Debug.Log("On day start!");
+        StartCoroutine(LoadLevelScenes("00_Gym", 1f));
+    }
+
+    private void OnDayFinish()
+    {
+        Debug.Log("On day finish!");
+        StartCoroutine(LoadSingleScene("DayMenu", 1f));
+    }
 
     private IEnumerator LoadLevelScenes(string targetLevelName, float timeBeforeFade)
     {
@@ -210,6 +232,25 @@ public class LevelManager : MonoBehaviour
             unloadingDone();
 
         yield return LoadScenes(_currentMenuScenes);
+        yield return FadeIn(timeBeforeFade);
+
+        if (loadingDone != null)
+            loadingDone();
+    }
+
+    private IEnumerator LoadSingleSceneFromGame(string targetScreenName, float timeBeforeFade)
+    {
+        _currentSingleScene = targetScreenName;
+
+        yield return FadeOut();
+        yield return UnloadScenes(essentialLevelScenes);
+        yield return UnloadScenes(environmentScenes);
+        yield return UnloadScenes(_currentLevelScene);
+
+        if (unloadingDone != null)
+            unloadingDone();
+
+        yield return LoadScenes(targetScreenName);
         yield return FadeIn(timeBeforeFade);
 
         if (loadingDone != null)
@@ -330,29 +371,6 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    private void OnTutorialPrompt(bool tutorial)
-    {
-        int day = tutorial == true ? 0 : 1;
-        GameManager.instance.SetDay(day);
-        StartCoroutine(LoadSingleScene("Leaderboard", 1f));
-    }
-
-    private void OnDaySceneOver()
-    {
-        StartCoroutine(LoadSingleScene("Leaderboard", 1f));
-    }
-
-    private void OnDayStart()
-    {
-        Debug.Log("On day start!");
-
-        StartCoroutine(LoadLevelScenes("00_Gym", 1f));
-    }
-
-    private void OnDayFinish()
-    {
-        //TODO
-    }
 }
 
 public enum SceneLoadType

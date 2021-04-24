@@ -13,9 +13,11 @@ public class TimeManager : MonoBehaviour
     [Header("Game time settings")]
     public float startHours;
     public float startMinutes;
+    public float timeMultiplier = 1.25f;
 
     private float _currentTime = 0f;
     private bool _timeStarted;
+    private bool _levelEnded;
     private float _timeScaleBeforePause;
 
     private float _levelEndTimer;
@@ -54,19 +56,19 @@ public class TimeManager : MonoBehaviour
     private void OnEnable()
     {
         _currentTime = (startHours * 60f * 60f) + startMinutes * 60f;
-        GameManager.gameStarted += StartTime;
+        GameManager.levelStarted += StartTime;
     }
 
     private void OnDisable()
     {
-        GameManager.gameStarted -= StartTime;
+        GameManager.levelStarted -= StartTime;
     }
 
     private void StartTime()
     {
         if (GameManager.instance != null)
         {
-            _levelEndTimer = _currentTime + (GameManager.instance.LevelDurationInMinutes * 60f * 60f);
+            _levelEndTimer = _currentTime + (GameManager.instance.LevelDurationInMinutes * 60f * 60f * timeMultiplier);
         }
         _timeStarted = true;
     }
@@ -75,12 +77,13 @@ public class TimeManager : MonoBehaviour
     {
         if (_timeStarted)
         {
-            _currentTime += (Time.deltaTime * 60f);
+            _currentTime += (Time.deltaTime * 60f * timeMultiplier);
 
             if (_currentTime >= _levelEndTimer)
             {
                 _timeStarted = false;
                 _currentTime = _levelEndTimer;
+                _levelEnded = true;
 
                 if (levelTimerEnded != null)
                     levelTimerEnded();

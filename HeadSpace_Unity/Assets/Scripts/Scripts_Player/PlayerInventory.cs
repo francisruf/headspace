@@ -11,13 +11,10 @@ public class PlayerInventory : MonoBehaviour
     public List<ObjectToSpawn> playerStartingShips = new List<ObjectToSpawn>();
     public List<ObjectToSpawn> playerDeskObjects = new List<ObjectToSpawn>();
 
-    [Header("Starting ressources")]
-    public int startingCredits;
 
     public void InitializeInventory()
     {
         GenerateStartingObjects();
-        AssignStartingRessources();
     }
 
     private void GenerateStartingObjects()
@@ -43,12 +40,6 @@ public class PlayerInventory : MonoBehaviour
                     placeObjectRequest(go, obj.spawnZone);
             }
         }
-    }
-
-    private void AssignStartingRessources()
-    {
-        if (RessourceManager.instance != null)
-            RessourceManager.instance.AddCredits(startingCredits, true);
     }
 }
 

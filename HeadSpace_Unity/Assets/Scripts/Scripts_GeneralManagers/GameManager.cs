@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public static Action gameStarted;
-    public static Action gameEnded;
+    public static Action levelStarted;
+    public static Action levelEnded;
     public static Action gameOver;
     public static bool GameStarted { get; private set; }
 
@@ -25,8 +25,10 @@ public class GameManager : MonoBehaviour
     public GameObject cursorObj;
     public LayerMask objectLayers;
     private Image _cursorRenderer;
+    public DayInfo CurrentDayInfo;
 
-    public int CurrentDay { get; private set; }
+    private SectorInfo _lastSectorInfo;
+    public SectorInfo LastSectorInfo { get { return _lastSectorInfo; } }
 
     private void Awake()
     {
@@ -40,8 +42,13 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
 
+        Application.targetFrameRate = 60;
         _cursorRenderer = cursorObj.GetComponent<Image>();
         Cursor.visible = false;
+
+        CurrentDayInfo = new DayInfo();
+        CurrentDayInfo.day = 0;
+        CurrentDayInfo.time = LevelTime.DayStart;
     }
 
     private void Update()
@@ -53,52 +60,35 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         GameStarted = false;
-
-        Command_Send.playerFirstDeploy += OnFirstDeploy;
         TimeManager.levelTimerEnded += OnLevelTimerEnded;
-        PlanetManager.noMoreSoulsInSector += OnNoMoreSoulsInSector;
+        LeaderboardController.dayStart += OnDayStart;
+        LeaderboardController.dayFinish += OnDayFinish;
     }
 
     private void OnDisable()
     {
-        Command_Send.playerFirstDeploy -= OnFirstDeploy;
         TimeManager.levelTimerEnded -= OnLevelTimerEnded;
-        PlanetManager.noMoreSoulsInSector -= OnNoMoreSoulsInSector;
+        LeaderboardController.dayStart -= OnDayStart;
+        LeaderboardController.dayFinish -= OnDayFinish;
     }
 
-    private void OnFirstDeploy()
+    public void StartLevel()
     {
         GameStarted = true;
-        
-        //StartCoroutine(CheckPlayerRessources());
 
-        if (gameStarted != null)
-            gameStarted();
+        if (levelStarted != null)
+            levelStarted();
 
         Debug.Log("GAME STARTED");
     }
 
-    public void ForceStartGame()
-    {
-        OnFirstDeploy();
-    }
-
     private void OnLevelTimerEnded()
     {
-        EndSector();
-    }
+        if (SectorManager.instance != null)
+            _lastSectorInfo = SectorManager.instance.CurrentSectorInfo;
 
-    private void OnNoMoreSoulsInSector()
-    {
-        EndSector();
-    }
-
-    private void EndSector()
-    {
-        GameStarted = false;
-
-        if (gameEnded != null)
-            gameEnded();
+        if (levelEnded != null)
+            levelEnded();
     }
 
     private void GameOver()
@@ -149,43 +139,29 @@ public class GameManager : MonoBehaviour
 
     public void SetDay(int newDay)
     {
-        CurrentDay = newDay;
+        CurrentDayInfo.day = newDay;
     }
 
-    private void TrackDay()
+    private void OnDayStart()
     {
-
+        CurrentDayInfo.time = LevelTime.NightEnd;
     }
 
-    //private IEnumerator CheckPlayerRessources()
-    //{
-    //    bool hasShips = false;
-    //    bool hasEnoughCredits = false;
+    private void OnDayFinish()
+    {
+        CurrentDayInfo.day++;
+        CurrentDayInfo.time = LevelTime.DayStart;
+    }
+}
 
-    //    while (GameStarted)
-    //    {    
-    //        yield return new WaitForSeconds(1f);
+public enum LevelTime
+{
+    DayStart,
+    NightEnd
+}
 
-    //        hasShips = true;
-    //        hasEnoughCredits = true;
-
-    //        if (RessourceManager.instance != null)
-    //            if (RessourceManager.instance.CurrentCredits < _minimumCreditsNeeded)
-    //                hasEnoughCredits = false;
-
-    //        if (ShipManager.instance != null)
-    //            if (ShipManager.instance.ActiveShipsCount <= 0)
-    //                hasShips = false;
-
-    //        if (ShopManager.instance != null)
-    //            if (!ShopManager.instance.TransactionInProgress)
-    //            {
-    //                if (hasShips == false && hasEnoughCredits == false)
-    //                {
-    //                    GameOver();
-    //                    break;
-    //                }
-    //            }
-    //    }
-    //}
+public struct DayInfo
+{
+    public int day;
+    public LevelTime time;
 }

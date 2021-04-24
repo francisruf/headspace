@@ -41,9 +41,6 @@ public class LogbookPage_SectorDetails : LogbookPage
 
     private void OnSectorInfoUpdate(SectorInfo info)
     {
-        _soulsSaved = info.SectorSoulsSaved;
-        _planetsFound = info.PlanetsFound;
-        _entirePopulationsSaved = info.PlanetsFullySaved;
         _creditsGained = info.CreditsGained;
 
         UpdateTexts();

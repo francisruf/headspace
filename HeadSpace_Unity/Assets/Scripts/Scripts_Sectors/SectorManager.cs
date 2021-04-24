@@ -9,6 +9,7 @@ public class SectorManager : MonoBehaviour
     public static Action<SectorInfo> sectorInfoUpdate;
 
     private SectorInfo _currentSectorInfo;
+    public SectorInfo CurrentSectorInfo { get { return _currentSectorInfo; } }
 
     // TODO : Link to levelmanager
     private void Awake()
@@ -34,34 +35,18 @@ public class SectorManager : MonoBehaviour
 
     private void OnEnable()
     {
-        Planet.soulsLost += OnSoulsLost;
-        Planet.planetFullySaved += OnPlanetFullySaved;
         RessourceManager.ressourcesUpdate += OnRessourceUpdate;
     }
 
     private void OnDisable()
     {
-        Planet.soulsLost -= OnSoulsLost;
-        Planet.planetFullySaved -= OnPlanetFullySaved;
         RessourceManager.ressourcesUpdate -= OnRessourceUpdate;
     }
 
-    private void OnRessourceUpdate(int soulsSaved, int soulBuffer, int currentCredits, int totalCreditsEarned)
+    private void OnRessourceUpdate(int creditsGained, int contractsCompleted)
     {
-        _currentSectorInfo.SectorSoulsSaved = soulsSaved;
-        _currentSectorInfo.CreditsGained = totalCreditsEarned;
-        SendSectorInfoUpdates();
-    }
-
-    private void OnSoulsLost(Planet planet, int amount)
-    {
-        _currentSectorInfo.SectorSoulsLost += amount;
-        SendSectorInfoUpdates();
-    }
-
-    private void OnPlanetFullySaved(Planet planet)
-    {
-        _currentSectorInfo.PlanetsFullySaved++;
+        _currentSectorInfo.CreditsGained = creditsGained;
+        _currentSectorInfo.ContractsCompleted = contractsCompleted;
         SendSectorInfoUpdates();
     }
 

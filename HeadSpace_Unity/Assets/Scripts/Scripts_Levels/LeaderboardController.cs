@@ -11,6 +11,8 @@ public class LeaderboardController : MonoBehaviour
 
     public GameObject dayLights;
     public GameObject nightLights;
+    public GameObject debugLights;
+    private DayInfo _currentInfo = default;
 
     private void OnEnable()
     {
@@ -24,12 +26,16 @@ public class LeaderboardController : MonoBehaviour
 
     private void Awake()
     {
-        switch (sceneType)
+        
+        if (GameManager.instance != null)
+            _currentInfo = GameManager.instance.CurrentDayInfo;
+
+        switch (_currentInfo.time)
         {
-            case leaderboardSceneType.Day:
+            case LevelTime.DayStart:
                 AssignDayInfo();
                 break;
-            case leaderboardSceneType.Night:
+            case LevelTime.NightEnd:
                 AssignNightInfo();
                 break;
         }
@@ -37,14 +43,17 @@ public class LeaderboardController : MonoBehaviour
 
     private void AssignDayInfo()
     {
+        debugLights.SetActive(false);
         nightLights.SetActive(false);
         dayLights.SetActive(true);
     }
 
     private void AssignNightInfo()
     {
+        debugLights.SetActive(false);
         dayLights.SetActive(false);
         nightLights.SetActive(true);
+        Debug.Log("TOTAL CREDITS : " + RessourceManager.instance.TotalCredits + " (+" + GameManager.instance.LastSectorInfo.CreditsGained);
     }
 
     private void OnCardProcessed()
@@ -56,15 +65,14 @@ public class LeaderboardController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
 
-        switch (sceneType)
+        switch (_currentInfo.time)
         {
-            case leaderboardSceneType.Day:
-                Debug.Log("DAY TYPE");
+            case LevelTime.DayStart:
                 if (dayStart != null)
                     dayStart();
                 break;
 
-            case leaderboardSceneType.Night:
+            case LevelTime.NightEnd:
                 if (dayFinish != null)
                     dayFinish();
                 break;

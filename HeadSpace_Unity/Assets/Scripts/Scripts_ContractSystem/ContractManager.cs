@@ -52,12 +52,12 @@ public class ContractManager : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.gameStarted += OnGameStarted;
+        GameManager.levelStarted += OnGameStarted;
     }
 
     private void OnDisable()
     {
-        GameManager.gameStarted -= OnGameStarted;
+        GameManager.levelStarted -= OnGameStarted;
     }
 
     public void AssignLevelSettings(List<ClientRules> clientRules)

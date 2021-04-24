@@ -5,18 +5,18 @@ using UnityEngine;
 
 public class RessourceManager : MonoBehaviour
 {
-    public static Action<int, int, int, int> ressourcesUpdate;
+    public static Action<int, int> ressourcesUpdate;
     public static Action<int> creditsUpdate;
-
     public static RessourceManager instance;
 
-    public int soulRatioForOneCredit;
+    // TOTAL RESSOURCES
+    public int TotalCredits { get; private set; }
+    public int TotalContractsCompleted { get; private set; }
 
-    private int _soulsSaved;
-    private int _soulBuffer;
+    // LOCAL SECTOR RESSOURCES
+    private int _contractsCompleted;
     private int _currentCredits;
     public int CurrentCredits { get { return _currentCredits; } }
-    private int _totalCreditsEarned;
 
     private void Awake()
     {
@@ -32,23 +32,21 @@ public class RessourceManager : MonoBehaviour
         }
     }
 
-
     private void OnEnable()
     {
-        Ship.soulsUnloaded += OnShipUnload;
+        //Ship.soulsUnloaded += OnShipUnload;
+        Contract.contractComplete += OnContractComplete;
     }
 
     private void OnDisable()
     {
-        Ship.soulsUnloaded -= OnShipUnload;
+        //Ship.soulsUnloaded -= OnShipUnload;
+        Contract.contractComplete -= OnContractComplete;
     }
 
     private void Start()
     {
         UpdateRessources();
-
-        if (soulRatioForOneCredit == 0)
-            soulRatioForOneCredit = 1;
     }
 
     private void OnShipUnload(int soulsUnloaded)
@@ -58,28 +56,20 @@ public class RessourceManager : MonoBehaviour
 
     private void AddSouls(int newSouls)
     {
-        _soulsSaved += newSouls;
-        _soulBuffer += newSouls;
-
-        AddCredits(_soulBuffer / soulRatioForOneCredit);
-        _soulBuffer = _soulBuffer % soulRatioForOneCredit;
-
         UpdateRessources();
     }
 
-    public void AddBonusCredits(int amount)
+    private void OnContractComplete(int reward)
     {
-        Debug.Log("BONUS CREDITS : " + amount);
-        AddCredits(amount);
+        _contractsCompleted++;
+        TotalContractsCompleted++;
+        AddCredits(reward);
     }
 
     public void AddCredits(int amount, bool dontAddToTotal = false)
     {
         _currentCredits += amount;
-
-        if (!dontAddToTotal)
-            _totalCreditsEarned += amount;
-
+        TotalCredits += amount;
         UpdateRessources();
     }
 
@@ -88,6 +78,7 @@ public class RessourceManager : MonoBehaviour
         if (_currentCredits >= amount)
         {
             _currentCredits -= amount;
+            TotalCredits -= amount;
             UpdateRessources();
             return true;
         }
@@ -100,7 +91,7 @@ public class RessourceManager : MonoBehaviour
     private void UpdateRessources()
     {
         if (ressourcesUpdate != null)
-            ressourcesUpdate(_soulsSaved, _soulBuffer, _currentCredits, _totalCreditsEarned);
+            ressourcesUpdate(_currentCredits, _contractsCompleted);
 
         if (creditsUpdate != null)
             creditsUpdate(_currentCredits);

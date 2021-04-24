@@ -1,28 +1,19 @@
 fileFormatVersion: 2
-guid: d32063a5a24c6be449b0ae8dbba88427
+guid: 95ee90a49e78d4c40a8391ce726afe40
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7454401371687827062
-    second: Cutscene_TestFrames_0
+      213: -2198508682021343577
+    second: LB_Portraits-Sheet_0
   - first:
-      213: 3261840738970259679
-    second: Cutscene_TestFrames_1
+      213: 4900014454510645570
+    second: LB_Portraits-Sheet_1
   - first:
-      213: 3549399559826818699
-    second: Cutscene_TestFrames_2
+      213: -7533306953949814986
+    second: LB_Portraits-Sheet_2
   - first:
-      213: -2318615565200658058
-    second: Cutscene_TestFrames_3
-  - first:
-      213: 1640864383783234604
-    second: Cutscene_TestFrames_4
-  - first:
-      213: 5951614300355461573
-    second: Cutscene_TestFrames_5
-  - first:
-      213: -5379024997501827949
-    second: Cutscene_TestFrames_6
+      213: -8921635673490121749
+    second: LB_Portraits-Sheet_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -82,7 +73,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -94,7 +85,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 1024
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -106,7 +97,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: iPhone
-    maxTextureSize: 1024
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -118,7 +109,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
-    maxTextureSize: 1024
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -132,148 +123,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cutscene_TestFrames_0
+      name: LB_Portraits-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 480
-        width: 272
-        height: 160
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        y: 73
+        width: 63
+        height: 71
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a89cc539275ac8890800000000000000
-      internalID: -7454401371687827062
+      spriteID: 7ae618c70045d71e0800000000000000
+      internalID: -2198508682021343577
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cutscene_TestFrames_1
+      name: LB_Portraits-Sheet_1
       rect:
         serializedVersion: 2
-        x: 272
-        y: 480
-        width: 272
-        height: 160
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 64
+        y: 73
+        width: 63
+        height: 71
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fd05830ced2644d20800000000000000
-      internalID: 3261840738970259679
+      spriteID: 241f26b5f29500440800000000000000
+      internalID: 4900014454510645570
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cutscene_TestFrames_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 320
-        width: 272
-        height: 160
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b86c7691810024130800000000000000
-      internalID: 3549399559826818699
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Cutscene_TestFrames_3
-      rect:
-        serializedVersion: 2
-        x: 272
-        y: 320
-        width: 272
-        height: 160
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 671f5819d6f92dfd0800000000000000
-      internalID: -2318615565200658058
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Cutscene_TestFrames_4
+      name: LB_Portraits-Sheet_2
       rect:
         serializedVersion: 2
         x: 0
-        y: 160
-        width: 272
-        height: 160
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        y: 1
+        width: 63
+        height: 71
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c2c6dff967585c610800000000000000
-      internalID: 1640864383783234604
+      spriteID: 63f57d11d31547790800000000000000
+      internalID: -7533306953949814986
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cutscene_TestFrames_5
+      name: LB_Portraits-Sheet_3
       rect:
         serializedVersion: 2
-        x: 272
-        y: 160
-        width: 272
-        height: 160
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 64
+        y: 1
+        width: 63
+        height: 71
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c182d45ca1689250800000000000000
-      internalID: 5951614300355461573
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Cutscene_TestFrames_6
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 272
-        height: 160
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 39405f9934dd955b0800000000000000
-      internalID: -5379024997501827949
+      spriteID: beb1b22bf9bff2480800000000000000
+      internalID: -8921635673490121749
       vertices: []
       indices: 
       edges: []

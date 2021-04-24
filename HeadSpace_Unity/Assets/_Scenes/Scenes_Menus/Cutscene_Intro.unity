@@ -154,19 +154,42 @@ MonoBehaviour:
   - frame: {fileID: -7454401371687827062, guid: d32063a5a24c6be449b0ae8dbba88427,
       type: 3}
     allLines:
-    - Frame 0 line 0
-    - 'Frame 0 line 1 Frame 0 line 1 Frame 0 line 1 Frame 0 line 1 Frame 0 line 1 '
+    - Welcome, dear employee, to the UNITED FEDERATION OF GALATIC GOVERNANCE (UFGG).
+    - Oh yes dear employee, it is today that you become someone.
   - frame: {fileID: 3261840738970259679, guid: d32063a5a24c6be449b0ae8dbba88427, type: 3}
     allLines:
-    - Frame 1 line 1
+    - 'Today that you become apart of the largest, oldest and greatest branch of
+      our government: the SPACE TRAVEL MINISTRY (STM)!'
   - frame: {fileID: 3549399559826818699, guid: d32063a5a24c6be449b0ae8dbba88427, type: 3}
-    allLines: []
+    allLines:
+    - 'As our new dispatching officer, your job is simple: lead our transport drones
+      to UFGG personnel as quickly as possible. Then direct them to their destination.'
   - frame: {fileID: -2318615565200658058, guid: d32063a5a24c6be449b0ae8dbba88427,
       type: 3}
     allLines:
-    - Frame 3 line 0
-    - Frame 3 line 1
-    - Frame 3 line 2
+    - 'But as all the galaxies you''re about to work in have been discovered fairly
+      recently, the ministry does not have the budget for high tech gear. Yeah, everything
+      is pretty low tech around here. '
+    - But who knows, do your job efficiently enough and maybe the upgrades will come.
+  - frame: {fileID: 1640864383783234604, guid: d32063a5a24c6be449b0ae8dbba88427, type: 3}
+    allLines:
+    - Finally, you've been given a course on this anomaly we've had to deal with
+      during the last few years. I can assure you that you know everything we do
+      on this bizarre lifeform. That is to say, not a lot.
+    - It destroys the minds of everyone that comes in contact with it. So until we
+      know more, your best bet is to keep your fleet away from it as much as possible.
+  - frame: {fileID: 5951614300355461573, guid: d32063a5a24c6be449b0ae8dbba88427, type: 3}
+    allLines:
+    - Also keep in mind, the better job you do the more MERIT POINTS you gain, and
+      therefore, responsibilities you get.
+    - I have no doubt that you'll be on the leaderboard of our top employees in no
+      time.
+    - 'The following training will teach you everything you need to know to do your
+      job as efficiently as can be. '
+  - frame: {fileID: -5379024997501827949, guid: d32063a5a24c6be449b0ae8dbba88427,
+      type: 3}
+    allLines:
+    - Good luck dear employee and remember your duty as a citizen comes before all!
   nextSceneName: TutorialPrompt
   sceneType: 0
 --- !u!4 &254707062

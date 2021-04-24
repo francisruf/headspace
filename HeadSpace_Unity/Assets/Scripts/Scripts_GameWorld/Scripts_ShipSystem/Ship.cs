@@ -108,12 +108,12 @@ public class Ship : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.gameStarted += OnGameStart;
+        GameManager.levelStarted += OnGameStart;
     }
 
     private void OnDisable()
     {
-        GameManager.gameStarted -= OnGameStart;
+        GameManager.levelStarted -= OnGameStart;
     }
 
     private void Awake()

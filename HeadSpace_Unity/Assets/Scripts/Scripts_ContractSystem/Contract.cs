@@ -1,14 +1,18 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public abstract class Contract : MonoBehaviour
 {
+    public static Action<int> contractComplete;
+
     [Header("Client settings")]
     public int targetClientCount;
     protected int currentClientCount;
     protected int pointsReward;
+    protected bool _complete;
 
     [Header("UI references")]
     public SpriteRenderer startPlanetSpriteRenderer;
@@ -90,15 +94,21 @@ public abstract class Contract : MonoBehaviour
         clientChipRenderers[index].sprite = targetSprite;
     }
 
-    public bool CheckCompletion()
+    private void CheckCompletion()
     {
+        if (_complete)
+            return;
+
         foreach (var client in _allClients)
         {
             if (client.currentState != ClientState.Debarked)
-                return false;
+                return;
         }
         Debug.Log("CONTRACT COMPLETE! HURRAY!");
-        return true;
+        if (contractComplete != null)
+            contractComplete(pointsReward);
+
+        _complete = true;
     }
 
     public void CalculatePointsReward(ContractPointsSettings settings)
