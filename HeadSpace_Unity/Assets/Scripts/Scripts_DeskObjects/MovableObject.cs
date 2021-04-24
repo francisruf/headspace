@@ -9,6 +9,7 @@ public class MovableObject : InteractableObject
 {
     public static Action<MovableObject> movableObjectSelected;
     public static Action<MovableObject> movableObjectDeselected;
+    public static Action<MovableObject> movableObjectMoving;
     public static Action<MovableObject, ObjectSpawnZone> placeObjectRequest;
 
     protected SpriteRenderer _shadowRenderer;
@@ -29,6 +30,8 @@ public class MovableObject : InteractableObject
     private float _clampXmax;
     private float _clampYmin;
     private float _clampYmax;
+
+    private IEnumerator _movementRoutine;
 
     protected override void Awake()
     {
@@ -94,6 +97,9 @@ public class MovableObject : InteractableObject
         _mouseOffset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
         CalculateMinMaxPosition();
 
+        _movementRoutine = CheckMovement();
+        StartCoroutine(_movementRoutine);
+
         if (_shadowRenderer != null)
             _shadowRenderer.enabled = true;
 
@@ -113,6 +119,12 @@ public class MovableObject : InteractableObject
         else
         {
             base.Deselect(fireEvent);
+        }
+
+        if (_movementRoutine != null)
+        {
+            StopCoroutine(_movementRoutine);
+            _movementRoutine = null;
         }
 
         if (_shadowRenderer != null)
@@ -232,6 +244,28 @@ public class MovableObject : InteractableObject
         {
             _clampYmin = screenBounds.min.y - ((objectBounds.size.y / 2f) - 0.5f);
             _clampYmax = screenBounds.max.y + ((objectBounds.size.y / 2f) - 0.5f);
+        }
+    }
+
+    private IEnumerator CheckMovement()
+    {
+        bool moving = false;
+        bool eventFired = false;
+
+        while (true)
+        {
+            Vector2 startPos = transform.position;
+            yield return new WaitForSeconds(0.1f);
+            Vector2 currentPos = transform.position;
+            moving = Vector2.Distance(startPos, currentPos) > 0.25f;
+
+            if (!eventFired && moving)
+            {
+                eventFired = true;
+                if (movableObjectMoving != null)
+                    movableObjectMoving(this);
+            }
+            
         }
     }
 }

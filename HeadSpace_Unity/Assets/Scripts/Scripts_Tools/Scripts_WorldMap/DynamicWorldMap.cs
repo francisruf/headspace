@@ -20,6 +20,7 @@ public class DynamicWorldMap : MonoBehaviour
     public float coordinatesOffsetFromMap;
 
     private SpriteRenderer _spriteRenderer;
+    public SpriteRenderer crossRenderer;
     private GridInfo _currentGridInfo;
     private Canvas _coordinatesCanvas;
 
@@ -45,8 +46,21 @@ public class DynamicWorldMap : MonoBehaviour
 
     private void InitializeWorldMap(GridInfo gridInfo)
     {
+        Vector2 margins = new Vector2(0.375f, 0.375f);
+
         _currentGridInfo = gridInfo;
-        _spriteRenderer.size = _currentGridInfo.gameGridWorldBounds.size;
+        _spriteRenderer.size = (Vector2)_currentGridInfo.gameGridWorldBounds.size + (margins * 2f);
+        Vector2 pos = Vector2.zero;
+        pos.x += 0.03125f;
+        pos.y -= 0.03125f;
+        transform.position = pos;
+
+        Vector2 crossStartPos = _currentGridInfo.gameGridWorldBounds.min;
+        crossStartPos.y = _currentGridInfo.gameGridWorldBounds.max.y;
+        crossStartPos.x -= 0.03125f;
+        crossStartPos.y += 0.03125f;
+        crossRenderer.transform.position = crossStartPos;
+        crossRenderer.size = (Vector2)_currentGridInfo.gameGridWorldBounds.size + new Vector2(0.59375f, 0.59375f);
 
         AssignCoordinatesText();
     }
@@ -66,6 +80,7 @@ public class DynamicWorldMap : MonoBehaviour
 
             if (bottomXCoordinates)
             {
+                spawnPos.y -= 0.03125f;
                 TextMeshProUGUI txt = Instantiate(coordinatesTextPrefab, _coordinatesCanvas.transform).GetComponent<TextMeshProUGUI>();
                 txt.text = (i + 1).ToString();
                 txt.transform.position = spawnPos;
@@ -101,8 +116,11 @@ public class DynamicWorldMap : MonoBehaviour
 
             if (rightYCoordinates)
             {
+                
+
                 TextMeshProUGUI txt2 = Instantiate(coordinatesTextPrefab, _coordinatesCanvas.transform).GetComponent<TextMeshProUGUI>();
                 spawnPos.x = _currentGridInfo.gameGridWorldBounds.max.x + coordinatesOffsetFromMap;
+                spawnPos.x += 0.0625f;
                 txt2.text = GridCoords.GetTileLetter(i);
                 txt2.transform.position = spawnPos;
 

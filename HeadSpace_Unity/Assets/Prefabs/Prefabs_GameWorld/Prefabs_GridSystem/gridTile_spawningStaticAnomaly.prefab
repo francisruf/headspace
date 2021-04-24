@@ -73,7 +73,8 @@ SpriteRenderer:
   m_SortingLayerID: 713987835
   m_SortingLayer: 3
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 7de34eeb73b683d4894471ae4fc009a3, type: 3}
+  m_Sprite: {fileID: -4176062618086990820, guid: d335bfeeb131e1d44ad4641f42753aa3,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,9 +100,9 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 1, y: -1}
   m_SpriteTilingProperty:
-    border: {x: 0.03125, y: 0.03125, z: 0.03125, w: 0.03125}
+    border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 1}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.59375, y: 0.59375}
     newSize: {x: 2, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 2
@@ -130,8 +131,10 @@ MonoBehaviour:
   shipDPS: 0
   planetDPS: 0
   colliderEnableDelay: 0
-  worldMapSprite: {fileID: 21300000, guid: 7de34eeb73b683d4894471ae4fc009a3, type: 3}
-  debugSprite: {fileID: 21300000, guid: 7de34eeb73b683d4894471ae4fc009a3, type: 3}
+  worldMapSprite: {fileID: -4176062618086990820, guid: d335bfeeb131e1d44ad4641f42753aa3,
+    type: 3}
+  debugSprite: {fileID: -4176062618086990820, guid: d335bfeeb131e1d44ad4641f42753aa3,
+    type: 3}
   tileX: 0
   tileY: 0
   tileType: 0

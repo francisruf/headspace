@@ -59,15 +59,15 @@ MonoBehaviour:
   - AP-134
   - Xa Per 77
   defaultSpriteMatch:
-    mapSprite: {fileID: 21300000, guid: 8cb63ac3472120e4e9122af79e889ee9, type: 3}
-    contractSprite: {fileID: 21300000, guid: a98a1646efe8abf46b23902a61e70a9e, type: 3}
+    mapSprite: {fileID: -3602877908937280410, guid: 023f3592b9f9e4f4ab193c76e58e62fd,
+      type: 3}
+    contractSprite: {fileID: 6489317797150703090, guid: 023f3592b9f9e4f4ab193c76e58e62fd,
+      type: 3}
   planetSprites:
-  - mapSprite: {fileID: 21300000, guid: 682e439262cf6b8459961cc018064f71, type: 3}
-    contractSprite: {fileID: 21300000, guid: 2c56610bfff8f534c8fdb8ad2223f696, type: 3}
-  - mapSprite: {fileID: 21300000, guid: 65afef2b5c1c5614bb8dd85601085a53, type: 3}
-    contractSprite: {fileID: 21300000, guid: 33652649eca715041bd41e87b7374e75, type: 3}
-  - mapSprite: {fileID: 21300000, guid: 682e439262cf6b8459961cc018064f71, type: 3}
-    contractSprite: {fileID: 21300000, guid: 2c56610bfff8f534c8fdb8ad2223f696, type: 3}
+  - mapSprite: {fileID: -3602877908937280410, guid: 023f3592b9f9e4f4ab193c76e58e62fd,
+      type: 3}
+    contractSprite: {fileID: 6489317797150703090, guid: 023f3592b9f9e4f4ab193c76e58e62fd,
+      type: 3}
 --- !u!1 &5322473505593619104
 GameObject:
   m_ObjectHideFlags: 0

@@ -35,9 +35,9 @@ public class WritingMachineClock : MonoBehaviour
         int hours = TimeSpan.FromSeconds(time).Hours;
         int minutes = TimeSpan.FromSeconds(time).Minutes;
 
-        Debug.Log("HOURS : " + hours);
-        Debug.Log("MINS : " + minutes);
-        Debug.Log((8 / 10).ToString());
+        //Debug.Log("HOURS : " + hours);
+        //Debug.Log("MINS : " + minutes);
+        //Debug.Log((8 / 10).ToString());
         _digitRenderers[0].sprite = _spriteDB.GetDigit(hours / 10);
         _digitRenderers[1].sprite = _spriteDB.GetDigit(hours % 10);
         _digitRenderers[2].sprite = _spriteDB.GetDigit(minutes / 10);

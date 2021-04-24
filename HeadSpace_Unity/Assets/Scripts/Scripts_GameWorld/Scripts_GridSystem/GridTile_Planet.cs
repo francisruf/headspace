@@ -88,7 +88,7 @@ public class GridTile_Planet : GridTile, PointOfInterest
 
     private void PlacePlanetRenderer()
     {
-        float margin = 0.0625f;
+        float margin = 0.03125f;
         float planetRadius = _planetSpriteRenderer.sprite.bounds.extents.x;
 
         float minX = _spriteRenderer.bounds.min.x + planetRadius + margin;

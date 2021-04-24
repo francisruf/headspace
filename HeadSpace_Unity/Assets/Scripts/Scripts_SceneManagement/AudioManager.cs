@@ -64,6 +64,7 @@ public class AudioManager : MonoBehaviour
         DropZone_Outbox.commandFail += DrawerError;
         MovableObject.movableObjectSelected += OnMovableObjectSelected;
         MovableObject.movableObjectDeselected += OnMovableObjectDeselected;
+        MovableObject.movableObjectMoving += OnMovableObjectMoving;
         MovableMarker.markerPinnedOnTile += MarkerPin;
 
         MainMenuController.playButtonPressed += MenuButtonSelect;
@@ -76,8 +77,8 @@ public class AudioManager : MonoBehaviour
         RouteScreenController.routeScreenOpen += NumPadOut;
         RouteScreenController.routeScreenClose += NumPadClose;
 
-        SlidableTool.drawerOpened += DrawerOpen;
-        SlidableTool.drawerClosed += DrawerClose;
+        SlidableTool.toolOpened += ToolOpen;
+        SlidableTool.toolClosed += ToolClose;
         SlidableOutbox.outboxAutoOpen += DrawerAutoOpen;
 
         MapPointOfInterest.newDiscovery += NewDiscovery;
@@ -91,6 +92,9 @@ public class AudioManager : MonoBehaviour
         Receiver.singlePrint += SinglePrint;
         WritingMachineController.lightFlash += VoyantFlash;
         MovableCommand.commandInOutbox += CommandInOutbox;
+
+        SlidableTool.toolOpening += SlidingOpening;
+        SlidableTool.toolClosing += SlidingClosing;
     }
 
     private void OnDisable()
@@ -103,6 +107,7 @@ public class AudioManager : MonoBehaviour
         DropZone_Outbox.commandFail -= DrawerError;
         MovableObject.movableObjectSelected -= OnMovableObjectSelected;
         MovableObject.movableObjectDeselected -= OnMovableObjectDeselected;
+        MovableObject.movableObjectMoving -= OnMovableObjectMoving;
         MovableMarker.markerPinnedOnTile -= MarkerPin;
 
         MainMenuController.playButtonPressed -= MenuButtonSelect;
@@ -115,8 +120,8 @@ public class AudioManager : MonoBehaviour
         RouteScreenController.routeScreenOpen -= NumPadOut;
         RouteScreenController.routeScreenClose -= NumPadClose;
 
-        SlidableTool.drawerOpened -= DrawerOpen;
-        SlidableTool.drawerClosed -= DrawerClose;
+        SlidableTool.toolOpened -= ToolOpen;
+        SlidableTool.toolClosed -= ToolClose;
         SlidableOutbox.outboxAutoOpen -= DrawerAutoOpen;
 
         MapPointOfInterest.newDiscovery -= NewDiscovery;
@@ -130,6 +135,9 @@ public class AudioManager : MonoBehaviour
         Receiver.singlePrint -= SinglePrint;
         WritingMachineController.lightFlash -= VoyantFlash;
         MovableCommand.commandInOutbox -= CommandInOutbox;
+
+        SlidableTool.toolOpening -= SlidingOpening;
+        SlidableTool.toolClosing -= SlidingClosing;
     }
 
     //Update function only to test feature. Remove when necessary.
@@ -175,7 +183,7 @@ public class AudioManager : MonoBehaviour
             s.source1.volume = s.volume;
 
         if (fadeIn)
-            StartCoroutine(FadeIn(s, s.source0));
+            StartCoroutine(FadeIn(s.volume, s.source0));
 
         else
             s.source0.Play();
@@ -211,9 +219,30 @@ public class AudioManager : MonoBehaviour
         return Array.Find(sounds, sound => sound.name == name);
     }
 
-    public void PlaySoundLoop(string name, bool fadeIn = false)
+    public void PlaySoundLoop(string name, bool dynamicSound, bool fadeIn = false)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + name + " not found!");
+            return;
+        }
+
+
+        for (int i = 0; i < _currentLoopingSounds.Count; i++)
+        {
+            if (_currentLoopingSounds[i].sound == s)
+                return;
+        }
+
+        LoopingSoundInfo newInfo = new LoopingSoundInfo(s, LoopSound(s, dynamicSound, true));
+        _currentLoopingSounds.Add(newInfo);
+        StartCoroutine(newInfo.loopingRoutine);
+    }
+
+    public void PlaySoundLoop(string name, out Sound s, bool dynamicSound, bool fadeIn = false)
+    {
+        s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
         {
             Debug.LogWarning("Sound: " + name + " not found!");
@@ -226,12 +255,12 @@ public class AudioManager : MonoBehaviour
                 return;
         }
 
-        LoopingSoundInfo newInfo = new LoopingSoundInfo(s, LoopSound(s, true));
+        LoopingSoundInfo newInfo = new LoopingSoundInfo(s, LoopSound(s, dynamicSound, true));
         _currentLoopingSounds.Add(newInfo);
         StartCoroutine(newInfo.loopingRoutine);
     }
 
-    private IEnumerator LoopSound(Sound s, bool fadeIn = false)
+    private IEnumerator LoopSound(Sound s, bool dynamicSound, bool fadeIn = false)
     {
         s.activeSource = 0;
         float clipLength = s.source0.clip.length;
@@ -241,31 +270,36 @@ public class AudioManager : MonoBehaviour
         if (s.source1 != null)
             s.source1.volume = s.volume;
 
+        float sourceVolume = s.volume;
+        AudioSource source0 = s.source0;
+        AudioSource source1 = s.source1;
+        int activeSource = 0;
+
         if (fadeIn)
-            StartCoroutine(FadeIn(s, s.source0));
+            StartCoroutine(FadeIn(sourceVolume, source0));
         else
-            s.source0.Play();
+            source0.Play();
 
         while (true)
         {
-            if (s.activeSource == 0)
+            if (activeSource == 0)
             {
-                if (clipLength - s.source0.time < fadeSpeed)
+                if (clipLength - source0.time < fadeSpeed)
                 {
-                    s.activeSource = 1;
-                    StartCoroutine(FadeIn(s, s.source1, fadeSpeed));
+                    activeSource = 1;
+                    StartCoroutine(FadeIn(sourceVolume, source1, fadeSpeed));
                     yield return new WaitForSeconds(fadeSpeed * 0.5f);
-                    StartCoroutine(FadeOut(s, s.source0, fadeSpeed));
+                    StartCoroutine(FadeOut(source0, fadeSpeed));
                 }
             }
-            else if (s.activeSource == 1)
+            else if (activeSource == 1)
             {
-                if (clipLength - s.source1.time < fadeSpeed)
+                if (clipLength - source1.time < fadeSpeed)
                 {
-                    s.activeSource = 0;
-                    StartCoroutine(FadeIn(s, s.source0, fadeSpeed));
+                    activeSource = 0;
+                    StartCoroutine(FadeIn(sourceVolume, source0, fadeSpeed));
                     yield return new WaitForSeconds(fadeSpeed * 0.5f);
-                    StartCoroutine(FadeOut(s, s.source1, fadeSpeed));
+                    StartCoroutine(FadeOut(source1, fadeSpeed));
                 }
             }
             yield return new WaitForEndOfFrame();
@@ -292,7 +326,7 @@ public class AudioManager : MonoBehaviour
             targetSource = targetInfo.sound.source1;
 
         if (fadeOut)
-            StartCoroutine(FadeOut(targetInfo.sound, targetSource));
+            StartCoroutine(FadeOut(targetSource));
         else
             targetSource.Stop();
 
@@ -300,12 +334,11 @@ public class AudioManager : MonoBehaviour
         _currentLoopingSounds.Remove(targetInfo);
     }
 
-    private IEnumerator FadeIn(Sound s, AudioSource source, float fadeSpeed = 0f)
+    private IEnumerator FadeIn(float targetVolume, AudioSource source, float fadeSpeed = 0f)
     {
         if (fadeSpeed < 0.01f)
             fadeSpeed = sfxFadeSpeed;
 
-        float targetVolume = s.volume;
         source.volume = 0f;
         float time = 0f;
 
@@ -322,7 +355,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    private IEnumerator FadeOut(Sound s, AudioSource source, float fadeSpeed = 0f)
+    private IEnumerator FadeOut(AudioSource source, float fadeSpeed = 0f)
     {
         if (fadeSpeed < 0.01f)
             fadeSpeed = sfxFadeSpeed;
@@ -344,21 +377,75 @@ public class AudioManager : MonoBehaviour
     #region Tools
     private void ShredderStarted()
     {
-        PlaySoundLoop("Shredder_Loop");
+        PlaySoundLoop("Shredder_Loop", false);
     }
 
     private void ShredderStopped()
     {
-        Debug.Log("ShredderStopped");
         StopSoundLoop("Shredder_Loop", true);
     }
-    
+
+    private void SlidingOpening(SlidableToolType toolType)
+    {
+        switch (toolType)
+        {
+            case SlidableToolType.Drawer:
+                PlaySound("Drawer_Pull_One");
+                break;
+            case SlidableToolType.Outbox:
+                PlaySound("Drawer_Pull_One");
+                break;
+            case SlidableToolType.WritingMachine:
+                break;
+            case SlidableToolType.Board:
+                PlaySound("Drawer_Pull_One");
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void SlidingClosing(SlidableToolType toolType)
+    {
+        switch (toolType)
+        {
+            case SlidableToolType.Drawer:
+                PlaySound("Drawer_Pull_Two");
+                break;
+            case SlidableToolType.Outbox:
+                PlaySound("Drawer_Pull_Two");
+                break;
+            case SlidableToolType.WritingMachine:
+                break;
+            case SlidableToolType.Board:
+                PlaySound("Drawer_Pull_Two");
+                break;
+            default:
+                break;
+        }
+    }
+
     #endregion
     #region drawers
 
-    private void DrawerOpen()
+    private void ToolOpen(SlidableToolType toolType)
     {
-        PlaySound("Drawer_Open_Two");
+        switch (toolType)
+        {
+            case SlidableToolType.Drawer:
+                PlaySound("Drawer_Open_Two");
+                break;
+            case SlidableToolType.Outbox:
+                PlaySound("Drawer_Open_Two");
+                break;
+            case SlidableToolType.WritingMachine:
+                break;
+            case SlidableToolType.Board:
+                PlaySound("Drawer_Open_Two");
+                break;
+            default:
+                break;
+        }
     }
 
     private void DrawerAutoOpen()
@@ -366,9 +453,24 @@ public class AudioManager : MonoBehaviour
         PlaySound("Drawer_Open_One");
     }
 
-    private void DrawerClose()
+    private void ToolClose(SlidableToolType toolType)
     {
-        PlayRandomSound("Drawer_Close_One", "Drawer_Close_Two");
+        switch (toolType)
+        {
+            case SlidableToolType.Drawer:
+                PlaySound("Drawer_Close_One");
+                break;
+            case SlidableToolType.Outbox:
+                PlaySound("Drawer_Close_One");
+                break;
+            case SlidableToolType.WritingMachine:
+                break;
+            case SlidableToolType.Board:
+                PlaySound("Drawer_Close_One");
+                break;
+            default:
+                break;
+        }
     }
 
     private void DrawerDrag()
@@ -411,7 +513,7 @@ public class AudioManager : MonoBehaviour
                 PaperPickup();
                 break;
             case ObjectType.Message:
-                MessagePick();
+                PaperPickup();
                 break;
             case ObjectType.Other:
                 break;
@@ -431,6 +533,25 @@ public class AudioManager : MonoBehaviour
                 PaperDrop();
                 break;
             case ObjectType.Message:
+                PaperDrop();
+                break;
+            case ObjectType.Other:
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void OnMovableObjectMoving(MovableObject obj)
+    {
+        switch (obj.objectType)
+        {
+            case ObjectType.Marker:
+                break;
+            case ObjectType.Document:
+                MessageDrop();
+                break;
+            case ObjectType.Message:
                 MessageDrop();
                 break;
             case ObjectType.Other:
@@ -439,6 +560,7 @@ public class AudioManager : MonoBehaviour
                 break;
         }
     }
+
 
     private void PaperPickup()
     {
@@ -583,12 +705,12 @@ public class AudioManager : MonoBehaviour
 
     private void WriterReady()
     {
-        PlaySoundLoop("Writer_Voyant");
+        PlaySoundLoop("Writer_Voyant", false);
     }
 
     private void WriterNotReady()
     {
-        StopSoundLoop("Writer_Voyant");
+        StopSoundLoop("Writer_Voyant", false);
     }
 
 }

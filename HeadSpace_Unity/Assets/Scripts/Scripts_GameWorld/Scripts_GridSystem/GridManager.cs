@@ -191,8 +191,13 @@ public class GridManager : MonoBehaviour
             actualWidth = _worldMap.GetComponent<SpriteRenderer>().size.x;
         }
 
-        float tileWidth = actualWidth / mapSizeX;   // Dimensions d'une tuile en unités de unity
+        float tileWidth = 0.03125f * 19f;
+        actualWidth = (tileWidth * mapSizeX);
+
+        //float tileWidth = actualWidth / mapSizeX;   // Dimensions d'une tuile en unités de unity
         Vector3 spawnOffset = new Vector3(actualWidth / 2f, (tileWidth * mapSizeY) / -2f, 0f);
+        spawnOffset.x -= 0.03125f;
+        spawnOffset.y += 0.03125f;
 
         char startChar = 'A';
         startChar--;

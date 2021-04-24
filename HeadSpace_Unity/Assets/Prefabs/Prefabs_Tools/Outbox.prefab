@@ -412,4 +412,6 @@ MonoBehaviour:
   slidingDirection: 2
   slidingAmount: 2.8
   drawerHandleSize: 0
+  toolType: 1
   smoothTime: 0.15
+  slidingSoundName: 

@@ -504,8 +504,6 @@ public class Ship : MonoBehaviour
                 break;
         }
 
-        Debug.Log("NEW SHIP STATE : " + CurrentShipState.ToString());
-
         // Action call when a ship changes state
         if (shipStateChange != null)
             shipStateChange(this);

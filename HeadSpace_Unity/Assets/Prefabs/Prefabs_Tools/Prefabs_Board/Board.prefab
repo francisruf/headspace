@@ -105,6 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSortingOrder: 10
+  targetSortingLayer: 
   acceptedObjects: 00000000010000000200000003000000
 --- !u!61 &3056156799633773869
 BoxCollider2D:
@@ -435,7 +436,9 @@ MonoBehaviour:
   slidingDirection: 0
   slidingAmount: 16
   drawerHandleSize: 1
+  toolType: 3
   smoothTime: 0
+  slidingSoundName: 
   singleContractSlotPrefab: {fileID: 1772819684645737121, guid: 75f304aaa3e163d4194df051e6c06f96,
     type: 3}
   doubleContractSlotPrefab: {fileID: 3378916489898484013, guid: 08208b81fba75fc42bc45133e106443b,

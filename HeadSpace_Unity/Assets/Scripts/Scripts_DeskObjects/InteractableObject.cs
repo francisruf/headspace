@@ -193,34 +193,64 @@ public abstract class InteractableObject : MonoBehaviour
         }
     }
 
-    public virtual void SetOrderInLayer(int newOrderInLayer)
+    public virtual void SetOrderInLayer(int newOrderInLayer, bool stackOrders = true)
     {
-        // Si l'objet a bel et bien un sprite renderer
-        if (_spriteRenderer != null)
+        if (stackOrders)
         {
-            _spriteRenderer.sortingOrder = newOrderInLayer;
-
-            int currentOrder = _spriteRenderer.sortingOrder + 1;
-            for (int i = 0; i < _childSpriteRenderersCount; i++)
+            // Si l'objet a bel et bien un sprite renderer
+            if (_spriteRenderer != null)
             {
-                if (_childSpriteRenderers[i] != _spriteRenderer)
+                _spriteRenderer.sortingOrder = newOrderInLayer;
+
+                int currentOrder = _spriteRenderer.sortingOrder + 1;
+                for (int i = 0; i < _childSpriteRenderersCount; i++)
                 {
-                    _childSpriteRenderers[i].sortingOrder = currentOrder;
+                    if (_childSpriteRenderers[i] != _spriteRenderer)
+                    {
+                        _childSpriteRenderers[i].sortingOrder = currentOrder;
+                        currentOrder++;
+                    }
+                }
+
+                for (int i = 0; i < _childCanvasesCount; i++)
+                {
+                    _childCanvases[i].sortingOrder = currentOrder;
                     currentOrder++;
                 }
             }
-
-            for (int i = 0; i < _childCanvasesCount; i++)
+            // Sinon, retourner 0 (ne devrait pas arriver)
+            else
             {
-                _childCanvases[i].sortingOrder = currentOrder;
-                currentOrder++;
+                Debug.LogError("Warning : No spriteRenderer found on " + gameObject.name);
             }
         }
-        // Sinon, retourner 0 (ne devrait pas arriver)
         else
         {
-            Debug.LogError("Warning : No spriteRenderer found on " + gameObject.name);
+            // Si l'objet a bel et bien un sprite renderer
+            if (_spriteRenderer != null)
+            {
+                _spriteRenderer.sortingOrder = newOrderInLayer;
+
+                for (int i = 0; i < _childSpriteRenderersCount; i++)
+                {
+                    if (_childSpriteRenderers[i] != _spriteRenderer)
+                    {
+                        _childSpriteRenderers[i].sortingOrder = newOrderInLayer;
+                    }
+                }
+
+                for (int i = 0; i < _childCanvasesCount; i++)
+                {
+                    _childCanvases[i].sortingOrder = newOrderInLayer;
+                }
+            }
+            // Sinon, retourner 0 (ne devrait pas arriver)
+            else
+            {
+                Debug.LogError("Warning : No spriteRenderer found on " + gameObject.name);
+            }
         }
+
     }
 
     public virtual ObjectInteractionZone[] GetInteractionZones()

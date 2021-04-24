@@ -260,4 +260,37 @@ public class ObjectsManager : MonoBehaviour
         // Enlever l'objet de la liste
         _allActiveObjects.Remove(obj);
     }
+
+    public bool ObjectOverlap(InteractableObject obj)
+    {
+        int count = 0;
+        int layer = obj.GetSortingLayer();
+        Vector2 objPos = obj.transform.position;
+        Vector2 candidatePos = default;
+
+
+        for (int i = 0; i < _allActiveObjects.Count; i++)
+        {
+            float largetSide = obj.ColliderBounds.size.x;
+            if (obj.ColliderBounds.size.y > largetSide)
+                largetSide = obj.ColliderBounds.size.y;
+
+            if (_allActiveObjects[i].GetSortingLayer() == layer)
+            {
+                if (_allActiveObjects[i].ColliderBounds.size.x > largetSide)
+                    largetSide = _allActiveObjects[i].ColliderBounds.size.x;
+                if (_allActiveObjects[i].ColliderBounds.size.y > largetSide)
+                    largetSide = _allActiveObjects[i].ColliderBounds.size.y;
+
+                candidatePos = _allActiveObjects[i].transform.position;
+
+                if (Vector2.Distance(candidatePos, objPos) < largetSide)
+                {
+                    if (_allActiveObjects[i].GetOrderInLayer() == obj.GetOrderInLayer())
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

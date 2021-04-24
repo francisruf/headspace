@@ -126,17 +126,13 @@ public class ShredderSlot : MonoBehaviour
 
     private void ShredEnd()
     {
-        Debug.Log("SHRED ROUTINES COUNT : " + currentShreddingRoutines.Count);
-        Debug.Log("4");
         if (shredding)
         {
-            Debug.Log("5");
             bool stillShredding = false;
             for (int i = 0; i < currentShreddingRoutines.Count; i++)
             {
                 if (currentShreddingRoutines[i].routine != null)
                 {
-                    Debug.Log("6");
                     stillShredding = true;
                     break;
                 }
@@ -148,8 +144,6 @@ public class ShredderSlot : MonoBehaviour
 
                 if (shredderStopped != null)
                     shredderStopped();
-
-                Debug.Log("7");
             }
         }
         UpdateLightState();
@@ -160,13 +154,12 @@ public class ShredderSlot : MonoBehaviour
         ShredStart();
 
         yield return StartCoroutine(LerpToPosition(obj));
-        Debug.Log("1");
 
         for (int i = 0; i < currentShreddingRoutines.Count; i++)
         {
             if (currentShreddingRoutines[i].instanceID == instanceID)
             {
-                Debug.Log(currentShreddingRoutines.Remove(currentShreddingRoutines[i]));
+                currentShreddingRoutines.Remove(currentShreddingRoutines[i]);
                 break;
             }
         }

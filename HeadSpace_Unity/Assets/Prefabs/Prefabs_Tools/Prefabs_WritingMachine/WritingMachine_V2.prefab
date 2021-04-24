@@ -1782,7 +1782,9 @@ MonoBehaviour:
   slidingDirection: 1
   slidingAmount: 5.375
   drawerHandleSize: 0.5
+  toolType: 2
   smoothTime: 0.15
+  slidingSoundName: 
   machineBGRenderer: {fileID: 6578522236718316557}
 --- !u!114 &5484499785070221499
 MonoBehaviour:

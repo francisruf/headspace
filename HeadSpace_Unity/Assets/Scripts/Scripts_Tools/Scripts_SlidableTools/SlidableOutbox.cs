@@ -43,20 +43,10 @@ public class SlidableOutbox : SlidableTool
     //    }
     //}
 
-    protected override void OpenTool()
-    {
-        base.OpenTool();
-        if (drawerOpened != null)
-            drawerOpened();
-    }
-
     protected override void FullyCloseTool()
     {
         base.FullyCloseTool();
         _dropZone.SendCommands();
-
-        if (drawerClosed != null)
-            drawerClosed();
     }
 
     private void OnCommandReadyToTear()

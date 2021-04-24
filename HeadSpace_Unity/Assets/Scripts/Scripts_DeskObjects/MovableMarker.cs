@@ -67,6 +67,15 @@ public class MovableMarker : MovableObject
 
             if (markerPinnedOnTile != null)
                 markerPinnedOnTile(this);
+
+            int sortingOrder = (int)(5000f - (transform.position.y * 32));
+            bool overlap = ObjectsManager.instance.ObjectOverlap(this);
+            if (overlap)
+            {
+                sortingOrder += 1;
+            }
+
+            SetOrderInLayer(sortingOrder, false);
         }
         else
         {

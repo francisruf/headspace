@@ -71,6 +71,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSortingOrder: 4
+  targetSortingLayer: 
   acceptedObjects: 00000000
   tray: 0
 --- !u!1 &4465040755192429996
@@ -311,6 +312,7 @@ MonoBehaviour:
   slidingAmount: 4.5
   drawerHandleSize: 0
   smoothTime: 0
+  slidingSoundName: Drawer_Loop
 --- !u!1 &8535278531715745804
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,5 +466,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSortingOrder: 4
+  targetSortingLayer: 
   acceptedObjects: 00000000
   tray: 1

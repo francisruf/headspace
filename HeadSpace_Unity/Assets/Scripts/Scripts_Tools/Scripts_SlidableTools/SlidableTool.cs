@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class SlidableTool : InteractableObject
 {
-    public static Action drawerOpened;
-    public static Action drawerClosed;
+    public static Action<SlidableToolType> toolOpened;
+    public static Action<SlidableToolType> toolClosed;
+    public static Action<SlidableToolType> toolOpening;
+    public static Action<SlidableToolType> toolClosing;
 
     public Action<SlidableTool> toolAutoOpened;
 
@@ -14,9 +16,13 @@ public class SlidableTool : InteractableObject
     public SlidingDirection slidingDirection;
     public float slidingAmount;
     public float drawerHandleSize = 1f;
+    public SlidableToolType toolType;
 
     [Header("Animation settings")]
     public float smoothTime;
+
+    [Header("Sound")]
+    public string slidingSoundName = "";
 
     protected Vector2 _lerpStartPos;
     protected IEnumerator _openingRoutine;
@@ -32,9 +38,15 @@ public class SlidableTool : InteractableObject
     protected float maxPosY;
     protected Vector2 openPos = new Vector2();
     protected Vector2 fullyClosedPos = new Vector2();
+    protected Vector2 fullyOpenPos = new Vector2();
 
     public bool IsOpen { get; private set; }
     public bool IsFullyClosed { get; private set; }
+    public bool IsFullyOpen { get; private set; }
+
+    private IEnumerator _movementRoutine;
+    private Sound _moveSound;
+    private bool _isPlayingLoop;
 
     protected override void Start()
     {
@@ -53,7 +65,7 @@ public class SlidableTool : InteractableObject
             default:
                 break;
         }
-
+        fullyOpenPos = transform.position;
         fullyClosedPos = transform.position;
         AssignStartingValues();
         CheckOpenState();
@@ -72,21 +84,25 @@ public class SlidableTool : InteractableObject
             case SlidingDirection.HorizontalLeft:
                 minPosX = horExtent - (slidingAmount / 2f);
                 maxPosX = fullyClosedPos.x;
+                fullyOpenPos.x = minPosX;
                 break;
 
             case SlidingDirection.HorizontalRight:
                 minPosX = fullyClosedPos.x;
                 maxPosX = -horExtent + (slidingAmount / 2f);
+                fullyOpenPos.x = maxPosX;
                 break;
 
             case SlidingDirection.VerticalDown:
                 minPosY = vertExtent - (slidingAmount / 2f);
                 maxPosY = fullyClosedPos.y;
+                fullyOpenPos.y = minPosY;
                 break;
 
             case SlidingDirection.VerticalUp:
                 minPosY = fullyClosedPos.y;
                 maxPosY = -vertExtent + (slidingAmount / 2f);
+                fullyOpenPos.y = maxPosY;
                 break;
 
             default:
@@ -155,51 +171,61 @@ public class SlidableTool : InteractableObject
     protected void CheckOpenState()
     {
         bool openDistance = false;
+        bool fullyOpenDistance = false;
         bool fullyClosedDistance = false;
+        float distance = 0f;
 
         switch (slidingDirection)
         {
             case SlidingDirection.VerticalDown:
                 openPos.x = transform.position.x;
                 openPos.y = minPosY;
-                openDistance = Vector2.Distance(transform.position, openPos) <= openDistanceBuffer;
+                distance = Vector2.Distance(transform.position, openPos);
+                openDistance = distance <= openDistanceBuffer;
+                fullyOpenDistance = distance <= 0.001f;
 
                 //fullyClosedPos.x = transform.position.x;
                 //fullyClosedPos.y = maxPosY;
-                fullyClosedDistance = Vector2.Distance(transform.position, fullyClosedPos) <= openDistanceBuffer;
+                fullyClosedDistance = Vector2.Distance(transform.position, fullyClosedPos) <= 0.001f;
 
                 break;
 
             case SlidingDirection.VerticalUp:
                 openPos.x = transform.position.x;
                 openPos.y = maxPosY;
-                openDistance = Vector2.Distance(transform.position, openPos) <= openDistanceBuffer;
+                distance = Vector2.Distance(transform.position, openPos);
+                openDistance = distance <= openDistanceBuffer;
+                fullyOpenDistance = distance <= 0.001f;
 
                 //fullyClosedPos.x = transform.position.x;
                 //fullyClosedPos.y = minPosY;
-                fullyClosedDistance = Vector2.Distance(transform.position, fullyClosedPos) <= openDistanceBuffer;
+                fullyClosedDistance = Vector2.Distance(transform.position, fullyClosedPos) <= 0.001f;
 
                 break;
 
             case SlidingDirection.HorizontalLeft:
                 openPos.x = minPosX;
                 openPos.y = transform.position.y;
-                openDistance = Vector2.Distance(transform.position, openPos) <= openDistanceBuffer;
+                distance = Vector2.Distance(transform.position, openPos);
+                openDistance = distance <= openDistanceBuffer;
+                fullyOpenDistance = distance <= 0.001f;
 
                 //fullyClosedPos.x = maxPosX;
                 //fullyClosedPos.y = transform.position.y;
-                fullyClosedDistance = Vector2.Distance(transform.position, fullyClosedPos) <= openDistanceBuffer;
+                fullyClosedDistance = Vector2.Distance(transform.position, fullyClosedPos) <= 0.001f;
 
                 break;
 
             case SlidingDirection.HorizontalRight:
                 openPos.x = maxPosX;
                 openPos.y = transform.position.y;
-                openDistance = Vector2.Distance(transform.position, openPos) <= openDistanceBuffer;
+                distance = Vector2.Distance(transform.position, openPos);
+                openDistance = distance <= openDistanceBuffer;
+                fullyOpenDistance = distance <= 0.001f;
 
                 //fullyClosedPos.x = minPosX;
                 //fullyClosedPos.y = transform.position.y;
-                fullyClosedDistance = Vector2.Distance(transform.position, fullyClosedPos) <= openDistanceBuffer;
+                fullyClosedDistance = Vector2.Distance(transform.position, fullyClosedPos) <= 0.001f;
 
                 break;
         }
@@ -222,12 +248,21 @@ public class SlidableTool : InteractableObject
             IsFullyClosed = false;
         }
 
+        if (fullyOpenDistance && !IsFullyOpen)
+        {
+            FullyOpenTool();
+        }
+        else if (!fullyOpenDistance && IsFullyOpen)
+        {
+            IsFullyOpen = false;
+        }
     }
 
     protected virtual void OpenTool()
     {
         IsOpen = true;
         //Debug.Log(this.gameObject.name + " is OPEN.");
+
     }
 
     protected virtual void CloseTool()
@@ -240,6 +275,17 @@ public class SlidableTool : InteractableObject
     {
         //Debug.Log(this.gameObject.name + "is FULLY CLOSED.");
         IsFullyClosed = true;
+
+        if (toolClosed != null)
+            toolClosed(toolType);
+    }
+
+    protected virtual void FullyOpenTool()
+    {
+        IsFullyOpen = true;
+
+        if (toolOpened != null)
+            toolOpened(toolType);
     }
 
     public override void Select(bool fireEvent = true)
@@ -251,6 +297,26 @@ public class SlidableTool : InteractableObject
         {
             StopCoroutine(_openingRoutine);
             _openingRoutine = null;
+        }
+
+        _movementRoutine = CheckMovement();
+        StartCoroutine(_movementRoutine);
+    }
+
+    public override void Deselect(bool fireEvent = true)
+    {
+        base.Deselect(fireEvent);
+        if (_movementRoutine != null)
+        {
+            StopCoroutine(_movementRoutine);
+            _movementRoutine = null;
+
+            if (_isPlayingLoop)
+            {
+                AudioManager.instance.StopSoundLoop(_moveSound.name);
+                _moveSound = null;
+                _isPlayingLoop = false;
+            }
         }
     }
 
@@ -337,4 +403,83 @@ public class SlidableTool : InteractableObject
         transform.position = fullyClosedPos;
         _closingRoutine = null;
     }
+
+    protected IEnumerator CheckMovement()
+    {
+        bool moving = false;
+        bool openEventFired = false;
+        bool closeEventFired = false;
+        float distance;
+        float time = 0f;
+
+        while (true)
+        {
+            if (openEventFired && closeEventFired)
+            {
+                Vector2 startPos2 = transform.position;
+                yield return new WaitForSeconds(0.0125f);
+                Vector2 currentPos2 = transform.position;
+                distance = Vector2.Distance(startPos2, currentPos2);
+
+                if (distance < 0.025f)
+                    time += 0.0125f;
+                else
+                    time = 0f;
+
+                if (time >= 0.25f)
+                {
+                    openEventFired = false;
+                    closeEventFired = false;
+                }
+                continue;
+            }
+
+            Vector2 startPos = transform.position;
+            yield return new WaitForSeconds(0.0125f);
+            Vector2 currentPos = transform.position;
+            distance = Vector2.Distance(startPos, currentPos);
+            moving = distance > 0.00625f;
+            bool opening = false;
+
+            switch (slidingDirection)
+            {
+                case SlidingDirection.VerticalDown:
+                    opening = currentPos.y < startPos.y;
+                    break;
+                case SlidingDirection.VerticalUp:
+                    opening = currentPos.y > startPos.y;
+                    break;
+                case SlidingDirection.HorizontalLeft:
+                    opening = currentPos.x < startPos.x;
+                    break;
+                case SlidingDirection.HorizontalRight:
+                    opening = currentPos.x > startPos.x;
+                    break;
+            }
+
+            if (moving)
+            {
+                if (!openEventFired && opening)
+                {
+                    openEventFired = true;
+                    if (toolOpening != null)
+                        toolOpening(toolType);
+                }
+                else if (!closeEventFired && !opening)
+                {
+                    closeEventFired = true;
+                    if (toolClosing != null)
+                        toolClosing(toolType);
+                }
+            }
+        }
+    }
+}
+
+public enum SlidableToolType
+{
+    Drawer,
+    Outbox,
+    WritingMachine,
+    Board
 }
