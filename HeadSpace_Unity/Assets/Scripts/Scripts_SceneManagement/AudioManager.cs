@@ -143,15 +143,15 @@ public class AudioManager : MonoBehaviour
     //Update function only to test feature. Remove when necessary.
     private void Update()
    {
-     // if (Input.GetKeyDown(KeyCode.S))
-     //{
-     //    PlaySound("Ship_Route_End");
-     //}
+       // if (Input.GetKeyDown(KeyCode.S))
+        //{
+        //   PlaySound("Contract_Spark_One");
+       // }
 
-    //    if (Input.GetKeyDown(KeyCode.D))
-    //    {
-    //        StopSoundLoop("Shredder_Loop", true);
-    //    }
+        //    if (Input.GetKeyDown(KeyCode.D))
+        //    {
+        //        StopSoundLoop("Shredder_Loop", true);
+        //    }
     }
 
     #region Main functions
