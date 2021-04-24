@@ -230,8 +230,15 @@ public class Ship : MonoBehaviour
         ChangeShipState(ShipState.Idle);
         mM.RouteFinishedNotif(this);
 
-        if (routeFinished != null)
-            routeFinished(this);
+        yield return new WaitForFixedUpdate();
+
+        if (CurrentShipState != ShipState.Disabled)
+        {
+            if (routeFinished != null)
+                routeFinished(this);
+            Debug.Log("NOTIF");
+        }
+
 
         _currentRoute = null;
     }

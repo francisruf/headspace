@@ -41,7 +41,7 @@ public class Receiver : StaticTool
             UpdateTime();
     }
 
-    private void NewMessageReceived()
+    private void NewMessageReceived(bool playSound)
     {
         _printerAnimator.SetTrigger("NewMessage");
     }

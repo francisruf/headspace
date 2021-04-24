@@ -6,7 +6,7 @@ using TMPro;
 
 public class MessageManager : MonoBehaviour
 {
-    public static Action newMessageReceived;
+    public static Action<bool> newMessageReceived;
 
     // Singleton
     public static MessageManager instance;
@@ -59,7 +59,7 @@ public class MessageManager : MonoBehaviour
     }
 
     // Fonction qui ajoute un message à la file d'attente (sans l'imprimer)
-    public void QueueMessage(string newMessage)
+    public void QueueMessage(string newMessage, bool playSound = true)
     {
         string fullMessage = "";
         if (TimeManager.instance != null)
@@ -72,7 +72,7 @@ public class MessageManager : MonoBehaviour
         _messageCount++;
 
         if (newMessageReceived != null)
-            newMessageReceived();
+            newMessageReceived(playSound);
 
         UpdateMessageCount();
     }
@@ -244,7 +244,7 @@ public class MessageManager : MonoBehaviour
 
         string newMessageText = ship.shipName + " has completed his route at " + tileName + ".";
 
-        QueueMessage(newMessageText);
+        QueueMessage(newMessageText, false);
     }
 
     public void BonusCreditsNotif(Planet planet)
@@ -300,7 +300,7 @@ public class MessageManager : MonoBehaviour
             newMessageText += soulsLost + " soul on board has been lost to folley. ";
 
         newMessageText += "Please wait for auto-reinitialization.";
-        QueueMessage(newMessageText);
+        QueueMessage(newMessageText, false);
     }
 
     #endregion

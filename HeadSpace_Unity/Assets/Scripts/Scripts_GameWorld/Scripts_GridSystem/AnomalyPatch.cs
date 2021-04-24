@@ -11,7 +11,6 @@ public class AnomalyPatch
     public AnomalyPatch(List<GridTile> gridTiles)
     {
         _allTiles = gridTiles;
-        Debug.Log("NEW PATCH WITH " + _allTiles.Count + " TILES");
         AssignCandidateTiles(); 
     }
 
@@ -32,7 +31,6 @@ public class AnomalyPatch
                     }
             }
         }
-        Debug.Log("CANDIDATE COUNT : " + _candidateCount);
     }
 
     public GridTile GetRandomNewTile()

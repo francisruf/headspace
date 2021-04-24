@@ -363,7 +363,9 @@ public class SlidableTool : InteractableObject
         if (toolAutoOpened != null)
             toolAutoOpened(this);
 
-        //Debug.Log("BASE");
+        if (toolOpening != null)
+            toolOpening(toolType);
+
 
         CheckOpenState();
         _lerpStartPos = transform.position;
@@ -386,7 +388,8 @@ public class SlidableTool : InteractableObject
         if (toolAutoOpened != null)
             toolAutoOpened(this);
 
-        //Debug.Log("BASE");
+        if (toolClosing != null)
+            toolClosing(toolType);
 
         CheckOpenState();
         _lerpStartPos = transform.position;
@@ -481,5 +484,6 @@ public enum SlidableToolType
     Drawer,
     Outbox,
     WritingMachine,
-    Board
+    Board,
+    Shredder
 }

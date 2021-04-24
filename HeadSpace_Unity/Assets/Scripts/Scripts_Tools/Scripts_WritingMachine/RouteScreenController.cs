@@ -30,7 +30,6 @@ public class RouteScreenController : MonoBehaviour
 
         foreach (var pos in _allTextPositions)
         {
-            Debug.Log("huh?");
             Vector2 spawnPos = pos.position;
 
             for (int i = 0; i < 3; i++)

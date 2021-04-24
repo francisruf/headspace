@@ -549,13 +549,14 @@ public class WritingMachineController : MonoBehaviour
         switch (_currentButtonSectionType)
         {
             case ButtonSectionType.Commands:
-                if (_currentCommandButton.openKeyPadCode)
-                    return ButtonSectionType.KeyPadCode;
+                if (_currentCommandButton != null)
+                {
+                    if (_currentCommandButton.openKeyPadCode)
+                        return ButtonSectionType.KeyPadCode;
 
-                else if (_currentCommandButton.openRouteScreen)
-                    return ButtonSectionType.RouteScreen;
-
-                else
+                    else if (_currentCommandButton.openRouteScreen)
+                        return ButtonSectionType.RouteScreen;
+                }
                     return ButtonSectionType.End;
 
             case ButtonSectionType.Ships:

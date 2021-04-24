@@ -83,6 +83,7 @@ public class AudioManager : MonoBehaviour
 
         MapPointOfInterest.newDiscovery += NewDiscovery;
         Ship.routeFinished += ShipRouteFinished;
+        Ship.shipDisabled += ShipDisabled;
         MessageManager.newMessageReceived += MessageReceived;
         MovableMessage.messageTearedFromReceiver += MessageRip;
         ContractManager.newContractReceived += NewContract;
@@ -95,6 +96,8 @@ public class AudioManager : MonoBehaviour
 
         SlidableTool.toolOpening += SlidingOpening;
         SlidableTool.toolClosing += SlidingClosing;
+
+        MovableContract.contractAssigned += ContractSpark;
     }
 
     private void OnDisable()
@@ -126,6 +129,7 @@ public class AudioManager : MonoBehaviour
 
         MapPointOfInterest.newDiscovery -= NewDiscovery;
         Ship.routeFinished -= ShipRouteFinished;
+        Ship.shipDisabled -= ShipDisabled;
         MessageManager.newMessageReceived -= MessageReceived;
         MovableMessage.messageTearedFromReceiver -= MessageRip;
         ContractManager.newContractReceived -= NewContract;
@@ -138,6 +142,8 @@ public class AudioManager : MonoBehaviour
 
         SlidableTool.toolOpening -= SlidingOpening;
         SlidableTool.toolClosing -= SlidingClosing;
+
+        MovableContract.contractAssigned -= ContractSpark;
     }
 
     //Update function only to test feature. Remove when necessary.
@@ -396,9 +402,13 @@ public class AudioManager : MonoBehaviour
                 PlaySound("Drawer_Pull_One");
                 break;
             case SlidableToolType.WritingMachine:
+                PlaySound("Outil_Open");
                 break;
             case SlidableToolType.Board:
                 PlaySound("Drawer_Pull_One");
+                break;
+            case SlidableToolType.Shredder:
+                PlaySound("Shredder_Pull_Out");
                 break;
             default:
                 break;
@@ -416,9 +426,13 @@ public class AudioManager : MonoBehaviour
                 PlaySound("Drawer_Pull_Two");
                 break;
             case SlidableToolType.WritingMachine:
+                PlaySound("Outil_Open");
                 break;
             case SlidableToolType.Board:
                 PlaySound("Drawer_Pull_Two");
+                break;
+            case SlidableToolType.Shredder:
+                PlaySound("Shredder_Pull_Out");
                 break;
             default:
                 break;
@@ -517,6 +531,9 @@ public class AudioManager : MonoBehaviour
                 break;
             case ObjectType.Other:
                 break;
+            case ObjectType.Contract:
+                PaperPickup();
+                break;
             default:
                 break;
         }
@@ -537,6 +554,9 @@ public class AudioManager : MonoBehaviour
                 break;
             case ObjectType.Other:
                 break;
+            case ObjectType.Contract:
+                PaperDrop();
+                break;
             default:
                 break;
         }
@@ -555,6 +575,9 @@ public class AudioManager : MonoBehaviour
                 MessageDrop();
                 break;
             case ObjectType.Other:
+                break;
+            case ObjectType.Contract:
+                MessageDrop();
                 break;
             default:
                 break;
@@ -669,13 +692,14 @@ public class AudioManager : MonoBehaviour
     }
     private void ShipDisabled(Ship ship)
     {
-        PlaySound("Notification_Received");
+        PlaySound("Alert_Anomalie");
     }
     #endregion
     #region Messages
-    private void MessageReceived()
+    private void MessageReceived(bool playSound)
     {
-        PlaySound("Message_Received");
+        if (playSound)
+            PlaySound("Message_Received");
     }
     private void MessageRip()
     {
@@ -695,6 +719,11 @@ public class AudioManager : MonoBehaviour
     private void NewContract()
     {
         PlaySound("Contract_Print");
+    }
+
+    private void ContractSpark(MovableContract contract)
+    {
+        PlayRandomSound("Contract_Spark_One", "Contract_Spark_Two");
     }
     #endregion
 

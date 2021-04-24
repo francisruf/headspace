@@ -275,7 +275,9 @@ MonoBehaviour:
   slidingDirection: 3
   slidingAmount: 5
   drawerHandleSize: 0
+  toolType: 4
   smoothTime: 0
+  slidingSoundName: 
 --- !u!95 &6587060054989849599
 Animator:
   serializedVersion: 3

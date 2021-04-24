@@ -42,7 +42,7 @@ public class SlidableReceptor : SlidableTool
         MessageManager.newMessageReceived -= NewMessageReceived;
     }
 
-    private void NewMessageReceived()
+    private void NewMessageReceived(bool playSound)
     {
         _printerAnimator.SetTrigger("NewMessage");
     }

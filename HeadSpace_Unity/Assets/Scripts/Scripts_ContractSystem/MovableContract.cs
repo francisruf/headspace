@@ -11,6 +11,7 @@ public class MovableContract : MovableObject
 
     public static Action<MovableContract> contractOnBelt;
     public static Action<MovableContract> contractExitBelt;
+    public static Action<MovableContract> contractAssigned;
 
     private IEnumerator _currentMovingRoutine;
 
@@ -174,6 +175,10 @@ public class MovableContract : MovableObject
                 newPos.x = contractDropZones[0].ColliderBounds.min.x;
                 transform.position = newPos;
                 boardDropZone = null;
+
+                if (contractAssigned != null)
+                    contractAssigned(this);
+
             }
             else if (boardDropZone != null)
             {
