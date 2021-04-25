@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pageSprite: {fileID: -8142618869659526127, guid: 302b80513ab623b428ef17261aa484c0,
     type: 3}
-  maxShipContainers: 5
+  maxShipContainers: 1
   pageParent: {fileID: 0}
   shipContainerPrefab: {fileID: 6830016928853790414, guid: 826adf43024b5fe4389707a9e15746b8,
     type: 3}

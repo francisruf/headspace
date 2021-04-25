@@ -77,6 +77,8 @@ public class MovableLogbook : MovableObject
     public void AddPage(int index, LogbookPage newPage)
     {
         logbookPages.Insert(index, newPage);
+        newPage.InitializePage(this);
+        newPage.HidePage();
         _pageCount++;
     }
 

@@ -66,6 +66,10 @@ public class ShipBoardSlot : MonoBehaviour
     {
         if (ship != LinkedShip)
             return;
+
+        if (LinkedShip == null)
+            return;
+
         _shipCallsignText.text = LinkedShip.shipCallsign;
     }
 

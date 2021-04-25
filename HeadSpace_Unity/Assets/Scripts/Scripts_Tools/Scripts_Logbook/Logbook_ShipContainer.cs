@@ -16,7 +16,7 @@ public class Logbook_ShipContainer : MonoBehaviour
     public TextMeshProUGUI shipNameText;
     public TextMeshProUGUI shipCallsignText;
     public TextMeshProUGUI shipClassText;
-    public TextMeshProUGUI shipStateText;
+    //public TextMeshProUGUI shipStateText;
     public TMP_InputField shipNameField;
     public TMP_InputField shipCallsignField;
 
@@ -45,8 +45,8 @@ public class Logbook_ShipContainer : MonoBehaviour
         //shipCallsignText.text = _linkedShip.shipCallsign;
         shipClassText.text = "Explorer class";
         Color textColor;
-        shipStateText.text = GetShipStatusFromState(_linkedShip.CurrentShipState, out textColor);
-        shipStateText.color = textColor;
+        //shipStateText.text = GetShipStatusFromState(_linkedShip.CurrentShipState, out textColor);
+        //shipStateText.color = textColor;
     }
 
     public void OnNameChange()

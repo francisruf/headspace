@@ -651,11 +651,11 @@ public class AudioManager : MonoBehaviour
     }
     private void ManualPickup()
     {
-        PlaySound("Manual_PickUp");
+        PlaySound("Manual_Drop");
     }
     private void ManualDrop()
     {
-        PlaySound("Manual_Drop");
+        PlaySound("Manual_PickUp");
     }
 
 

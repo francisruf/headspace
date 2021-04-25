@@ -29,6 +29,8 @@ public class LogbookPage_FleetDetails : LogbookPage
     {
         base.InitializePage(logbook);
 
+        Debug.Log("INIT");
+
         _currentFleetPage = true;
 
         currentFleetPageIndex = fleetPageCount;
@@ -78,7 +80,7 @@ public class LogbookPage_FleetDetails : LogbookPage
     {
         if (fleetPageCountText != null)
         {
-            fleetPageCountText.text = currentFleetPageIndex + " / " + fleetPageCount;
+            fleetPageCountText.text = currentFleetPageIndex + "/" + fleetPageCount;
         }
     }
 
@@ -89,6 +91,7 @@ public class LogbookPage_FleetDetails : LogbookPage
 
         if (_containerCount < maxShipContainers)
         {
+            _containerCount++;
             StartCoroutine(AddShip(ship));
         }
         else
@@ -105,11 +108,11 @@ public class LogbookPage_FleetDetails : LogbookPage
 
     public IEnumerator AddShip(Ship ship)
     {
+        Debug.Log("Adding ship to " + this.gameObject.name);
         yield return new WaitForEndOfFrame();
         Logbook_ShipContainer newContainer = Instantiate(shipContainerPrefab, shipLayoutGroup.transform).GetComponent<Logbook_ShipContainer>();
         newContainer.InitializeContainer(ship);
         _shipContainers.Add(newContainer);
-        _containerCount++;
     }
 
     private void OnShipStateChange(Ship ship)

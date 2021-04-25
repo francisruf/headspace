@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 8519948865630102664}
   - component: {fileID: 1531927876}
   m_Layer: 8
-  m_Name: Prefab_Ship
+  m_Name: Prefab_Ship_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -161,7 +161,7 @@ MonoBehaviour:
     type: 3}
   shipName: A
   shipCallsign: AAA
-  shipClass: Explorer
+  shipClass: Shuttle
   healthPoints: 100
   currentHealthPoints: 0
   cargoCapacity: 2
