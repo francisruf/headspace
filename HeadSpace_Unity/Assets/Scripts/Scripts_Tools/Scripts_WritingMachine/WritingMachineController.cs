@@ -12,6 +12,7 @@ public class WritingMachineController : MonoBehaviour
     private SlidableWritingMachine _slidableMachine;
     private KeyPadController _keyPadController;
     private RouteScreenController _routeScreenController;
+    private WritingMachineKeyboard _keyboard;
     private Animator _animator;
 
     private List<ButtonController> _allButtons;
@@ -51,6 +52,7 @@ public class WritingMachineController : MonoBehaviour
         _slidableMachine = GetComponent<SlidableWritingMachine>();
         _keyPadController = GetComponentInChildren<KeyPadController>();
         _routeScreenController = GetComponentInChildren<RouteScreenController>();
+        _keyboard = GetComponentInChildren<WritingMachineKeyboard>();
         _animator = GetComponent<Animator>();
 
         _allButtons = new List<ButtonController>(GetComponentsInChildren<ButtonController>());
@@ -156,17 +158,25 @@ public class WritingMachineController : MonoBehaviour
             for (int i = 0; i < playerInput.Length; i++)
             {
                 LookForChar(playerInput[i]);
+                _keyboard.PressKey(playerInput[i]);
             }
         }
 
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
             RemoveCharacter();
+            _keyboard.PressKey(SpecialKey.Backspace);
         }
 
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             PressReadyButton();
+            _keyboard.PressKey(SpecialKey.Return);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            _keyboard.PressKey(SpecialKey.Tab);
         }
     }
 
@@ -177,12 +187,14 @@ public class WritingMachineController : MonoBehaviour
             for (int i = 0; i < playerInput.Length; i++)
             {
                 _keyPadController.OnCharInput(playerInput[i]);
+                _keyboard.PressKey(playerInput[i]);
             }
         }
 
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
             _keyPadController.OnBackspaceInput();
+            _keyboard.PressKey(SpecialKey.Backspace);
         }
 
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
@@ -193,7 +205,13 @@ public class WritingMachineController : MonoBehaviour
             AssignButtonFields(keypadVector);
 
             _keyPadController.OnEnterInput();
+            _keyboard.PressKey(SpecialKey.Return);
             ChangeButtonSection(VerifyNextSection());
+        }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            _keyboard.PressKey(SpecialKey.Tab);
         }
     }
 
@@ -204,12 +222,14 @@ public class WritingMachineController : MonoBehaviour
             for (int i = 0; i < playerInput.Length; i++)
             {
                 _keyPadController.OnCharInput(playerInput[i]);
+                _keyboard.PressKey(playerInput[i]);
             }
         }
 
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
             _keyPadController.OnBackspaceInput();
+            _keyboard.PressKey(SpecialKey.Backspace);
         }
 
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
@@ -220,7 +240,13 @@ public class WritingMachineController : MonoBehaviour
             AssignButtonFields(keypadCode);
 
             _keyPadController.OnEnterInput();
+            _keyboard.PressKey(SpecialKey.Return);
             ChangeButtonSection(VerifyNextSection());
+        }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            _keyboard.PressKey(SpecialKey.Tab);
         }
     }
 
@@ -231,17 +257,20 @@ public class WritingMachineController : MonoBehaviour
             for (int i = 0; i < playerInput.Length; i++)
             {
                 _routeScreenController.OnCharInput(playerInput[i]);
+                _keyboard.PressKey(playerInput[i]);
             }
         }
 
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
             _routeScreenController.OnBackspaceInput();
+            _keyboard.PressKey(SpecialKey.Backspace);
         }
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             _routeScreenController.OnTabInput();
+            _keyboard.PressKey(SpecialKey.Tab);
         }
 
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
@@ -251,6 +280,7 @@ public class WritingMachineController : MonoBehaviour
 
             AssignButtonFields(routeInput);
             _routeScreenController.OnEnterInput();
+            _keyboard.PressKey(SpecialKey.Return);
             ChangeButtonSection(VerifyNextSection());
         }
     }
@@ -339,10 +369,6 @@ public class WritingMachineController : MonoBehaviour
         else if (_currentString != "")
         {
             AssignCommandErrorMessage(_currentString);
-        }
-        else
-        {
-            _currentCommandDocument.AssignErrorMessage("-- General directive --");
         }
 
         ChangeButtonSection(VerifyNextSection());
@@ -448,7 +474,7 @@ public class WritingMachineController : MonoBehaviour
             printText = "Following this route : ";
             for (int i = 0; i < count; i++)
             {
-                if (i == 3)
+                if (i == 1)
                     printText += "\n";
 
                 printText += routeEntry[i];

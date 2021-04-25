@@ -9,9 +9,11 @@ public class DropZone_Outbox : DropZone
 
     public static Action commandSuccess;
     public static Action commandFail;
+    public static Action timeCardSent;
 
     private List<MovableCommand> _commandsInDropZone = new List<MovableCommand>();
     private List<MovableCommand> _sentCommands = new List<MovableCommand>();
+    private MovableTimeCard _timeCard;
 
     private Animator _animator;
 
@@ -64,6 +66,13 @@ public class DropZone_Outbox : DropZone
         {
             _commandsInDropZone.Add(cmd);
         }
+
+        if (!GameManager.GameStarted)
+        {
+            MovableTimeCard tc = obj.GetComponent<MovableTimeCard>();
+            if (tc != null)
+                _timeCard = tc;
+        }
     }
 
     public override void RemoveObjectFromDropZone(MovableObject obj)
@@ -75,11 +84,31 @@ public class DropZone_Outbox : DropZone
         {
             _commandsInDropZone.Remove(cmd);
         }
+
+        if (_timeCard != null)
+        {
+            if (_timeCard == obj.GetComponent<MovableTimeCard>())
+                _timeCard = null;
+        }
     }
 
     public void SendCommands()
     {
         //Debug.Log("Sending commands...");
+
+        if (_timeCard != null && !GameManager.GameStarted)
+        {
+            _timeCard.DisableObject();
+            RemoveObjectFromDropZone(_timeCard);
+
+            if (timeCardSent != null)
+                timeCardSent();
+
+            if (commandSuccess != null)
+                commandSuccess();
+
+            _animator.SetTrigger("GreenLight");
+        }
 
         if (newCommandRequest != null)
             newCommandRequest(_commandsInDropZone);

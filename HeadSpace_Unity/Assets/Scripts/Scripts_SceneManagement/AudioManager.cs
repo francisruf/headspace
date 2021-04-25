@@ -40,6 +40,7 @@ public class AudioManager : MonoBehaviour
             s.source0.clip = s.clip;
             s.source0.volume = s.volume;
             s.source0.pitch = s.pitch;
+            s.source0.panStereo = s.stereoPan;
             //s.source.loop = s.loop;
 
             if (s.loop)
@@ -48,6 +49,7 @@ public class AudioManager : MonoBehaviour
                 s.source1.clip = s.clip;
                 s.source1.volume = s.volume;
                 s.source1.pitch = s.pitch;
+                s.source1.panStereo = s.stereoPan;
                 //s.source2.loop = s.loop;
             }
         }
@@ -91,13 +93,17 @@ public class AudioManager : MonoBehaviour
         MovableLogbook.logbookPickup += ManualPickup;
         MovableLogbook.logbookDrop += ManualDrop;
         Receiver.singlePrint += SinglePrint;
+        MovableCommand.commandSinglePrint += SinglePrint;
         WritingMachineController.lightFlash += VoyantFlash;
+        WritingMachineKeyboard.keyPress += KeyPress;
         MovableCommand.commandInOutbox += CommandInOutbox;
 
         SlidableTool.toolOpening += SlidingOpening;
         SlidableTool.toolClosing += SlidingClosing;
 
         MovableContract.contractAssigned += ContractSpark;
+
+        TimeManager.levelTimerEndPreTrigger += LevelOver;
     }
 
     private void OnDisable()
@@ -137,13 +143,17 @@ public class AudioManager : MonoBehaviour
         MovableLogbook.logbookPickup -= ManualPickup;
         MovableLogbook.logbookDrop -= ManualDrop;
         Receiver.singlePrint -= SinglePrint;
+        MovableCommand.commandSinglePrint -= SinglePrint;
         WritingMachineController.lightFlash -= VoyantFlash;
+        WritingMachineKeyboard.keyPress -= KeyPress;
         MovableCommand.commandInOutbox -= CommandInOutbox;
 
         SlidableTool.toolOpening -= SlidingOpening;
         SlidableTool.toolClosing -= SlidingClosing;
 
         MovableContract.contractAssigned -= ContractSpark;
+
+        TimeManager.levelTimerEndPreTrigger -= LevelOver;
     }
 
     //Update function only to test feature. Remove when necessary.
@@ -680,6 +690,25 @@ public class AudioManager : MonoBehaviour
             PlaySound("Writer_Voyant_One");
     }
 
+    private void KeyPress(char c)
+    {
+        PlayRandomSound("Writer_Keyboard_Click_One", "Writer_Keyboard_Click_Two");
+    }
+
+    private void WriterSignal()
+    {
+        PlaySound("Writer_Signal");
+    }
+
+    private void WriterReady()
+    {
+        PlaySoundLoop("Writer_Voyant", false);
+    }
+
+    private void WriterNotReady()
+    {
+        StopSoundLoop("Writer_Voyant", false);
+    }
     #endregion
     #region Ships
     private void NewDiscovery()
@@ -705,6 +734,12 @@ public class AudioManager : MonoBehaviour
     {
         PlayRandomSound("Message_Rip_One", "Message_Rip_Two");
     }
+
+    private void SinglePrint()
+    {
+        PlaySound("Paper_Print_Solo");
+    }
+
     private void SinglePrint(bool lastPrint)
     {
         if (lastPrint)
@@ -726,21 +761,13 @@ public class AudioManager : MonoBehaviour
         PlayRandomSound("Contract_Spark_One", "Contract_Spark_Two");
     }
     #endregion
-
-    private void WriterSignal()
+    #region Game loop
+    private void LevelOver()
     {
-        PlaySound("Writer_Signal");
+        PlaySound("Timer_DayEnd");
     }
+    #endregion
 
-    private void WriterReady()
-    {
-        PlaySoundLoop("Writer_Voyant", false);
-    }
-
-    private void WriterNotReady()
-    {
-        StopSoundLoop("Writer_Voyant", false);
-    }
 
 }
 

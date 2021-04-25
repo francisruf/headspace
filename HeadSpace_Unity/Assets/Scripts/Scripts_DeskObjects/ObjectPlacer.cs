@@ -10,7 +10,8 @@ public class ObjectPlacer : MonoBehaviour
     public static ObjectPlacer instance;
     private DropZone_Outbox _outbox;
     private DropZone_Drawer[] _drawers;
-    private Vector2 _currentSpawnPos = Vector2.zero;
+    private Vector2 _currentCenterSpawnPos = Vector2.zero;
+    private Vector2 _currentDeskSpawnPos = new Vector2(-6f, 0f);
 
     private void Awake()
     {
@@ -53,7 +54,7 @@ public class ObjectPlacer : MonoBehaviour
         switch (targetZone)
         {
             case ObjectSpawnZone.Desk:
-                PlaceObjectInCenter(obj);
+                PlaceObjectOnDesk(obj);
                 break;
 
             case ObjectSpawnZone.OutOfBounds:
@@ -89,6 +90,8 @@ public class ObjectPlacer : MonoBehaviour
         switch (targetZone)
         {
             case ObjectSpawnZone.Desk:
+                PlaceObjectOnDesk(go);
+                break;
             case ObjectSpawnZone.DrawerTop:
             case ObjectSpawnZone.DrawerBottom:
             case ObjectSpawnZone.Outbox:
@@ -158,15 +161,28 @@ public class ObjectPlacer : MonoBehaviour
 
     private void PlaceObjectInCenter(GameObject go)
     {
-        go.transform.position = Vector2.zero;
+        go.transform.position = _currentCenterSpawnPos;
     }
 
     private void PlaceObjectInCenter(MovableObject obj)
     {
-        obj.transform.position = _currentSpawnPos;
+        obj.transform.position = _currentCenterSpawnPos;
         obj.Select();
         obj.Deselect();
-        _currentSpawnPos.x += obj.ObjSpriteRenderer.bounds.size.x + 0.1f;
+        _currentCenterSpawnPos.x += obj.ObjSpriteRenderer.bounds.size.x + 0.1f;
+    }
+
+    private void PlaceObjectOnDesk(GameObject go)
+    {
+        go.transform.position = _currentDeskSpawnPos;
+    }
+
+    private void PlaceObjectOnDesk(MovableObject obj)
+    {
+        obj.transform.position = _currentDeskSpawnPos;
+        obj.Select();
+        obj.Deselect();
+        _currentDeskSpawnPos.x += obj.ObjSpriteRenderer.bounds.size.x + 0.1f;
     }
 
     private void PlaceObjectOutOfBounds(GameObject go)

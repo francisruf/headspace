@@ -60,9 +60,11 @@ public class SlidableOutbox : SlidableTool
 
     protected override IEnumerator AutoOpenTool()
     {
-        if (outboxAutoOpen != null)
-            outboxAutoOpen();
-
+        if (!IsOpen)
+        {
+            if (outboxAutoOpen != null)
+                outboxAutoOpen();
+        }
         //Debug.Log("DERIVED");
 
         yield return base.AutoOpenTool();

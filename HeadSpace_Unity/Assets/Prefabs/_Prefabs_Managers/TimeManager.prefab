@@ -46,3 +46,4 @@ MonoBehaviour:
   startHours: 9
   startMinutes: 0
   timeMultiplier: 0.8
+  hurryUpHours: 15

@@ -132,27 +132,6 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: LB_PromoCount_Numbers_12345-Sheet_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 23
-        width: 22
-        height: 17
-      alignment: 1
-      pivot: {x: 0, y: 1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: be2b91e964ea7aeb0800000000000000
-      internalID: -4708603267069136149
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: LB_PromoCount_Numbers_12345-Sheet_1
       rect:
         serializedVersion: 2

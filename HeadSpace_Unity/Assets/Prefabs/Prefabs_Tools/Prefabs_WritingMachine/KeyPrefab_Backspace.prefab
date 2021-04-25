@@ -11,13 +11,18 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -6625057354816110435, guid: c0ed90dc9e239a143a9132223e3a532e,
+      objectReference: {fileID: 6884645142690591764, guid: 8a651962449e0904484e70a8916a5d38,
         type: 3}
     - target: {fileID: 1151343586844369470, guid: 4801f842a81757f4a89025d4aa241d35,
         type: 3}
       propertyPath: m_Name
       value: KeyPrefab_Backspace
       objectReference: {fileID: 0}
+    - target: {fileID: 6224077889097088687, guid: 4801f842a81757f4a89025d4aa241d35,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 237e3f3e84eafcf4a9722752c9825f1b, type: 2}
     - target: {fileID: 8558012833187878632, guid: 4801f842a81757f4a89025d4aa241d35,
         type: 3}
       propertyPath: m_RootOrder

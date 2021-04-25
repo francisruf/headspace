@@ -5,13 +5,19 @@ using UnityEngine;
 
 public class LeaderboardController : MonoBehaviour
 {
+    public static Action leaderboardLoaded;
     public static Action dayStart;
     public static Action dayFinish;
-    public leaderboardSceneType sceneType;
 
+    [Header("EmployeeSlots")]
+    public Transform[] employeePos;
+    public GameObject characterPrefab;
+
+    [Header("LIGHTS")]
     public GameObject dayLights;
     public GameObject nightLights;
     public GameObject debugLights;
+
     private DayInfo _currentInfo = default;
 
     private void OnEnable()
@@ -26,7 +32,6 @@ public class LeaderboardController : MonoBehaviour
 
     private void Awake()
     {
-        
         if (GameManager.instance != null)
             _currentInfo = GameManager.instance.CurrentDayInfo;
 
@@ -39,6 +44,8 @@ public class LeaderboardController : MonoBehaviour
                 AssignNightInfo();
                 break;
         }
+
+        AssignLeaderboard();
     }
 
     private void AssignDayInfo()
@@ -54,6 +61,22 @@ public class LeaderboardController : MonoBehaviour
         dayLights.SetActive(false);
         nightLights.SetActive(true);
         Debug.Log("TOTAL CREDITS : " + RessourceManager.instance.TotalCredits + " (+" + GameManager.instance.LastSectorInfo.CreditsGained);
+    }
+
+    private void AssignLeaderboard()
+    {
+        if (EmployeeManager.instance == null)
+            return;
+
+        List<Employee> employees = EmployeeManager.instance.SortedEmployees;
+        int count = employees.Count;
+
+        for (int i = 0; i < 4 && i < count; i++)
+        {
+            EmployeeSlot slot = Instantiate(characterPrefab, employeePos[i]).GetComponent<EmployeeSlot>();
+            slot.transform.localPosition = Vector2.zero;
+            slot.InitializeSlot(GameManager.instance.CurrentDayInfo.time, employees[i]);
+        }
     }
 
     private void OnCardProcessed()

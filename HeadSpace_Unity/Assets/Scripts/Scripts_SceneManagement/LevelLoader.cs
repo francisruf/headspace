@@ -14,21 +14,28 @@ public class LevelLoader : MonoBehaviour
     {
         _inventory = FindObjectOfType<PlayerInventory>();
         _levelSettings = GetComponentInChildren<LevelSettings>();
-        startGameDebug.enabled = true;
+        
+        if (LevelManager.instance != null)
+            startGameDebug.enabled = false;
+        else
+            startGameDebug.enabled = true;
     }
 
     private void OnEnable()
     {
-        LevelManager.loadingDone += OnLoadingComplete;
+        LevelManager.preLoadDone += OnLoadingComplete;
     }
 
     private void OnDisable()
     {
-        LevelManager.loadingDone -= OnLoadingComplete;
+        LevelManager.preLoadDone -= OnLoadingComplete;
     }
 
     private void OnLoadingComplete()
     {
+        if (GameManager.instance != null)
+            GameManager.instance.PrepareLevel();
+
         if (startGameDebug != null)
             startGameDebug.enabled = false;
 
@@ -37,9 +44,6 @@ public class LevelLoader : MonoBehaviour
 
         if (GridManager.instance != null)
             GridManager.instance.GenerateNewGrid();
-
-        if (GameManager.instance != null)
-            GameManager.instance.StartLevel();
 
         if (_levelSettings != null)
             AssignLevelSettings();

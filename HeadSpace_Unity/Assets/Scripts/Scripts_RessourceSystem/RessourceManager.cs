@@ -36,16 +36,24 @@ public class RessourceManager : MonoBehaviour
     {
         //Ship.soulsUnloaded += OnShipUnload;
         Contract.contractComplete += OnContractComplete;
+        LeaderboardController.dayFinish += OnDayFinish;
     }
 
     private void OnDisable()
     {
         //Ship.soulsUnloaded -= OnShipUnload;
         Contract.contractComplete -= OnContractComplete;
+        LeaderboardController.dayFinish -= OnDayFinish;
     }
 
     private void Start()
     {
+        UpdateRessources();
+    }
+
+    private void OnDayFinish()
+    {
+        _currentCredits = 0;
         UpdateRessources();
     }
 

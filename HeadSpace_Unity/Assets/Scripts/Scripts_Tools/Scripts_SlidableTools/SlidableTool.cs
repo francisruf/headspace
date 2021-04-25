@@ -360,12 +360,14 @@ public class SlidableTool : InteractableObject
 
     protected virtual IEnumerator AutoOpenTool()
     {
-        if (toolAutoOpened != null)
-            toolAutoOpened(this);
+        if (!IsOpen)
+        {
+            if (toolAutoOpened != null)
+                toolAutoOpened(this);
 
-        if (toolOpening != null)
-            toolOpening(toolType);
-
+            if (toolOpening != null)
+                toolOpening(toolType);
+        }
 
         CheckOpenState();
         _lerpStartPos = transform.position;
@@ -385,11 +387,14 @@ public class SlidableTool : InteractableObject
 
     protected virtual IEnumerator AutoCloseTool()
     {
-        if (toolAutoOpened != null)
-            toolAutoOpened(this);
+        if (IsOpen)
+        {
+            if (toolAutoOpened != null)
+                toolAutoOpened(this);
 
-        if (toolClosing != null)
-            toolClosing(toolType);
+            if (toolClosing != null)
+                toolClosing(toolType);
+        }
 
         CheckOpenState();
         _lerpStartPos = transform.position;

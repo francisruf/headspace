@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     public static Action baseLoadingDone;
+    public static Action preLoadDone;
     public static Action loadingDone;
     public static Action unloadingDone;
 
@@ -25,6 +26,7 @@ public class LevelManager : MonoBehaviour
     private string[] _currentMenuScenes;
     private string _currentLevelScene;
     private string _currentSingleScene = "";
+    public SceneType CurrentSceneType { get; private set; }
 
     // Sector info
     private SectorInfo _previousSectorInfo;
@@ -95,6 +97,8 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator LoadStartScenes()
     {
+        CurrentSceneType = SceneType.Menu;
+
         blackSolid.enabled = true;
         transitionCanvas.enabled = true;
 
@@ -113,7 +117,8 @@ public class LevelManager : MonoBehaviour
 
     private void OnPlayButtonPressed()
     {
-        StartCoroutine(LoadSingleScene("Cutscene_Intro", 0.5f));
+        CurrentSceneType = SceneType.Cutscene;
+        StartCoroutine(LoadSingleScene("Cutscene_Intro", 0f, 0.5f));
         //StartCoroutine(LoadLevelScenes("00_Gym"));
     }
 
@@ -125,45 +130,52 @@ public class LevelManager : MonoBehaviour
 
     private void OnPlayAgainButtonPressed()
     {
-        StartCoroutine(LoadLevelScenes("00_Gym", 0.5f));
+        StartCoroutine(LoadLevelScenes("00_Gym", 0f, 0.5f));
     }
 
     private void OnLevelTimerEnded()
     {
-        StartCoroutine(LoadSingleSceneFromGame("Leaderboard", 0.5f));
+        CurrentSceneType = SceneType.Leaderboard;
+        StartCoroutine(LoadSingleSceneFromGame("Leaderboard", 4f, 1.5f));
     }
 
     private void OnGameOver()
     {
-        StartCoroutine(LoadMenuSceneFromGame("GameOverScreen", 0f));
+        CurrentSceneType = SceneType.Menu;
+        StartCoroutine(LoadMenuSceneFromGame("GameOverScreen", 0f, 0f));
     }
 
     private void OnTutorialPrompt(bool tutorial)
     {
+        CurrentSceneType = SceneType.Leaderboard;
         int day = tutorial == true ? 0 : 1;
         GameManager.instance.SetDay(day);
-        StartCoroutine(LoadSingleScene("Leaderboard", 1f));
+        StartCoroutine(LoadSingleScene("Leaderboard", 0f, 1f));
     }
 
     private void OnDaySceneOver()
     {
-        StartCoroutine(LoadSingleScene("Leaderboard", 1f));
+        CurrentSceneType = SceneType.Leaderboard;
+        StartCoroutine(LoadSingleScene("Leaderboard", 0f, 1f));
     }
 
     private void OnDayStart()
     {
         Debug.Log("On day start!");
-        StartCoroutine(LoadLevelScenes("00_Gym", 1f));
+        StartCoroutine(LoadLevelScenes("00_Gym", 0f, 1f));
     }
 
     private void OnDayFinish()
     {
+        CurrentSceneType = SceneType.DayScene;
         Debug.Log("On day finish!");
-        StartCoroutine(LoadSingleScene("DayMenu", 1f));
+        StartCoroutine(LoadSingleScene("DayMenu", 0f, 1f));
     }
 
-    private IEnumerator LoadLevelScenes(string targetLevelName, float timeBeforeFade)
+    private IEnumerator LoadLevelScenes(string targetLevelName, float timeBeforeFadeOut, float timeBeforeFadeIn)
     {
+        yield return new WaitForSeconds(timeBeforeFadeOut);
+
         yield return FadeOut();
 
         if (_currentMenuScenes != null)
@@ -181,18 +193,28 @@ public class LevelManager : MonoBehaviour
         if (unloadingDone != null)
             unloadingDone();
 
+        CurrentSceneType = SceneType.Level;
         _currentLevelScene = targetLevelName;
         yield return LoadScenes(essentialLevelScenes);
         yield return LoadScenes(environmentScenes);
         yield return LoadScenes(_currentLevelScene);
-        yield return FadeIn(timeBeforeFade);
+
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(targetLevelName));
+
+        if (preLoadDone != null)
+            preLoadDone();
+
+        yield return FadeIn(timeBeforeFadeIn);
+
 
         if (loadingDone != null)
             loadingDone();
     }
 
-    private IEnumerator LoadSingleScene(string targetScene, float timeBeforeFade)
+    private IEnumerator LoadSingleScene(string targetScene, float timeBeforeFadeOut, float timeBeforeFadeIn)
     {
+        yield return new WaitForSeconds(timeBeforeFadeOut);
+
         yield return FadeOut();
 
         if (_currentMenuScenes != null)
@@ -212,16 +234,22 @@ public class LevelManager : MonoBehaviour
 
         _currentSingleScene = targetScene;
         yield return LoadScenes(_currentSingleScene);
-        yield return FadeIn(timeBeforeFade);
+
+        if (preLoadDone != null)
+            preLoadDone();
+
+        yield return FadeIn(timeBeforeFadeIn);
 
         if (loadingDone != null)
             loadingDone();
     }
 
 
-    private IEnumerator LoadMenuSceneFromGame(string targetScreenName, float timeBeforeFade)
+    private IEnumerator LoadMenuSceneFromGame(string targetScreenName, float timeBeforeFadeOut, float timeBeforeFadeIn)
     {
         _currentMenuScenes = new string[] { targetScreenName };
+
+        yield return new WaitForSeconds(timeBeforeFadeOut);
 
         yield return FadeOut();
         yield return UnloadScenes(essentialLevelScenes);
@@ -232,15 +260,21 @@ public class LevelManager : MonoBehaviour
             unloadingDone();
 
         yield return LoadScenes(_currentMenuScenes);
-        yield return FadeIn(timeBeforeFade);
+
+        if (preLoadDone != null)
+            preLoadDone();
+
+        yield return FadeIn(timeBeforeFadeIn);
 
         if (loadingDone != null)
             loadingDone();
     }
 
-    private IEnumerator LoadSingleSceneFromGame(string targetScreenName, float timeBeforeFade)
+    private IEnumerator LoadSingleSceneFromGame(string targetScreenName, float timeBeforeFadeOut, float timeBeforeFadeIn)
     {
         _currentSingleScene = targetScreenName;
+
+        yield return new WaitForSeconds(timeBeforeFadeOut);
 
         yield return FadeOut();
         yield return UnloadScenes(essentialLevelScenes);
@@ -251,7 +285,11 @@ public class LevelManager : MonoBehaviour
             unloadingDone();
 
         yield return LoadScenes(targetScreenName);
-        yield return FadeIn(timeBeforeFade);
+
+        if (preLoadDone != null)
+            preLoadDone();
+
+        yield return FadeIn(timeBeforeFadeIn);
 
         if (loadingDone != null)
             loadingDone();
@@ -358,13 +396,13 @@ public class LevelManager : MonoBehaviour
         switch (sceneLoadType)
         {
             case SceneLoadType.SingleScene:
-                StartCoroutine(LoadSingleScene(nextSceneName, 1f));
+                StartCoroutine(LoadSingleScene(nextSceneName, 0f, 1f));
                 break;
             case SceneLoadType.MenuFromGame:
-                StartCoroutine(LoadMenuSceneFromGame(nextSceneName, 1f));
+                StartCoroutine(LoadMenuSceneFromGame(nextSceneName, 0f, 1f));
                 break;
             case SceneLoadType.Level:
-                StartCoroutine(LoadLevelScenes(nextSceneName, 1f));
+                StartCoroutine(LoadLevelScenes(nextSceneName, 0f, 1f));
                 break;
             default:
                 break;
@@ -377,6 +415,15 @@ public enum SceneLoadType
 {
     SingleScene,
     MenuFromGame,
+    Level
+}
+
+public enum SceneType
+{
+    Menu,
+    DayScene,
+    Leaderboard,
+    Cutscene,
     Level
 }
 

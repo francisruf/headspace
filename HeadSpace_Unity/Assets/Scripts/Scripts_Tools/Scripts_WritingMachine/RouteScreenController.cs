@@ -141,10 +141,9 @@ public class RouteScreenController : MonoBehaviour
             }
         }
 
-        float rectWidth = allScreens[_currentScreenIndex].GetComponent<RectTransform>().rect.width;
         int textLength = _allTextValues[_currentScreenIndex].Length;
-
-        Vector2 targetCaretPos = _allCoordsRenderers[(_currentScreenIndex * 3) + textLength].transform.position;
+        int index = Mathf.Clamp((_currentScreenIndex * 3) + textLength, 0, 17);
+        Vector2 targetCaretPos = _allCoordsRenderers[index].transform.position;
         caret.transform.position = targetCaretPos;
 
         if (_currentScreenIndex == allScreens.Count - 1 && textLength >= 3)

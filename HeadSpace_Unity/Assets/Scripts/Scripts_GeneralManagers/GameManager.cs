@@ -11,7 +11,10 @@ public class GameManager : MonoBehaviour
     public static Action levelStarted;
     public static Action levelEnded;
     public static Action gameOver;
+    public static Action<DayInfo> newDay;
+    public static Action<DayInfo> dayInfoChange;
     public static bool GameStarted { get; private set; }
+    private bool _levelEnded;
 
     public float LevelDurationInMinutes { get { return levelDurationInMinutes; } }
 
@@ -63,6 +66,7 @@ public class GameManager : MonoBehaviour
         TimeManager.levelTimerEnded += OnLevelTimerEnded;
         LeaderboardController.dayStart += OnDayStart;
         LeaderboardController.dayFinish += OnDayFinish;
+        DropZone_Outbox.timeCardSent += StartLevel;
     }
 
     private void OnDisable()
@@ -70,6 +74,7 @@ public class GameManager : MonoBehaviour
         TimeManager.levelTimerEnded -= OnLevelTimerEnded;
         LeaderboardController.dayStart -= OnDayStart;
         LeaderboardController.dayFinish -= OnDayFinish;
+        DropZone_Outbox.timeCardSent -= StartLevel;
     }
 
     public void StartLevel()
@@ -84,8 +89,15 @@ public class GameManager : MonoBehaviour
 
     private void OnLevelTimerEnded()
     {
+        if (_levelEnded)
+            return;
+
+        _levelEnded = true;
+
         if (SectorManager.instance != null)
             _lastSectorInfo = SectorManager.instance.CurrentSectorInfo;
+
+        ChangeLevelTime(LevelTime.NightEnd);
 
         if (levelEnded != null)
             levelEnded();
@@ -137,6 +149,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void PrepareLevel()
+    {
+        ChangeLevelTime(LevelTime.Level);
+    }
+
+    private void ChangeLevelTime(LevelTime newTime)
+    {
+        CurrentDayInfo.time = newTime;
+
+        if (dayInfoChange != null)
+            dayInfoChange(CurrentDayInfo);
+    }
+
     public void SetDay(int newDay)
     {
         CurrentDayInfo.day = newDay;
@@ -144,19 +169,25 @@ public class GameManager : MonoBehaviour
 
     private void OnDayStart()
     {
-        CurrentDayInfo.time = LevelTime.NightEnd;
+        //CurrentDayInfo.time = LevelTime.Level;
     }
 
     private void OnDayFinish()
     {
+        GameStarted = false;
+        _levelEnded = false;
         CurrentDayInfo.day++;
-        CurrentDayInfo.time = LevelTime.DayStart;
+        ChangeLevelTime(LevelTime.DayStart);
+
+        if (newDay != null)
+            newDay(CurrentDayInfo);
     }
 }
 
 public enum LevelTime
 {
     DayStart,
+    Level,
     NightEnd
 }
 

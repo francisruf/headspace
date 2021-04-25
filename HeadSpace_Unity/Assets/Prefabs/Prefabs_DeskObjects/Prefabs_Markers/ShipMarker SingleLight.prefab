@@ -57,8 +57,8 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: -2049550199
-  m_SortingOrder: 0
+  m_SortingLayerID: 1810622779
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &5617660276771076670
 MonoBehaviour:
@@ -166,9 +166,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -2049550199
-  m_SortingLayer: 4
-  m_SortingOrder: 0
+  m_SortingLayerID: 1810622779
+  m_SortingLayer: 5
+  m_SortingOrder: 1
   m_Sprite: {fileID: -6752980415491694992, guid: ad2d44e177330f84ea0b6ca96d9b240e,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -315,6 +315,31 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7110461467510289157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5156024988069624554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5b49afa1b36125428d8508de9d01fa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ignoreSelectedBringToFront: 0
+  objectType: 0
+  dropZoneLayerMask:
+    serializedVersion: 2
+    m_Bits: 270336
+  upSprite: {fileID: 0}
+  angleSprite: {fileID: 0}
+  lightOn: {fileID: -6752980415491694992, guid: ad2d44e177330f84ea0b6ca96d9b240e,
+    type: 3}
+  lightOff: {fileID: -2416090988513126967, guid: ad2d44e177330f84ea0b6ca96d9b240e,
+    type: 3}
+  allLights:
+  - {fileID: 4341078687659743634}
 --- !u!95 &8704556815208542872
 Animator:
   serializedVersion: 3
@@ -346,31 +371,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9834388ce5cbb084cb5c8e702efe01e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7110461467510289157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5156024988069624554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5b49afa1b36125428d8508de9d01fa0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ignoreSelectedBringToFront: 0
-  objectType: 0
-  dropZoneLayerMask:
-    serializedVersion: 2
-    m_Bits: 270336
-  upSprite: {fileID: 0}
-  angleSprite: {fileID: 0}
-  lightOn: {fileID: -6752980415491694992, guid: ad2d44e177330f84ea0b6ca96d9b240e,
-    type: 3}
-  lightOff: {fileID: -2416090988513126967, guid: ad2d44e177330f84ea0b6ca96d9b240e,
-    type: 3}
-  allLights:
-  - {fileID: 4341078687659743634}
 --- !u!1 &5939062223495577688
 GameObject:
   m_ObjectHideFlags: 0

@@ -834,7 +834,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1213351969
   m_SortingLayer: 7
-  m_SortingOrder: 8
+  m_SortingOrder: 2
   m_Sprite: {fileID: 2915506657484848846, guid: 11793a6e80ae9874e93d5cd894ef8645,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3961,7 +3961,7 @@ PrefabInstance:
     - target: {fileID: 3913113971409041265, guid: 0f14143b6e3cf66458c390c1fe676bdd,
         type: 3}
       propertyPath: printText
-      value: 'New fleet order : STATUS REQUEST'
+      value: STATUS REQUESTED
       objectReference: {fileID: 0}
     - target: {fileID: 3913113971409041265, guid: 0f14143b6e3cf66458c390c1fe676bdd,
         type: 3}
@@ -4399,6 +4399,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5484499785070221498}
     m_Modifications:
+    - target: {fileID: 3913113971409041265, guid: 0f14143b6e3cf66458c390c1fe676bdd,
+        type: 3}
+      propertyPath: printText
+      value: 'New command : MOVE'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3913113971409041265, guid: 0f14143b6e3cf66458c390c1fe676bdd,
+        type: 3}
+      propertyPath: printButtonName
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4990646398741837064, guid: 0f14143b6e3cf66458c390c1fe676bdd,
         type: 3}
       propertyPath: m_Name
@@ -4827,12 +4837,22 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3913113971409041265, guid: 0f14143b6e3cf66458c390c1fe676bdd,
         type: 3}
+      propertyPath: printText
+      value: 'New command : STOP'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3913113971409041265, guid: 0f14143b6e3cf66458c390c1fe676bdd,
+        type: 3}
       propertyPath: baseDisplayText
       value: stop
       objectReference: {fileID: 0}
     - target: {fileID: 3913113971409041265, guid: 0f14143b6e3cf66458c390c1fe676bdd,
         type: 3}
       propertyPath: openRouteScreen
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3913113971409041265, guid: 0f14143b6e3cf66458c390c1fe676bdd,
+        type: 3}
+      propertyPath: printButtonName
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4990646398741837064, guid: 0f14143b6e3cf66458c390c1fe676bdd,

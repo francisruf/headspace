@@ -7,6 +7,7 @@ using TMPro;
 public class MovableCommand : MovableObject
 {
     public Action commandTeared;
+    public static Action commandSinglePrint;
     public static Action commandInOutbox;
 
     private TextMeshProUGUI _commandText;
@@ -144,6 +145,7 @@ public class MovableCommand : MovableObject
 
     private IEnumerator PrintRoutine(string newLine)
     {
+        _collider.enabled = false;
         _commandText.text += newLine + "\n";
         _commandText.ForceMeshUpdate();
         //Debug.Log(_commandText.textBounds.extents);
@@ -154,28 +156,35 @@ public class MovableCommand : MovableObject
         float heightDifference = _spriteRenderer.size.y - _previousSpriteHeight;
         float heightStep = heightDifference / 2f;
 
-        Vector2 targetPos = transform.position;
+        Vector2 targetPos = transform.localPosition;
         targetPos.y += heightStep;
 
-        while(Vector2.Distance(transform.position, targetPos) > 0.001f)
+        if (commandSinglePrint != null)
+            commandSinglePrint();
+
+        while (Vector2.Distance(transform.localPosition, targetPos) > 0.001f)
         {
-            transform.position = Vector2.MoveTowards(transform.position, targetPos, 1f * Time.deltaTime);
+            transform.localPosition = Vector2.MoveTowards(transform.localPosition, targetPos, 1f * Time.deltaTime);
             yield return new WaitForEndOfFrame();
         }
 
         yield return new WaitForSeconds(0.2f);
 
-        targetPos = transform.position;
+        targetPos = transform.localPosition;
         targetPos.y += heightStep;
 
-        while (Vector2.Distance(transform.position, targetPos) > 0.001f)
+        if (commandSinglePrint != null)
+            commandSinglePrint();
+
+        while (Vector2.Distance(transform.localPosition, targetPos) > 0.001f)
         {
-            transform.position = Vector2.MoveTowards(transform.position, targetPos, 1f * Time.deltaTime);
+            transform.localPosition = Vector2.MoveTowards(transform.localPosition, targetPos, 1f * Time.deltaTime);
             yield return new WaitForEndOfFrame();
         }
 
         yield return new WaitForSeconds(0.2f);
 
+        _collider.enabled = true;
         _currentPrintingRoutine = null;
     }
 

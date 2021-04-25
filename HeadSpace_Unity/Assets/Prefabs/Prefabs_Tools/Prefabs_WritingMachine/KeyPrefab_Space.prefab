@@ -11,13 +11,18 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -288200070173009234, guid: 6439f8daffb79d84990c315a1bb5c419,
+      objectReference: {fileID: 3345952788361658404, guid: 0c3b80bea84d8f14da72ae332d754a0f,
         type: 3}
     - target: {fileID: 1151343586844369470, guid: 4801f842a81757f4a89025d4aa241d35,
         type: 3}
       propertyPath: m_Name
       value: KeyPrefab_Space
       objectReference: {fileID: 0}
+    - target: {fileID: 6224077889097088687, guid: 4801f842a81757f4a89025d4aa241d35,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 6d9d21edaa9a99a49a390a43414eaa8d, type: 2}
     - target: {fileID: 8558012833187878632, guid: 4801f842a81757f4a89025d4aa241d35,
         type: 3}
       propertyPath: m_RootOrder

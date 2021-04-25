@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -351,7 +351,7 @@ MonoBehaviour:
   - GridSystem
   blackSolid: {fileID: 41262680}
   transitionCanvas: {fileID: 1931337889}
-  fadeSpeed: 0.75
+  fadeSpeed: 1.25
 --- !u!1 &1357572645
 GameObject:
   m_ObjectHideFlags: 0

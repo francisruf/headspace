@@ -6,6 +6,7 @@ using UnityEngine;
 public class TimeManager : MonoBehaviour
 {
     public static Action levelTimerEnded;
+    public static Action levelTimerEndPreTrigger;
 
     // Singleton
     public static TimeManager instance;
@@ -15,12 +16,17 @@ public class TimeManager : MonoBehaviour
     public float startMinutes;
     public float timeMultiplier = 1.25f;
 
+    [Header("Timer settings")]
+    public float hurryUpHours;
+
     private float _currentTime = 0f;
     private bool _timeStarted;
     private bool _levelEnded;
+    private bool _triggerFired;
     private float _timeScaleBeforePause;
 
     private float _levelEndTimer;
+    private float _endPreTrigger;
 
     public float GetCurrentTime
     {
@@ -69,6 +75,7 @@ public class TimeManager : MonoBehaviour
         if (GameManager.instance != null)
         {
             _levelEndTimer = _currentTime + (GameManager.instance.LevelDurationInMinutes * 60f * 60f * timeMultiplier);
+            _endPreTrigger = _levelEndTimer - 2.15f * 60f * timeMultiplier;
         }
         _timeStarted = true;
     }
@@ -79,14 +86,25 @@ public class TimeManager : MonoBehaviour
         {
             _currentTime += (Time.deltaTime * 60f * timeMultiplier);
 
+            if (!_triggerFired && _currentTime >= _endPreTrigger)
+            {
+                _triggerFired = true;
+                if (levelTimerEndPreTrigger != null)
+                    levelTimerEndPreTrigger();
+            }
+
             if (_currentTime >= _levelEndTimer)
             {
-                _timeStarted = false;
-                _currentTime = _levelEndTimer;
-                _levelEnded = true;
+                if (!_levelEnded)
+                {
+                    _timeStarted = false;
+                    _currentTime = _levelEndTimer;
+                    _levelEnded = true;
 
-                if (levelTimerEnded != null)
-                    levelTimerEnded();
+                    if (levelTimerEnded != null)
+                        levelTimerEnded();
+                }
+
             }
         }
     }

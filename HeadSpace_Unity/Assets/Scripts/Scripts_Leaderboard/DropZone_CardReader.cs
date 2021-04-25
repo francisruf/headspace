@@ -48,7 +48,7 @@ public class DropZone_CardReader : DropZone
 
     private IEnumerator ProcessCard(MovableObject obj)
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.25f);
         _cardReaderAnimator.SetBool("Processed", true);
         _processed = true;
         obj.DisableInteractions();

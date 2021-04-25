@@ -770,6 +770,12 @@ public class GridManager : MonoBehaviour
     {
         while (true)
         {
+            if (!GameManager.GameStarted)
+            {
+                yield return new WaitForEndOfFrame();
+                continue;
+            }
+
             yield return new WaitForSeconds(anomalySpreadTime);
 
             int randomIndex = UnityEngine.Random.Range(0, _allAnomalyPatches.Count);

@@ -124,7 +124,7 @@ public abstract class Contract : MonoBehaviour
             pointsReward += GetDistanceTravelledPoints(settings, client);
             //Debug.Log("DistanceTravelled points : " + GetDistanceTravelledPoints(settings, client));
         }
-        rewardsText.text = pointsReward + "c";
+        rewardsText.text = pointsReward + "M";
     }
 
     private int GetChallengePoints(ContractPointsSettings settings, Client client)
