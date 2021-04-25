@@ -59,14 +59,90 @@ MonoBehaviour:
   - AP-134
   - Xa Per 77
   defaultSpriteMatch:
-    mapSprite: {fileID: -3602877908937280410, guid: 023f3592b9f9e4f4ab193c76e58e62fd,
+    mapSprite: {fileID: -331147489971266040, guid: ecae109305ef74440bdf07a683a13096,
       type: 3}
-    contractSprite: {fileID: 6489317797150703090, guid: 023f3592b9f9e4f4ab193c76e58e62fd,
+    contractSprite: {fileID: -5506835072467488133, guid: ecae109305ef74440bdf07a683a13096,
       type: 3}
   planetSprites:
-  - mapSprite: {fileID: -3602877908937280410, guid: 023f3592b9f9e4f4ab193c76e58e62fd,
+  - mapSprite: {fileID: -331147489971266040, guid: ecae109305ef74440bdf07a683a13096,
       type: 3}
-    contractSprite: {fileID: 6489317797150703090, guid: 023f3592b9f9e4f4ab193c76e58e62fd,
+    contractSprite: {fileID: -5506835072467488133, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+  - mapSprite: {fileID: -4683106121963867922, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+    contractSprite: {fileID: 3104410949829990490, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+  - mapSprite: {fileID: -8019216674379603652, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+    contractSprite: {fileID: -6820363090114793405, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+  - mapSprite: {fileID: -2437595478038604729, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+    contractSprite: {fileID: 8146603230576975036, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+  - mapSprite: {fileID: 8333075979982315202, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+    contractSprite: {fileID: -8876298003673606369, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+  - mapSprite: {fileID: 54930310537543916, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+    contractSprite: {fileID: -529620578106415927, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+  - mapSprite: {fileID: -8715358788849784850, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+    contractSprite: {fileID: -1037562832911013991, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+  - mapSprite: {fileID: 1088721121960017839, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+    contractSprite: {fileID: -6696574771045973966, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+  - mapSprite: {fileID: -3701400894552018864, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+    contractSprite: {fileID: 6446021064367132791, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+  - mapSprite: {fileID: -647300945402613674, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+    contractSprite: {fileID: 4589010835593705857, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+  - mapSprite: {fileID: 2779127040882600372, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+    contractSprite: {fileID: -2289190463248598646, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+  - mapSprite: {fileID: -5117146852070540599, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+    contractSprite: {fileID: -3329143803434471493, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+  - mapSprite: {fileID: -6993894491371802089, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+    contractSprite: {fileID: 7348990487677303622, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+  - mapSprite: {fileID: -7996497113191530360, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+    contractSprite: {fileID: 8189863319464852320, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+  - mapSprite: {fileID: -5582841403012328295, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+    contractSprite: {fileID: 3360317848879970593, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+  - mapSprite: {fileID: 7011779817624369488, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+    contractSprite: {fileID: 4903263362498778328, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+  - mapSprite: {fileID: 2339233893775672360, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+    contractSprite: {fileID: -2484847392981023567, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+  - mapSprite: {fileID: 285953656357506146, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+    contractSprite: {fileID: 1307195031302852261, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+  - mapSprite: {fileID: -2337464213033375489, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+    contractSprite: {fileID: 531451544239541036, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+  - mapSprite: {fileID: -5729766669341028292, guid: ecae109305ef74440bdf07a683a13096,
+      type: 3}
+    contractSprite: {fileID: 4275511589007787621, guid: ecae109305ef74440bdf07a683a13096,
       type: 3}
 --- !u!1 &5322473505593619104
 GameObject:

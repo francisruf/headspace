@@ -1,7 +1,127 @@
 fileFormatVersion: 2
 guid: ecae109305ef74440bdf07a683a13096
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -331147489971266040
+    second: Art_Planets-Sheet_V2_0
+  - first:
+      213: -5506835072467488133
+    second: Art_Planets-Sheet_V2_1
+  - first:
+      213: -4683106121963867922
+    second: Art_Planets-Sheet_V2_2
+  - first:
+      213: 3104410949829990490
+    second: Art_Planets-Sheet_V2_3
+  - first:
+      213: -8019216674379603652
+    second: Art_Planets-Sheet_V2_4
+  - first:
+      213: -6820363090114793405
+    second: Art_Planets-Sheet_V2_5
+  - first:
+      213: -2437595478038604729
+    second: Art_Planets-Sheet_V2_6
+  - first:
+      213: 8146603230576975036
+    second: Art_Planets-Sheet_V2_7
+  - first:
+      213: 8333075979982315202
+    second: Art_Planets-Sheet_V2_8
+  - first:
+      213: -8876298003673606369
+    second: Art_Planets-Sheet_V2_9
+  - first:
+      213: 54930310537543916
+    second: Art_Planets-Sheet_V2_10
+  - first:
+      213: -529620578106415927
+    second: Art_Planets-Sheet_V2_11
+  - first:
+      213: -8715358788849784850
+    second: Art_Planets-Sheet_V2_12
+  - first:
+      213: -1037562832911013991
+    second: Art_Planets-Sheet_V2_13
+  - first:
+      213: 1088721121960017839
+    second: Art_Planets-Sheet_V2_14
+  - first:
+      213: -6696574771045973966
+    second: Art_Planets-Sheet_V2_15
+  - first:
+      213: -3701400894552018864
+    second: Art_Planets-Sheet_V2_16
+  - first:
+      213: 6446021064367132791
+    second: Art_Planets-Sheet_V2_17
+  - first:
+      213: -647300945402613674
+    second: Art_Planets-Sheet_V2_18
+  - first:
+      213: 4589010835593705857
+    second: Art_Planets-Sheet_V2_19
+  - first:
+      213: 2779127040882600372
+    second: Art_Planets-Sheet_V2_20
+  - first:
+      213: -2289190463248598646
+    second: Art_Planets-Sheet_V2_21
+  - first:
+      213: -5117146852070540599
+    second: Art_Planets-Sheet_V2_22
+  - first:
+      213: -3329143803434471493
+    second: Art_Planets-Sheet_V2_23
+  - first:
+      213: -6993894491371802089
+    second: Art_Planets-Sheet_V2_24
+  - first:
+      213: 7348990487677303622
+    second: Art_Planets-Sheet_V2_25
+  - first:
+      213: -7996497113191530360
+    second: Art_Planets-Sheet_V2_26
+  - first:
+      213: 8189863319464852320
+    second: Art_Planets-Sheet_V2_27
+  - first:
+      213: -5582841403012328295
+    second: Art_Planets-Sheet_V2_28
+  - first:
+      213: 3360317848879970593
+    second: Art_Planets-Sheet_V2_29
+  - first:
+      213: 7011779817624369488
+    second: Art_Planets-Sheet_V2_30
+  - first:
+      213: 4903263362498778328
+    second: Art_Planets-Sheet_V2_31
+  - first:
+      213: 2339233893775672360
+    second: Art_Planets-Sheet_V2_32
+  - first:
+      213: -2484847392981023567
+    second: Art_Planets-Sheet_V2_33
+  - first:
+      213: 285953656357506146
+    second: Art_Planets-Sheet_V2_34
+  - first:
+      213: 1307195031302852261
+    second: Art_Planets-Sheet_V2_35
+  - first:
+      213: -2337464213033375489
+    second: Art_Planets-Sheet_V2_36
+  - first:
+      213: 531451544239541036
+    second: Art_Planets-Sheet_V2_37
+  - first:
+      213: -5729766669341028292
+    second: Art_Planets-Sheet_V2_38
+  - first:
+      213: 4275511589007787621
+    second: Art_Planets-Sheet_V2_39
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -61,7 +181,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 128
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -73,7 +193,31 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 1024
+    maxTextureSize: 128
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 128
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 128
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -85,7 +229,847 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 100
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80e1004cc17876bf0800000000000000
+      internalID: -331147489971266040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 103
+        width: 9
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b72b9e49daac393b0800000000000000
+      internalID: -5506835072467488133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 100
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee0f2e25bc3420fb0800000000000000
+      internalID: -4683106121963867922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 103
+        width: 9
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a58137d9f45151b20800000000000000
+      internalID: 3104410949829990490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 100
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c31e6ba1ce406b090800000000000000
+      internalID: -8019216674379603652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_5
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 103
+        width: 9
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 340b586c7e33951a0800000000000000
+      internalID: -6820363090114793405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 84
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7441961e3dbeb2ed0800000000000000
+      internalID: -2437595478038604729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_7
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 87
+        width: 9
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbc1794c97c8e0170800000000000000
+      internalID: 8146603230576975036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_8
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 86
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ce9f29047805a370800000000000000
+      internalID: 8333075979982315202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_9
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 87
+        width: 9
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f17968a8efd01d480800000000000000
+      internalID: -8876298003673606369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_10
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 85
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce00efe83d623c000800000000000000
+      internalID: 54930310537543916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_11
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 87
+        width: 9
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c4ea38e3e866a8f0800000000000000
+      internalID: -529620578106415927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 69
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee7a7848b53dc0780800000000000000
+      internalID: -8715358788849784850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_13
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 71
+        width: 9
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 997e038c916d991f0800000000000000
+      internalID: -1037562832911013991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_14
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 68
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: faf34e5971aeb1f00800000000000000
+      internalID: 1088721121960017839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_15
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 71
+        width: 9
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23046f7c9bcf013a0800000000000000
+      internalID: -6696574771045973966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_16
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 68
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 050f9ec4f7bf1acc0800000000000000
+      internalID: -3701400894552018864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_17
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 71
+        width: 9
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 770d94c610ed47950800000000000000
+      internalID: 6446021064367132791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 52
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 650b08e38335407f0800000000000000
+      internalID: -647300945402613674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_19
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 55
+        width: 9
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1893bf59a017faf30800000000000000
+      internalID: 4589010835593705857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_20
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 52
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b96d79b151719620800000000000000
+      internalID: 2779127040882600372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_21
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 55
+        width: 9
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a89fadef6692b30e0800000000000000
+      internalID: -2289190463248598646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_22
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 52
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cab3d2cc0e3cf8b0800000000000000
+      internalID: -5117146852070540599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_23
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 55
+        width: 9
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbf681e69518cc1d0800000000000000
+      internalID: -3329143803434471493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 36
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 712f83de302b0fe90800000000000000
+      internalID: -6993894491371802089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_25
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 39
+        width: 9
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64bfab379ebdcf560800000000000000
+      internalID: 7348990487677303622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_26
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 36
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88048c82e3cb60190800000000000000
+      internalID: -7996497113191530360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_27
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 39
+        width: 9
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06b34bb1c4d38a170800000000000000
+      internalID: 8189863319464852320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_28
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 36
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9945b18b253c582b0800000000000000
+      internalID: -5582841403012328295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_29
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 39
+        width: 9
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12935e2a74f32ae20800000000000000
+      internalID: 3360317848879970593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 20
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 059f0c81898de4160800000000000000
+      internalID: 7011779817624369488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_31
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 23
+        width: 9
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d45de1bc04eb0440800000000000000
+      internalID: 4903263362498778328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_32
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 20
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8248d0525d0a67020800000000000000
+      internalID: 2339233893775672360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_33
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 23
+        width: 9
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b48f4c167c048dd0800000000000000
+      internalID: -2484847392981023567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_34
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 20
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26cc96dd559e7f300800000000000000
+      internalID: 285953656357506146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_35
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 23
+        width: 9
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ae46f484f6142210800000000000000
+      internalID: 1307195031302852261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_36
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff825f2cea8af8fd0800000000000000
+      internalID: -2337464213033375489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_37
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 7
+        width: 9
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2b0bbd1d58106700800000000000000
+      internalID: 531451544239541036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_38
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 4
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c301e046297cb70b0800000000000000
+      internalID: -5729766669341028292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art_Planets-Sheet_V2_39
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 7
+        width: 9
+        height: 9
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56600e7332ba55b30800000000000000
+      internalID: 4275511589007787621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

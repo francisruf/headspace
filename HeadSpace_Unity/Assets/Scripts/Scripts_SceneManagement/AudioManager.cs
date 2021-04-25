@@ -401,54 +401,6 @@ public class AudioManager : MonoBehaviour
         StopSoundLoop("Shredder_Loop", true);
     }
 
-    private void SlidingOpening(SlidableToolType toolType)
-    {
-        switch (toolType)
-        {
-            case SlidableToolType.Drawer:
-                PlaySound("Drawer_Pull_One");
-                break;
-            case SlidableToolType.Outbox:
-                PlaySound("Drawer_Pull_One");
-                break;
-            case SlidableToolType.WritingMachine:
-                PlaySound("Outil_Open");
-                break;
-            case SlidableToolType.Board:
-                PlaySound("Drawer_Pull_One");
-                break;
-            case SlidableToolType.Shredder:
-                PlaySound("Shredder_Pull_Out");
-                break;
-            default:
-                break;
-        }
-    }
-
-    private void SlidingClosing(SlidableToolType toolType)
-    {
-        switch (toolType)
-        {
-            case SlidableToolType.Drawer:
-                PlaySound("Drawer_Pull_Two");
-                break;
-            case SlidableToolType.Outbox:
-                PlaySound("Drawer_Pull_Two");
-                break;
-            case SlidableToolType.WritingMachine:
-                PlaySound("Outil_Open");
-                break;
-            case SlidableToolType.Board:
-                PlaySound("Drawer_Pull_Two");
-                break;
-            case SlidableToolType.Shredder:
-                PlaySound("Shredder_Pull_Out");
-                break;
-            default:
-                break;
-        }
-    }
-
     #endregion
     #region drawers
 
@@ -472,11 +424,6 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    private void DrawerAutoOpen()
-    {
-        PlaySound("Drawer_Open_One");
-    }
-
     private void ToolClose(SlidableToolType toolType)
     {
         switch (toolType)
@@ -490,12 +437,66 @@ public class AudioManager : MonoBehaviour
             case SlidableToolType.WritingMachine:
                 break;
             case SlidableToolType.Board:
-                PlaySound("Drawer_Close_One");
+                PlaySound("Board_Close");
                 break;
             default:
                 break;
         }
     }
+
+    private void SlidingOpening(SlidableToolType toolType)
+    {
+        switch (toolType)
+        {
+            case SlidableToolType.Drawer:
+                PlaySound("Drawer_Pull_One");
+                break;
+            case SlidableToolType.Outbox:
+                PlaySound("Drawer_Pull_One");
+                break;
+            case SlidableToolType.WritingMachine:
+                PlaySound("Outil_Open");
+                break;
+            case SlidableToolType.Board:
+                PlaySound("Board_Drag_Open");
+                break;
+            case SlidableToolType.Shredder:
+                PlaySound("Shredder_Pull_Out");
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void SlidingClosing(SlidableToolType toolType)
+    {
+        switch (toolType)
+        {
+            case SlidableToolType.Drawer:
+                PlaySound("Drawer_Pull_Two");
+                break;
+            case SlidableToolType.Outbox:
+                PlaySound("Drawer_Pull_Two");
+                break;
+            case SlidableToolType.WritingMachine:
+                PlaySound("Outil_Open");
+                break;
+            case SlidableToolType.Board:
+                PlaySound("Board_Drag_Close");
+                break;
+            case SlidableToolType.Shredder:
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void DrawerAutoOpen()
+    {
+        PlaySound("Drawer_Open_One");
+    }
+
+
 
     private void DrawerDrag()
     {

@@ -62,10 +62,10 @@ public class MessageManager : MonoBehaviour
     public void QueueMessage(string newMessage, bool playSound = true)
     {
         string fullMessage = "";
-        if (TimeManager.instance != null)
-        {
-            fullMessage += "[" + TimeSpan.FromSeconds(TimeManager.instance.GameTime).ToString(@"hh\:mm") + "].............\n\n";
-        }
+        //if (TimeManager.instance != null)
+        //{
+        //    fullMessage += "[" + TimeSpan.FromSeconds(TimeManager.instance.GameTime).ToString(@"hh\:mm") + "].............\n\n";
+        //}
         fullMessage += newMessage;
 
         _messageQueue.Enqueue(fullMessage);
@@ -258,6 +258,39 @@ public class MessageManager : MonoBehaviour
         QueueMessage(newMessageText);
     }
 
+    public void ShipStopMovementNotif(Ship ship, bool isMoving)
+    {
+        TileCoordinates shipTile = GridCoords.FromWorldToTilePosition(ship.transform.position);
+        string tileName = GridCoords.GetTileName(shipTile);
+        string newMessageText = "";
+
+        if (isMoving)
+            newMessageText = ship.shipName + " has aborted its route at " + tileName;
+        else
+            newMessageText = "Command error :" + ship.shipName + " is already idle at " + tileName;
+
+        newMessageText += "\nAwaiting further instructions.";
+
+        int clientCount = ship.ClientsOnBoard.Count;
+        if (clientCount > 0)
+        {
+            for (int i = 0; i < clientCount; i++)
+            {
+                newMessageText += ship.ClientsOnBoard[i].clientFirstName[0] + ". " + ship.ClientsOnBoard[i].clientLastName[0];
+
+                if (i == clientCount - 1)
+                    newMessageText += ".";
+                else
+                    newMessageText += ", ";
+            }
+        }
+        else
+        {
+            newMessageText += "none.";
+        }
+        QueueMessage(newMessageText);
+    }
+
     public void ShipStatusNotif(Ship ship)
     {
         TileCoordinates shipTile = GridCoords.FromWorldToTilePosition(ship.transform.position);
@@ -265,7 +298,6 @@ public class MessageManager : MonoBehaviour
 
         string newMessageText = "Ship status request : ";
         newMessageText += ship.shipName + " at position " + tileName;
-        newMessageText += "\nMental health : " + ship.currentHealthPoints;
         newMessageText += "\nClients on board : ";
 
         int clientCount = ship.ClientsOnBoard.Count;

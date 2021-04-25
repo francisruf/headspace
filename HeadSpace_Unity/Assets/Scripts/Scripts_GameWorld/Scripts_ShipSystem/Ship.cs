@@ -298,25 +298,31 @@ public class Ship : MonoBehaviour
         yield return null;
     }
 
-    private void CancelRoute(string errorMessage = "", bool error = true)
+    private bool CancelRoute(string errorMessage = "", bool error = true)
     {
+        bool cancelled = false;
+
         _currentDestinations.Clear();
 
         if (_currentRoute != null)
         {
             StopCoroutine(_currentRoute);
             _currentRoute = null;
+            cancelled = true;
         }
         if (_currentMove != null)
         {
             StopCoroutine(_currentMove);
             _currentMove = null;
+            cancelled = true;
         }
 
         ChangeShipState(ShipState.Idle);
 
         if (error)
             mM.InvalidDestinationNotif(this, errorMessage);
+
+        return cancelled;
     }
 
     private void MoveShip()
@@ -458,7 +464,6 @@ public class Ship : MonoBehaviour
         if (isMoving) {
             isMoving = false;
             mM.MoveAbortedNotif(this);
-
         }
 
         if (pickupCoroutine != null) {
@@ -467,13 +472,15 @@ public class Ship : MonoBehaviour
             mM.PickupAbortedNotif(this);
         }
 
-        CancelRoute("Route stop manualy triggered.", true);
+        bool cancelled = CancelRoute("", false);
+        mM.ShipStopMovementNotif(this, cancelled);
+
+
         //if (isLoadingSouls) {
         //    StopCoroutine(LoadingSouls());
         //    isLoadingSouls = false;
         //    Debug.Log("Coroutine stopped. Congratulations.");
         //}
-
     }
 
     public void Status()
