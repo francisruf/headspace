@@ -49,7 +49,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -67,8 +67,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1213351969
-  m_SortingLayer: 7
+  m_SortingLayerID: -1379220235
+  m_SortingLayer: 8
   m_SortingOrder: 1
   m_Sprite: {fileID: -6776466421980414931, guid: 94a23f543a7f8ca4090ddb760f75d0db,
     type: 3}
@@ -131,7 +131,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -149,8 +149,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1213351969
-  m_SortingLayer: 7
+  m_SortingLayerID: -1379220235
+  m_SortingLayer: 8
   m_SortingOrder: 1
   m_Sprite: {fileID: -3874896523871950420, guid: 94a23f543a7f8ca4090ddb760f75d0db,
     type: 3}
@@ -251,6 +251,7 @@ GameObject:
   - component: {fileID: 4164050988647354143}
   - component: {fileID: 3109835221133976814}
   - component: {fileID: 3109835221133976818}
+  - component: {fileID: 8517712216500709045}
   m_Layer: 13
   m_Name: Outbox
   m_TagString: Untagged
@@ -293,7 +294,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -311,8 +312,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1213351969
-  m_SortingLayer: 7
+  m_SortingLayerID: -1379220235
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 672f8813c02a972479206519532f38e7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -415,3 +416,16 @@ MonoBehaviour:
   toolType: 1
   smoothTime: 0.15
   slidingSoundName: 
+--- !u!114 &8517712216500709045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3109835221133976821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 514f8987fe85bb14fb85448119668cbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pixelOffset: {x: 2, y: 8}

@@ -15,6 +15,7 @@ public class Ship : MonoBehaviour
     public static Action<Ship> shipUnavailable;
     public static Action<Ship> shipRemoved;
     public static Action<Ship> shipDisabled;
+    public static Action<Ship> shipReEnabled;
     public static Action<Ship> shipStateChange;
     public static Action<Ship> shipInfoChange;
     public static Action<int> soulsUnloaded;
@@ -108,12 +109,10 @@ public class Ship : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.levelStarted += OnGameStart;
     }
 
     private void OnDisable()
     {
-        GameManager.levelStarted -= OnGameStart;
     }
 
     private void Awake()
@@ -275,16 +274,16 @@ public class Ship : MonoBehaviour
             // IF HIT A ROCK
             if (!pathNodes[i].isTraversable)
             {
-                CancelRoute("OBSTACLE IN THE WAY!");
+                CancelRoute("Obstacle in the way.");
                 break;
             }
 
-            if (previousNode != null)
-                if (!PathFinder.instance.GetValidNeighbourList(previousNode, false).Contains(pathNodes[i]))
-                {
-                    CancelRoute("DIAGONAL OBSTACLE IN THE WAY!");
-                    break;
-                }
+            //if (previousNode != null)
+            //    if (!PathFinder.instance.GetValidNeighbourList(previousNode, false).Contains(pathNodes[i]))
+            //    {
+            //        CancelRoute("DIAGONAL OBSTACLE IN THE WAY!");
+            //        break;
+            //    }
 
             previousNode = pathNodes[i];
 
@@ -353,17 +352,6 @@ public class Ship : MonoBehaviour
         }
     }
 
-    private void OnGameStart()
-    {
-        if (DeployManager.instance != null)
-        {
-            GridTile_DeployPoint deployPoint = DeployManager.instance.CurrentDeployTile;
-            if (deployPoint != null)
-            {
-                transform.position = deployPoint.TileCenter;
-            }
-        }
-    }
 
     // Function that initializes ship parameters when instantiated
     public void InitializeShip(string shipName, string shipCallsign, ShipState startingState)
@@ -497,17 +485,10 @@ public class Ship : MonoBehaviour
         {
             //Enable the ship and all it's components
             case ShipState.Idle:
-                //spriteRenderer.enabled = true;
-                //shipCollider.enabled = true;
-                //detectionZone.enabled = true;
                 break;
 
             //Disable the ship and all it's components
             case ShipState.Busy:
-                //spriteRenderer.enabled = false;
-                //shipCollider.enabled = true;
-                //detectionZone.enabled = true;
-                //StartCoroutine(UnloadSouls());
                 break;
 
             //Remove the ship from play
@@ -797,6 +778,10 @@ public class Ship : MonoBehaviour
         ChangeShipState(ShipState.Disabled);
         yield return new WaitForSeconds(disabledCooldownTime);
         ChangeShipState(ShipState.Idle);
+        mM.ShipResetNotif(this);
+
+        if (shipReEnabled != null)
+            shipReEnabled(this);
     }
 }
 

@@ -38,7 +38,7 @@ public class MovableTimeCard : MovableObject
                 break;
 
             case LevelTime.Level:
-                transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+                transform.rotation = Quaternion.Euler(0f, 0f, -90f);
                 spriteIndex++;
                 break;
             default:

@@ -83,10 +83,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8519948865630102666, guid: 3bee59208df45904b9deb47acc3b7742,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
     - target: {fileID: 8519948865630102667, guid: 3bee59208df45904b9deb47acc3b7742,
         type: 3}
       propertyPath: m_Name
-      value: Prefab_Ship_Bus
+      value: Prefab_Ship_Transport
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bee59208df45904b9deb47acc3b7742, type: 3}

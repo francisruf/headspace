@@ -29,9 +29,6 @@ public class MovableMessage : MovableObject
         {
             _wasTeared = true;
 
-            SetSortingLayer(SortingLayer.NameToID("DeskObjects"));
-            SetOrderInLayer(0);
-
             if (messageTeared != null)
                 messageTeared();
 

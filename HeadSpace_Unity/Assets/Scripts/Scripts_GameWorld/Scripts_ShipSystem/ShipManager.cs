@@ -182,6 +182,14 @@ public class ShipManager : MonoBehaviour
         string shipName = GetDefaultName(ship, out shipCallsign);
         ship.InitializeShip(shipName, shipCallsign, ship.shipStartingState);
         UpdateShipInventoryUI();
+
+        GridTile_DeployPoint deployPoint = DeployManager.instance.CurrentDeployTile;
+        if (deployPoint != null)
+        {
+
+                ship.transform.position = deployPoint.TileCenter;
+            
+        }
     }
 
     // Enlever un ship de l'inventaire
@@ -252,6 +260,21 @@ public class ShipManager : MonoBehaviour
         foreach (var ship in shipInventory)
         {
             ship.ToggleSprite(toggleON);
+        }
+    }
+
+    public void AssignShipsToDeploy()
+    {
+        if (DeployManager.instance != null)
+        {
+            GridTile_DeployPoint deployPoint = DeployManager.instance.CurrentDeployTile;
+            if (deployPoint != null)
+            {
+                foreach (var ship in shipInventory)
+                {
+                    ship.transform.position = deployPoint.TileCenter;
+                }
+            }
         }
     }
 }

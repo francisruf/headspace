@@ -29,6 +29,9 @@ public class ContractManager : MonoBehaviour
     private int _tripleContractChance;
     private int _spawnCount;
 
+    private IEnumerator _spawnRoutine;
+    private IEnumerator _newContractRoutine;
+
     private void Awake()
     {
         // Assigner le singleton
@@ -53,11 +56,24 @@ public class ContractManager : MonoBehaviour
     private void OnEnable()
     {
         GameManager.levelStarted += OnGameStarted;
+        TimeManager.thirtyMinsWarning += StopSpawning;
     }
 
     private void OnDisable()
     {
         GameManager.levelStarted -= OnGameStarted;
+        TimeManager.thirtyMinsWarning -= StopSpawning;
+    }
+
+    private void StopSpawning()
+    {
+        if (_spawnRoutine != null)
+            StopCoroutine(_spawnRoutine);
+        if (_newContractRoutine != null)
+            StopCoroutine(_newContractRoutine);
+
+        _spawnRoutine = null;
+        _newContractRoutine = null;
     }
 
     public void AssignLevelSettings(List<ClientRules> clientRules)
@@ -68,7 +84,8 @@ public class ContractManager : MonoBehaviour
 
     private void OnGameStarted()
     {
-        StartCoroutine(NewContractTimer());
+        _newContractRoutine = NewContractTimer();
+        StartCoroutine(_newContractRoutine);
     }
 
     // TODO : Wrapper ça dans container de contrat de grosseur différente
@@ -101,6 +118,9 @@ public class ContractManager : MonoBehaviour
             endPos.y = _belt.contractsEndPos.position.y;
             endPos.y += movableContract.ObjSpriteRenderer.bounds.size.y;
             endPos.y += 2 * (1 / 32f); // 2px offset
+
+            movableContract.SetSortingLayer(_belt.SpriteRenderer.sortingLayerID);
+            movableContract.SetOrderInLayer(_belt.SpriteRenderer.sortingOrder);
         }
 
         movableContract.transform.position = spawnPos;
@@ -117,7 +137,7 @@ public class ContractManager : MonoBehaviour
         {
             // End planet
             List<GridTile_Planet> candidateEndPlanets = GetEndPlanets(startPlanet, allCandidatePlanets);
-            GetPlanetsByDistance(allCandidatePlanets, candidateEndPlanets);
+            GetPlanetsByDistance(allCandidatePlanets, candidateEndPlanets, startPlanet);
             GridTile_Planet endPlanet = ExtractRandomPlanet(candidateEndPlanets);
 
             allClients.Add(CreateClient(startPlanet, endPlanet));
@@ -244,10 +264,14 @@ public class ContractManager : MonoBehaviour
         if (count > 0)
             return candidatePlanets;
         else
-            return new List<GridTile_Planet>(completeList);
+        {
+            candidatePlanets = new List<GridTile_Planet>(completeList);
+            candidatePlanets.Remove(startPlanet);
+            return candidatePlanets;
+        }
     }
 
-    private void GetPlanetsByDistance(List<GridTile_Planet> completeList, List<GridTile_Planet> listToModify)
+    private void GetPlanetsByDistance(List<GridTile_Planet> completeList, List<GridTile_Planet> listToModify, GridTile_Planet startPlanet)
     {
         int targetDistanceRating = _clientRules[_currentRuleIndex].distanceRating;
 
@@ -301,7 +325,10 @@ public class ContractManager : MonoBehaviour
                 listToModify = longDistancePlanets;
 
             else
+            {
                 listToModify = new List<GridTile_Planet>(completeList);
+                listToModify.Remove(startPlanet);
+            }
         }
 
         else if (targetDistanceRating == 2)
@@ -330,6 +357,7 @@ public class ContractManager : MonoBehaviour
                 else
                 {
                     listToModify = new List<GridTile_Planet>(completeList);
+                    listToModify.Remove(startPlanet);
                 }
             }
 
@@ -346,7 +374,10 @@ public class ContractManager : MonoBehaviour
                 listToModify = shortDistancePlanets;
 
             else
+            {
                 listToModify = new List<GridTile_Planet>(completeList);
+                listToModify.Remove(startPlanet);
+            }
         }
     }
 
@@ -401,17 +432,19 @@ public class ContractManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(contractSpawnInterval);
-            StartCoroutine(SpawnContractTimer(contractSpawnInterval));
+            _spawnRoutine = SpawnContractTimer(contractSpawnInterval);
+            StartCoroutine(_spawnRoutine);
         }
     }
 
     private IEnumerator SpawnContractTimer(float spawnInterval)
     {
-        float halfTime = spawnInterval / 4f;
-        float randomTime = UnityEngine.Random.Range(0f, halfTime);
+        float maxTime = spawnInterval / 4f;
+        float randomTime = UnityEngine.Random.Range(0f, maxTime);
 
         yield return new WaitForSeconds(randomTime);
         CreateNewSingleContract();
+        _spawnRoutine = null;
     }
 
     private int ContractSizeRandomizer()

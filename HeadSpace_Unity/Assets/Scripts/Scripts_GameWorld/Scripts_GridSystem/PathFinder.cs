@@ -97,11 +97,11 @@ public class PathFinder : MonoBehaviour
             return GetHorizontalPath(startNode, endNode);
         }
 
-        else if (Mathf.Abs(startNode.x - endNode.x) == Mathf.Abs(startNode.y - endNode.y))
-        {
-            nodeCost = 1.4142f;
-            return GetDiagonalPath(startNode, endNode);
-        }
+        //else if (Mathf.Abs(startNode.x - endNode.x) == Mathf.Abs(startNode.y - endNode.y))
+        //{
+        //    nodeCost = 1.4142f;
+        //    return GetDiagonalPath(startNode, endNode);
+        //}
 
         return null;
     }

@@ -71,6 +71,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSortingOrder: 2
+  targetSortingLayer: 
   acceptedObjects: 03000000
 --- !u!1 &5498260992951422896
 GameObject:
@@ -143,6 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSortingOrder: 2
+  targetSortingLayer: 
   acceptedObjects: 03000000
 --- !u!1001 &3085659601780636569
 PrefabInstance:
@@ -247,6 +249,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -6949380156104211139, guid: 9d110c037a4711a47a6e853848638971,
         type: 3}
+    - target: {fileID: 5546820061280915527, guid: 75f304aaa3e163d4194df051e6c06f96,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
     - target: {fileID: 6699751022901243681, guid: 75f304aaa3e163d4194df051e6c06f96,
         type: 3}
       propertyPath: m_Enabled

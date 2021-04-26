@@ -86,8 +86,10 @@ public class AudioManager : MonoBehaviour
         MapPointOfInterest.newDiscovery += NewDiscovery;
         Ship.routeFinished += ShipRouteFinished;
         Ship.shipDisabled += ShipDisabled;
+        Ship.shipReEnabled += ShipRouteFinished;
         MessageManager.newMessageReceived += MessageReceived;
         MovableMessage.messageTearedFromReceiver += MessageRip;
+        WritingMachineController.commandTeared += MessageRip;
         ContractManager.newContractReceived += NewContract;
         MovableLogbook.pageChange += PageTurn;
         MovableLogbook.logbookPickup += ManualPickup;
@@ -102,8 +104,9 @@ public class AudioManager : MonoBehaviour
         SlidableTool.toolClosing += SlidingClosing;
 
         MovableContract.contractAssigned += ContractSpark;
-
         TimeManager.levelTimerEndPreTrigger += LevelOver;
+        DropZone_CardReader.cardProcessed += CommandGood;
+        CardReader.lightTick += VoyantFlash;
     }
 
     private void OnDisable()
@@ -136,8 +139,10 @@ public class AudioManager : MonoBehaviour
         MapPointOfInterest.newDiscovery -= NewDiscovery;
         Ship.routeFinished -= ShipRouteFinished;
         Ship.shipDisabled -= ShipDisabled;
+        Ship.shipReEnabled -= ShipRouteFinished;
         MessageManager.newMessageReceived -= MessageReceived;
         MovableMessage.messageTearedFromReceiver -= MessageRip;
+        WritingMachineController.commandTeared -= MessageRip;
         ContractManager.newContractReceived -= NewContract;
         MovableLogbook.pageChange -= PageTurn;
         MovableLogbook.logbookPickup -= ManualPickup;
@@ -152,8 +157,9 @@ public class AudioManager : MonoBehaviour
         SlidableTool.toolClosing -= SlidingClosing;
 
         MovableContract.contractAssigned -= ContractSpark;
-
         TimeManager.levelTimerEndPreTrigger -= LevelOver;
+        DropZone_CardReader.cardProcessed -= CommandGood;
+        CardReader.lightTick -= VoyantFlash;
     }
 
     //Update function only to test feature. Remove when necessary.
@@ -393,7 +399,7 @@ public class AudioManager : MonoBehaviour
     #region Tools
     private void ShredderStarted()
     {
-        PlaySoundLoop("Shredder_Loop", false);
+        PlaySoundLoop("Shredder_Loop", false, true);
     }
 
     private void ShredderStopped()

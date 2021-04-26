@@ -10,6 +10,9 @@ public abstract class InteractableObject : MonoBehaviour
     public static Action<InteractableObject> objectEnabled;
     public static Action<InteractableObject> objectDisabled;
 
+    public static Action<InteractableObject> interactableSelected;
+    public static Action<InteractableObject> interactableDeselected;
+
     // Protected = Comme private, mais accessible par les classes qui HÉRITENT de cette classe
     protected SpriteRenderer _spriteRenderer;
     protected Collider2D _collider;
@@ -32,6 +35,7 @@ public abstract class InteractableObject : MonoBehaviour
     public int CurrentSortingLayer { get; set; }
 
     [Header("Interactable object settings")]
+    private int _defaultSortingLayerID;
     public bool ignoreSelectedBringToFront;
 
     // Virtual = Une classe qui HÉRITE de InteractableObject peut REMPLACER ou MODIFIER la fonction Awake à sa façon
@@ -47,6 +51,8 @@ public abstract class InteractableObject : MonoBehaviour
 
         _childSpriteRenderersCount = _childSpriteRenderers.Length;
         _childCanvasesCount = _childCanvases.Length;
+
+        _defaultSortingLayerID = _spriteRenderer.sortingLayerID;
     }
 
     protected virtual void Start()
@@ -65,6 +71,9 @@ public abstract class InteractableObject : MonoBehaviour
 
             SetSortingLayer(SortingLayer.NameToID("SelectedObject"));
         }
+
+        if (interactableSelected != null)
+            interactableSelected(this);
     }
     public virtual void Deselect(bool fireEvent = true)
     {
@@ -72,8 +81,14 @@ public abstract class InteractableObject : MonoBehaviour
 
         if (!ignoreSelectedBringToFront)
         {
-            SetSortingLayer(CurrentSortingLayer);
+            SetSortingLayer(_defaultSortingLayerID);
+
+            if (ObjectsManager.instance != null)
+                ObjectsManager.instance.ForceTopRenderingOrder(this);
         }
+
+        if (interactableDeselected != null)
+            interactableDeselected(this);
     }
 
     // Fonction qui envoie l'objet au manager lorsqu'il est initialisé
@@ -256,6 +271,38 @@ public abstract class InteractableObject : MonoBehaviour
     public virtual ObjectInteractionZone[] GetInteractionZones()
     {
         return _interactionZones;
+    }
+
+    public int GetHighestOrder()
+    {
+        int order = _spriteRenderer.sortingOrder;
+        foreach (var sr in _childSpriteRenderers)
+        {
+            if (sr.sortingOrder > order)
+                order = sr.sortingOrder;
+        }
+        foreach (var c in _childCanvases)
+        {
+            if (c.sortingOrder > order)
+                order = c.sortingOrder;
+        }
+        return order;
+    }
+
+    public int GetLowestOrder()
+    {
+        int order = _spriteRenderer.sortingOrder;
+        foreach (var sr in _childSpriteRenderers)
+        {
+            if (sr.sortingOrder < order)
+                order = sr.sortingOrder;
+        }
+        foreach (var c in _childCanvases)
+        {
+            if (c.sortingOrder < order)
+                order = c.sortingOrder;
+        }
+        return order;
     }
 
 }

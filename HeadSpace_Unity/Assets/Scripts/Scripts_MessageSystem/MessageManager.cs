@@ -68,13 +68,19 @@ public class MessageManager : MonoBehaviour
         //}
         fullMessage += newMessage;
 
+        StartCoroutine(QueueDelay(fullMessage, playSound));
+    }
+
+        private IEnumerator QueueDelay(string fullMessage, bool playSound)
+    {
+        yield return new WaitForSeconds(1f);
         _messageQueue.Enqueue(fullMessage);
         _messageCount++;
 
+        UpdateMessageCount();
+
         if (newMessageReceived != null)
             newMessageReceived(playSound);
-
-        UpdateMessageCount();
     }
 
     // Fonction qui imprime le prochain message de la file d'attente
@@ -221,11 +227,16 @@ public class MessageManager : MonoBehaviour
 
     public void InvalidDestinationNotif(Ship ship, string message)
     {
-        string newMessageText = ship.shipName + " reports nav problem";
+        TileCoordinates shipTile = GridCoords.FromWorldToTilePosition(ship.transform.position);
+        string tileName = GridCoords.GetTileName(shipTile);
+
+        string newMessageText = ship.shipName + " reports ROUTE problem";
         if (message != "")
-            newMessageText += " : " + message;
+            newMessageText += ":\n" + message;
         else
             newMessageText += ".";
+
+        newMessageText += " Current position: " + tileName + "\nAwaiting further instructions.";
 
         QueueMessage(newMessageText);
     }
@@ -242,7 +253,7 @@ public class MessageManager : MonoBehaviour
         TileCoordinates shipTile = GridCoords.FromWorldToTilePosition(ship.transform.position);
         string tileName = GridCoords.GetTileName(shipTile);
 
-        string newMessageText = ship.shipName + " has completed his route at " + tileName + ".";
+        string newMessageText = ship.shipName + " has completed his ROUTE at " + tileName + ".";
 
         QueueMessage(newMessageText, false);
     }
@@ -265,29 +276,29 @@ public class MessageManager : MonoBehaviour
         string newMessageText = "";
 
         if (isMoving)
-            newMessageText = ship.shipName + " has aborted its route at " + tileName;
+            newMessageText = ship.shipName + " has aborted its ROUTE at position " + tileName + ".";
         else
-            newMessageText = "Command error :" + ship.shipName + " is already idle at " + tileName;
+            newMessageText = "Command error :" + ship.shipName + " is already idle at position " + tileName + ".";
 
-        newMessageText += "\nAwaiting further instructions.";
+        newMessageText += "\n\nAwaiting further instructions.";
 
-        int clientCount = ship.ClientsOnBoard.Count;
-        if (clientCount > 0)
-        {
-            for (int i = 0; i < clientCount; i++)
-            {
-                newMessageText += ship.ClientsOnBoard[i].clientFirstName[0] + ". " + ship.ClientsOnBoard[i].clientLastName[0];
+        //int clientCount = ship.ClientsOnBoard.Count;
+        //if (clientCount > 0)
+        //{
+        //    for (int i = 0; i < clientCount; i++)
+        //    {
+        //        newMessageText += ship.ClientsOnBoard[i].clientFirstName[0] + ". " + ship.ClientsOnBoard[i].clientLastName[0];
 
-                if (i == clientCount - 1)
-                    newMessageText += ".";
-                else
-                    newMessageText += ", ";
-            }
-        }
-        else
-        {
-            newMessageText += "none.";
-        }
+        //        if (i == clientCount - 1)
+        //            newMessageText += ".";
+        //        else
+        //            newMessageText += ", ";
+        //    }
+        //}
+        //else
+        //{
+        //    newMessageText += "none.";
+        //}
         QueueMessage(newMessageText);
     }
 
@@ -298,7 +309,7 @@ public class MessageManager : MonoBehaviour
 
         string newMessageText = "Ship status request : ";
         newMessageText += ship.shipName + " at position " + tileName;
-        newMessageText += "\nClients on board : ";
+        newMessageText += "\n\nClients on board : ";
 
         int clientCount = ship.ClientsOnBoard.Count;
         if (clientCount > 0)
@@ -324,15 +335,37 @@ public class MessageManager : MonoBehaviour
     {
         TileCoordinates shipTile = GridCoords.FromWorldToTilePosition(ship.transform.position);
         string tileName = GridCoords.GetTileName(shipTile);
-        string newMessageText = ship.shipName + " has been attacked by an anomaly. ";
+        string newMessageText = ship.shipName + " has been attacked by an anomaly at position " + tileName + ".";
 
         if (soulsLost > 1)
-            newMessageText += soulsLost + " souls on board have been lost to folley. ";
+        {
+            newMessageText += "\n" + soulsLost + " souls on board have been lost to folley. ";
+        }
         else if (soulsLost == 1)
-            newMessageText += soulsLost + " soul on board has been lost to folley. ";
+        {
+            newMessageText += "\n" + soulsLost + " soul on board has been lost to folley. ";
+        }
+        else
+            newMessageText += "\n";
 
-        newMessageText += "Please wait for auto-reinitialization.";
+        newMessageText += "\nPlease wait for auto-reinitialization.";
+
         QueueMessage(newMessageText, false);
+    }
+
+    public void ShipResetNotif(Ship ship)
+    {
+        TileCoordinates shipTile = GridCoords.FromWorldToTilePosition(ship.transform.position);
+        string tileName = GridCoords.GetTileName(shipTile);
+        string newMessageText = ship.shipName + " auto-reinitialization complete.";
+        newMessageText += "\n\nAwaiting further instructions.";
+
+        QueueMessage(newMessageText, false);
+    }
+
+    public void GenericMessage(string message, bool playSound)
+    {
+        QueueMessage(message, playSound);
     }
 
     #endregion

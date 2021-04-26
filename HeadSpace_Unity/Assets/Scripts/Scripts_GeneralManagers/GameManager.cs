@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     [Header("Cursor settings")]
     public Sprite baseCursor;
     public Sprite objectCursor;
+    public Sprite selectCursor;
     public Sprite interactCursor;
     public GameObject cursorObj;
     public LayerMask objectLayers;
@@ -32,6 +33,8 @@ public class GameManager : MonoBehaviour
 
     private SectorInfo _lastSectorInfo;
     public SectorInfo LastSectorInfo { get { return _lastSectorInfo; } }
+
+    private bool _interactableSelected;
 
     private void Awake()
     {
@@ -67,6 +70,8 @@ public class GameManager : MonoBehaviour
         LeaderboardController.dayStart += OnDayStart;
         LeaderboardController.dayFinish += OnDayFinish;
         DropZone_Outbox.timeCardSent += StartLevel;
+        InteractableObject.interactableSelected += OnInteractableSelected;
+        InteractableObject.interactableDeselected += OnInteractableDeselected;
     }
 
     private void OnDisable()
@@ -75,6 +80,18 @@ public class GameManager : MonoBehaviour
         LeaderboardController.dayStart -= OnDayStart;
         LeaderboardController.dayFinish -= OnDayFinish;
         DropZone_Outbox.timeCardSent -= StartLevel;
+        InteractableObject.interactableSelected -= OnInteractableSelected;
+        InteractableObject.interactableDeselected -= OnInteractableDeselected;
+    }
+
+    private void OnInteractableSelected(InteractableObject obj)
+    {
+        _interactableSelected = true;
+    }
+
+    private void OnInteractableDeselected(InteractableObject obj)
+    {
+        _interactableSelected = false;
     }
 
     public void StartLevel()
@@ -140,7 +157,9 @@ public class GameManager : MonoBehaviour
 
         if (_cursorRenderer != null)
         {
-            if (interactionZone)
+            if (_interactableSelected)
+                _cursorRenderer.sprite = selectCursor;
+            else if (interactionZone)
                 _cursorRenderer.sprite = interactCursor;
             else if (overObject)
                 _cursorRenderer.sprite = objectCursor;

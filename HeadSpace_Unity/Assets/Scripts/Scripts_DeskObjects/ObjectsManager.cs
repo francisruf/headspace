@@ -67,8 +67,6 @@ public class ObjectsManager : MonoBehaviour
         _lastMousePos = _currentMousePos;
         _currentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        
-
         if (Input.GetMouseButtonDown(0))
         {
             SelectObjectOnMouseDown();
@@ -199,7 +197,7 @@ public class ObjectsManager : MonoBehaviour
             {
                 if (simpleClick)
                 {
-                    //Debug.Log("CLICK");
+                    Debug.Log("CLICK");
                     for (int i = 0; i < interactionZonesCount; i++)
                     {
                         if (candidateInteractionZones[i].IsInBounds(currentMousePos))

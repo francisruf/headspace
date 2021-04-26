@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class MovableLogbook : MovableObject
 {
@@ -46,6 +47,7 @@ public class MovableLogbook : MovableObject
     public override void Select(bool fireEvent = true)
     {
         base.Select(fireEvent);
+        Debug.Log("SELECT");
 
         if (logbookPickup != null)
             logbookPickup();
@@ -54,7 +56,7 @@ public class MovableLogbook : MovableObject
     public override void Deselect(bool fireEvent = true)
     {
         base.Deselect(fireEvent);
-
+        Debug.Log("DESELECT");
         if (logbookDrop != null)
             logbookDrop();
     }
@@ -80,6 +82,8 @@ public class MovableLogbook : MovableObject
         newPage.InitializePage(this);
         newPage.HidePage();
         _pageCount++;
+
+        AssignCorners();
     }
 
     public int IndexOf(LogbookPage targetPage)

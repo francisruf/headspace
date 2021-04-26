@@ -7,6 +7,7 @@ public class TimeManager : MonoBehaviour
 {
     public static Action levelTimerEnded;
     public static Action levelTimerEndPreTrigger;
+    public static Action thirtyMinsWarning;
 
     // Singleton
     public static TimeManager instance;
@@ -23,8 +24,10 @@ public class TimeManager : MonoBehaviour
     private bool _timeStarted;
     private bool _levelEnded;
     private bool _triggerFired;
+    private bool _thirtyMinsFired;
     private float _timeScaleBeforePause;
 
+    private float _thirtyMinsTimer;
     private float _levelEndTimer;
     private float _endPreTrigger;
 
@@ -76,6 +79,7 @@ public class TimeManager : MonoBehaviour
         {
             _levelEndTimer = _currentTime + (GameManager.instance.LevelDurationInMinutes * 60f * 60f * timeMultiplier);
             _endPreTrigger = _levelEndTimer - 2.15f * 60f * timeMultiplier;
+            _thirtyMinsTimer = _levelEndTimer - (15f * 60f);
         }
         _timeStarted = true;
     }
@@ -85,6 +89,14 @@ public class TimeManager : MonoBehaviour
         if (_timeStarted)
         {
             _currentTime += (Time.deltaTime * 60f * timeMultiplier);
+
+            if (!_thirtyMinsFired && _currentTime >= _thirtyMinsTimer)
+            {
+                _thirtyMinsFired = true;
+                Debug.Log("30");
+                if (thirtyMinsWarning != null)
+                    thirtyMinsWarning();
+            }
 
             if (!_triggerFired && _currentTime >= _endPreTrigger)
             {

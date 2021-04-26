@@ -65,8 +65,14 @@ TagManager:
   - name: DeskObjects
     uniqueID: 1351713243
     locked: 0
-  - name: Tools
+  - name: ToolsBottom
     uniqueID: 3081615327
+    locked: 0
+  - name: ToolsMiddle
+    uniqueID: 2915747061
+    locked: 0
+  - name: ToolsTop
+    uniqueID: 2255223523
     locked: 0
   - name: ToolsForeground
     uniqueID: 1159484783

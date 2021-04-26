@@ -115,6 +115,9 @@ public class MovableObject : InteractableObject
         {
             _isSelected = false;
             AssignToDropZone();
+
+            if (interactableDeselected != null)
+                interactableDeselected(this);
         }
         else
         {

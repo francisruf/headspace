@@ -14,6 +14,7 @@ public class WritingMachineController : MonoBehaviour
     private RouteScreenController _routeScreenController;
     private WritingMachineKeyboard _keyboard;
     private Animator _animator;
+    private SpriteRenderer _spriteRenderer;
 
     private List<ButtonController> _allButtons;
     private List<ButtonController> _currentAvailableButtons = new List<ButtonController>();
@@ -41,6 +42,7 @@ public class WritingMachineController : MonoBehaviour
     public GameObject commandPrefab;
     public Transform commandSpawnPos;
     private MovableCommand _currentCommandDocument;
+    public int commandSpawnSortOrder;
 
     private ButtonController_Command _currentCommandButton;
     private bool _openShipButtons;
@@ -54,6 +56,7 @@ public class WritingMachineController : MonoBehaviour
         _routeScreenController = GetComponentInChildren<RouteScreenController>();
         _keyboard = GetComponentInChildren<WritingMachineKeyboard>();
         _animator = GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
 
         _allButtons = new List<ButtonController>(GetComponentsInChildren<ButtonController>());
         _buttonCount = _allButtons.Count;
@@ -338,6 +341,9 @@ public class WritingMachineController : MonoBehaviour
 
     private void PressReadyButton()
     {
+        if (_currentString == "")
+            return;
+
         ButtonController candidateButton = null;
 
         for (int i = 0; i < _currentAvailableButtonsCount; i++)
@@ -636,6 +642,8 @@ public class WritingMachineController : MonoBehaviour
     {
         _currentCommandDocument = Instantiate(commandPrefab, transform).GetComponent<MovableCommand>();
         _currentCommandDocument.transform.position = commandSpawnPos.position;
+        _currentCommandDocument.SetSortingLayer(_spriteRenderer.sortingLayerID);
+        _currentCommandDocument.SetOrderInLayer(commandSpawnSortOrder);
         _currentCommandDocument.commandTeared += OnCommandTeared;
     }
 

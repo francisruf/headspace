@@ -47,6 +47,9 @@ public class LevelLoader : MonoBehaviour
 
         if (_levelSettings != null)
             AssignLevelSettings();
+
+        if (ShipManager.instance != null)
+            ShipManager.instance.AssignShipsToDeploy();
     }
 
     private void AssignLevelSettings()

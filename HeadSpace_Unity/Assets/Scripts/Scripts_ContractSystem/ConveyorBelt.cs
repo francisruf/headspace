@@ -6,6 +6,7 @@ public class ConveyorBelt : MonoBehaviour
 {
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
+    public SpriteRenderer SpriteRenderer { get { return _spriteRenderer; } }
     public Bounds Bounds { get { return _spriteRenderer.bounds; } }
     public Transform contractsStartPos;
     public Transform contractsEndPos;

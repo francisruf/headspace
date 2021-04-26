@@ -71,6 +71,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSortingOrder: 2
+  targetSortingLayer: 
   acceptedObjects: 03000000
 --- !u!1001 &3926576721565512588
 PrefabInstance:
@@ -170,6 +171,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -5769547097366024011, guid: 1dd002d0ed4613043a35a33724a0034b,
         type: 3}
+    - target: {fileID: 5546820061280915527, guid: 75f304aaa3e163d4194df051e6c06f96,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
     - target: {fileID: 9011756386511349551, guid: 75f304aaa3e163d4194df051e6c06f96,
         type: 3}
       propertyPath: m_Size.y

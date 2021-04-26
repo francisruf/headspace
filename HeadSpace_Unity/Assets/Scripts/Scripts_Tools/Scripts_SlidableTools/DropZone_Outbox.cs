@@ -52,9 +52,10 @@ public class DropZone_Outbox : DropZone
 
         obj.transform.position = newPos;
         obj.transform.parent = this.transform;
-        HighestSortingOrder++;
+
         obj.SetSortingLayer(ContainerSortingLayer);
         obj.SetOrderInLayer(HighestSortingOrder);
+        HighestSortingOrder = obj.GetHighestOrder() + 1;
 
         //if (obj.Rigidbody != null)
         //{
@@ -96,22 +97,42 @@ public class DropZone_Outbox : DropZone
     {
         //Debug.Log("Sending commands...");
 
-        if (_timeCard != null && !GameManager.GameStarted)
+        if (!GameManager.GameStarted)
         {
-            _timeCard.DisableObject();
-            RemoveObjectFromDropZone(_timeCard);
+            if (_timeCard != null)
+            {
+                _timeCard.DisableObject();
+                RemoveObjectFromDropZone(_timeCard);
 
-            if (timeCardSent != null)
-                timeCardSent();
+                if (timeCardSent != null)
+                    timeCardSent();
 
-            if (commandSuccess != null)
-                commandSuccess();
+                if (commandSuccess != null)
+                    commandSuccess();
 
-            _animator.SetTrigger("GreenLight");
+                _animator.SetTrigger("GreenLight");
+            }
+            else
+            {
+                if (_commandsInDropZone.Count > 0)
+                {
+                    string error = "Procedure error : Before sending any commands, please start your work day by sending your time card.";
+
+                    if (MessageManager.instance != null)
+                        MessageManager.instance.GenericMessage(error, true);
+
+                    _animator.SetTrigger("RedLight");
+
+                    if (commandFail != null)
+                        commandFail();
+                }
+            }
         }
-
-        if (newCommandRequest != null)
-            newCommandRequest(_commandsInDropZone);
+        else
+        {
+            if (newCommandRequest != null)
+                newCommandRequest(_commandsInDropZone);
+        }
     }
 
     private void OnCommandResult(List<MovableCommand> commands)

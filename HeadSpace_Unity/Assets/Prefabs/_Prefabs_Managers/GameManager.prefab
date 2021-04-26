@@ -45,11 +45,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelDurationInMinutes: 10
-  baseCursor: {fileID: -7807972551516172448, guid: e5d2cc469fa9bf145b6ce80a8aede9d1,
+  baseCursor: {fileID: 2637502974518456893, guid: 84182bc8a4af0c14ab9db75db5e3e03f,
     type: 3}
-  objectCursor: {fileID: -9071327144090708232, guid: e5d2cc469fa9bf145b6ce80a8aede9d1,
+  objectCursor: {fileID: -3026846944364522464, guid: 84182bc8a4af0c14ab9db75db5e3e03f,
     type: 3}
-  interactCursor: {fileID: 6135539791680474821, guid: e5d2cc469fa9bf145b6ce80a8aede9d1,
+  selectCursor: {fileID: -5395457262762374833, guid: 84182bc8a4af0c14ab9db75db5e3e03f,
+    type: 3}
+  interactCursor: {fileID: 5079452569085090127, guid: 84182bc8a4af0c14ab9db75db5e3e03f,
     type: 3}
   cursorObj: {fileID: 4517273964351710010}
   objectLayers:
@@ -218,7 +220,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -7807972551516172448, guid: e5d2cc469fa9bf145b6ce80a8aede9d1,
+  m_Sprite: {fileID: 2637502974518456893, guid: 84182bc8a4af0c14ab9db75db5e3e03f,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0

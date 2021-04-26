@@ -303,7 +303,7 @@ MonoBehaviour:
   - startPlanetState: 1
     endPlanetState: 2
     distanceRating: 1
-    challengeType: 1
+    challengeType: 2
   - startPlanetState: 1
     endPlanetState: 1
     distanceRating: 1
@@ -311,15 +311,21 @@ MonoBehaviour:
   - startPlanetState: 1
     endPlanetState: 2
     distanceRating: 2
-    challengeType: 1
+    challengeType: 2
   - startPlanetState: 2
     endPlanetState: 1
     distanceRating: 3
-    challengeType: 1
+    challengeType: 2
   - startPlanetState: 0
     endPlanetState: 0
     distanceRating: 2
     challengeType: 2
+--- !u!4 &747703061 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 369095420613360459, guid: de954636cb16d674cbfd41aa70361a8b,
+    type: 3}
+  m_PrefabInstance: {fileID: 369095420259197042}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &841591217
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,6 +355,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 481422173}
+  - {fileID: 747703061}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -458,7 +465,7 @@ RectTransform:
   - {fileID: 1552506018}
   - {fileID: 1424617272}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -685,7 +692,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 841591218}
     m_Modifications:
     - target: {fileID: 369095420613360453, guid: de954636cb16d674cbfd41aa70361a8b,
         type: 3}
@@ -695,7 +702,7 @@ PrefabInstance:
     - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
         type: 3}
       propertyPath: playerDeskObjects.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
         type: 3}
@@ -705,7 +712,7 @@ PrefabInstance:
     - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
         type: 3}
       propertyPath: playerDeskObjects.Array.data[0].quantity
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 369095420613360458, guid: de954636cb16d674cbfd41aa70361a8b,
         type: 3}
@@ -804,17 +811,17 @@ PrefabInstance:
     - target: {fileID: 369095420613360459, guid: de954636cb16d674cbfd41aa70361a8b,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 369095420613360459, guid: de954636cb16d674cbfd41aa70361a8b,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 369095420613360459, guid: de954636cb16d674cbfd41aa70361a8b,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 369095420613360459, guid: de954636cb16d674cbfd41aa70361a8b,
         type: 3}

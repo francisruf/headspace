@@ -21,6 +21,8 @@ public abstract class ButtonController : MonoBehaviour
     public ButtonSectionType buttonType;
     public ButtonSectionType nextButtonSection;
 
+    public Color highlightColor;
+
     private void Awake()
     {
         _buttonTextMesh = GetComponentInChildren<TextMeshProUGUI>();
@@ -53,8 +55,8 @@ public abstract class ButtonController : MonoBehaviour
     {
         if (charIndex > _highlightedCharCount)
             return;
-
-        string newText = "<color=#EEDF84>";
+        //EEDF84
+        string newText = "<color=#" + ColorUtility.ToHtmlStringRGB(highlightColor) + ">";
         int charCount = 0;
 
         for (int i = 0; i <= charIndex; i++)

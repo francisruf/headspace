@@ -123,7 +123,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -141,8 +141,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1213351969
-  m_SortingLayer: 7
+  m_SortingLayerID: -1379220235
+  m_SortingLayer: 8
   m_SortingOrder: 3
   m_Sprite: {fileID: 445514424591234292, guid: 18daa62a1aa0467418ba335071a67f87, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 6599837460224630839}
   - component: {fileID: 8184818431553381671}
   - component: {fileID: 2066360591141662527}
+  - component: {fileID: 8671206267056210085}
   m_Layer: 13
   m_Name: DrawerPrefab
   m_TagString: Untagged
@@ -263,7 +264,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -281,8 +282,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1213351969
-  m_SortingLayer: 7
+  m_SortingLayerID: -1379220235
+  m_SortingLayer: 8
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: ceb733714552d3d4b8f66e84848e739f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -311,8 +312,22 @@ MonoBehaviour:
   slidingDirection: 2
   slidingAmount: 4.5
   drawerHandleSize: 0
+  toolType: 0
   smoothTime: 0
   slidingSoundName: Drawer_Loop
+--- !u!114 &8671206267056210085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8184818431553381665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 514f8987fe85bb14fb85448119668cbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pixelOffset: {x: 2, y: 6}
 --- !u!1 &8535278531715745804
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,7 +377,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -380,8 +395,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1213351969
-  m_SortingLayer: 7
+  m_SortingLayerID: -1379220235
+  m_SortingLayer: 8
   m_SortingOrder: 3
   m_Sprite: {fileID: -2065431121253295231, guid: 18daa62a1aa0467418ba335071a67f87,
     type: 3}

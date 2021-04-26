@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 4970090606377126773}
   - component: {fileID: 4970090606377126772}
   - component: {fileID: 4062377109698499401}
+  - component: {fileID: 1324311457}
   m_Layer: 0
   m_Name: ConveyorBelt
   m_TagString: Untagged
@@ -83,7 +84,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -149,6 +150,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   contractsStartPos: {fileID: 6118327936558529838}
   contractsEndPos: {fileID: 7548950697528598371}
+--- !u!114 &1324311457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4970090606377126775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 514f8987fe85bb14fb85448119668cbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pixelOffset: {x: 1, y: 2}
 --- !u!1 &5329726061194986871
 GameObject:
   m_ObjectHideFlags: 0

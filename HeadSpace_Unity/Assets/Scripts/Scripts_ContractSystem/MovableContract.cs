@@ -55,9 +55,6 @@ public class MovableContract : MovableObject
         if (contractOnBelt != null)
             contractOnBelt(this);
 
-        SetSortingLayer(SortingLayer.NameToID("ObjectsOnTools"));
-        ObjectsManager.instance.ForceTopRenderingOrder(this);
-
         //_spriteRenderer.sortingLayerID = SortingLayer.NameToID("ObjectsOnTools");
 
         while (Vector2.Distance(transform.position, animationEndPos) > 0.01f)
@@ -67,8 +64,7 @@ public class MovableContract : MovableObject
         }
         transform.position = animationEndPos;
 
-        SetSortingLayer(SortingLayer.NameToID("DeskObjects"));
-        ObjectsManager.instance.ForceTopRenderingOrder(this);
+        Deselect();
 
         //_spriteRenderer.sortingLayerID = SortingLayer.NameToID("DeskObjects");
 

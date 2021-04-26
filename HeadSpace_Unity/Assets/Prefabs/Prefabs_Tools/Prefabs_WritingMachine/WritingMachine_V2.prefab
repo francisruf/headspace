@@ -969,6 +969,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3775506925302718901}
   - component: {fileID: 6578522236718316557}
+  - component: {fileID: 746373406780881954}
   m_Layer: 0
   m_Name: WritingMachine_BG
   m_TagString: Untagged
@@ -1008,7 +1009,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1040,6 +1041,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &746373406780881954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3310120014207609894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 514f8987fe85bb14fb85448119668cbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pixelOffset: {x: 0, y: 0}
 --- !u!1 &3619358702237038294
 GameObject:
   m_ObjectHideFlags: 0
@@ -1637,6 +1651,7 @@ GameObject:
   - component: {fileID: 7648340998985917657}
   - component: {fileID: 5484499785070221499}
   - component: {fileID: 68457599555955553}
+  - component: {fileID: 7750004204484428811}
   m_Layer: 13
   m_Name: WritingMachine_V2
   m_TagString: Untagged
@@ -1689,7 +1704,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1809,6 +1824,7 @@ MonoBehaviour:
   commandPrefab: {fileID: 4936675364520526123, guid: 9ffbf3dcd0602294e9629ef299f43d8b,
     type: 3}
   commandSpawnPos: {fileID: 5644330936872058516}
+  commandSpawnSortOrder: 5
 --- !u!114 &68457599555955553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1936,6 +1952,19 @@ MonoBehaviour:
   - {fileID: -1806046459551559086, guid: f0a2507a97a09fe40a19459331056abf, type: 3}
   - {fileID: -5304412090733161147, guid: f0a2507a97a09fe40a19459331056abf, type: 3}
   - {fileID: -1056406330218985227, guid: f0a2507a97a09fe40a19459331056abf, type: 3}
+--- !u!114 &7750004204484428811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5484499785070221496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 514f8987fe85bb14fb85448119668cbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pixelOffset: {x: 2, y: 4}
 --- !u!1 &5484499785197714265
 GameObject:
   m_ObjectHideFlags: 0
@@ -2614,7 +2643,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4040,6 +4069,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f14143b6e3cf66458c390c1fe676bdd, type: 3}
+--- !u!4 &6450239916962880485 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5067636229696648114, guid: 0f14143b6e3cf66458c390c1fe676bdd,
+    type: 3}
+  m_PrefabInstance: {fileID: 2292340227951945815}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2998881844488691494 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3913113971409041265, guid: 0f14143b6e3cf66458c390c1fe676bdd,
@@ -4052,12 +4087,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0727bd9ac8a3c7f46a22dce9524d5cfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &6450239916962880485 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5067636229696648114, guid: 0f14143b6e3cf66458c390c1fe676bdd,
-    type: 3}
-  m_PrefabInstance: {fileID: 2292340227951945815}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3083750346948327604
 PrefabInstance:
   m_ObjectHideFlags: 0

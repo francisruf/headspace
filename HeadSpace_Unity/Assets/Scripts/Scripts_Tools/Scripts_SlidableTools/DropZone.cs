@@ -65,9 +65,10 @@ public abstract class DropZone : MonoBehaviour
 
         obj.transform.position = newPos;
         obj.transform.parent = this.transform;
-        HighestSortingOrder++;
+
         obj.SetSortingLayer(ContainerSortingLayer);
         obj.SetOrderInLayer(HighestSortingOrder);
+        HighestSortingOrder = obj.GetHighestOrder() + 1;
 
         //if (obj.Rigidbody != null)
         //{
@@ -83,6 +84,5 @@ public abstract class DropZone : MonoBehaviour
         //}
 
         obj.transform.parent = null;
-        HighestSortingOrder--;
     }
 }
