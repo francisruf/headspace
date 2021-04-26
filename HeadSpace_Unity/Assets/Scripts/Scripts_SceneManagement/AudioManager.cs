@@ -15,9 +15,12 @@ public class AudioManager : MonoBehaviour
 
     [Header("Sound DB")]
     public Sound[] sounds;
-    [HideInInspector] public Sound currentMusic;
+    public Sound[] music;
+    private Sound _currentMusic;
 
     private List<LoopingSoundInfo> _currentLoopingSounds = new List<LoopingSoundInfo>();
+    private IEnumerator _currentLoopingThemeRoutine;
+    private Sound _currentLoopingTheme;
 
     // Start is called before the first frame update
     void Awake()
@@ -53,11 +56,38 @@ public class AudioManager : MonoBehaviour
                 //s.source2.loop = s.loop;
             }
         }
+
+        foreach (Sound m in music)
+        {
+            m.loop = true;
+
+            m.source0 = gameObject.AddComponent<AudioSource>();
+            m.source0.clip = m.clip;
+            m.source0.volume = m.volume;
+            m.source0.pitch = m.pitch;
+            m.source0.panStereo = m.stereoPan;
+            //s.source.loop = s.loop;
+
+            if (m.loop)
+            {
+                m.source1 = gameObject.AddComponent<AudioSource>();
+                m.source1.clip = m.clip;
+                m.source1.volume = m.volume;
+                m.source1.pitch = m.pitch;
+                m.source1.panStereo = m.stereoPan;
+                //s.source2.loop = s.loop;
+            }
+        }
+
         SceneManager.activeSceneChanged += AssignMusicOnScene;
     }
 
     private void OnEnable()
     {
+        LevelManager.mainMenuLoaded += PlayMenuSoundscape;
+        LeaderboardController.leaderboardLoaded += PlayGameplaySoundscape;
+        CutsceneController.cutsceneLoaded += StopMenuSoundscape;
+
         ShredderSlot.shredderStarted += ShredderStarted;
         ShredderSlot.shredderStopped += ShredderStopped;
         ButtonController.buttonPress += ButtonPress;
@@ -111,6 +141,10 @@ public class AudioManager : MonoBehaviour
 
     private void OnDisable()
     {
+        LevelManager.mainMenuLoaded -= PlayMenuSoundscape;
+        LeaderboardController.leaderboardLoaded -= PlayGameplaySoundscape;
+        CutsceneController.cutsceneLoaded -= StopMenuSoundscape;
+
         ShredderSlot.shredderStarted -= ShredderStarted;
         ShredderSlot.shredderStopped -= ShredderStopped;
         ButtonController.buttonPress -= ButtonPress;
@@ -221,19 +255,141 @@ public class AudioManager : MonoBehaviour
 
     public void PlayTheme(string name)
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
+        Sound s = Array.Find(music, sound => sound.name == name);
         if (s == null)
         {
             Debug.LogWarning("Sound: " + name + " not found!");
             return;
         }
 
-        if (currentMusic.source0 != null)
-            currentMusic.source0.Stop();
+        if (_currentMusic.source0 != null)
+            _currentMusic.source0.Stop();
 
-        currentMusic = s;
-        currentMusic.source0.volume = s.volume;
-        currentMusic.source0.Play();
+        _currentMusic = s;
+        _currentMusic.source0.volume = s.volume;
+        _currentMusic.source0.Play();
+    }
+
+
+    private void PlayMenuSoundscape()
+    {
+        PlayThemeLoop("HS_Menu");
+    }
+
+    private void StopMenuSoundscape()
+    {
+        StopThemeLoop("HS_Menu");
+    }
+
+    private void PlayGameplaySoundscape()
+    {
+        PlayThemeLoop("HS_Bgd_Gameplay");
+    }
+
+    private void StopThemeLoop(string name)
+    {
+        Sound s = Array.Find(music, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + name + " not found!");
+            return;
+        }
+
+        if (_currentLoopingTheme == s)
+        {
+            StopCoroutine(_currentLoopingThemeRoutine);
+            _currentLoopingThemeRoutine = null;
+
+            AudioSource source = null;
+            if (_currentLoopingTheme.activeSource == 0)
+                source = _currentLoopingTheme.source0;
+            else
+                source = _currentLoopingTheme.source1;
+
+            if (source != null)
+                StartCoroutine(FadeOut(source, musicFadeSpeed));
+
+            _currentLoopingTheme = null;
+        }
+    }
+
+    private void PlayThemeLoop(string name)
+    {
+        Sound s = Array.Find(music, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + name + " not found!");
+            return;
+        }
+
+        if (_currentLoopingTheme != null)
+        {
+            StopCoroutine(_currentLoopingThemeRoutine);
+            _currentLoopingThemeRoutine = null;
+
+            AudioSource source = null;
+            if (_currentLoopingTheme.activeSource == 0)
+                source = _currentLoopingTheme.source0;
+            else
+                source = _currentLoopingTheme.source1;
+
+            if (source != null)
+                StartCoroutine(FadeOut(source, musicFadeSpeed));
+
+            _currentLoopingTheme = null;
+        }
+        Debug.Log("1");
+        _currentLoopingTheme = s;
+        _currentLoopingThemeRoutine = ThemeLoop(s);
+        StartCoroutine(_currentLoopingThemeRoutine);
+    }
+
+    private IEnumerator ThemeLoop(Sound s)
+    {
+        bool fadeIn = true;
+
+        s.activeSource = 0;
+        float clipLength = s.source0.clip.length;
+        float fadeSpeed = musicFadeSpeed;
+
+        s.source0.volume = s.volume;
+        if (s.source1 != null)
+            s.source1.volume = s.volume;
+
+        float sourceVolume = s.volume;
+        AudioSource source0 = s.source0;
+        AudioSource source1 = s.source1;
+        int activeSource = 0;
+
+        if (fadeIn)
+            StartCoroutine(FadeIn(sourceVolume, source0, musicFadeSpeed));
+        else
+            source0.Play();
+
+        while (true)
+        {
+            if (activeSource == 0)
+            {
+                if (clipLength - source0.time < fadeSpeed)
+                {
+                    activeSource = 1;
+                    StartCoroutine(FadeIn(sourceVolume, source1, fadeSpeed));
+                    yield return new WaitForSeconds(fadeSpeed * 0.5f);
+                    StartCoroutine(FadeOut(source0, fadeSpeed));
+                }
+            }
+            else if (activeSource == 1)
+            {
+                if (clipLength - source1.time < fadeSpeed)
+                {
+                    activeSource = 0;
+                    StartCoroutine(FadeIn(sourceVolume, source0, fadeSpeed));
+                    yield return new WaitForSeconds(fadeSpeed * 0.5f);
+                    StartCoroutine(FadeOut(source1, fadeSpeed));
+                }
+            }
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     private Sound FindSound(string name)
@@ -241,7 +397,7 @@ public class AudioManager : MonoBehaviour
         return Array.Find(sounds, sound => sound.name == name);
     }
 
-    public void PlaySoundLoop(string name, bool dynamicSound, bool fadeIn = false)
+    public void PlaySoundLoop(string name, bool dynamicSound, float fadeSpeed, bool fadeIn = false)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
@@ -257,12 +413,12 @@ public class AudioManager : MonoBehaviour
                 return;
         }
 
-        LoopingSoundInfo newInfo = new LoopingSoundInfo(s, LoopSound(s, dynamicSound, true));
+        LoopingSoundInfo newInfo = new LoopingSoundInfo(s, LoopSound(s, dynamicSound, fadeSpeed, true));
         _currentLoopingSounds.Add(newInfo);
         StartCoroutine(newInfo.loopingRoutine);
     }
 
-    public void PlaySoundLoop(string name, out Sound s, bool dynamicSound, bool fadeIn = false)
+    public void PlaySoundLoop(string name, out Sound s, bool dynamicSound, float fadeSpeed, bool fadeIn = false)
     {
         s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
@@ -277,16 +433,17 @@ public class AudioManager : MonoBehaviour
                 return;
         }
 
-        LoopingSoundInfo newInfo = new LoopingSoundInfo(s, LoopSound(s, dynamicSound, true));
+        LoopingSoundInfo newInfo = new LoopingSoundInfo(s, LoopSound(s, dynamicSound, fadeSpeed, true));
         _currentLoopingSounds.Add(newInfo);
         StartCoroutine(newInfo.loopingRoutine);
     }
 
-    private IEnumerator LoopSound(Sound s, bool dynamicSound, bool fadeIn = false)
+    private IEnumerator LoopSound(Sound s, bool dynamicSound, float fadeSpeed, bool fadeIn = false)
     {
         s.activeSource = 0;
         float clipLength = s.source0.clip.length;
-        float fadeSpeed = 0.25f;
+        if (fadeSpeed < 0.01f)
+            fadeSpeed = sfxFadeSpeed;
 
         s.source0.volume = s.volume;
         if (s.source1 != null)
@@ -394,12 +551,13 @@ public class AudioManager : MonoBehaviour
             time += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
+        source.volume = 0f;
     }
     #endregion
     #region Tools
     private void ShredderStarted()
     {
-        PlaySoundLoop("Shredder_Loop", false, true);
+        PlaySoundLoop("Shredder_Loop", false, 1f ,true);
     }
 
     private void ShredderStopped()
@@ -709,7 +867,7 @@ public class AudioManager : MonoBehaviour
 
     private void WriterReady()
     {
-        PlaySoundLoop("Writer_Voyant", false);
+        PlaySoundLoop("Writer_Voyant", false, 0f);
     }
 
     private void WriterNotReady()

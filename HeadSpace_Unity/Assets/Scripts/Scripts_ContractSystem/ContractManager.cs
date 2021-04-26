@@ -120,7 +120,7 @@ public class ContractManager : MonoBehaviour
             endPos.y += 2 * (1 / 32f); // 2px offset
 
             movableContract.SetSortingLayer(_belt.SpriteRenderer.sortingLayerID);
-            movableContract.SetOrderInLayer(_belt.SpriteRenderer.sortingOrder);
+            movableContract.SetOrderInLayer(_belt.SpriteRenderer.sortingOrder + 1);
         }
 
         movableContract.transform.position = spawnPos;
@@ -426,13 +426,19 @@ public class ContractManager : MonoBehaviour
         CreateNewSingleContract();
 
         // 2e contrat
-        yield return new WaitForSeconds(40f);
+        yield return new WaitForSeconds(23f);
         CreateNewSingleContract();
+
+        // TEMP
+        float actualInterval = contractSpawnInterval;
+
+        if (_spawnCount > 8)
+            actualInterval = 60f;
 
         while (true)
         {
-            yield return new WaitForSeconds(contractSpawnInterval);
-            _spawnRoutine = SpawnContractTimer(contractSpawnInterval);
+            yield return new WaitForSeconds(actualInterval);
+            _spawnRoutine = SpawnContractTimer(actualInterval);
             StartCoroutine(_spawnRoutine);
         }
     }

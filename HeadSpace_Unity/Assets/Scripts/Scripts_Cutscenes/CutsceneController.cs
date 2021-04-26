@@ -6,6 +6,7 @@ using TMPro;
 
 public class CutsceneController : MonoBehaviour
 {
+    public static Action cutsceneLoaded;
     public static Action<string, SceneLoadType> cutsceneOver;
 
     [Header("Cutscene contents")]
@@ -46,6 +47,9 @@ public class CutsceneController : MonoBehaviour
 
         _spriteRenderer.sprite = allCutsceneFrames[_frameIndex].frame;
         _textIndex = 0;
+
+        if (cutsceneLoaded != null)
+            cutsceneLoaded();
     }
 
     private void Start()

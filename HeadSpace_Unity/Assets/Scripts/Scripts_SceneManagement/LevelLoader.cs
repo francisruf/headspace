@@ -1,10 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
+    public static Action levelLoaded;
+
     private PlayerInventory _inventory;
     private LevelSettings _levelSettings;
 
@@ -50,6 +53,9 @@ public class LevelLoader : MonoBehaviour
 
         if (ShipManager.instance != null)
             ShipManager.instance.AssignShipsToDeploy();
+
+        if (levelLoaded != null)
+            levelLoaded();
     }
 
     private void AssignLevelSettings()

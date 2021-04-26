@@ -77,6 +77,9 @@ public class LeaderboardController : MonoBehaviour
             slot.transform.localPosition = Vector2.zero;
             slot.InitializeSlot(GameManager.instance.CurrentDayInfo.time, employees[i]);
         }
+
+        if (leaderboardLoaded != null)
+            leaderboardLoaded();
     }
 
     private void OnCardProcessed()

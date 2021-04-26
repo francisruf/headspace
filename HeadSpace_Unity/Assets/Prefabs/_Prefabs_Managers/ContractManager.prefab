@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstContractSpawnTime: 3
-  contractSpawnInterval: 30
+  contractSpawnInterval: 45
   singleContractPrefab: {fileID: 9029962078798673231, guid: 51f25231ccf4cf64c837d431f8db918f,
     type: 3}
   doubleContractPrefab: {fileID: 5697276903824523097, guid: 5af592715e62d12418ab2d5c4a258702,

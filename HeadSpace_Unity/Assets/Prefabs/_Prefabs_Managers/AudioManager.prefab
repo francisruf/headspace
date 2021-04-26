@@ -337,7 +337,7 @@ MonoBehaviour:
     source0: {fileID: 0}
     source1: {fileID: 0}
   - name: Message_Drop
-    clip: {fileID: 8300000, guid: cfd263bacb890484cb19de91bbfa2cf9, type: 3}
+    clip: {fileID: 8300000, guid: 6391f3cc0623e7441b12fbd82d230016, type: 3}
     volume: 0.85
     pitch: 1
     stereoPan: 0
@@ -656,8 +656,8 @@ MonoBehaviour:
     activeSource: 0
     source0: {fileID: 0}
     source1: {fileID: 0}
-  - name: Alert_Anomalie
-    clip: {fileID: 8300000, guid: 50149e54573cf2a41b04a2c7f6b739f3, type: 3}
+  - name: Contract_Take
+    clip: {fileID: 8300000, guid: 11938c4ba68b68b419ca5daae631b834, type: 3}
     volume: 0.83
     pitch: 1
     stereoPan: 0
@@ -666,11 +666,31 @@ MonoBehaviour:
     activeSource: 0
     source0: {fileID: 0}
     source1: {fileID: 0}
-  currentMusic:
-    name: 
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
+  - name: Contract_Drop
+    clip: {fileID: 8300000, guid: 809c8f46358458847b106bd2e98433f9, type: 3}
+    volume: 0.83
+    pitch: 1
+    stereoPan: 0
+    loopVolume: 0
+    loop: 0
+    activeSource: 0
+    source0: {fileID: 0}
+    source1: {fileID: 0}
+  music:
+  - name: HS_Menu
+    clip: {fileID: 8300000, guid: 99cb0c877d73ed34d9f746c6c3234d45, type: 3}
+    volume: 0.5
+    pitch: 1
+    stereoPan: 0
+    loopVolume: 0
+    loop: 0
+    activeSource: 0
+    source0: {fileID: 0}
+    source1: {fileID: 0}
+  - name: HS_Bgd_Gameplay
+    clip: {fileID: 8300000, guid: b3a050c9bdf79404382d92fe33c93d56, type: 3}
+    volume: 0.35
+    pitch: 0.75
     stereoPan: 0
     loopVolume: 0
     loop: 0

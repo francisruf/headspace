@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
+    public static Action mainMenuLoaded;
     public static Action baseLoadingDone;
     public static Action preLoadDone;
     public static Action loadingDone;
@@ -113,6 +114,9 @@ public class LevelManager : MonoBehaviour
 
         if (baseLoadingDone != null)
             baseLoadingDone();
+
+        if (mainMenuLoaded != null)
+            mainMenuLoaded();
     }
 
     private void OnPlayButtonPressed()
