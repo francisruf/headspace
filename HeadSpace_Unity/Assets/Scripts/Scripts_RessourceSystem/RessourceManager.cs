@@ -32,6 +32,18 @@ public class RessourceManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            OnContractComplete(1);
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            OnContractComplete(23);
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            OnContractComplete(143);
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+            OnContractComplete(3210);
+    }
+
     private void OnEnable()
     {
         //Ship.soulsUnloaded += OnShipUnload;

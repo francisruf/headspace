@@ -29,7 +29,7 @@ public abstract class DropZone : MonoBehaviour
         HighestSortingOrder = minSortingOrder;
     }
 
-    public bool CheckIfAccepted(MovableObject obj)
+    public virtual bool CheckIfAccepted(MovableObject obj)
     {
         for (int i = 0; i < acceptedObjects.Length; i++)
         {

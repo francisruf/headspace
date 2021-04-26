@@ -12,7 +12,9 @@ public abstract class Contract : MonoBehaviour
     public int targetClientCount;
     protected int currentClientCount;
     protected int pointsReward;
+    public int PointsReward { get { return pointsReward; } }
     protected bool _complete;
+    public bool IsComplete { get { return _complete; } }
 
     [Header("UI references")]
     public SpriteRenderer startPlanetSpriteRenderer;

@@ -1,28 +1,40 @@
 fileFormatVersion: 2
-guid: d335bfeeb131e1d44ad4641f42753aa3
+guid: 981e643faeeecb848b8bc3cc9f925b88
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 282952652117209374
-    second: Tiles-Sheet_0
+      213: 7887983126650151151
+    second: Tool_Board_MPCount_Numbers-Sheet_0
   - first:
-      213: -8310998624700051391
-    second: Tiles-Sheet_1
+      213: 1581469017318398612
+    second: Tool_Board_MPCount_Numbers-Sheet_1
   - first:
-      213: -4176062618086990820
-    second: Tiles-Sheet_2
+      213: 736228106853243859
+    second: Tool_Board_MPCount_Numbers-Sheet_2
   - first:
-      213: -1926259165749649355
-    second: Tiles-Sheet_3
+      213: -1483953652299136107
+    second: Tool_Board_MPCount_Numbers-Sheet_3
   - first:
-      213: 3620058418051504474
-    second: Tiles-Sheet_4
+      213: 751523309225223177
+    second: Tool_Board_MPCount_Numbers-Sheet_4
   - first:
-      213: -5138880248503860774
-    second: Tiles-Sheet_5
+      213: 3700360624639824892
+    second: Tool_Board_MPCount_Numbers-Sheet_5
   - first:
-      213: -3018407562775558514
-    second: Tiles-Sheet_6
+      213: 917007973581603381
+    second: Tool_Board_MPCount_Numbers-Sheet_6
+  - first:
+      213: 6326361887274044565
+    second: Tool_Board_MPCount_Numbers-Sheet_7
+  - first:
+      213: 742358195248204967
+    second: Tool_Board_MPCount_Numbers-Sheet_8
+  - first:
+      213: -7374852203347278695
+    second: Tool_Board_MPCount_Numbers-Sheet_9
+  - first:
+      213: -663611860821014114
+    second: Tool_Board_MPCount_Numbers-Sheet_10
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -63,7 +75,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 32
@@ -82,10 +94,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 128
+    maxTextureSize: 32
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -94,10 +106,10 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 128
+    maxTextureSize: 32
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -106,10 +118,10 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: iPhone
-    maxTextureSize: 128
+    maxTextureSize: 32
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -118,10 +130,10 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
-    maxTextureSize: 128
+    maxTextureSize: 32
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -132,13 +144,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Tiles-Sheet_0
+      name: Tool_Board_MPCount_Numbers-Sheet_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 41
-        width: 19
-        height: 19
+        x: 4
+        y: 9
+        width: 4
+        height: 6
       alignment: 1
       pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -146,20 +158,83 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e1173bd10ff3de300800000000000000
-      internalID: 282952652117209374
+      spriteID: 49a9c8831b182f510800000000000000
+      internalID: 1581469017318398612
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles-Sheet_1
+      name: Tool_Board_MPCount_Numbers-Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 9
+        width: 4
+        height: 6
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3db55aeff8b973a00800000000000000
+      internalID: 736228106853243859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tool_Board_MPCount_Numbers-Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 9
+        width: 4
+        height: 6
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 593019bf300f76be0800000000000000
+      internalID: -1483953652299136107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tool_Board_MPCount_Numbers-Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 9
+        width: 4
+        height: 6
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 904abcec772fd6a00800000000000000
+      internalID: 751523309225223177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tool_Board_MPCount_Numbers-Sheet_5
       rect:
         serializedVersion: 2
         x: 20
-        y: 41
-        width: 19
-        height: 19
+        y: 9
+        width: 4
+        height: 6
       alignment: 1
       pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,104 +242,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1405efdc8c669ac80800000000000000
-      internalID: -8310998624700051391
+      spriteID: cf3df7cf1625a5330800000000000000
+      internalID: 3700360624639824892
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles-Sheet_2
-      rect:
-        serializedVersion: 2
-        x: 40
-        y: 41
-        width: 19
-        height: 19
-      alignment: 1
-      pivot: {x: 0, y: 1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c1c1321bc25ab06c0800000000000000
-      internalID: -4176062618086990820
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tiles-Sheet_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 21
-        width: 19
-        height: 19
-      alignment: 1
-      pivot: {x: 0, y: 1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 530e6289e7d8445e0800000000000000
-      internalID: -1926259165749649355
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tiles-Sheet_4
-      rect:
-        serializedVersion: 2
-        x: 20
-        y: 21
-        width: 19
-        height: 19
-      alignment: 1
-      pivot: {x: 0, y: 1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a595f1a83f70d3230800000000000000
-      internalID: 3620058418051504474
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tiles-Sheet_5
-      rect:
-        serializedVersion: 2
-        x: 40
-        y: 21
-        width: 19
-        height: 19
-      alignment: 1
-      pivot: {x: 0, y: 1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ad108a414a70fa8b0800000000000000
-      internalID: -5138880248503860774
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tiles-Sheet_6
+      name: Tool_Board_MPCount_Numbers-Sheet_6
       rect:
         serializedVersion: 2
         x: 0
         y: 1
-        width: 19
-        height: 19
+        width: 4
+        height: 6
       alignment: 1
       pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -272,8 +263,113 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e86096950567c16d0800000000000000
-      internalID: -3018407562775558514
+      spriteID: 5324889b4edd9bc00800000000000000
+      internalID: 917007973581603381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tool_Board_MPCount_Numbers-Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 1
+        width: 4
+        height: 6
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59c0a833e90cbc750800000000000000
+      internalID: 6326361887274044565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tool_Board_MPCount_Numbers-Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 1
+        width: 4
+        height: 6
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ac8edb68d26d4a00800000000000000
+      internalID: 742358195248204967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tool_Board_MPCount_Numbers-Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 1
+        width: 4
+        height: 6
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9948a74aef247a990800000000000000
+      internalID: -7374852203347278695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tool_Board_MPCount_Numbers-Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 1
+        width: 4
+        height: 6
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e99070f47806ac6f0800000000000000
+      internalID: -663611860821014114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tool_Board_MPCount_Numbers-Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 9
+        width: 4
+        height: 6
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe0e1428cdeb77d60800000000000000
+      internalID: 7887983126650151151
       vertices: []
       indices: 
       edges: []

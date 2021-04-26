@@ -549,7 +549,7 @@ public class AudioManager : MonoBehaviour
             case ObjectType.Other:
                 break;
             case ObjectType.Contract:
-                PaperPickup();
+                PlaySound("Contract_Take");
                 break;
             default:
                 break;
@@ -572,7 +572,7 @@ public class AudioManager : MonoBehaviour
             case ObjectType.Other:
                 break;
             case ObjectType.Contract:
-                PaperDrop();
+                PlaySound("Contract_Drop");
                 break;
             default:
                 break;
@@ -594,7 +594,7 @@ public class AudioManager : MonoBehaviour
             case ObjectType.Other:
                 break;
             case ObjectType.Contract:
-                MessageDrop();
+                //MessageDrop();
                 break;
             default:
                 break;

@@ -251,12 +251,17 @@ public class GridTile : MonoBehaviour
 
         while (seconds > 0.01f)
         {
-            yield return new WaitForSeconds(1f);
-            seconds--;
+            yield return new WaitForSeconds(0.1f);
+            seconds -= 0.1f;
             _lifeRemaining = seconds;
             UpdateDebugText(seconds);
         }
 
+        LifeTimerOver();
+    }
+
+    protected virtual void LifeTimerOver()
+    {
         if (!liveForever)
         {
             if (tileLifeOver != null)

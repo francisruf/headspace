@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 328405606139326211}
   - component: {fileID: 328405606139326220}
   - component: {fileID: 7861716329568809097}
+  - component: {fileID: 1993088795012972464}
   m_Layer: 15
   m_Name: gridTile_spawningStaticAnomaly
   m_TagString: Untagged
@@ -150,6 +151,25 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+--- !u!95 &1993088795012972464
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328405606139326222}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3d777098fb2c8374a89622afe9d634ed, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &792759034991735327
 GameObject:
   m_ObjectHideFlags: 0

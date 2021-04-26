@@ -21,6 +21,7 @@ public class GridTile_StaticAnomaly : GridTile
     private void SetTentaclePosition()
     {
         Vector2 pos = _spriteRenderer.bounds.min;
+        pos.x = _spriteRenderer.bounds.max.x;
         //Debug.DrawLine(_spriteRenderer.bounds.min, _spriteRenderer.bounds.min + Vector3.up * 0.5f, Color.yellow);
         _tentaclesRenderer.transform.position = pos;
     }

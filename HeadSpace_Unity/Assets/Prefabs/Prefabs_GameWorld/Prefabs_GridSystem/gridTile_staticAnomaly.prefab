@@ -80,7 +80,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 0.59375, y: 0.59375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -104,7 +104,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 1}
     oldSize: {x: 0.59375, y: 0.59375}
-    newSize: {x: 2, y: 2}
+    newSize: {x: 0.59375, y: 0.59375}
     adaptiveTilingThreshold: 0.5
     drawMode: 2
     adaptiveTiling: 0
@@ -395,6 +395,7 @@ GameObject:
   - component: {fileID: 6899757891871704725}
   - component: {fileID: 1422309062588503403}
   - component: {fileID: 2677380036640743174}
+  - component: {fileID: 6184536118608675505}
   m_Layer: 0
   m_Name: Tentacles-Sheet_0
   m_TagString: Untagged
@@ -455,7 +456,7 @@ SpriteRenderer:
   m_SortingLayerID: -2049550199
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2012076567725910688, guid: e930463f34e7781428ab3506ccc15086,
+  m_Sprite: {fileID: -2868576643453867393, guid: 2dceb727af647f44293f73dd8f1edb3e,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -480,3 +481,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetRenderer: {fileID: 1422309062588503403}
+--- !u!95 &6184536118608675505
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3473635582395814857}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ddf6e7d29d0e706449629d3193181703, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

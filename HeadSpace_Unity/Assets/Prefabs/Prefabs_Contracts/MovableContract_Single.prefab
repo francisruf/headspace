@@ -1012,7 +1012,7 @@ MonoBehaviour:
   objectType: 3
   dropZoneLayerMask:
     serializedVersion: 2
-    m_Bits: 262144
+    m_Bits: 270336
   animationSpeed: 1
   documentsLayerMask:
     serializedVersion: 2

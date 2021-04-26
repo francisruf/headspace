@@ -150,6 +150,25 @@ public class MovableContract : MovableObject
                 }
             }
         }
+        if (!found)
+        {
+            for (int i = 0; i < colliderCount; i++)
+            {
+                DropZone candidate = allColliders[i].GetComponent<DropZone>();
+                if (candidate != null)
+                {
+                    if (candidate.CheckIfAccepted(this))
+                    {
+                        if (!found)
+                        {
+                            dropZone = candidate;
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
 
         return found;
     }
@@ -186,6 +205,9 @@ public class MovableContract : MovableObject
         {
             boardDropZone.AddObjectToDropZone(this);
         }
+
+        else if (_currentDropZone != null)
+            _currentDropZone.AddObjectToDropZone(this);
     }
 
     protected override void RemoveFromDropZone()
@@ -198,6 +220,9 @@ public class MovableContract : MovableObject
 
         if (boardDropZone != null)
             boardDropZone.RemoveObjectFromDropZone(this);
+
+        if (_currentDropZone != null)
+            _currentDropZone.RemoveObjectFromDropZone(this);
 
         contractDropZones.Clear();
         _currentDropZone = null;

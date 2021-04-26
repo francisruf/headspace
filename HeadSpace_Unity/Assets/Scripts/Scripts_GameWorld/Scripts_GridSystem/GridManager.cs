@@ -313,7 +313,7 @@ public class GridManager : MonoBehaviour
                 }
                 else if (randomizedYData[x, y] == 4)
                 {
-                    ReplaceTile(_currentGridInfo.gameGridTiles[x, y], 4);
+                    ReplaceTile(_currentGridInfo.gameGridTiles[x, y], 5);
                 }
             }
         }
@@ -336,7 +336,7 @@ public class GridManager : MonoBehaviour
                 bool found = false;
                 for (y = 0; y < mapSizeY; y++)
                 {
-                    if (_currentGridInfo.gameGridTiles[x, y].tileType == 4)
+                    if (_currentGridInfo.gameGridTiles[x, y].tileType == 4 || _currentGridInfo.gameGridTiles[x, y].tileType == 5)
                     {
                         if (!foundTiles.Contains(_currentGridInfo.gameGridTiles[x, y]))
                         {
@@ -368,10 +368,11 @@ public class GridManager : MonoBehaviour
                         foreach (var neighbour in neighbours)
                         {
                             if (neighbour != null)
-                                if (neighbour.tileType == 4 && !currentSegment.Contains(neighbour))
+                                if (neighbour.tileType == 4 || neighbour.tileType == 5)
                                 {
-                                    if (!newTiles.Contains(neighbour))
-                                        newTiles.Add(neighbour);
+                                    if (!currentSegment.Contains(neighbour))
+                                        if (!newTiles.Contains(neighbour))
+                                            newTiles.Add(neighbour);
                                 }
                         }
                     }

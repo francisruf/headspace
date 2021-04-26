@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 713987835
   m_SortingLayer: 3
   m_SortingOrder: 1
-  m_Sprite: {fileID: -6020958433439627129, guid: 02922898d8aa10d468577626ae355401,
+  m_Sprite: {fileID: -3018407562775558514, guid: d335bfeeb131e1d44ad4641f42753aa3,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -131,9 +131,9 @@ MonoBehaviour:
   shipDPS: 0
   planetDPS: 0
   colliderEnableDelay: 0
-  worldMapSprite: {fileID: -6020958433439627129, guid: 02922898d8aa10d468577626ae355401,
+  worldMapSprite: {fileID: -3018407562775558514, guid: d335bfeeb131e1d44ad4641f42753aa3,
     type: 3}
-  debugSprite: {fileID: -6020958433439627129, guid: 02922898d8aa10d468577626ae355401,
+  debugSprite: {fileID: -3018407562775558514, guid: d335bfeeb131e1d44ad4641f42753aa3,
     type: 3}
   tileX: 0
   tileY: 0

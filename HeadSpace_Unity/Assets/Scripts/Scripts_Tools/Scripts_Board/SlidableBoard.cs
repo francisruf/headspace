@@ -25,7 +25,7 @@ public class SlidableBoard : SlidableTool
 
     private void AddShip(Ship ship)
     {
-        if (_currentSlots >= 4)
+        if (_currentSlots >= 3)
             return;
 
         allSlots[_currentSlots].AssignInfo(ship, _currentSlots);
