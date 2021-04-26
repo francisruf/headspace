@@ -925,6 +925,12 @@ public class AudioManager : MonoBehaviour
     {
         PlayRandomSound("Contract_Spark_One", "Contract_Spark_Two");
     }
+
+    private void NewCreditsReceived()
+    {
+        PlayRandomSound("Coin_Received_One", "Coin_Received_Two");
+    }
+
     #endregion
     #region Game loop
     private void LevelOver()

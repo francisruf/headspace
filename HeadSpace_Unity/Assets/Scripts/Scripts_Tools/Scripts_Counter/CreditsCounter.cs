@@ -1,10 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class CreditsCounter : MonoBehaviour
 {
+    public static Action newCredits;
+
     private TextMeshProUGUI _creditsText;
     private int _currentCreditsDisplayed;
     private int _currentCreditsValue;
@@ -15,6 +18,8 @@ public class CreditsCounter : MonoBehaviour
     public Sprite[] digits;
     public Sprite emptySprite;
     public SpriteRenderer[] digitRenderers;
+
+    
 
     private void Awake()
     {
@@ -60,6 +65,10 @@ public class CreditsCounter : MonoBehaviour
         {
             _currentCreditsDisplayed += 1 * multiplier;
             UpdateText();
+
+            if (newCredits != null)
+                newCredits();
+
             yield return new WaitForEndOfFrame();
             yield return new WaitForEndOfFrame();
             yield return new WaitForEndOfFrame();
