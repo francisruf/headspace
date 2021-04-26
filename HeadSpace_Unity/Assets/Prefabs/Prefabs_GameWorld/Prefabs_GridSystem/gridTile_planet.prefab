@@ -417,16 +417,16 @@ MonoBehaviour:
       m_Calls: []
   m_text: PlanetName
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0d95ed254bc98f842b80fb1533b601c9, type: 2}
-  m_sharedMaterial: {fileID: -2214717372783248907, guid: 0d95ed254bc98f842b80fb1533b601c9,
+  m_fontAsset: {fileID: 11400000, guid: b3c287d86ad51114ea723b2b668f6f41, type: 2}
+  m_sharedMaterial: {fileID: 1969930889862385010, guid: b3c287d86ad51114ea723b2b668f6f41,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294952488
-  m_fontColor: {r: 0.15686274, g: 0.777011, b: 1, a: 1}
+    rgba: 4282464047
+  m_fontColor: {r: 0.18623176, g: 0.21411261, b: 0.254717, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -453,7 +453,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: -3
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
