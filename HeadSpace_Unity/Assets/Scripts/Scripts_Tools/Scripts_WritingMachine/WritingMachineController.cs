@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class WritingMachineController : MonoBehaviour
 {
-    public static Action commandReadyToTear;
+    public static Action<bool> commandReadyToTear;
     public static Action commandTeared;
     public static Action<bool> lightFlash;
 
@@ -24,6 +24,9 @@ public class WritingMachineController : MonoBehaviour
     private int _buttonCount;
     private string _currentString = "";
     private int _currentCharIndex;
+
+    [Header("Base settings")]
+    public bool generateStartCommand;
 
     [Header("Assign buttons here")]
     public List<ButtonController> allCommandButtons;
@@ -70,6 +73,12 @@ public class WritingMachineController : MonoBehaviour
         shipButtonSection.AssignButtonPositions(allShipButtons);
 
         _currentButtonSectionType = ButtonSectionType.Ships;
+
+        if (generateStartCommand)
+        {
+            AssignStartCommand();
+            ChangeButtonSection(ButtonSectionType.End);
+        }
     }
 
     private void OnEnable()
@@ -630,8 +639,10 @@ public class WritingMachineController : MonoBehaviour
             _keyPadController.CloseKeyPad();
         _routeScreenController.CloseRouteScreen(true);
 
-        if (commandReadyToTear != null)
-            commandReadyToTear();
+        bool startCommand = _currentCommandDocument.CommandName == "StartLevel" ? true : false;
+
+         if (commandReadyToTear != null)
+            commandReadyToTear(startCommand);
 
         yield return new WaitForSeconds(0.45f);
         DisableAllButtons();
@@ -669,6 +680,15 @@ public class WritingMachineController : MonoBehaviour
 
         ChangeButtonSection(ButtonSectionType.Ships);
         SpawnCommandDocument();
+    }
+
+    private void AssignStartCommand()
+    {
+        _currentCommandDocument.gameObject.tag = "Indestruc";
+
+        string startMessage = "Welcome, trainee #01235!";
+        startMessage += "\nWhen you are ready to start your day, sign-in by sending this document through your outbox.";
+        _currentCommandDocument.AssignCommandName("StartLevel", startMessage);
     }
 
     private void OnShipInfoChange(Ship ship)

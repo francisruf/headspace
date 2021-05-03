@@ -14,12 +14,14 @@ public class CommandManager : MonoBehaviour
     {
         CommandDebugWindow.newCommandRequest += OnNewCommandRequest;
         DropZone_Outbox.newCommandRequest += OnNewCommandRequest;
+        DropZone_Outbox.newSingleCommandRequest += OnNewCommandRequest;
     }
 
     private void OnDisable()
     {
         CommandDebugWindow.newCommandRequest -= OnNewCommandRequest;
         DropZone_Outbox.newCommandRequest -= OnNewCommandRequest;
+        DropZone_Outbox.newSingleCommandRequest -= OnNewCommandRequest;
     }
 
     private void Awake()
@@ -28,6 +30,39 @@ public class CommandManager : MonoBehaviour
         {
             _allCommands.Add(cmd);
         }
+    }
+
+    private void OnNewCommandRequest(MovableCommand command)
+    {
+
+            Command foundCommand = FindCommand(command.CommandName);
+            bool commandIsValid = false;
+
+            if (foundCommand == null)
+            {
+                Debug.Log("COMMAND MANAGER - Invalid command name : " + command.CommandName);
+                commandIsValid = false;
+            }
+
+            else
+            {
+                string errorMessage = "";
+                if (command.Route != null)
+                    commandIsValid = foundCommand.TryExecution(command.ShipName, command.Route, out errorMessage);
+                else
+                    commandIsValid = foundCommand.TryExecution(command.ShipName, command.TargetGridCoords, command.ProductCode, out errorMessage);
+            }
+
+            if (commandIsValid)
+                command.CurrentCommandState = CommandState.Sucess;
+            else
+                command.CurrentCommandState = CommandState.Fail;
+
+        List<MovableCommand> result = new List<MovableCommand>();
+        result.Add(command);
+
+        if (commandRequestResult != null)
+            commandRequestResult(result);
     }
 
     private void OnNewCommandRequest(List<MovableCommand> commands)

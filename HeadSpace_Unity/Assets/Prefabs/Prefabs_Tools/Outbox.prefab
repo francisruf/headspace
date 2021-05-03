@@ -237,6 +237,10 @@ MonoBehaviour:
   minSortingOrder: 2
   targetSortingLayer: 
   acceptedObjects: 01000000000000000300000002000000
+  startCommandsAccepted:
+  - NewGame
+  - QuitGame
+  - StartLevel
 --- !u!1 &3109835221133976821
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,6 +413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c8836406ff587468687efb3242a3ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startEnabled: 1
   ignoreSelectedBringToFront: 1
   slidingDirection: 2
   slidingAmount: 2.8

@@ -19,7 +19,7 @@ public class MovableCommand : MovableObject
 
     private float _previousSpriteHeight;
 
-    public string CommandName { get; private set; } = "";
+    public string CommandName { get; protected set; } = "";
     public string ShipName { get; private set; } = "";
     public string TargetGridCoords { get; private set; } = "";
     public string ProductCode { get; private set; } = "";
@@ -120,7 +120,7 @@ public class MovableCommand : MovableObject
         }
     }
 
-    private void AssignSpriteStartSize()
+    protected virtual void AssignSpriteStartSize()
     {
         _commandText.text = "a";
         _commandText.ForceMeshUpdate();
@@ -207,7 +207,7 @@ public class MovableCommand : MovableObject
         }
     }
 
-    private void UpdateVisuals()
+    protected virtual void UpdateVisuals()
     {
         Vector2 size = _spriteRenderer.size;
         size.x += 0.0625f;

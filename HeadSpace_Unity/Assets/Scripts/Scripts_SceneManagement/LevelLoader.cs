@@ -15,7 +15,6 @@ public class LevelLoader : MonoBehaviour
 
     private void Awake()
     {
-        _inventory = FindObjectOfType<PlayerInventory>();
         _levelSettings = GetComponentInChildren<LevelSettings>();
         
         if (LevelManager.instance != null)
@@ -42,14 +41,11 @@ public class LevelLoader : MonoBehaviour
         if (startGameDebug != null)
             startGameDebug.enabled = false;
 
-        if (_inventory != null)
-            _inventory.InitializeInventory();
+        if (_levelSettings != null)
+            AssignLevelSettings();
 
         if (GridManager.instance != null)
             GridManager.instance.GenerateNewGrid();
-
-        if (_levelSettings != null)
-            AssignLevelSettings();
 
         if (ShipManager.instance != null)
             ShipManager.instance.AssignShipsToDeploy();
@@ -60,12 +56,19 @@ public class LevelLoader : MonoBehaviour
 
     private void AssignLevelSettings()
     {
+        if (_levelSettings.gridSettings != null)
+            if (GridManager.instance != null)
+                GridManager.instance.AssignSettings(_levelSettings.gridSettings);
+
         if (_levelSettings.planetLevelSettings != null)
             if (PlanetManager.instance != null)
-                PlanetManager.instance.RevealStartingPlanets(_levelSettings.planetLevelSettings);
+                PlanetManager.instance.AssignLevelSettings(_levelSettings.planetLevelSettings);
 
         if (ContractManager.instance != null)
             ContractManager.instance.AssignLevelSettings(_levelSettings.allClientRules);
+
+        if (_levelSettings.inventorySettings != null)
+            _levelSettings.inventorySettings.InitializeInventory();
     }
 
     public void StartGameDebug()

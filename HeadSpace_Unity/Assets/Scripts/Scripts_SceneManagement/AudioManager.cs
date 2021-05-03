@@ -22,6 +22,8 @@ public class AudioManager : MonoBehaviour
     private IEnumerator _currentLoopingThemeRoutine;
     private Sound _currentLoopingTheme;
 
+    private bool _oddCredits;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -137,6 +139,7 @@ public class AudioManager : MonoBehaviour
         TimeManager.levelTimerEndPreTrigger += LevelOver;
         DropZone_CardReader.cardProcessed += CommandGood;
         CardReader.lightTick += VoyantFlash;
+        CreditsCounter.newCredits += NewCreditsReceived;
     }
 
     private void OnDisable()
@@ -194,6 +197,7 @@ public class AudioManager : MonoBehaviour
         TimeManager.levelTimerEndPreTrigger -= LevelOver;
         DropZone_CardReader.cardProcessed -= CommandGood;
         CardReader.lightTick -= VoyantFlash;
+        CreditsCounter.newCredits -= NewCreditsReceived;
     }
 
     //Update function only to test feature. Remove when necessary.
@@ -625,7 +629,7 @@ public class AudioManager : MonoBehaviour
                 PlaySound("Board_Drag_Open");
                 break;
             case SlidableToolType.Shredder:
-                PlaySound("Shredder_Pull_Out");
+                PlaySound("Drawer_Pull_One");
                 break;
             default:
                 break;
@@ -649,6 +653,7 @@ public class AudioManager : MonoBehaviour
                 PlaySound("Board_Drag_Close");
                 break;
             case SlidableToolType.Shredder:
+                PlaySound("Drawer_Pull_Two");
                 break;
             default:
                 break;
@@ -928,7 +933,16 @@ public class AudioManager : MonoBehaviour
 
     private void NewCreditsReceived()
     {
-        PlayRandomSound("Coin_Received_One", "Coin_Received_Two");
+        if (_oddCredits)
+        {
+            PlaySound("Coin_Received_One");
+            _oddCredits = false;
+        }
+        else
+        {
+            PlaySound("Coin_Received_Two");
+            _oddCredits = true;
+        }
     }
 
     #endregion

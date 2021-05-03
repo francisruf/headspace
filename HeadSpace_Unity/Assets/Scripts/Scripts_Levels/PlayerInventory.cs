@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInventory : MonoBehaviour
+[CreateAssetMenu(fileName = "New inventory settings", menuName = "LevelSettings/Inventory Settings")]
+public class PlayerInventory : ScriptableObject
 {
     public static Action<GameObject, ObjectSpawnZone> placeObjectRequest; 
 

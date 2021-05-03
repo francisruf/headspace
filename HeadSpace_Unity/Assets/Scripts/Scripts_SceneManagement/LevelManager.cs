@@ -20,6 +20,7 @@ public class LevelManager : MonoBehaviour
     [Header("SCENES")]
     public string[] baseScenes;
     public string[] mainMenuScenes;
+    public string[] mainMenuDeskScenes;
     public string[] essentialLevelScenes;
     public string[] environmentScenes;
 
@@ -27,7 +28,6 @@ public class LevelManager : MonoBehaviour
     private string[] _currentMenuScenes;
     private string _currentLevelScene;
     private string _currentSingleScene = "";
-    public SceneType CurrentSceneType { get; private set; }
 
     // Sector info
     private SectorInfo _previousSectorInfo;
@@ -70,7 +70,10 @@ public class LevelManager : MonoBehaviour
         CutsceneController.cutsceneOver += OnCutsceneOver;
         DaySceneController.daySceneOver += OnDaySceneOver;
         LeaderboardController.dayStart += OnDayStart;
+        LeaderboardController.dayFinish += OnDayFinish;
         TutorialPromptController.tutorialPrompt += OnTutorialPrompt;
+        Command_NewGame.newGameRequest += OnNewGameRequest;
+        Command_QuitGame.quitGameRequest += OnQuitRequest;
     }
 
     private void OnDisable()
@@ -85,7 +88,10 @@ public class LevelManager : MonoBehaviour
         CutsceneController.cutsceneOver -= OnCutsceneOver;
         DaySceneController.daySceneOver -= OnDaySceneOver;
         LeaderboardController.dayStart -= OnDayStart;
+        LeaderboardController.dayFinish -= OnDayFinish;
         TutorialPromptController.tutorialPrompt -= OnTutorialPrompt;
+        Command_NewGame.newGameRequest -= OnNewGameRequest;
+        Command_QuitGame.quitGameRequest -= OnQuitRequest;
     }
 
     private void Start()
@@ -98,12 +104,10 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator LoadStartScenes()
     {
-        CurrentSceneType = SceneType.Menu;
-
         blackSolid.enabled = true;
         transitionCanvas.enabled = true;
 
-        _currentMenuScenes = mainMenuScenes;
+        _currentMenuScenes = mainMenuDeskScenes;
 
         yield return LoadScenes(baseScenes);
         yield return LoadScenes(_currentMenuScenes);
@@ -121,8 +125,13 @@ public class LevelManager : MonoBehaviour
 
     private void OnPlayButtonPressed()
     {
-        CurrentSceneType = SceneType.Cutscene;
         StartCoroutine(LoadSingleScene("Cutscene_Intro", 0f, 0.5f));
+        //StartCoroutine(LoadLevelScenes("00_Gym"));
+    }
+
+    private void OnNewGameRequest()
+    {
+        StartCoroutine(LoadSingleScene("Cutscene_Intro", 1.0f, 1.0f));
         //StartCoroutine(LoadLevelScenes("00_Gym"));
     }
 
@@ -131,6 +140,10 @@ public class LevelManager : MonoBehaviour
         Application.Quit();
     }
 
+    private void OnQuitRequest()
+    {
+        Application.Quit();
+    }
 
     private void OnPlayAgainButtonPressed()
     {
@@ -139,39 +152,46 @@ public class LevelManager : MonoBehaviour
 
     private void OnLevelTimerEnded()
     {
-        CurrentSceneType = SceneType.Leaderboard;
         StartCoroutine(LoadSingleSceneFromGame("Leaderboard", 4f, 1.5f));
     }
 
     private void OnGameOver()
     {
-        CurrentSceneType = SceneType.Menu;
         StartCoroutine(LoadMenuSceneFromGame("GameOverScreen", 0f, 0f));
     }
 
     private void OnTutorialPrompt(bool tutorial)
     {
-        CurrentSceneType = SceneType.Leaderboard;
         int day = tutorial == true ? 0 : 1;
         GameManager.instance.SetDay(day);
-        StartCoroutine(LoadSingleScene("Leaderboard", 0f, 1f));
+        StartCoroutine(LoadSingleScene("DayMenu", 0f, 1f));
     }
 
     private void OnDaySceneOver()
     {
-        CurrentSceneType = SceneType.Leaderboard;
         StartCoroutine(LoadSingleScene("Leaderboard", 0f, 1f));
     }
 
     private void OnDayStart()
     {
         Debug.Log("On day start!");
-        StartCoroutine(LoadLevelScenes("00_Gym", 0f, 1f));
+        int currentDay = GameManager.instance.CurrentDayInfo.day;
+
+        switch (currentDay)
+        {
+            case 0:
+                StartCoroutine(LoadLevelScenes("00_Tutorial", 0f, 1f));
+                break;
+            case 1:
+                StartCoroutine(LoadLevelScenes("01_Level1", 0f, 1f));
+                break;
+            default:
+                break;
+        }
     }
 
     private void OnDayFinish()
     {
-        CurrentSceneType = SceneType.DayScene;
         Debug.Log("On day finish!");
         StartCoroutine(LoadSingleScene("DayMenu", 0f, 1f));
     }
@@ -197,7 +217,6 @@ public class LevelManager : MonoBehaviour
         if (unloadingDone != null)
             unloadingDone();
 
-        CurrentSceneType = SceneType.Level;
         _currentLevelScene = targetLevelName;
         yield return LoadScenes(essentialLevelScenes);
         yield return LoadScenes(environmentScenes);

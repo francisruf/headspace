@@ -56,17 +56,7 @@ public class PathFinder : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        GridManager.newGameGrid += OnNewGameGrid;
-    }
-
-    private void OnDisable()
-    {
-        GridManager.newGameGrid -= OnNewGameGrid;
-    }
-
-    private void OnNewGameGrid(GridInfo info)
+    public void AssignGridInfo(GridInfo info)
     {
         currentGridInfo = info;
         grid = info.gameGridTiles;

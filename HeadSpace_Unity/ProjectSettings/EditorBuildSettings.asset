@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/_Scenes/Scenes_Features_Implemented/DeskEnvironment.unity
     guid: 7ef7539cd4025964aa1de58556ab1bc6
   - enabled: 1
+    path: Assets/_Scenes/Scenes_Features_Implemented/DeskEnvironment_Menu.unity
+    guid: 25b0d8a81ce8785489ef22de2a588d81
+  - enabled: 1
     path: Assets/_Scenes/Scenes_Features_Implemented/GridSystem.unity
     guid: d6b02e47d03ea464b9fd36f44e5cc414
   - enabled: 1
@@ -35,6 +38,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/Scenes_Levels/00_Gym.unity
     guid: 8b13a63738760ca4d8faa38f8cf336b8
+  - enabled: 1
+    path: Assets/_Scenes/Scenes_Levels/00_Tutorial.unity
+    guid: 3d16793f431557f44bf0f4c88fd15021
+  - enabled: 1
+    path: Assets/_Scenes/Scenes_Levels/01_Level1.unity
+    guid: ea86f6b8523cd0d4cb7ecdba6740469c
   - enabled: 1
     path: Assets/_Scenes/Scenes_Menus/EndScreen.unity
     guid: 64c1d97e29d42334caed35ab57908e3a

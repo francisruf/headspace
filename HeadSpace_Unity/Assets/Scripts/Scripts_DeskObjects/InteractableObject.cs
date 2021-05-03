@@ -35,7 +35,9 @@ public abstract class InteractableObject : MonoBehaviour
     public int CurrentSortingLayer { get; set; }
 
     [Header("Interactable object settings")]
+    private int _defaultPhysicsLayer;
     private int _defaultSortingLayerID;
+    public bool startEnabled = true;
     public bool ignoreSelectedBringToFront;
 
     // Virtual = Une classe qui HÉRITE de InteractableObject peut REMPLACER ou MODIFIER la fonction Awake à sa façon
@@ -53,6 +55,9 @@ public abstract class InteractableObject : MonoBehaviour
         _childCanvasesCount = _childCanvases.Length;
 
         _defaultSortingLayerID = _spriteRenderer.sortingLayerID;
+
+        _defaultPhysicsLayer = this.gameObject.layer;
+        ToggleInteractions(startEnabled);
     }
 
     protected virtual void Start()
@@ -305,4 +310,21 @@ public abstract class InteractableObject : MonoBehaviour
         return order;
     }
 
+    public void ToggleInteractions(bool toggleON)
+    {
+        foreach (var collider in GetComponents<Collider>())
+        {
+            collider.enabled = toggleON;
+        }
+
+        foreach (var interactionZone in _interactionZones)
+        {
+            interactionZone.enabled = toggleON;
+        }
+
+        if (toggleON)
+            this.gameObject.layer = _defaultPhysicsLayer;
+        else
+            this.gameObject.layer = 19;
+    }
 }

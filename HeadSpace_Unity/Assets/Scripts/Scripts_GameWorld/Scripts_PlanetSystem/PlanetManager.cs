@@ -12,24 +12,13 @@ public class PlanetManager : MonoBehaviour
     public static Action<List<Planet>> planetsSpawned;
     public static Action noMoreSoulsInSector;
 
-    // Paramètres de spawning et archétypes de planètes
-    [Header("Random population settings")]
-    public bool randomArchetypes;
-    public int randomPlanetCount;
-
     // Paramètres de spawning de TILES
     [Header("Planet tile settings")]
-    public int planetTileCount;
-    public int minTilesBetweenDeployPoint;
-    public int planetHeatDistance;
+    private int planetTileCount;
+    private int minTilesBetweenDeployPoint;
+    private int planetHeatDistance;
     public LayerMask tileLayerMask;
-
-    [Header("Archetype population settings")]
-    public List<PlanetArchetypeQuantity> allArchetypes;
-
-    [Header("Prefab")]
-    // Prefab
-    public GameObject planetPrefab;
+    private PlanetSettings _currentSettings;
 
     // Informations de la grille de jeu actuelle
     private GridInfo _currentGridInfo;
@@ -68,8 +57,6 @@ public class PlanetManager : MonoBehaviour
         GridManager.newGameGrid += OnNewGameGrid;
         //GridManager.firstAnomalyTile += OnFirstAnomalyTile;
         Ship.soulsFromPlanetSaved += TrackSavedSouls;
-        Ship.soulsUnloaded += OnSoulsUnloaded;
-        Planet.soulsLost += OnSoulsLost;
         GridTile_Planet.newPlanetTile += OnNewPlanetTileSpawned;
     }
 
@@ -80,8 +67,6 @@ public class PlanetManager : MonoBehaviour
         GridManager.newGameGrid -= OnNewGameGrid;
         //GridManager.firstAnomalyTile -= OnFirstAnomalyTile;
         Ship.soulsFromPlanetSaved -= TrackSavedSouls;
-        Ship.soulsUnloaded -= OnSoulsUnloaded;
-        Planet.soulsLost -= OnSoulsLost;
         GridTile_Planet.newPlanetTile -= OnNewPlanetTileSpawned;
     }
 
@@ -89,18 +74,16 @@ public class PlanetManager : MonoBehaviour
     private void OnNewGameGrid(GridInfo gridInfo)
     {
         _currentGridInfo = gridInfo;
+        SpawnPlanetTiles();
+        RevealStartingPlanets(_currentSettings);
     }
 
-    // Fonction appelée lorsque l'anomalie a été assignée, afin d'assigner par la suite les planètes
-    //private void OnFirstAnomalyTile()
-    //{
-    //    SpawnPlanets();
-    //}
-
-    // Fonction appelée lorsqu'un planète spawn, qui sert à garder à jour la liste de planètes
-    private void OnNewPlanetSpawned(Planet planet)
+    public void AssignLevelSettings(PlanetSettings settings)
     {
-        //_allPlanets.Add(planet);
+        planetTileCount = settings.planetTileCount;
+        minTilesBetweenDeployPoint = settings.minTilesBetweenDeployPoint;
+        planetHeatDistance = settings.planetHeatDistance;
+        _currentSettings = settings;
     }
 
     // Fonction appelée lorsqu'un planète spawn, qui sert à garder à jour la liste de planètes
@@ -230,77 +213,6 @@ public class PlanetManager : MonoBehaviour
         }
     }
 
-    public void SpawnPlanets()
-    {
-        if (_currentGridInfo == null)
-            return;
-
-        int planetCount = 0;
-        List<PlanetArchetype> archetypesToSpawn = new List<PlanetArchetype>();
-
-        if (randomArchetypes)
-        {
-            planetCount = randomPlanetCount;
-            int archetypeCount = allArchetypes.Count;
-
-            if (archetypeCount > 0)
-            {
-                for (int i = 0; i < planetCount; i++)
-                {
-                    int randomIndex = UnityEngine.Random.Range(0, archetypeCount);
-                    archetypesToSpawn.Add(allArchetypes[randomIndex].archetype);
-                }
-            }
-            else
-            {
-                for (int i = 0; i < planetCount; i++)
-                {
-                    string planetName = "randomizedPlanet";
-                    int randomMinPopulation = UnityEngine.Random.Range(0, 15);
-                    int randomMaxPopulation = UnityEngine.Random.Range(randomMinPopulation + 1, 31);
-                    int creditsBonus = (randomMinPopulation + randomMaxPopulation / 2) / 10;
-
-                    archetypesToSpawn.Add(new PlanetArchetype(planetName, randomMinPopulation, randomMaxPopulation, creditsBonus));
-                }
-            }
-        }
-        else
-        {
-            foreach (var archetype in allArchetypes)
-            {
-                for (int i = 0; i < archetype.amountToSpawn; i++)
-                {
-                    archetypesToSpawn.Add(archetype.archetype);
-                }
-                planetCount += archetype.amountToSpawn;
-            }
-        }
-
-
-        List<GridTile> allowedSpawnTiles = GetAllowedSpawnTiles();
-
-        for (int i = 0; i < planetCount; i++)
-        {
-            int randomIndex = UnityEngine.Random.Range(0, allowedSpawnTiles.Count);
-            Vector2 spawnPos = GridCoords.GetRandomCoordsInTile(allowedSpawnTiles[randomIndex]);
-            Planet planet = Instantiate(planetPrefab).GetComponent<Planet>();
-            planet.PlaceGridObject(spawnPos);
-            planet.AssignArchetype(archetypesToSpawn[i]);
-            _allPlanets.Add(planet);
-        }
-
-        foreach (var planet in _allPlanets)
-        {
-            _totalSectorSouls += planet.TotalSouls;
-        }
-        _currentSectorSouls = _totalSectorSouls;
-
-        if (planetsSpawned != null)
-            planetsSpawned(_allPlanets);
-
-        //Debug.Log("Planet count : " + _allPlanets.Count);
-    }
-
     private List<GridTile> GetAllowedSpawnTiles()
     {
         List<GridTile> candidateTiles = _currentGridInfo.GetEmptyTiles();
@@ -374,27 +286,6 @@ public class PlanetManager : MonoBehaviour
         }
     }
 
-    private void OnSoulsLost(Planet planet, int amount)
-    {
-        _currentSectorSouls -= amount;
-        CheckForEndCondition();
-    }
-
-    private void OnSoulsUnloaded(int amount)
-    {
-        _currentSectorSouls -= amount;
-        CheckForEndCondition();
-    }
-
-    private void CheckForEndCondition()
-    {
-        if (_currentSectorSouls <= 0)
-        {
-            if (noMoreSoulsInSector != null)
-                noMoreSoulsInSector();
-        }
-    }
-    
     public void RevealStartingPlanets(PlanetSettings settings)
     {
         int totalPlanetsRevealed = 0;

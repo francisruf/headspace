@@ -10,13 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 3628148880506788856}
   - component: {fileID: 3628148880506788358}
-  - component: {fileID: 5604044782574627855}
   - component: {fileID: 3685609706471039415}
-  - component: {fileID: 2302959481840722337}
-  - component: {fileID: 522285936153810917}
   - component: {fileID: 6602827340882840358}
   - component: {fileID: 7814220178644714585}
   - component: {fileID: 4735108477039757510}
+  - component: {fileID: 7943507191150116021}
+  - component: {fileID: 3240846870766211272}
+  - component: {fileID: 6679627386511618096}
   m_Layer: 0
   m_Name: CommandManager
   m_TagString: Untagged
@@ -50,19 +50,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3abd3b67a63b07498785d4c19f8164d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5604044782574627855
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3628148880506788859}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9add8d940ab1ae64c888b892518e7a83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  keyWord: Send
 --- !u!114 &3685609706471039415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,32 +63,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keyWord: Stop
---- !u!114 &2302959481840722337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3628148880506788859}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ba46cd19a0188c4f91ddd923d9e0fd4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  keyWord: Load
---- !u!114 &522285936153810917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3628148880506788859}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f1cf90f43184de46a3be76da0b3f8a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  keyWord: Exit
 --- !u!114 &6602827340882840358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,3 +102,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keyWord: Stat
+--- !u!114 &7943507191150116021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3628148880506788859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dd15dc77e707f0418a80129d498bf5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyWord: NewGame
+--- !u!114 &3240846870766211272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3628148880506788859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 427d23bb0b7323648b03904158470ccc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyWord: QuitGame
+--- !u!114 &6679627386511618096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3628148880506788859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dced2a42960fc7246b1247b769299e10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyWord: StartLevel

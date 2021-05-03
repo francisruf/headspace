@@ -6,6 +6,7 @@ using UnityEngine;
 public class DropZone_Outbox : DropZone
 {
     public static Action<List<MovableCommand>> newCommandRequest;
+    public static Action<MovableCommand> newSingleCommandRequest;
 
     public static Action commandSuccess;
     public static Action commandFail;
@@ -16,6 +17,8 @@ public class DropZone_Outbox : DropZone
     private MovableTimeCard _timeCard;
 
     private Animator _animator;
+
+    public List<string> startCommandsAccepted;
 
     private void OnEnable()
     {
@@ -96,36 +99,46 @@ public class DropZone_Outbox : DropZone
     public void SendCommands()
     {
         //Debug.Log("Sending commands...");
+        bool found = false;
+        MovableCommand startCommand = null;
+
+        foreach (var cmd in _commandsInDropZone)
+        {
+            foreach (var validName in startCommandsAccepted)
+            {
+                if (cmd.CommandName == validName)
+                {
+                    found = true;
+                    startCommand = cmd;
+                    break;
+                }
+            }
+            if (found)
+                break;
+        }
+
+        if (startCommand != null)
+        {
+            if (newSingleCommandRequest != null)
+                newSingleCommandRequest(startCommand);
+
+            return;
+        }
+
 
         if (!GameManager.GameStarted)
         {
-            if (_timeCard != null)
+            if (_commandsInDropZone.Count > 0)
             {
-                _timeCard.DisableObject();
-                RemoveObjectFromDropZone(_timeCard);
+                string error = "Procedure error : Please sign-in before sending any commands.";
 
-                if (timeCardSent != null)
-                    timeCardSent();
+                if (MessageManager.instance != null)
+                    MessageManager.instance.GenericMessage(error, true);
 
-                if (commandSuccess != null)
-                    commandSuccess();
+                _animator.SetTrigger("RedLight");
 
-                _animator.SetTrigger("GreenLight");
-            }
-            else
-            {
-                if (_commandsInDropZone.Count > 0)
-                {
-                    string error = "Procedure error : Before sending any commands, please start your work day by sending your time card.";
-
-                    if (MessageManager.instance != null)
-                        MessageManager.instance.GenericMessage(error, true);
-
-                    _animator.SetTrigger("RedLight");
-
-                    if (commandFail != null)
-                        commandFail();
-                }
+                if (commandFail != null)
+                    commandFail();
             }
         }
         else

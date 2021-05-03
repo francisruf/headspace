@@ -17,22 +17,25 @@ public class GridManager : MonoBehaviour
 
     // Référence aux GridCoords
     private GridCoords _gridCoords;
+    private PathFinder _pathFinder;
 
+    private GridSettings _currentSettings;
     // Paramètres de la grille
     [Header("Grid settings")]
-    public int mapSizeX;
-    public int mapSizeY;
+    private int mapSizeX;
+    private int mapSizeY;
+
+    [Header("StartTileMap prefabs")]
+    private List<GameObject> tilemapPrefabs;
+
     [Header("Map width if no WorldMap found")]
     public float mapWidth;
 
     [Header("Static anomaly settings")]
-    public float anomalySpreadTime;
+    private float anomalySpreadTime;
 
-    [Header("AnomalyTileMap prefabs")]
-    public List<GameObject> rockTileMapPrefabs;
-
-    [Header("Anomaly settings")]
-    public int[] newSegmentAfterCount;
+    //[Header("Anomaly settings")]
+    //public int[] newSegmentAfterCount;
 
     [Header("Tile prefabs")]
     // Prefabs de tuiles et objets
@@ -45,9 +48,6 @@ public class GridManager : MonoBehaviour
     public GameObject anomaly0Prefab;
     public GameObject anomaly1Prefab;
     public GameObject anomaly2Prefab;
-
-    [Header("Object prefabs")]
-    public GameObject deployPointPrefab;
 
     // La grille
     private int[,] _gameGrid;   // Array2D d'ints pour génération initiale et pathfinding
@@ -74,14 +74,12 @@ public class GridManager : MonoBehaviour
     // Subscription aux ACTIONS d'autres classes
     private void OnEnable()
     {
-        GridTile.anomalyTileComplete += OnNewAnomalyTileComplete;
         GridStaticObject.gridObjectPositionAdded += OnGridObjectPositionAdded;
     }
 
     // Unsubscription
     private void OnDisable()
     {
-        GridTile.anomalyTileComplete -= OnNewAnomalyTileComplete;
         GridStaticObject.gridObjectPositionAdded -= OnGridObjectPositionAdded;
     }
 
@@ -98,12 +96,23 @@ public class GridManager : MonoBehaviour
         }
 
         _gridCoords = GetComponent<GridCoords>();
+        _pathFinder = GetComponent<PathFinder>();
     }
 
     private void Start()
     {
         _currentGridMode = GridMode.WorldMap;
         //GenerateNewGrid();
+    }
+
+    public void AssignSettings(GridSettings settings)
+    {
+        mapSizeX = settings.mapSizeX;
+        mapSizeY = settings.mapSizeY;
+        tilemapPrefabs = settings.tilemapPrefabs;
+        anomalySpreadTime = settings.anomalySpreadTime;
+
+        _currentSettings = settings;
     }
 
     public void GenerateNewGrid()
@@ -115,19 +124,17 @@ public class GridManager : MonoBehaviour
 
         GenerateMapData();
         GenerateMapTiles();
-
-        _gridCoords.AssignGridInfo(_currentGridInfo);
-
-        if (newGameGrid != null)
-            newGameGrid(_currentGridInfo);
-
         GenerateEnvironment();
         GenerateDeployPoint();
         //GenerateStartingObjects();
         //Array.Sort(newSegmentAfterCount);
 
-        if (PlanetManager.instance != null)
-            PlanetManager.instance.SpawnPlanetTiles();
+        _pathFinder.AssignGridInfo(_currentGridInfo);
+
+        if (newGameGrid != null)
+            newGameGrid(_currentGridInfo);
+
+        _gridCoords.AssignGridInfo(_currentGridInfo);
 
         _currentSpreadingRoutine = AnomalySpreadingTimer();
         StartCoroutine(_currentSpreadingRoutine);
@@ -245,13 +252,13 @@ public class GridManager : MonoBehaviour
 
     private void GenerateEnvironment()
     {
-        int prefabCount = rockTileMapPrefabs.Count;
+        int prefabCount = tilemapPrefabs.Count;
 
-        if (rockTileMapPrefabs.Count <= 0)
+        if (tilemapPrefabs.Count <= 0)
             return;
 
         int randomIndex = UnityEngine.Random.Range(0, prefabCount);
-        AnomalyTileMapData anomalyTileMapData = Instantiate(rockTileMapPrefabs[randomIndex]).GetComponent<AnomalyTileMapData>();
+        AnomalyTileMapData anomalyTileMapData = Instantiate(tilemapPrefabs[randomIndex]).GetComponent<AnomalyTileMapData>();
 
         int[,] environmentData = anomalyTileMapData.GetTileData();
         int xLenght = environmentData.GetLength(0);
@@ -446,38 +453,6 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    // Fonction qui génère les premiers objets sur la grille (points de déploiement / planètes(TBD))
-    private void GenerateStartingObjects()
-    {
-        // ------ DEPLOY POINTS -------
-
-        GameObject go = Instantiate(deployPointPrefab);
-
-        // TEMP Instantiation sous le DebugManager
-        if (DebugManager.instance != null)
-        {
-            go.transform.SetParent(DebugManager.instance.gridDebug.transform);
-        }
-
-        // Placer le Deploy point en fonction d'un cadran aléatoire
-        GridStaticObject obj = go.GetComponent<GridStaticObject>();
-        GridQuadrants.QuadrantMatch quadrantMatch = _currentGridInfo.gameGridQuadrants.GetRandomQuadrantMatch(out _currentGridInfo.positiveQuadrantIndex);
-        
-        Vector3 spawnPos = RandomPointInBounds(quadrantMatch.positiveQuadrant);
-        spawnPos = GridCoords.FromWorldToGrid(spawnPos);
-
-        obj.PlaceGridObject(spawnPos);
-
-        // ------ ANOMALY ------
-
-        //// Placer l'anomalie selon un point au hasard dans le cadran opposé
-        //Vector3 randomAnomalyPoint = RandomPointInBounds(quadrantMatch.negativeQuadrant);
-        ////Debug.Log("RANDOM NEGATIVE POINT : " + randomAnomalyPoint);
-        //TileCoordinates startTile = GridCoords.FromWorldToTile(randomAnomalyPoint);
-
-        //InstantiateAnomalySegment(startTile);
-    }
-
     private void InstantiateAnomalySegment(TileCoordinates startTile)
     {
         //Debug.Log("X : " + startTile.tileX + "Y : " + startTile.tileY);
@@ -662,25 +637,25 @@ public class GridManager : MonoBehaviour
     }
 
     // Fonction qui track la quantité de tuiles d'anomalie et qui trigger le spawn des prochains segments
-    public void OnNewAnomalyTileComplete(GridTile tile)
-    {
-        _anomalyCompletedTileCount++;
+    //public void OnNewAnomalyTileComplete(GridTile tile)
+    //{
+    //    _anomalyCompletedTileCount++;
 
-        int anomalyStepCount = newSegmentAfterCount.Length;
-        if (_allAnomalySegments.Count <= anomalyStepCount)
-        {
-            if (_anomalyCompletedTileCount == newSegmentAfterCount[_allAnomalySegments.Count - 1])
-            {
-                InstantiateAnomalySegment(_currentGridInfo.positiveQuadrantIndex);
-            }
-        }
+    //    int anomalyStepCount = newSegmentAfterCount.Length;
+    //    if (_allAnomalySegments.Count <= anomalyStepCount)
+    //    {
+    //        if (_anomalyCompletedTileCount == newSegmentAfterCount[_allAnomalySegments.Count - 1])
+    //        {
+    //            InstantiateAnomalySegment(_currentGridInfo.positiveQuadrantIndex);
+    //        }
+    //    }
 
-        if (_anomalyCompletedTileCount >= _currentGridInfo.tileCount)
-        {
-            if (totalGridAnomaly != null)
-                totalGridAnomaly();
-        }
-    }
+    //    if (_anomalyCompletedTileCount >= _currentGridInfo.tileCount)
+    //    {
+    //        if (totalGridAnomaly != null)
+    //            totalGridAnomaly();
+    //    }
+    //}
 
     // Fonction appelée par l'action dans la classe GridStaticObject
     // Permet d'ajouter un objet à la liste et ajouter à la tuile qui le contient

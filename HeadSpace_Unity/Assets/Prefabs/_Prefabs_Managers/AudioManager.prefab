@@ -679,7 +679,7 @@ MonoBehaviour:
   music:
   - name: HS_Menu
     clip: {fileID: 8300000, guid: 99cb0c877d73ed34d9f746c6c3234d45, type: 3}
-    volume: 0.5
+    volume: 0.75
     pitch: 1
     stereoPan: 0
     loopVolume: 0
@@ -689,7 +689,7 @@ MonoBehaviour:
     source1: {fileID: 0}
   - name: HS_Bgd_Gameplay
     clip: {fileID: 8300000, guid: b3a050c9bdf79404382d92fe33c93d56, type: 3}
-    volume: 0.35
+    volume: 0.7
     pitch: 0.75
     stereoPan: 0
     loopVolume: 0

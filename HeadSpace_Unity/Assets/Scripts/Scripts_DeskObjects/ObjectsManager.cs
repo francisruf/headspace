@@ -99,6 +99,9 @@ public class ObjectsManager : MonoBehaviour
 
             if (candidateObject != null)
             {
+                if (!candidateObject.enabled)
+                    continue;
+
                 if (selectedObject == null)
                 {
                     selectedObject = candidateObject;

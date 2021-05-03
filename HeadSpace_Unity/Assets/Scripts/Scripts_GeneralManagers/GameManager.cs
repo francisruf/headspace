@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
         TimeManager.levelTimerEnded += OnLevelTimerEnded;
         LeaderboardController.dayStart += OnDayStart;
         LeaderboardController.dayFinish += OnDayFinish;
-        DropZone_Outbox.timeCardSent += StartLevel;
+        Command_StartLevel.startLevelRequest += StartLevel;
         InteractableObject.interactableSelected += OnInteractableSelected;
         InteractableObject.interactableDeselected += OnInteractableDeselected;
     }
@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
         TimeManager.levelTimerEnded -= OnLevelTimerEnded;
         LeaderboardController.dayStart -= OnDayStart;
         LeaderboardController.dayFinish -= OnDayFinish;
-        DropZone_Outbox.timeCardSent -= StartLevel;
+        Command_StartLevel.startLevelRequest += StartLevel;
         InteractableObject.interactableSelected -= OnInteractableSelected;
         InteractableObject.interactableDeselected -= OnInteractableDeselected;
     }

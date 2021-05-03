@@ -1793,6 +1793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57620f72be556f44a82f7334b683676d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startEnabled: 1
   ignoreSelectedBringToFront: 1
   slidingDirection: 1
   slidingAmount: 5.375
@@ -1813,6 +1814,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbe160578deff6a4d8e5ebb9dfa153ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  generateStartCommand: 1
   allCommandButtons:
   - {fileID: 650566049918323575}
   - {fileID: 5834122533723855361}

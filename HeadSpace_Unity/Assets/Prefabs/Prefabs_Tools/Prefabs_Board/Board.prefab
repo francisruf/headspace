@@ -5988,6 +5988,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7ff8441bc36d234193af6827a640b79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startEnabled: 1
   ignoreSelectedBringToFront: 1
   slidingDirection: 0
   slidingAmount: 16
@@ -6288,6 +6289,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShipDisplay
       objectReference: {fileID: 0}
+    - target: {fileID: 3553632791055777247, guid: 1663e334ff932f34f954da988f2b167e,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 5301433960341430079, guid: 1663e334ff932f34f954da988f2b167e,
         type: 3}
       propertyPath: m_RootOrder
@@ -6362,6 +6368,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ShipDisplay
+      objectReference: {fileID: 0}
+    - target: {fileID: 3553632791055777247, guid: 1663e334ff932f34f954da988f2b167e,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 5301433960341430079, guid: 1663e334ff932f34f954da988f2b167e,
         type: 3}

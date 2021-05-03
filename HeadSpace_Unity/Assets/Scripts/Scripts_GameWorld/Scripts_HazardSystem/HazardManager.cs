@@ -77,90 +77,90 @@ public class HazardManager : MonoBehaviour
 
     public void SpawnHazards()
     {
-        List<GridTile> allowedSpawnTiles = GetAllowedSpawnTiles();
+    //    List<GridTile> allowedSpawnTiles = GetAllowedSpawnTiles();
 
-        for (int i = 0; i < electricCloudCount; i++)
-        {
-            if (allowedSpawnTiles.Count <= 0)
-            {
-                Debug.Log("No more tiles available for hazard spawning!");
-                break;
-            }
+    //    for (int i = 0; i < electricCloudCount; i++)
+    //    {
+    //        if (allowedSpawnTiles.Count <= 0)
+    //        {
+    //            Debug.Log("No more tiles available for hazard spawning!");
+    //            break;
+    //        }
 
-            int randomIndex = UnityEngine.Random.Range(0, allowedSpawnTiles.Count);
-            GridTile randomTile = allowedSpawnTiles[randomIndex];
-            Vector2 spawnPos = GridCoords.GetRandomCoordsInTile(randomTile);
-            Cloud cloud = Instantiate(cloudPrefab).GetComponent<Cloud>();
-            cloud.PlaceGridObject(spawnPos);
-            _allHazards.Add(cloud);
+    //        int randomIndex = UnityEngine.Random.Range(0, allowedSpawnTiles.Count);
+    //        GridTile randomTile = allowedSpawnTiles[randomIndex];
+    //        Vector2 spawnPos = GridCoords.GetRandomCoordsInTile(randomTile);
+    //        Cloud cloud = Instantiate(cloudPrefab).GetComponent<Cloud>();
+    //        cloud.PlaceGridObject(spawnPos);
+    //        _allHazards.Add(cloud);
 
-            foreach (var nb in randomTile.EightWayNeighbours)
-            {
-                allowedSpawnTiles.Remove(nb);
-            }
+    //        foreach (var nb in randomTile.EightWayNeighbours)
+    //        {
+    //            allowedSpawnTiles.Remove(nb);
+    //        }
 
-            allowedSpawnTiles.Remove(randomTile);
-        }
+    //        allowedSpawnTiles.Remove(randomTile);
+    //    }
 
-        List<GridTile> tempRemovedTiles = new List<GridTile>();
+    //    List<GridTile> tempRemovedTiles = new List<GridTile>();
 
-        for (int i = 0; i < wormHolePairCount; i++)
-        {
-            if (allowedSpawnTiles.Count <= 0)
-            {
-                Debug.Log("No more tiles available for hazard spawning!");
-                break;
-            }
+    //    for (int i = 0; i < wormHolePairCount; i++)
+    //    {
+    //        if (allowedSpawnTiles.Count <= 0)
+    //        {
+    //            Debug.Log("No more tiles available for hazard spawning!");
+    //            break;
+    //        }
 
-            int randomIndex = UnityEngine.Random.Range(0, allowedSpawnTiles.Count);
-            GridTile randomTile = allowedSpawnTiles[randomIndex];
-            Vector2 spawnPos = GridCoords.GetRandomCoordsInTile(randomTile);
-            WormHole wh1 = Instantiate(wormHolePrefab).GetComponent<WormHole>();
-            wh1.PlaceGridObject(spawnPos);
-            _allHazards.Add(wh1);
+    //        int randomIndex = UnityEngine.Random.Range(0, allowedSpawnTiles.Count);
+    //        GridTile randomTile = allowedSpawnTiles[randomIndex];
+    //        Vector2 spawnPos = GridCoords.GetRandomCoordsInTile(randomTile);
+    //        WormHole wh1 = Instantiate(wormHolePrefab).GetComponent<WormHole>();
+    //        wh1.PlaceGridObject(spawnPos);
+    //        _allHazards.Add(wh1);
 
-            allowedSpawnTiles.Remove(randomTile);
+    //        allowedSpawnTiles.Remove(randomTile);
 
-            foreach (var nb in randomTile.EightWayNeighbours)
-            {
-                foreach (var nbnb in nb.EightWayNeighbours)
-                {
-                    allowedSpawnTiles.Remove(nbnb);
-                    tempRemovedTiles.Remove(nbnb);
-                }
-                allowedSpawnTiles.Remove(nb);
-            }
+    //        foreach (var nb in randomTile.EightWayNeighbours)
+    //        {
+    //            foreach (var nbnb in nb.EightWayNeighbours)
+    //            {
+    //                allowedSpawnTiles.Remove(nbnb);
+    //                tempRemovedTiles.Remove(nbnb);
+    //            }
+    //            allowedSpawnTiles.Remove(nb);
+    //        }
 
-            if (allowedSpawnTiles.Count <= 0)
-            {
-                Debug.Log("No more tiles available for hazard spawning!");
-                _allHazards.Remove(wh1);
-                Destroy(wh1.gameObject);
-                break;
-            }
+    //        if (allowedSpawnTiles.Count <= 0)
+    //        {
+    //            Debug.Log("No more tiles available for hazard spawning!");
+    //            _allHazards.Remove(wh1);
+    //            Destroy(wh1.gameObject);
+    //            break;
+    //        }
 
-            randomIndex = UnityEngine.Random.Range(0, allowedSpawnTiles.Count);
-            GridTile randomTile2 = allowedSpawnTiles[randomIndex];
-            spawnPos = GridCoords.GetRandomCoordsInTile(randomTile2);
-            WormHole wh2 = Instantiate(wormHolePrefab).GetComponent<WormHole>();
-            wh2.PlaceGridObject(spawnPos);
-            _allHazards.Add(wh2);
+    //        randomIndex = UnityEngine.Random.Range(0, allowedSpawnTiles.Count);
+    //        GridTile randomTile2 = allowedSpawnTiles[randomIndex];
+    //        spawnPos = GridCoords.GetRandomCoordsInTile(randomTile2);
+    //        WormHole wh2 = Instantiate(wormHolePrefab).GetComponent<WormHole>();
+    //        wh2.PlaceGridObject(spawnPos);
+    //        _allHazards.Add(wh2);
 
-            allowedSpawnTiles.Remove(randomTile2);
+    //        allowedSpawnTiles.Remove(randomTile2);
 
-            foreach (var tile in tempRemovedTiles)
-            {
-                allowedSpawnTiles.Add(tile);
-            }
+    //        foreach (var tile in tempRemovedTiles)
+    //        {
+    //            allowedSpawnTiles.Add(tile);
+    //        }
 
-            foreach (var nb in randomTile2.EightWayNeighbours)
-            {
-                allowedSpawnTiles.Remove(nb);
-            }
+    //        foreach (var nb in randomTile2.EightWayNeighbours)
+    //        {
+    //            allowedSpawnTiles.Remove(nb);
+    //        }
 
-            wh1.SisterWormHole = wh2;
-            wh2.SisterWormHole = wh1;
-        }
+    //        wh1.SisterWormHole = wh2;
+    //        wh2.SisterWormHole = wh1;
+    //    }
     }
 
     private List<GridTile> GetAllowedSpawnTiles()

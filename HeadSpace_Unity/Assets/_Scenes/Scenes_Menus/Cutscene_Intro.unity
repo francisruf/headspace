@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -173,11 +173,13 @@ MonoBehaviour:
     - But who knows, do your job efficiently enough and maybe the upgrades will come.
   - frame: {fileID: 1640864383783234604, guid: d32063a5a24c6be449b0ae8dbba88427, type: 3}
     allLines:
-    - Finally, you've been given a course on this anomaly we've had to deal with
-      during the last few years. I can assure you that you know everything we do
-      on this bizarre lifeform. That is to say, not a lot.
-    - It destroys the minds of everyone that comes in contact with it. So until we
-      know more, your best bet is to keep your fleet away from it as much as possible.
+    - You will most likely encounter the ANOMALY we've had to deal with in the last
+      few years. I can assure you that we will provide all the information we have
+      about this bizarre lifeform.
+    - That is to say, not a lot.
+    - All we know for sure is that it shatters the minds of anyone that comes in
+      contact with it. So until we know more, your best bet is to keep your fleet
+      away from it as much as possible.
   - frame: {fileID: 5951614300355461573, guid: d32063a5a24c6be449b0ae8dbba88427, type: 3}
     allLines:
     - Also keep in mind, the better job you do the more MERIT POINTS you gain, and
