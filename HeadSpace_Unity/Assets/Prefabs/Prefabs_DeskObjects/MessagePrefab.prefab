@@ -93,8 +93,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.13
-  m_fontSizeBase: 0.13
+  m_fontSize: 0.16
+  m_fontSizeBase: 0.16
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -333,7 +333,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.009810209, y: 0.1896658}
+  m_Offset: {x: 0.00069624186, y: 0.000044107437}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -344,7 +344,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.3350224, y: 1.1184802}
+  m_Size: {x: 2.1634998, y: 1.0594597}
   m_EdgeRadius: 0
 --- !u!114 &8898473608756375699
 MonoBehaviour:
@@ -358,6 +358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdfd632a9ce19c4408d5f86c36b98397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startEnabled: 1
   ignoreSelectedBringToFront: 0
   objectType: 2
   dropZoneLayerMask:

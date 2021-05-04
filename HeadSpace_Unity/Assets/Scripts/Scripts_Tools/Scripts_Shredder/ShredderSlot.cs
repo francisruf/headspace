@@ -54,38 +54,37 @@ public class ShredderSlot : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 14 && collision.gameObject.tag == "Destruc")
-
+        if (collision.gameObject.layer == 14)
         {
-            if(canShred)
+            if (parent.InteractionsEnabled && collision.gameObject.tag == "Destruc")
             {
-                MovableObject objToShred = collision.GetComponent<MovableObject>();
-                objToShred.Deselect();
-
-                Bounds objBounds = objToShred.ColliderBounds;
-                if (objBounds.size.y > objBounds.size.x)
+                if (canShred)
                 {
-                    objToShred.transform.Rotate(new Vector3(0f, 0f, 90f));
+                    MovableObject objToShred = collision.GetComponent<MovableObject>();
+                    objToShred.Deselect();
+
+                    Bounds objBounds = objToShred.ColliderBounds;
+                    if (objBounds.size.y > objBounds.size.x)
+                    {
+                        objToShred.transform.Rotate(new Vector3(0f, 0f, 90f));
+                    }
+                    AssignObjectPosition(objToShred);
+
+                    //objToShred.ObjSpriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
+                    objToShred.SetSortingLayer(parent.ObjSpriteRenderer.sortingLayerID);
+                    objToShred.SetOrderInLayer(parent.ObjSpriteRenderer.sortingOrder + 1);
+
+                    IEnumerator newShreddingRoutine = Shred(objToShred, currentRoutineIndex);
+                    currentShreddingRoutines.Add(new ShreddingRoutine(currentRoutineIndex, newShreddingRoutine));
+                    currentRoutineIndex++;
+                    StartCoroutine(newShreddingRoutine);
                 }
-                AssignObjectPosition(objToShred);
-                
-                //objToShred.ObjSpriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
-                objToShred.SetSortingLayer(parent.ObjSpriteRenderer.sortingLayerID);
-                objToShred.SetOrderInLayer(parent.ObjSpriteRenderer.sortingOrder + 1);
-
-                IEnumerator newShreddingRoutine = Shred(objToShred, currentRoutineIndex);
-                currentShreddingRoutines.Add(new ShreddingRoutine(currentRoutineIndex, newShreddingRoutine));
-                currentRoutineIndex++;
-                StartCoroutine(newShreddingRoutine);
-                //FindObjectOfType<AudioManager>().PlaySound("Shredder");
             }
-        }
-
-        if (canShred)
-            if (collision.gameObject.layer == 14 && collision.gameObject.tag == "Indestruc")
+            else
             {
                 lightAnimator.SetTrigger("Error");
             }
+        }
     }
 
     private void AssignObjectPosition(MovableObject objToShred)
@@ -189,9 +188,14 @@ public class ShredderSlot : MonoBehaviour
         }
     }
 
+    public void TriggerLightsEnable()
+    {
+        lightAnimator.SetTrigger("Enable");
+    }
+
     public void UpdateLightState()
     {
-        lightAnimator.SetBool("IsOpen", parent.IsOpen);
+        lightAnimator.SetBool("InteractionsEnabled", parent.InteractionsEnabled);
         lightAnimator.SetBool("Shredding", shredding);
         lightAnimator.SetBool("CanShred", canShred);
     }

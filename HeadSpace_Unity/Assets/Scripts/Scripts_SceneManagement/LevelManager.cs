@@ -22,11 +22,11 @@ public class LevelManager : MonoBehaviour
     public string[] mainMenuScenes;
     public string[] mainMenuDeskScenes;
     public string[] essentialLevelScenes;
-    public string[] environmentScenes;
 
     // Run-time scene tracking
     private string[] _currentMenuScenes;
     private string _currentLevelScene;
+    private string _currentEnvironment;
     private string _currentSingleScene = "";
 
     // Sector info
@@ -40,8 +40,6 @@ public class LevelManager : MonoBehaviour
     public Image blackSolid;
     public Canvas transitionCanvas;
     public float fadeSpeed;
-
-    private int _currentDay;
 
     private void Awake()
     {
@@ -217,9 +215,19 @@ public class LevelManager : MonoBehaviour
         if (unloadingDone != null)
             unloadingDone();
 
+
+        int day = 1;
+        if (GameManager.instance != null)
+            day = GameManager.instance.CurrentDayInfo.day;
+
+        if (day == 0)
+            _currentEnvironment = "DeskEnvironment_Tutorial";
+        else
+            _currentEnvironment = "DeskEnvironment";
+
         _currentLevelScene = targetLevelName;
         yield return LoadScenes(essentialLevelScenes);
-        yield return LoadScenes(environmentScenes);
+        yield return LoadScenes(_currentEnvironment);
         yield return LoadScenes(_currentLevelScene);
 
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(targetLevelName));
@@ -276,7 +284,7 @@ public class LevelManager : MonoBehaviour
 
         yield return FadeOut();
         yield return UnloadScenes(essentialLevelScenes);
-        yield return UnloadScenes(environmentScenes);
+        yield return UnloadScenes(_currentEnvironment);
         yield return UnloadScenes(_currentLevelScene);
 
         if (unloadingDone != null)
@@ -301,7 +309,7 @@ public class LevelManager : MonoBehaviour
 
         yield return FadeOut();
         yield return UnloadScenes(essentialLevelScenes);
-        yield return UnloadScenes(environmentScenes);
+        yield return UnloadScenes(_currentEnvironment);
         yield return UnloadScenes(_currentLevelScene);
 
         if (unloadingDone != null)

@@ -348,8 +348,6 @@ MonoBehaviour:
   - DeskEnvironment_Menu
   essentialLevelScenes:
   - Managers
-  environmentScenes:
-  - DeskEnvironment
   - GridSystem
   blackSolid: {fileID: 41262680}
   transitionCanvas: {fileID: 1931337889}

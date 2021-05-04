@@ -306,7 +306,7 @@ public class MessageManager : MonoBehaviour
         string tileName = GridCoords.GetTileName(shipTile);
 
         string newMessageText = "Ship status request : ";
-        newMessageText += ship.shipName + " at position " + tileName;
+        newMessageText += "\n" + ship.shipName + " at position " + tileName;
         newMessageText += "\n\nClients on board : ";
 
         int clientCount = ship.ClientsOnBoard.Count;

@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour
         Command_StartLevel.startLevelRequest += StartLevel;
         InteractableObject.interactableSelected += OnInteractableSelected;
         InteractableObject.interactableDeselected += OnInteractableDeselected;
+        Command_EndTraining.endTrainingRequest += OnTutorialEndRequest;
     }
 
     private void OnDisable()
@@ -85,6 +86,7 @@ public class GameManager : MonoBehaviour
         Command_StartLevel.startLevelRequest += StartLevel;
         InteractableObject.interactableSelected -= OnInteractableSelected;
         InteractableObject.interactableDeselected -= OnInteractableDeselected;
+        Command_EndTraining.endTrainingRequest -= OnTutorialEndRequest;
     }
 
     private void OnInteractableSelected(InteractableObject obj)
@@ -107,7 +109,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("GAME STARTED");
     }
 
-    private void OnLevelTimerEnded()
+    private void EndLevel()
     {
         if (_levelEnded)
             return;
@@ -121,6 +123,16 @@ public class GameManager : MonoBehaviour
 
         if (levelEnded != null)
             levelEnded();
+    }
+
+    private void OnLevelTimerEnded()
+    {
+        EndLevel();
+    }
+
+    private void OnTutorialEndRequest()
+    {
+        EndLevel();
     }
 
     private void GameOver()

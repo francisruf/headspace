@@ -297,35 +297,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Indestruc
       objectReference: {fileID: 0}
+    - target: {fileID: 6253526718171900308, guid: d60a623f469b63142b1e82fc9111c103,
+        type: 3}
+      propertyPath: commandName
+      value: QuitGame
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4936675364520526122, guid: d60a623f469b63142b1e82fc9111c103, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d60a623f469b63142b1e82fc9111c103, type: 3}
---- !u!1 &326368633 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4936675364520526123, guid: d60a623f469b63142b1e82fc9111c103,
-    type: 3}
-  m_PrefabInstance: {fileID: 326368632}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &326368634
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 326368633}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bd8849a080b72e4fb5d30bc9e5aa605, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startEnabled: 1
-  ignoreSelectedBringToFront: 0
-  objectType: 1
-  dropZoneLayerMask:
-    serializedVersion: 2
-    m_Bits: 270336
-  lineHeight: 0.5
-  commandName: QuitGame
 --- !u!1001 &343874489
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -706,32 +685,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 4936675364520526122, guid: d60a623f469b63142b1e82fc9111c103, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d60a623f469b63142b1e82fc9111c103, type: 3}
---- !u!1 &895031782 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4936675364520526123, guid: d60a623f469b63142b1e82fc9111c103,
-    type: 3}
-  m_PrefabInstance: {fileID: 895031781}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &895031783
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 895031782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bd8849a080b72e4fb5d30bc9e5aa605, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startEnabled: 1
-  ignoreSelectedBringToFront: 0
-  objectType: 1
-  dropZoneLayerMask:
-    serializedVersion: 2
-    m_Bits: 270336
-  lineHeight: 0.5
-  commandName: NewGame
 --- !u!1001 &971295908
 PrefabInstance:
   m_ObjectHideFlags: 0

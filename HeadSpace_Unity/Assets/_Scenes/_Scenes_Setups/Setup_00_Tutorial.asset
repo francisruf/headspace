@@ -21,10 +21,6 @@ MonoBehaviour:
     m_IsLoaded: 1
     m_IsActive: 0
     m_IsSubScene: 0
-  - m_Path: Assets/_Scenes/Scenes_Features_Implemented/DeskEnvironment.unity
-    m_IsLoaded: 1
-    m_IsActive: 0
-    m_IsSubScene: 0
   - m_Path: Assets/_Scenes/Scenes_Features_Implemented/GridSystem.unity
     m_IsLoaded: 1
     m_IsActive: 0
@@ -34,6 +30,10 @@ MonoBehaviour:
     m_IsActive: 0
     m_IsSubScene: 0
   - m_Path: Assets/_Scenes/Scenes_Features_Implemented/Utilities.unity
+    m_IsLoaded: 1
+    m_IsActive: 0
+    m_IsSubScene: 0
+  - m_Path: Assets/_Scenes/Scenes_Features_Implemented/DeskEnvironment_Tutorial.unity
     m_IsLoaded: 1
     m_IsActive: 0
     m_IsSubScene: 0

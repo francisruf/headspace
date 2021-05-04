@@ -5,17 +5,32 @@ using UnityEngine;
 
 public class TutorialController : MonoBehaviour
 {
+    public static Action shredderEnableRequest;
+
+    public GameObject endTrainingPrefab;
+    public Transform endTrainingSpawnPos;
+    public Transform endTrainingFinalPos;
+    public Transform logbookSpawnPos;
+    public Transform logbookFinalPos;
+
+    [Header("Messages")]
     public List<TutorialMessage> allMessages;
     private int _messageCount;
     private MessageManager _messageManager;
+    private MovableLogbook _logbook;
 
     // MILESTONES
     private bool _step_statusInit;
     private bool _step_statusComplete;
+    private bool _step_statusTear;
+    private bool _step_workerOrderPrint;
     private bool _step_shipMoveReceived;
     private bool _step_clientEmbarked;
     private bool _step_contractComplete;
     private bool _step_writingMachineOpen;
+    private bool _step_shredder;
+    private bool _step_journalTrigger;
+    private bool _step_journalTear;
 
     private void OnEnable()
     {
@@ -26,6 +41,8 @@ public class TutorialController : MonoBehaviour
         MovableContract.contractAssigned += OnContractAssigned;
         CommandManager.commandRequestResult += OnCommandResult;
         WritingMachineController.writingMachineOpen += OnMachineOpen;
+        Receiver.specialMessagePrint += OnSpecialMessagePrint;
+        MovableLogbook.logbookInitialized += OnLogbookInit;
     }
 
     private void OnDisable()
@@ -37,6 +54,8 @@ public class TutorialController : MonoBehaviour
         MovableContract.contractAssigned -= OnContractAssigned;
         CommandManager.commandRequestResult -= OnCommandResult;
         WritingMachineController.writingMachineOpen -= OnMachineOpen;
+        Receiver.specialMessagePrint -= OnSpecialMessagePrint;
+        MovableLogbook.logbookInitialized -= OnLogbookInit;
     }
 
     private void Awake()
@@ -47,6 +66,12 @@ public class TutorialController : MonoBehaviour
     private void Start()
     {
         _messageManager = MessageManager.instance;
+    }
+
+    private void OnLogbookInit(MovableLogbook logbook)
+    {
+        this._logbook = logbook;
+        logbook.transform.position = logbookSpawnPos.position;
     }
 
     private void NewMessage(string messageName)
@@ -82,6 +107,16 @@ public class TutorialController : MonoBehaviour
     {
         NewMessage("MSG_Welcome");
         NewMessage("MSG_Objectives");
+
+        StartCoroutine(SpawnEndTraining());
+    }
+
+    private IEnumerator SpawnEndTraining()
+    {
+        yield return new WaitForSeconds(2f);
+        MovableCommand_Keyword cmd = Instantiate(endTrainingPrefab, endTrainingSpawnPos.position, Quaternion.identity).GetComponent<MovableCommand_Keyword>();
+        yield return AnimateNewObject(cmd, endTrainingSpawnPos.position, endTrainingFinalPos.position);
+        Debug.Log("YO");
     }
 
     private void OnSpecialMessageTear(string messageName)
@@ -89,29 +124,31 @@ public class TutorialController : MonoBehaviour
         if (messageName == "MSG_Objectives")
         {
             NewMessage("MSG_ShipInfo");
-            NewMessage("MSG_ShipStatus");
-            _step_statusInit = true;
         }
-
+        else if (messageName == "MSG_ShipInfo")
+        {
+            StartCoroutine(StatusMessageTimer());
+        }
         else if (messageName == "CMD_Status")
         {
             OnStatusTear();
+        }
+        else if (messageName == "MSG_WorkOrderBase")
+        {
+            StartCoroutine(WorkOrderBoardTimer());
+        }
+        else if (messageName == "MSG_WorkOrderComplete")
+        {
+            StartCoroutine(EndTrainingMessageTimer());
         }
     }
 
     private void OnStatusTear()
     {
-        if (!_step_statusInit)
-            return;
-
         if (!_step_statusComplete)
         {
             NewMessage("MSG_WorkOrderBase");
-            NewMessage("MSG_WorkOrderBoard");
             _step_statusComplete = true;
-
-            if (ContractManager.instance != null)
-                ContractManager.instance.TriggerNextContract();
         }
     }
 
@@ -123,6 +160,7 @@ public class TutorialController : MonoBehaviour
     private void OnMoveReceived()
     {
         NewMessage("MSG_MoveReceived");
+        StartCoroutine(EnableShredderTimer());
     }
 
     private void OnClientEmbarked()
@@ -146,25 +184,97 @@ public class TutorialController : MonoBehaviour
         NewMessage("MSG_WorkOrderComplete");
         NewMessage("MSG_WorkOrderDay");
 
-        if (GameManager.instance != null)
-            GameManager.instance.ChangeLevelEndCondition(LevelEndCondition.Time);
-
         if (ContractManager.instance != null)
             ContractManager.instance.ChangeContractConditions(ContractSpawnCondition.Timed);
     }
 
+    private void OnSpecialMessagePrint(string messageName)
+    {
+        if (messageName == "MSG_Shredder" && !_step_shredder)
+        {
+            _step_shredder = true;
+            if (shredderEnableRequest != null)
+                shredderEnableRequest();
+        }
+
+        if (messageName == "MSG_WorkOrderBase" && !_step_workerOrderPrint)
+        {
+            _step_workerOrderPrint = true;
+
+            if (ContractManager.instance != null)
+                ContractManager.instance.TriggerNextContract();
+        }
+
+        if (messageName == "MSG_Journal" && !_step_journalTear)
+        {
+            if (_logbook != null)
+            {
+                _step_journalTear = true;
+                StartCoroutine(AnimateNewObject(_logbook, logbookSpawnPos.position, logbookFinalPos.position));
+            }
+        }
+    }
+
+    private IEnumerator StatusMessageTimer()
+    {
+        if (_step_statusComplete)
+            yield return null;
+        else
+        {
+            yield return new WaitForSeconds(1.0f);
+            NewMessage("MSG_ShipStatus");
+            _step_statusInit = true;
+        }
+    }
+
+    private IEnumerator WorkOrderBoardTimer()
+    {
+        yield return new WaitForSeconds(1.0f);
+        NewMessage("MSG_WorkOrderBoard");
+    }
+
+    private IEnumerator EndTrainingMessageTimer()
+    {
+        yield return new WaitForSeconds(1.5f);
+        NewMessage("MSG_EndTraining");
+    }
+
+    private IEnumerator EnableShredderTimer()
+    {
+        yield return new WaitForSeconds(4f);
+        NewMessage("MSG_Shredder");
+    }
+
+    private IEnumerator EnableJournalTimer()
+    {
+        yield return new WaitForSeconds(4f);
+        NewMessage("MSG_Journal");
+    }
+
+
     private void OnCommandResult(List<MovableCommand> commands)
     {
-        if (_step_shipMoveReceived)
-            return;
-
         foreach (var cmd in commands)
         {
             if (cmd.CommandName.ToLower() == "move")
                 if (cmd.CurrentCommandState == CommandState.Sucess)
                 {
-                    _step_shipMoveReceived = true;
-                    OnMoveReceived();
+                    if (!_step_shipMoveReceived)
+                    {
+                        _step_shipMoveReceived = true;
+                        OnMoveReceived();
+                    }
+
+                    if (_step_clientEmbarked && !_step_journalTrigger)
+                    {
+                        StartCoroutine(EnableJournalTimer());
+                        _step_journalTrigger = true;
+                    }
+                }
+            else if (cmd.CommandName.ToLower() == "stat")
+                if (cmd.CurrentCommandState == CommandState.Sucess)
+                {
+                    _step_statusComplete = true;
                 }
         }
     }
@@ -195,6 +305,28 @@ public class TutorialController : MonoBehaviour
             }
     }
 
+    private void EndTutorial()
+    {
+
+    }
+
+    private IEnumerator AnimateNewObject(InteractableObject obj, Vector2 startPos, Vector2 endPos)
+    {
+        obj.ToggleInteractions(false);
+
+        float smoothTime = 0.2f;
+        Vector2 velocity = new Vector2();
+
+        while (Vector2.Distance(obj.transform.position, endPos) > 0.01f)
+        {
+            Vector2 smooth = Vector2.SmoothDamp(obj.transform.position, endPos, ref velocity, smoothTime);
+            obj.transform.position = smooth;
+
+            yield return new WaitForEndOfFrame();
+        }
+        obj.transform.position = endPos;
+        obj.ToggleInteractions(true);
+    }
 }
 
 

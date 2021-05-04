@@ -6,6 +6,7 @@ using TMPro;
 
 public class MovableLogbook : MovableObject
 {
+    public static Action<MovableLogbook> logbookInitialized;
     public static Action<bool> pageChange;
     public static Action logbookPickup;
     public static Action logbookDrop;
@@ -42,6 +43,21 @@ public class MovableLogbook : MovableObject
         _pageCount = logbookPages.Count;
 
         DisplayStartingPage();
+
+        if (logbookInitialized != null)
+            logbookInitialized(this);
+    }
+
+    public override void ToggleRenderers(bool toggleON)
+    {
+        if (!toggleON)
+            base.ToggleRenderers(toggleON);
+        else
+        {
+            _spriteRenderer.enabled = true;
+            DisplayStartingPage();
+        }
+
     }
 
     public override void Select(bool fireEvent = true)

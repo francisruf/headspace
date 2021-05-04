@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/_Scenes/Scenes_Features_Implemented/DeskEnvironment_Menu.unity
     guid: 25b0d8a81ce8785489ef22de2a588d81
   - enabled: 1
+    path: Assets/_Scenes/Scenes_Features_Implemented/DeskEnvironment_Tutorial.unity
+    guid: 3a8ad129b047d324d95e96d3ff6ce4ea
+  - enabled: 1
     path: Assets/_Scenes/Scenes_Features_Implemented/GridSystem.unity
     guid: d6b02e47d03ea464b9fd36f44e5cc414
   - enabled: 1

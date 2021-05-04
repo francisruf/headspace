@@ -111,7 +111,10 @@ public class WritingMachineClock : MonoBehaviour
 
     private void OnLevelEnded()
     {
-        StopCoroutine(_timeRoutine);
-        _timeRoutine = null;
+        if (_timeRoutine != null)
+        {
+            StopCoroutine(_timeRoutine);
+            _timeRoutine = null;
+        }
     }
 }

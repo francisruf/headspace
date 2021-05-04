@@ -7,6 +7,7 @@ using TMPro;
 public class Receiver : StaticTool
 {
     public static Action<bool> singlePrint;
+    public static Action<string> specialMessagePrint;
 
     [Header("Receiver settings")]
     public GameObject messagePrefab;
@@ -93,6 +94,10 @@ public class Receiver : StaticTool
 
         _printerAnimator.SetBool("MessageInSlot", true);
         _messageInSlot.messageTeared += ClearSlot;
+
+
+        if (specialMessagePrint != null)
+            specialMessagePrint(messageName);
     }
 
     public void MessageFullyPrinted()

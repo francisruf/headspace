@@ -6,6 +6,16 @@ public class SlidableShredder : SlidableTool
 {
     private ShredderSlot child = null;
 
+    private void OnEnable()
+    {
+        TutorialController.shredderEnableRequest += OnShredderEnableRequest;
+    }
+
+    private void OnDisable()
+    {
+        TutorialController.shredderEnableRequest -= OnShredderEnableRequest;
+    }
+
     // Start is called before the first frame update
     protected override void Awake()
     {
@@ -16,11 +26,7 @@ public class SlidableShredder : SlidableTool
     protected override void OpenTool()
     {
         base.OpenTool();
-
-        if (_interactionsEnabled)
-        {
-            child.canShred = true;
-        }
+        child.canShred = true;
         child.UpdateLightState();
     }
 
@@ -29,6 +35,17 @@ public class SlidableShredder : SlidableTool
         base.CloseTool();
         child.canShred = false;
         child.UpdateLightState();
+    }
+
+    private void OnShredderEnableRequest()
+    {
+        ToggleInteractions(true);
+        child.TriggerLightsEnable();
+    }
+
+    public override void ToggleInteractions(bool toggleON)
+    {
+        _interactionsEnabled = toggleON;
     }
 
 
