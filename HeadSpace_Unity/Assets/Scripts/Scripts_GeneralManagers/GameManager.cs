@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public static Action gameOver;
     public static Action<DayInfo> newDay;
     public static Action<DayInfo> dayInfoChange;
+    public static Action<LevelEndCondition> levelEndConditionChange;
     public static bool GameStarted { get; private set; }
     private bool _levelEnded;
 
@@ -182,6 +183,16 @@ public class GameManager : MonoBehaviour
 
         if (dayInfoChange != null)
             dayInfoChange(CurrentDayInfo);
+    }
+
+    public void ChangeLevelEndCondition(LevelEndCondition newCondition)
+    {
+        if (CurrentEndCondition == newCondition)
+            return;
+
+        CurrentEndCondition = newCondition;
+        if (levelEndConditionChange != null)
+            levelEndConditionChange(CurrentEndCondition);
     }
 
     public void SetDay(int newDay)

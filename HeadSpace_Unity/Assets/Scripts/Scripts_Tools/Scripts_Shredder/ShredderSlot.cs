@@ -191,6 +191,7 @@ public class ShredderSlot : MonoBehaviour
 
     public void UpdateLightState()
     {
+        lightAnimator.SetBool("IsOpen", parent.IsOpen);
         lightAnimator.SetBool("Shredding", shredding);
         lightAnimator.SetBool("CanShred", canShred);
     }

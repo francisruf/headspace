@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class LevelSettings : MonoBehaviour
 {
-    [Header("EndCondition")]
+    [Header("General conditions")]
     public LevelEndCondition levelEndCondition;
+    public ContractSpawnCondition contractSpawnConditions;
     [Header("Grid")]
     public GridSettings gridSettings;
     [Header("Planets")]
@@ -20,4 +21,10 @@ public enum LevelEndCondition
 {
     Time,
     Event
+}
+
+public enum ContractSpawnCondition
+{
+    Timed,
+    Triggers
 }

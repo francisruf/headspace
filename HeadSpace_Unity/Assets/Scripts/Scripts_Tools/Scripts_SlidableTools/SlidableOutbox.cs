@@ -49,9 +49,9 @@ public class SlidableOutbox : SlidableTool
         _dropZone.SendCommands();
     }
 
-    private void OnCommandReadyToTear(bool startCommand)
+    private void OnCommandReadyToTear(bool openDrawer)
     {
-        if (startCommand)
+        if (!openDrawer)
             return;
 
         if (_openingRoutine != null)

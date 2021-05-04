@@ -298,6 +298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelEndCondition: 1
+  contractSpawnConditions: 1
   gridSettings: {fileID: 11400000, guid: 3889d46582226c04b805a34fd79aa40f, type: 2}
   planetLevelSettings: {fileID: 11400000, guid: a8cf540eb25b39042b86a2c7457ecc40,
     type: 2}

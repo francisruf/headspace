@@ -20,13 +20,13 @@ public class WritingMachineClock : MonoBehaviour
     private void OnEnable()
     {
         GameManager.levelEnded += OnLevelEnded;
-        LevelLoader.levelLoaded += AssignTime;
+        TimeManager.timeSet += AssignTime;
     }
 
     private void OnDisable()
     {
         GameManager.levelEnded -= OnLevelEnded;
-        LevelLoader.levelLoaded -= AssignTime;
+        TimeManager.timeSet -= AssignTime;
     }
 
     private void Awake()
@@ -37,30 +37,31 @@ public class WritingMachineClock : MonoBehaviour
             SpriteRenderer sr = Instantiate(digitPrefab, pos.position, Quaternion.identity, pos).GetComponent<SpriteRenderer>();
             _digitRenderers.Add(sr);
         }
-
-
     }
 
-    private void AssignTime()
+    private void AssignTime(bool timeStarted)
     {
-        switch (GameManager.instance.CurrentEndCondition)
+        if (timeStarted)
         {
-            case LevelEndCondition.Time:
+            if (_timeRoutine == null)
+            {
                 _timeRoutine = SetTime();
                 StartCoroutine(SetTime());
-                break;
-
-            case LevelEndCondition.Event:
-                foreach (var sr in _digitRenderers)
-                {
-                    sr.enabled = false;
-                }
-                break;
-
-            default:
-                break;
+            }
         }
+        else
+        {
+            if (_timeRoutine != null)
+            {
+                StopCoroutine(_timeRoutine);
+                _timeRoutine = null;
+            }
 
+            foreach (var sr in _digitRenderers)
+            {
+                sr.enabled = false;
+            }
+        }
     }
 
     private IEnumerator SetTime()

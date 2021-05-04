@@ -8,6 +8,7 @@ public class TimeManager : MonoBehaviour
     public static Action levelTimerEnded;
     public static Action levelTimerEndPreTrigger;
     public static Action thirtyMinsWarning;
+    public static Action<bool> timeSet;
 
     // Singleton
     public static TimeManager instance;
@@ -66,11 +67,18 @@ public class TimeManager : MonoBehaviour
     {
         _currentTime = (startHours * 60f * 60f) + startMinutes * 60f;
         GameManager.levelStarted += StartTime;
+        GameManager.levelEndConditionChange += OnLevelConditionChange;
     }
 
     private void OnDisable()
     {
         GameManager.levelStarted -= StartTime;
+        GameManager.levelEndConditionChange -= OnLevelConditionChange;
+    }
+
+    private void OnLevelConditionChange(LevelEndCondition condition)
+    {
+        StartTime();
     }
 
     private void StartTime()
@@ -85,6 +93,9 @@ public class TimeManager : MonoBehaviour
                 _timeStarted = true;
             }
         }
+
+        if (timeSet != null)
+            timeSet(_timeStarted);
     }
 
     private void Update()

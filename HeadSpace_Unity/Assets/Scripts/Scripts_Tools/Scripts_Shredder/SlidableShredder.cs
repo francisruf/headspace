@@ -16,7 +16,11 @@ public class SlidableShredder : SlidableTool
     protected override void OpenTool()
     {
         base.OpenTool();
-        child.canShred = true;
+
+        if (_interactionsEnabled)
+        {
+            child.canShred = true;
+        }
         child.UpdateLightState();
     }
 

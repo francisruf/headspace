@@ -19,6 +19,7 @@ public class MovableCommand : MovableObject
 
     private float _previousSpriteHeight;
 
+    [HideInInspector] public bool openDrawer = true;
     public string CommandName { get; protected set; } = "";
     public string ShipName { get; private set; } = "";
     public string TargetGridCoords { get; private set; } = "";
@@ -37,6 +38,7 @@ public class MovableCommand : MovableObject
         _commandText = GetComponentInChildren<TextMeshProUGUI>();
         _canvas = GetComponentInChildren<Canvas>();
         _boxCollider2D = GetComponent<BoxCollider2D>();
+        _collider.enabled = false;
     }
 
     protected override void Start()
@@ -103,6 +105,7 @@ public class MovableCommand : MovableObject
 
     public void PrintLine(string newLine)
     {
+        CurrentCommandState = CommandState.HasLines;
         _printingQueue.Enqueue(newLine);
         _printQueueCount++;
     }
@@ -226,6 +229,7 @@ public class MovableCommand : MovableObject
 public enum CommandState
 {
     Unsent,
+    HasLines,
     Sucess,
     Fail
 }

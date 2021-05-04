@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ public class TutorialController : MonoBehaviour
     private bool _step_shipMoveReceived;
     private bool _step_clientEmbarked;
     private bool _step_contractComplete;
+    private bool _step_writingMachineOpen;
 
     private void OnEnable()
     {
@@ -23,6 +25,7 @@ public class TutorialController : MonoBehaviour
         Contract.contractComplete += OnContractComplete;
         MovableContract.contractAssigned += OnContractAssigned;
         CommandManager.commandRequestResult += OnCommandResult;
+        WritingMachineController.writingMachineOpen += OnMachineOpen;
     }
 
     private void OnDisable()
@@ -33,6 +36,7 @@ public class TutorialController : MonoBehaviour
         Contract.contractComplete -= OnContractComplete;
         MovableContract.contractAssigned -= OnContractAssigned;
         CommandManager.commandRequestResult -= OnCommandResult;
+        WritingMachineController.writingMachineOpen -= OnMachineOpen;
     }
 
     private void Awake()
@@ -105,6 +109,9 @@ public class TutorialController : MonoBehaviour
             NewMessage("MSG_WorkOrderBase");
             NewMessage("MSG_WorkOrderBoard");
             _step_statusComplete = true;
+
+            if (ContractManager.instance != null)
+                ContractManager.instance.TriggerNextContract();
         }
     }
 
@@ -138,6 +145,12 @@ public class TutorialController : MonoBehaviour
 
         NewMessage("MSG_WorkOrderComplete");
         NewMessage("MSG_WorkOrderDay");
+
+        if (GameManager.instance != null)
+            GameManager.instance.ChangeLevelEndCondition(LevelEndCondition.Time);
+
+        if (ContractManager.instance != null)
+            ContractManager.instance.ChangeContractConditions(ContractSpawnCondition.Timed);
     }
 
     private void OnCommandResult(List<MovableCommand> commands)
@@ -154,6 +167,32 @@ public class TutorialController : MonoBehaviour
                     OnMoveReceived();
                 }
         }
+    }
+
+    private void OnMachineOpen(WritingMachineController controller)
+    {
+        if (_step_writingMachineOpen)
+            return;
+
+        MovableCommand cmd = controller.CurrentCommandDocument;
+        if (cmd != null)
+            if (cmd.CurrentCommandState == CommandState.Unsent)
+            {
+                string instructions = "<color=red><i>TEAR THIS DOCUMENT</color></i>";
+                controller.PrintText(instructions, true, false);
+                instructions = "- Compu-Typer<sup>tm</sup> USER GUIDE -";
+                controller.PrintText(instructions, true, false);
+                instructions = "1- Type in ship 3-letter CODE.";
+                controller.PrintText(instructions, true, false);
+                instructions = "2- Press RETURN to confirm.";
+                controller.PrintText(instructions, true, false);
+                instructions = "3- Type in command keyword.";
+                controller.PrintText(instructions, true, false);
+                instructions = "4- Confirm and tear when ready.";
+                controller.PrintText(instructions, true, false);
+
+                _step_writingMachineOpen = true;
+            }
     }
 
 }

@@ -38,6 +38,7 @@ public abstract class InteractableObject : MonoBehaviour
     private int _defaultPhysicsLayer;
     private int _defaultSortingLayerID;
     public bool startEnabled = true;
+    protected bool _interactionsEnabled;
     public bool ignoreSelectedBringToFront;
 
     // Virtual = Une classe qui HÉRITE de InteractableObject peut REMPLACER ou MODIFIER la fonction Awake à sa façon
@@ -57,7 +58,6 @@ public abstract class InteractableObject : MonoBehaviour
         _defaultSortingLayerID = _spriteRenderer.sortingLayerID;
 
         _defaultPhysicsLayer = this.gameObject.layer;
-        ToggleInteractions(startEnabled);
     }
 
     protected virtual void Start()
@@ -99,6 +99,8 @@ public abstract class InteractableObject : MonoBehaviour
     // Fonction qui envoie l'objet au manager lorsqu'il est initialisé
     protected virtual void InitializeObject()
     {
+        ToggleInteractions(startEnabled);
+
         if (objectEnabled != null)
             objectEnabled(this);
     }
@@ -107,6 +109,8 @@ public abstract class InteractableObject : MonoBehaviour
     // Et qui désactive ses components
     public virtual void DisableObject()
     {
+        _interactionsEnabled = false;
+
         if (_spriteRenderer != null)
             _spriteRenderer.enabled = false;
 
@@ -129,6 +133,8 @@ public abstract class InteractableObject : MonoBehaviour
 
     public virtual void DisableInteractions()
     {
+        _interactionsEnabled = false;
+
         if (_collider != null)
             _collider.enabled = false;
 
@@ -310,8 +316,10 @@ public abstract class InteractableObject : MonoBehaviour
         return order;
     }
 
-    public void ToggleInteractions(bool toggleON)
+    public virtual void ToggleInteractions(bool toggleON)
     {
+        _interactionsEnabled = toggleON;
+
         foreach (var collider in GetComponents<Collider>())
         {
             collider.enabled = toggleON;

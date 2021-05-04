@@ -69,7 +69,7 @@ public class LevelLoader : MonoBehaviour
                 PlanetManager.instance.AssignLevelSettings(_levelSettings.planetLevelSettings);
 
         if (ContractManager.instance != null)
-            ContractManager.instance.AssignLevelSettings(_levelSettings.allClientRules);
+            ContractManager.instance.AssignLevelSettings(_levelSettings.allClientRules, _levelSettings.contractSpawnConditions);
 
         if (_levelSettings.inventorySettings != null)
             _levelSettings.inventorySettings.InitializeInventory();

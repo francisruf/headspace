@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class WritingMachineController : MonoBehaviour
 {
+    public static Action<WritingMachineController> writingMachineOpen;
     public static Action<bool> commandReadyToTear;
     public static Action commandTeared;
     public static Action<bool> lightFlash;
@@ -45,6 +46,7 @@ public class WritingMachineController : MonoBehaviour
     public GameObject commandPrefab;
     public Transform commandSpawnPos;
     private MovableCommand _currentCommandDocument;
+    public MovableCommand CurrentCommandDocument { get { return _currentCommandDocument; } }
     public int commandSpawnSortOrder;
 
     private ButtonController_Command _currentCommandButton;
@@ -108,6 +110,9 @@ public class WritingMachineController : MonoBehaviour
         }
 
         _animator.SetBool("IsOpen", true);
+
+        if (writingMachineOpen != null)
+            writingMachineOpen(this);
     }
 
     public void OnMachineClose()
@@ -639,10 +644,10 @@ public class WritingMachineController : MonoBehaviour
             _keyPadController.CloseKeyPad();
         _routeScreenController.CloseRouteScreen(true);
 
-        bool startCommand = _currentCommandDocument.CommandName == "StartLevel" ? true : false;
+        bool openDrawer = _currentCommandDocument.openDrawer;
 
          if (commandReadyToTear != null)
-            commandReadyToTear(startCommand);
+            commandReadyToTear(openDrawer);
 
         yield return new WaitForSeconds(0.45f);
         DisableAllButtons();
@@ -686,9 +691,24 @@ public class WritingMachineController : MonoBehaviour
     {
         _currentCommandDocument.gameObject.tag = "Indestruc";
 
-        string startMessage = "Welcome, trainee #01235!";
-        startMessage += "\nWhen you are ready to start your day, sign-in by sending this document through your outbox.";
-        _currentCommandDocument.AssignCommandName("StartLevel", startMessage);
+        string startMessage = "<color=red><i>TEAR THIS DOCUMENT</color></i>";
+        PrintText(startMessage, false, false, "StartLevel");
+        startMessage = "Welcome, trainee #01235!";
+        PrintText(startMessage, false, false, "StartLevel");
+        startMessage = "When ready to start day, sign-in by sending this document through your outbox.";
+        PrintText(startMessage, false, false, "StartLevel");
+    }
+
+    public void PrintText(string message, bool shreddable, bool openDrawer, string commandName = "")
+    {
+        if (shreddable)
+            _currentCommandDocument.gameObject.tag = "Destruc";
+        else
+        _currentCommandDocument.gameObject.tag = "Indestruc";
+
+        _currentCommandDocument.openDrawer = openDrawer;
+        _currentCommandDocument.AssignCommandName(commandName, message);
+        ChangeButtonSection(ButtonSectionType.End);
     }
 
     private void OnShipInfoChange(Ship ship)

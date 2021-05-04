@@ -35,6 +35,8 @@ public class ContractManager : MonoBehaviour
     private IEnumerator _spawnRoutine;
     private IEnumerator _newContractRoutine;
 
+    private ContractSpawnCondition _currentSpawnCondition;
+
     private void Awake()
     {
         // Assigner le singleton
@@ -79,16 +81,39 @@ public class ContractManager : MonoBehaviour
         _newContractRoutine = null;
     }
 
-    public void AssignLevelSettings(List<ClientRules> clientRules)
+    public void AssignLevelSettings(List<ClientRules> clientRules, ContractSpawnCondition condition)
     {
+        this._currentSpawnCondition = condition;
         this._clientRules = clientRules;
         Debug.Log("Received client rules");
     }
 
     private void OnGameStarted()
     {
-        _newContractRoutine = NewContractTimer();
-        StartCoroutine(_newContractRoutine);
+        if (_currentSpawnCondition == ContractSpawnCondition.Timed)
+        {
+            _newContractRoutine = NewContractTimer();
+            StartCoroutine(_newContractRoutine);
+        }
+    }
+
+    public void TriggerNextContract()
+    {
+        StartCoroutine(SpawnContractTimer(0f));
+    }
+
+    public void ChangeContractConditions(ContractSpawnCondition newConditions)
+    {
+        _currentSpawnCondition = newConditions;
+
+        if (_currentSpawnCondition == ContractSpawnCondition.Timed)
+        {
+            if (_newContractRoutine == null)
+            {
+                _newContractRoutine = NewContractTimer();
+                StartCoroutine(_newContractRoutine);
+            }
+        }
     }
 
     // TODO : Wrapper ça dans container de contrat de grosseur différente
