@@ -144,7 +144,7 @@ public class DropZone_Outbox : DropZone
         else
         {
             if (newCommandRequest != null)
-                newCommandRequest(_commandsInDropZone);
+                newCommandRequest(new List<MovableCommand>(_commandsInDropZone));
         }
     }
 

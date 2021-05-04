@@ -15,7 +15,7 @@ public class MessageManager : MonoBehaviour
     private Receiver _receiver;
 
     // File d'attente des messages
-    private Queue<string> _messageQueue = new Queue<string>();
+    private Queue<MessageInfo> _messageQueue = new Queue<MessageInfo>();
     private int _messageCount;
 
     // Textes de DEBUG temporaires
@@ -61,20 +61,20 @@ public class MessageManager : MonoBehaviour
     // Fonction qui ajoute un message à la file d'attente (sans l'imprimer)
     public void QueueMessage(string newMessage, bool playSound = true)
     {
-        string fullMessage = "";
-        //if (TimeManager.instance != null)
-        //{
-        //    fullMessage += "[" + TimeSpan.FromSeconds(TimeManager.instance.GameTime).ToString(@"hh\:mm") + "].............\n\n";
-        //}
-        fullMessage += newMessage;
-
-        StartCoroutine(QueueDelay(fullMessage, playSound));
+        MessageInfo newMessageInfo = new MessageInfo("", newMessage, false);
+        StartCoroutine(QueueDelay(newMessageInfo, playSound));
     }
 
-        private IEnumerator QueueDelay(string fullMessage, bool playSound)
+    // Fonction qui ajoute un message à la file d'attente (sans l'imprimer)
+    public void QueueMessage(MessageInfo newMessageInfo, bool playSound = true)
+    {
+        StartCoroutine(QueueDelay(newMessageInfo, playSound));
+    }
+
+    private IEnumerator QueueDelay(MessageInfo newMessageInfo, bool playSound)
     {
         yield return new WaitForSeconds(1f);
-        _messageQueue.Enqueue(fullMessage);
+        _messageQueue.Enqueue(newMessageInfo);
         _messageCount++;
 
         UpdateMessageCount();
@@ -94,16 +94,14 @@ public class MessageManager : MonoBehaviour
             return;
         }
 
-        string messageToPrint = _messageQueue.Dequeue();
+        MessageInfo messageInfo = _messageQueue.Dequeue();
         _messageCount--;
 
-        if (currentMessageText != null)
-        {
-            currentMessageText.text = messageToPrint;
-            currentMessageText.enabled = true;
-        }
-
-        _receiver.PrintMessage(messageToPrint);
+        if (messageInfo.specialMessage)
+            _receiver.PrintTutorialMessage(messageInfo.messageName, messageInfo.messageText);
+        else
+            _receiver.PrintMessage(messageInfo.messageText);
+        
         UpdateMessageCount();
     }
 
@@ -328,7 +326,7 @@ public class MessageManager : MonoBehaviour
         {
             newMessageText += "none.";
         }
-        QueueMessage(newMessageText);
+        QueueMessage(new MessageInfo("CMD_Status", newMessageText, true));
     }
 
     public void ShipAnomalyNotif(Ship ship, int soulsLost)
@@ -368,5 +366,24 @@ public class MessageManager : MonoBehaviour
         QueueMessage(message, playSound);
     }
 
+    public void SpecialMessage(string messageName, string messageText)
+    {
+        QueueMessage(new MessageInfo(messageName, messageText, true));
+    }
+
     #endregion
+}
+
+public struct MessageInfo
+{
+    public string messageName;
+    public string messageText;
+    public bool specialMessage;
+
+    public MessageInfo(string messageName, string messageText, bool specialMessage)
+    {
+        this.messageName = messageName;
+        this.messageText = messageText;
+        this.specialMessage = specialMessage;
+    }
 }

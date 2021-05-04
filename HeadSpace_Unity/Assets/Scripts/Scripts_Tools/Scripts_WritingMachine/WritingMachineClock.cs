@@ -20,11 +20,13 @@ public class WritingMachineClock : MonoBehaviour
     private void OnEnable()
     {
         GameManager.levelEnded += OnLevelEnded;
+        LevelLoader.levelLoaded += AssignTime;
     }
 
     private void OnDisable()
     {
         GameManager.levelEnded -= OnLevelEnded;
+        LevelLoader.levelLoaded -= AssignTime;
     }
 
     private void Awake()
@@ -36,49 +38,30 @@ public class WritingMachineClock : MonoBehaviour
             _digitRenderers.Add(sr);
         }
 
-        _timeRoutine = SetTime();
-        StartCoroutine(SetTime());
+
     }
 
+    private void AssignTime()
+    {
+        switch (GameManager.instance.CurrentEndCondition)
+        {
+            case LevelEndCondition.Time:
+                _timeRoutine = SetTime();
+                StartCoroutine(SetTime());
+                break;
 
-    //private void SetTime(float time)
-    //{
-    //    float time = 0f;
+            case LevelEndCondition.Event:
+                foreach (var sr in _digitRenderers)
+                {
+                    sr.enabled = false;
+                }
+                break;
 
-    //    if (TimeManager.instance != null)
-    //        time = TimeManager.instance.GetCurrentTime;
+            default:
+                break;
+        }
 
-
-    //    int hours = TimeSpan.FromSeconds(time).Hours;
-    //    int minutes = TimeSpan.FromSeconds(time).Minutes;
-
-    //    if (hours != _previousHours || minutes != _previousMinutes)
-    //    {
-    //        _previousHours = hours;
-    //        _previousMinutes = minutes;
-
-    //        _digitRenderers[0].sprite = _spriteDB.GetDigit(_previousHours / 10);
-    //        _digitRenderers[1].sprite = _spriteDB.GetDigit(_previousHours % 10);
-    //        _digitRenderers[2].sprite = _spriteDB.GetDigit(_previousMinutes / 10);
-    //        _digitRenderers[3].sprite = _spriteDB.GetDigit(_previousMinutes % 10);
-
-    //        if (!_nearEnd)
-    //        {
-    //            if (TimeManager.instance != null)
-    //                _nearEnd = _previousHours >= TimeManager.instance.hurryUpHours ? true : false;
-
-    //            if (_nearEnd)
-    //            {
-    //                _timeRoutine = FlashDigits();
-    //                StartCoroutine(_timeRoutine);
-    //            }
-    //        }
-    //        else
-    //        {
-    //            _flash = true;
-    //        }
-    //    }
-    //}
+    }
 
     private IEnumerator SetTime()
     {

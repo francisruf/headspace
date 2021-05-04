@@ -31,6 +31,7 @@ public class ObjectPlacer : MonoBehaviour
         MovableObject.placeObjectRequest += PlaceObject;
         ShopManager.placeObjectRequest += PlaceObject;
         PlayerInventory.placeObjectRequest += PlaceObject;
+        LevelManager.preLoadDone += AssignReferences;
     }
 
     private void OnDisable()
@@ -38,14 +39,18 @@ public class ObjectPlacer : MonoBehaviour
         MovableObject.placeObjectRequest -= PlaceObject;
         ShopManager.placeObjectRequest -= PlaceObject;
         PlayerInventory.placeObjectRequest -= PlaceObject;
-
-        _outbox = FindObjectOfType<DropZone_Outbox>();
-        _drawers = FindObjectsOfType<DropZone_Drawer>();
+        LevelManager.preLoadDone -= AssignReferences;
     }
 
     private void Start()
     {
 
+    }
+
+    private void AssignReferences()
+    {
+        _outbox = FindObjectOfType<DropZone_Outbox>();
+        _drawers = FindObjectsOfType<DropZone_Drawer>();
     }
 
 

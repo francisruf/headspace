@@ -383,6 +383,16 @@ public class PlanetManager : MonoBehaviour
 
         return planetMatch;
     }
+
+    public GridTile_Planet PlanetAt(TileCoordinates tileCoords)
+    {
+        foreach (var p in _allPlanetTiles)
+        {
+            if (p.tileX == tileCoords.tileX && p.tileY == tileCoords.tileY)
+                return p;
+        }
+        return null;
+    }
 }
 
 [System.Serializable]

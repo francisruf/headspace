@@ -20,14 +20,16 @@ public class PlayerInventory : ScriptableObject
 
     private void GenerateStartingObjects()
     {
+        ObjectPlacer placer = ObjectPlacer.instance;
+
         foreach (var obj in playerStartingShips)
         {
             for (int i = 0; i < obj.quantity; i++)
             {
                 GameObject go = Instantiate(obj.objectPrefab);
 
-                if (placeObjectRequest != null)
-                    placeObjectRequest(go, obj.spawnZone);
+                if (placer != null)
+                    placer.PlaceObject(go, obj.spawnZone);
             }
         }
 
@@ -37,8 +39,8 @@ public class PlayerInventory : ScriptableObject
             {
                 GameObject go = Instantiate(obj.objectPrefab);
 
-                if (placeObjectRequest != null)
-                    placeObjectRequest(go, obj.spawnZone);
+                if (placer != null)
+                    placer.PlaceObject(go, obj.spawnZone);
             }
         }
     }

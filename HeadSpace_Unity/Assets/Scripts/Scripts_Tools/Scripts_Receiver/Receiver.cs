@@ -10,6 +10,7 @@ public class Receiver : StaticTool
 
     [Header("Receiver settings")]
     public GameObject messagePrefab;
+    public GameObject specialMessagePrefab;
     public Transform printPoint;
 
     private Animator _printerAnimator;
@@ -67,6 +68,24 @@ public class Receiver : StaticTool
             return;
 
         _messageInSlot = Instantiate(messagePrefab, printPoint).GetComponent<MovableMessage>();
+        _messageInSlot.transform.localPosition = Vector2.zero;
+        _messageInSlot.SetText(messageText);
+        _messageInSlot.SetSortingLayer(_spriteRenderer.sortingLayerID);
+        _messageInSlot.SetOrderInLayer(_spriteRenderer.sortingOrder + 1);
+
+        _printerAnimator.SetBool("MessageInSlot", true);
+        _messageInSlot.messageTeared += ClearSlot;
+    }
+
+    public void PrintTutorialMessage(string messageName, string messageText)
+    {
+        // Ne pas imprimer de message si un message est dans la fente
+        if (_messageInSlot != null)
+            return;
+
+        MovableMessage_Special tutMessage = Instantiate(specialMessagePrefab, printPoint).GetComponent<MovableMessage_Special>();
+        tutMessage.messageName = messageName;
+        _messageInSlot = tutMessage;
         _messageInSlot.transform.localPosition = Vector2.zero;
         _messageInSlot.SetText(messageText);
         _messageInSlot.SetSortingLayer(_spriteRenderer.sortingLayerID);

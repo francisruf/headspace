@@ -22,6 +22,9 @@ public class ContractManager : MonoBehaviour
     private ContractsDB _contractsDB;
     private ConveyorBelt _belt;
 
+    private List<Contract> _allContracts = new List<Contract>();
+    public List<Contract> CurrentContracts { get { return _allContracts; } }
+
     private List<ClientRules> _clientRules;
     private int _currentRuleIndex;
     private bool _allRulesApplied;
@@ -158,12 +161,14 @@ public class ContractManager : MonoBehaviour
             Contract_Single contract = movableContract.GetComponent<Contract_Single>();
             contract.AssignClients(allClients);
             contract.CalculatePointsReward(pointSettings);
+            _allContracts.Add(contract);
         }
         else if (contractSize == 2)
         {
             Contract_Double contract = movableContract.GetComponent<Contract_Double>();
             contract.AssignClients(allClients);
             contract.CalculatePointsReward(pointSettings);
+            _allContracts.Add(contract);
         }
 
         _spawnCount++;

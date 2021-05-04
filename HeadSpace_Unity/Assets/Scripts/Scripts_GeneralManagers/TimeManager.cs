@@ -77,11 +77,14 @@ public class TimeManager : MonoBehaviour
     {
         if (GameManager.instance != null)
         {
-            _levelEndTimer = _currentTime + (GameManager.instance.LevelDurationInMinutes * 60f * 60f * timeMultiplier);
-            _endPreTrigger = _levelEndTimer - 2.15f * 60f * timeMultiplier;
-            _thirtyMinsTimer = _levelEndTimer - (15f * 60f);
+            if (GameManager.instance.CurrentEndCondition == LevelEndCondition.Time)
+            {
+                _levelEndTimer = _currentTime + (GameManager.instance.LevelDurationInMinutes * 60f * 60f * timeMultiplier);
+                _endPreTrigger = _levelEndTimer - 2.15f * 60f * timeMultiplier;
+                _thirtyMinsTimer = _levelEndTimer - (15f * 60f);
+                _timeStarted = true;
+            }
         }
-        _timeStarted = true;
     }
 
     private void Update()

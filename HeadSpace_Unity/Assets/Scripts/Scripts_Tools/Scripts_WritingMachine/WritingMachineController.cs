@@ -663,7 +663,7 @@ public class WritingMachineController : MonoBehaviour
         ChangeButtonSection(ButtonSectionType.End);
     }
 
-    private void OnCommandTeared()
+    private void OnCommandTeared(MovableCommand cmd)
     {
         _currentCommandDocument.commandTeared -= OnCommandTeared;
         _currentCommandDocument.transform.parent = null;

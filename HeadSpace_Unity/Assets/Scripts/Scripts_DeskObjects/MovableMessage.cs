@@ -27,15 +27,20 @@ public class MovableMessage : MovableObject
         // Appeler l'action messageTeared, la première fois que l'objet est Selected
         if (!_wasTeared)
         {
-            _wasTeared = true;
-
-            if (messageTeared != null)
-                messageTeared();
-
-            if (messageTearedFromReceiver != null)
-                messageTearedFromReceiver();
+            TearMessage();
         }
         base.Select(fireEvent);
+    }
+
+    protected virtual void TearMessage()
+    {
+        _wasTeared = true;
+
+        if (messageTeared != null)
+            messageTeared();
+
+        if (messageTearedFromReceiver != null)
+            messageTearedFromReceiver();
     }
 
     public void EnableCollider()

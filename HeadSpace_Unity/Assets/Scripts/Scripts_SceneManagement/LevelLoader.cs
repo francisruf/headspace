@@ -35,8 +35,12 @@ public class LevelLoader : MonoBehaviour
 
     private void OnLoadingComplete()
     {
+        LevelEndCondition condition = LevelEndCondition.Time;
+        if (_levelSettings != null)
+            condition = _levelSettings.levelEndCondition;
+
         if (GameManager.instance != null)
-            GameManager.instance.PrepareLevel();
+            GameManager.instance.PrepareLevel(condition);
 
         if (startGameDebug != null)
             startGameDebug.enabled = false;

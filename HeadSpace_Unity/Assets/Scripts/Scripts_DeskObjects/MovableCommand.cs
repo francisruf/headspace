@@ -6,7 +6,7 @@ using TMPro;
 
 public class MovableCommand : MovableObject
 {
-    public Action commandTeared;
+    public Action<MovableCommand> commandTeared;
     public static Action commandSinglePrint;
     public static Action commandInOutbox;
 
@@ -52,7 +52,7 @@ public class MovableCommand : MovableObject
             _wasTeared = true;
 
             if (commandTeared != null)
-                commandTeared();
+                commandTeared(this);
         }
 
         base.Select(fireEvent);

@@ -117,6 +117,7 @@ public class CommandManager : MonoBehaviour
                 Debug.Log("COMMAND MANAGER - " + errorMessage);
             }
         }
+        Debug.Log("3");
     }
 
     private Command FindCommand(string candidateKeyword)

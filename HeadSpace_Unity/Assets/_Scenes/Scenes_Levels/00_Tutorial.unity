@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -297,6 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4b13a30cbf15d7439a372f960ce68a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelEndCondition: 1
   gridSettings: {fileID: 11400000, guid: 3889d46582226c04b805a34fd79aa40f, type: 2}
   planetLevelSettings: {fileID: 11400000, guid: a8cf540eb25b39042b86a2c7457ecc40,
     type: 2}
@@ -682,3 +683,82 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1552506017}
   m_CullTransparentMesh: 0
+--- !u!1 &1583340803
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1583340804}
+  - component: {fileID: 1583340805}
+  m_Layer: 0
+  m_Name: TutorialController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1583340804
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583340803}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1583340805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583340803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1d1746df5b458945b8fc2c9aff515f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allMessages:
+  - messageName: MSG_Welcome
+    messageText: Hello dude. Tear me to continue.
+  - messageName: MSG_Objectives
+    messageText: First things first. Typical work day = get most govt. officials
+      to their destinations. Use your DRONE SHIPS yo
+  - messageName: MSG_ShipInfo
+    messageText: You available ships are displayed on your assignment board, and
+      you also have pitouches.
+  - messageName: MSG_ShipStatus
+    messageText: Uh oh! Last trainee didn't mark last drone positions. Find thei
+      positions by typing STATUS command on Compu-Typer<sup>tm</sup>
+  - messageName: MSG_WorkOrderBase
+    messageText: First order! You will find planet to PICK that mf up, and their
+      destination.
+  - messageName: MSG_ShipMovement
+    messageText: Pickup official at destination with MOVE command. Drone ships can
+      only travel linear. Might need to enter a ROUTE with multiple tiles.
+  - messageName: MSG_WorkOrderBoard
+    messageText: In order to assign an order to a droneship, place it on board slot.
+      The ship will AUTO pickup a UFGG official when it passes its PICK UP planet
+      tile.
+  - messageName: MSG_MoveReceived
+    messageText: Ship has received move command. Track state on assignment board.
+  - messageName: MSG_ClientPickedUp
+    messageText: Official embarked. Updated status on thing on board. Now bring to
+      destination.
+  - messageName: MSG_Markers
+    messageText: Mark itineray on map for visual aid. Might look quicker to eyeball,
+      but time saver as you manage multiple ships.
+  - messageName: MSG_WorkOrderComplete
+    messageText: Work order completed. Dispense on assignment board slot to calculate
+      merit points (awarded anyways).
+  - messageName: MSG_WorkOrderDay
+    messageText: Complete most work orders in a day to top the leaderboard charts
+      and avoid being in the danger zone!

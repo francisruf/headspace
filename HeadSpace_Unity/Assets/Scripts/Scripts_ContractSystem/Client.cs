@@ -7,6 +7,7 @@ public abstract class Client
 {
     public Action<Client> clientArrived;
     public Action<Client> clientStateChanged;
+    public static Action clientEmbarked;
 
     public string clientFirstName;
     public string clientLastName;
@@ -39,6 +40,9 @@ public abstract class Client
                 break;
 
             case ClientState.Embarked:
+                if (clientEmbarked != null)
+                    clientEmbarked();
+
                 break;
 
             case ClientState.Debarked:

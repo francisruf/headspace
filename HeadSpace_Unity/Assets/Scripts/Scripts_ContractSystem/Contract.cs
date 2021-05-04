@@ -15,6 +15,8 @@ public abstract class Contract : MonoBehaviour
     public int PointsReward { get { return pointsReward; } }
     protected bool _complete;
     public bool IsComplete { get { return _complete; } }
+    protected GridTile_Planet _startPlanet;
+    public GridTile_Planet StartPlanet { get { return _startPlanet; } }
 
     [Header("UI references")]
     public SpriteRenderer startPlanetSpriteRenderer;
@@ -42,6 +44,7 @@ public abstract class Contract : MonoBehaviour
         {
             startPlanetSpriteRenderer.sprite = clients[0].startPlanet.SpriteMatch.contractSprite;
             startPlanetText.text = clients[0].startPlanet.PlanetName;
+            _startPlanet = clients[0].startPlanet;
         }
         else
             startPlanetText.text = "Some planet";

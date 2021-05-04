@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
     private SectorInfo _lastSectorInfo;
     public SectorInfo LastSectorInfo { get { return _lastSectorInfo; } }
 
+    public LevelEndCondition CurrentEndCondition { get; private set; }
+
     private bool _interactableSelected;
 
     private void Awake()
@@ -168,8 +170,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void PrepareLevel()
+    public void PrepareLevel(LevelEndCondition endCondition)
     {
+        CurrentEndCondition = endCondition;
         ChangeLevelTime(LevelTime.Level);
     }
 
