@@ -12,6 +12,7 @@ public class WritingMachineKeyboard : MonoBehaviour
     public GameObject backSpacePrefab;
     public GameObject returnPrefab;
     public GameObject spacePrefab;
+    public GameObject tabPrefab;
 
     private const float KEY_SPACING = 0.5f;
     private const float LINE_SPACING = 0.5f;
@@ -127,7 +128,16 @@ public class WritingMachineKeyboard : MonoBehaviour
     {
         Vector2 spawnPos = keyboardStartPoint.position;
         spawnPos.y -= LINE_SPACING * 3;
-        spawnPos.x += LINE_INDENT * 3;
+
+        //GameObject tabObj = Instantiate(tabPrefab, spawnPos, Quaternion.identity, transform);
+        //TextMeshProUGUI txt3 = null;
+        //Animator anim3 = tabObj.GetComponent<Animator>();
+        //_allKeys.Add(new KeyMatch('>', txt3, anim3));
+
+        //SpriteRenderer sr3 = tabObj.GetComponent<SpriteRenderer>();
+        //sr3.sortingOrder = sortingOrder;
+
+        spawnPos.x += LINE_INDENT * 2;
 
         for (int i = 0; i < _zKeys.Length; i++)
         {
@@ -177,6 +187,7 @@ public class WritingMachineKeyboard : MonoBehaviour
         switch (specialKey)
         {
             case SpecialKey.Tab:
+                c = '>';
                 break;
             case SpecialKey.Backspace:
                 c = '@';

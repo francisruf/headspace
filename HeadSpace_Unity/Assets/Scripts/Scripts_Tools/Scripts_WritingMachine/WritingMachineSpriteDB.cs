@@ -17,8 +17,10 @@ public class WritingMachineSpriteDB : MonoBehaviour
     [SerializeField] private List<Sprite> _coordNumbers;
 
     [Header("Clock")]
-    public Sprite defaultDigit;
-    [SerializeField] private List<Sprite> _digits;
+    public Sprite defaultRegularDigit;
+    public Sprite defaultInvertedDigit;
+    [SerializeField] private List<Sprite> _regularDigits;
+    [SerializeField] private List<Sprite> _invertedDigits;
 
     public const float COMMAND_LETTER_WIDTH = 0.1875f;
     public const float COMMAND_LETTER_SPACE = 0.03125f;
@@ -67,13 +69,27 @@ public class WritingMachineSpriteDB : MonoBehaviour
         return targetSprite;
     }
 
-    public Sprite GetDigit(int digit)
+    public Sprite GetDigit(int digit, bool regularDigit)
     {
-        Sprite targetSprite = defaultDigit;
-        if (digit >= 0 && digit <= 9)
+        Sprite targetSprite = null;
+
+        if (regularDigit)
         {
-            targetSprite = _digits[digit];
+            targetSprite = defaultRegularDigit;
+            if (digit >= 0 && digit <= 9)
+            {
+                targetSprite = _regularDigits[digit];
+            }
         }
+        else
+        {
+            targetSprite = defaultInvertedDigit;
+            if (digit >= 0 && digit <= 9)
+            {
+                targetSprite = _invertedDigits[digit];
+            }
+        }
+
         return targetSprite;
     }
 }

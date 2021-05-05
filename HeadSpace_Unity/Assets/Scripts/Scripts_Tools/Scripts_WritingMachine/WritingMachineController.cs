@@ -185,6 +185,12 @@ public class WritingMachineController : MonoBehaviour
             _keyboard.PressKey(SpecialKey.Backspace);
         }
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            PressReadyButton();
+            _keyboard.PressKey(SpecialKey.Space);
+        }
+
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             PressReadyButton();
@@ -276,6 +282,12 @@ public class WritingMachineController : MonoBehaviour
                 _routeScreenController.OnCharInput(playerInput[i]);
                 _keyboard.PressKey(playerInput[i]);
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _routeScreenController.OnTabInput();
+            _keyboard.PressKey(SpecialKey.Space);
         }
 
         if (Input.GetKeyDown(KeyCode.Backspace))

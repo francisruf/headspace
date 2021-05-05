@@ -5,10 +5,15 @@ using UnityEngine;
 
 public class WritingMachineClock : MonoBehaviour
 {
+    private SpriteRenderer _spriteRenderer;
+
     public GameObject digitPrefab;
     public Transform[] digitPositions;
     private List<SpriteRenderer> _digitRenderers = new List<SpriteRenderer>();
     private WritingMachineSpriteDB _spriteDB;
+
+    public Sprite regularSprite;
+    public Sprite yellowSprite;
 
     private bool _flash;
     private bool _nearEnd;
@@ -31,6 +36,7 @@ public class WritingMachineClock : MonoBehaviour
 
     private void Awake()
     {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         _spriteDB = GetComponentInParent<WritingMachineSpriteDB>();
         foreach (var pos in digitPositions)
         {
@@ -85,24 +91,28 @@ public class WritingMachineClock : MonoBehaviour
                 {
                     if (TimeManager.instance != null)
                         _nearEnd = _previousHours >= TimeManager.instance.hurryUpHours ? true : false;
+
+                    _spriteRenderer.sprite = regularSprite;
+                    _digitRenderers[0].sprite = _spriteDB.GetDigit(_previousHours / 10, true);
+                    _digitRenderers[1].sprite = _spriteDB.GetDigit(_previousHours % 10, true);
+                    _digitRenderers[2].sprite = _spriteDB.GetDigit(_previousMinutes / 10, true);
+                    _digitRenderers[3].sprite = _spriteDB.GetDigit(_previousMinutes % 10, true);
                 }
                 else
                 {
-                    for (int i = 0; i < 4; i++)
-                    {
-                        _digitRenderers[i].enabled = false;
-                    }
-                }
-                yield return new WaitForSeconds(0.2f);
-                
-                _digitRenderers[0].sprite = _spriteDB.GetDigit(_previousHours / 10);
-                _digitRenderers[1].sprite = _spriteDB.GetDigit(_previousHours % 10);
-                _digitRenderers[2].sprite = _spriteDB.GetDigit(_previousMinutes / 10);
-                _digitRenderers[3].sprite = _spriteDB.GetDigit(_previousMinutes % 10);
+                    _spriteRenderer.sprite = yellowSprite;
+                    _digitRenderers[0].sprite = _spriteDB.GetDigit(_previousHours / 10, false);
+                    _digitRenderers[1].sprite = _spriteDB.GetDigit(_previousHours % 10, false);
+                    _digitRenderers[2].sprite = _spriteDB.GetDigit(_previousMinutes / 10, false);
+                    _digitRenderers[3].sprite = _spriteDB.GetDigit(_previousMinutes % 10, false);
 
-                for (int i = 0; i < 4; i++)
-                {
-                    _digitRenderers[i].enabled = true;
+                    yield return new WaitForSeconds(0.4f);
+
+                    _spriteRenderer.sprite = regularSprite;
+                    _digitRenderers[0].sprite = _spriteDB.GetDigit(_previousHours / 10, true);
+                    _digitRenderers[1].sprite = _spriteDB.GetDigit(_previousHours % 10, true);
+                    _digitRenderers[2].sprite = _spriteDB.GetDigit(_previousMinutes / 10, true);
+                    _digitRenderers[3].sprite = _spriteDB.GetDigit(_previousMinutes % 10, true);
                 }
             }
             yield return new WaitForEndOfFrame();

@@ -68,25 +68,30 @@ public class RouteScreenController : MonoBehaviour
         if (valid)
         {
             int lenght = _allTextValues[_currentScreenIndex].Length;
-            if (lenght < 3)
+            if (lenght == 3)
+            {
+                _allTextValues[_currentScreenIndex] = _allTextValues[_currentScreenIndex].Substring(0, 2) + c;
+                UpdateTexts();
+            }
+            else if (lenght < 3)
             {
                 _allTextValues[_currentScreenIndex] += c;
-                if (lenght + 1 >= 3)
-                    _currentScreenIndex = Mathf.Clamp(_currentScreenIndex + 1, 0, allScreens.Count - 1);
+                //if (lenght + 1 >= 3)
+                //    _currentScreenIndex = Mathf.Clamp(_currentScreenIndex + 1, 0, allScreens.Count - 1);
 
                 UpdateTexts();
             }
-            else
-            {
-                int previousScreen = _currentScreenIndex;
-                _currentScreenIndex = Mathf.Clamp(_currentScreenIndex + 1, 0, allScreens.Count - 1);
-                if (previousScreen != _currentScreenIndex)
-                {
-                    _allTextValues[_currentScreenIndex] += c;
-                    UpdateTexts();
-                }
+            //else
+            //{
+            //    int previousScreen = _currentScreenIndex;
+            //    _currentScreenIndex = Mathf.Clamp(_currentScreenIndex + 1, 0, allScreens.Count - 1);
+            //    if (previousScreen != _currentScreenIndex)
+            //    {
+            //        _allTextValues[_currentScreenIndex] += c;
+            //        UpdateTexts();
+            //    }
 
-            }
+            //}
         }
     }
 
@@ -142,6 +147,9 @@ public class RouteScreenController : MonoBehaviour
         }
 
         int textLength = _allTextValues[_currentScreenIndex].Length;
+        if (textLength == 3)
+            textLength = 2;
+
         int index = Mathf.Clamp((_currentScreenIndex * 3) + textLength, 0, 17);
         Vector2 targetCaretPos = _allCoordsRenderers[index].transform.position;
         caret.transform.position = targetCaretPos;

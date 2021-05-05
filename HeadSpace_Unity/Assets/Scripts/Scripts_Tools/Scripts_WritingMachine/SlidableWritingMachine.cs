@@ -32,7 +32,7 @@ public class SlidableWritingMachine : SlidableTool
     {
         base.Update();
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             TriggerOpenClose(null);
             //_keyboard.PressKey(SpecialKey.Space);

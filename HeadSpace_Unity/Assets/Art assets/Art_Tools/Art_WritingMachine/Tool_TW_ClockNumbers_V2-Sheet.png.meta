@@ -1,7 +1,67 @@
 fileFormatVersion: 2
 guid: db782a92357924e4c83dbe6c815ee49a
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -3168572924942262286
+    second: Tool_TW_ClockNumbers_V2-Sheet_0
+  - first:
+      213: 7235876358578743728
+    second: Tool_TW_ClockNumbers_V2-Sheet_1
+  - first:
+      213: 2194572984344062814
+    second: Tool_TW_ClockNumbers_V2-Sheet_2
+  - first:
+      213: -4113811623093232494
+    second: Tool_TW_ClockNumbers_V2-Sheet_3
+  - first:
+      213: -1498128332891421736
+    second: Tool_TW_ClockNumbers_V2-Sheet_4
+  - first:
+      213: 4987104697990737059
+    second: Tool_TW_ClockNumbers_V2-Sheet_5
+  - first:
+      213: 3090053510198662843
+    second: Tool_TW_ClockNumbers_V2-Sheet_6
+  - first:
+      213: 926676020555092192
+    second: Tool_TW_ClockNumbers_V2-Sheet_7
+  - first:
+      213: 8212512461326525388
+    second: Tool_TW_ClockNumbers_V2-Sheet_8
+  - first:
+      213: 6439126980003201143
+    second: Tool_TW_ClockNumbers_V2-Sheet_9
+  - first:
+      213: 7244187947134554097
+    second: Tool_TW_ClockNumbers_V2-Sheet_10
+  - first:
+      213: -1773461345444175635
+    second: Tool_TW_ClockNumbers_V2-Sheet_11
+  - first:
+      213: 5537862542973910241
+    second: Tool_TW_ClockNumbers_V2-Sheet_12
+  - first:
+      213: 8073490080911594435
+    second: Tool_TW_ClockNumbers_V2-Sheet_13
+  - first:
+      213: 4034160575892373385
+    second: Tool_TW_ClockNumbers_V2-Sheet_14
+  - first:
+      213: 4358344562206059798
+    second: Tool_TW_ClockNumbers_V2-Sheet_15
+  - first:
+      213: -463357709485168484
+    second: Tool_TW_ClockNumbers_V2-Sheet_16
+  - first:
+      213: 195237629138399292
+    second: Tool_TW_ClockNumbers_V2-Sheet_17
+  - first:
+      213: -8883514525565654430
+    second: Tool_TW_ClockNumbers_V2-Sheet_18
+  - first:
+      213: 488539647700511141
+    second: Tool_TW_ClockNumbers_V2-Sheet_19
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -31,7 +91,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
+    filterMode: 0
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -40,12 +100,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -61,10 +121,46 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 32
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 32
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 32
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 32
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -73,7 +169,427 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Tool_TW_ClockNumbers_V2-Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 19
+        width: 3
+        height: 5
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ff55eb66b7f604d0800000000000000
+      internalID: -3168572924942262286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tool_TW_ClockNumbers_V2-Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 19
+        width: 3
+        height: 5
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b9abb7f53ffa6460800000000000000
+      internalID: 7235876358578743728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tool_TW_ClockNumbers_V2-Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 19
+        width: 3
+        height: 5
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5b2f7d7080b47e10800000000000000
+      internalID: 2194572984344062814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tool_TW_ClockNumbers_V2-Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 19
+        width: 3
+        height: 5
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29c97acef1ec8e6c0800000000000000
+      internalID: -4113811623093232494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tool_TW_ClockNumbers_V2-Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 19
+        width: 3
+        height: 5
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d30f0af734953be0800000000000000
+      internalID: -1498128332891421736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tool_TW_ClockNumbers_V2-Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 19
+        width: 3
+        height: 5
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ac6b6dcc41c53540800000000000000
+      internalID: 4987104697990737059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tool_TW_ClockNumbers_V2-Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 19
+        width: 3
+        height: 5
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb61754bb4312ea20800000000000000
+      internalID: 3090053510198662843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tool_TW_ClockNumbers_V2-Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 11
+        width: 3
+        height: 5
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e01f035ee63cdc00800000000000000
+      internalID: 926676020555092192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tool_TW_ClockNumbers_V2-Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 11
+        width: 3
+        height: 5
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc326d26294b8f170800000000000000
+      internalID: 8212512461326525388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tool_TW_ClockNumbers_V2-Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 11
+        width: 3
+        height: 5
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77089b25fdf5c5950800000000000000
+      internalID: 6439126980003201143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tool_TW_ClockNumbers_V2-Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 11
+        width: 3
+        height: 5
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ff0f1b7e86888460800000000000000
+      internalID: 7244187947134554097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tool_TW_ClockNumbers_V2-Sheet_11
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 11
+        width: 3
+        height: 5
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de0e9e17d466367e0800000000000000
+      internalID: -1773461345444175635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tool_TW_ClockNumbers_V2-Sheet_12
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 11
+        width: 3
+        height: 5
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ecb6e854a07adc40800000000000000
+      internalID: 5537862542973910241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tool_TW_ClockNumbers_V2-Sheet_13
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 11
+        width: 3
+        height: 5
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c31062147cca0070800000000000000
+      internalID: 8073490080911594435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tool_TW_ClockNumbers_V2-Sheet_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3
+        width: 3
+        height: 5
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98f33fc7ba73cf730800000000000000
+      internalID: 4034160575892373385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tool_TW_ClockNumbers_V2-Sheet_15
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 3
+        width: 3
+        height: 5
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61d2c0fa943fb7c30800000000000000
+      internalID: 4358344562206059798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tool_TW_ClockNumbers_V2-Sheet_16
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 3
+        width: 3
+        height: 5
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c98a2324e92d199f0800000000000000
+      internalID: -463357709485168484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tool_TW_ClockNumbers_V2-Sheet_17
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 3
+        width: 3
+        height: 5
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c30759bd69f95b200800000000000000
+      internalID: 195237629138399292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tool_TW_ClockNumbers_V2-Sheet_18
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 3
+        width: 3
+        height: 5
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26ae2aa1b9a67b480800000000000000
+      internalID: -8883514525565654430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tool_TW_ClockNumbers_V2-Sheet_19
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 3
+        width: 3
+        height: 5
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a922ef9834a7c600800000000000000
+      internalID: 488539647700511141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
