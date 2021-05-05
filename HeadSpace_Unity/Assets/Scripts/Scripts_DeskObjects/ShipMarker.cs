@@ -48,14 +48,22 @@ public class ShipMarker : MovableMarker
     }
 
     // Fonction qui assigne les paramètres initiaux, appelée à partir du vaisseau
-    public void InitializeMarker(Ship linkedShip)
+    public void InitializeMarker(Ship linkedShip, bool spawnMarkerOnShipPosition)
     {
         this._linkedShip = linkedShip;
         this._shipCallsign = linkedShip.shipCallsign;
         UpdateMarkerText();
 
-        if (placeObjectRequest != null)
-            placeObjectRequest(this, ObjectSpawnZone.Desk);
+        if (!spawnMarkerOnShipPosition)
+        {
+            if (placeObjectRequest != null)
+                placeObjectRequest(this, ObjectSpawnZone.Desk);
+        }
+        else
+        {
+            this.transform.position = linkedShip.transform.position;
+        }
+
 
         if (shipMarkerReceived != null)
             shipMarkerReceived(this);

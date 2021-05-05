@@ -59,6 +59,7 @@ public class GridTile : MonoBehaviour
     [SerializeField] private GridTile[] _diagonalNeighbours = new GridTile[4];
 
     public int PlanetHeat { get; set; }
+    public int ShipStartHeat { get; private set; }
 
     // PathFinding
     public PathNode PathNode { get; set; }
@@ -402,6 +403,11 @@ public class GridTile : MonoBehaviour
     {
         PlanetHeat += amount;
         UpdateHeatText();
+    }
+
+    public void AddShipHeat(int amount)
+    {
+        ShipStartHeat += amount;
     }
 }
 

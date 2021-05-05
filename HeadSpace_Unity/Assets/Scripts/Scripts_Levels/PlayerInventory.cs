@@ -9,7 +9,7 @@ public class PlayerInventory : ScriptableObject
     public static Action<GameObject, ObjectSpawnZone> placeObjectRequest; 
 
     [Header("Starting objects")]
-    public List<ObjectToSpawn> playerStartingShips = new List<ObjectToSpawn>();
+    public List<ShipToSpawn> playerStartingShips = new List<ShipToSpawn>();
     public List<ObjectToSpawn> playerDeskObjects = new List<ObjectToSpawn>();
 
 
@@ -27,6 +27,10 @@ public class PlayerInventory : ScriptableObject
             for (int i = 0; i < obj.quantity; i++)
             {
                 GameObject go = Instantiate(obj.objectPrefab);
+                Ship ship = go.GetComponent<Ship>();
+
+                if (ship != null)
+                    ship.spawnMarkerOnShipPosition = obj.spawnMarkerOnShipPosition;
 
                 if (placer != null)
                     placer.PlaceObject(go, obj.spawnZone);
@@ -51,5 +55,14 @@ public struct ObjectToSpawn
 {
     public GameObject objectPrefab;
     public int quantity;
+    public ObjectSpawnZone spawnZone;
+}
+
+[System.Serializable]
+public struct ShipToSpawn
+{
+    public GameObject objectPrefab;
+    public int quantity;
+    public bool spawnMarkerOnShipPosition;
     public ObjectSpawnZone spawnZone;
 }

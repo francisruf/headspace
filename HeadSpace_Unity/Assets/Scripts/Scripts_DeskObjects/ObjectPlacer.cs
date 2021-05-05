@@ -11,7 +11,7 @@ public class ObjectPlacer : MonoBehaviour
     private DropZone_Outbox _outbox;
     private DropZone_Drawer[] _drawers;
     private Vector2 _currentCenterSpawnPos = Vector2.zero;
-    private Vector2 _currentDeskSpawnPos = new Vector2(-6f, 0f);
+    private Vector2 _currentDeskSpawnPos = new Vector2(6f, 0f);
 
     private void Awake()
     {
@@ -32,6 +32,7 @@ public class ObjectPlacer : MonoBehaviour
         ShopManager.placeObjectRequest += PlaceObject;
         PlayerInventory.placeObjectRequest += PlaceObject;
         LevelManager.preLoadDone += AssignReferences;
+        GridManager.newGameGrid += OnNewGrid;
     }
 
     private void OnDisable()
@@ -40,6 +41,13 @@ public class ObjectPlacer : MonoBehaviour
         ShopManager.placeObjectRequest -= PlaceObject;
         PlayerInventory.placeObjectRequest -= PlaceObject;
         LevelManager.preLoadDone -= AssignReferences;
+        GridManager.newGameGrid -= OnNewGrid;
+    }
+
+    private void OnNewGrid(GridInfo info)
+    {
+        Vector3 offset = new Vector3(1f, -0.5f, 0f);
+        _currentDeskSpawnPos = info.gameGridWorldBounds.max + offset;
     }
 
     private void Start()
@@ -187,7 +195,7 @@ public class ObjectPlacer : MonoBehaviour
         obj.transform.position = _currentDeskSpawnPos;
         obj.Select();
         obj.Deselect();
-        _currentDeskSpawnPos.x += obj.ObjSpriteRenderer.bounds.size.x + 0.1f;
+        _currentDeskSpawnPos.y -= obj.ObjSpriteRenderer.bounds.size.y + 0.1f;
     }
 
     private void PlaceObjectOutOfBounds(GameObject go)

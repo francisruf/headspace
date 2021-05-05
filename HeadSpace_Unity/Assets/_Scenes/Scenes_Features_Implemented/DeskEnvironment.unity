@@ -978,6 +978,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Logbook
       objectReference: {fileID: 0}
+    - target: {fileID: 1218995808782181053, guid: 62c5487795f17724bb2323258b25f938,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1218995808782181055, guid: 62c5487795f17724bb2323258b25f938,
         type: 3}
       propertyPath: m_RootOrder

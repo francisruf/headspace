@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -307,29 +307,44 @@ MonoBehaviour:
   allClientRules:
   - spawnTime: 1
     completionTimer: 600
+    startDistanceRating: 1
+    travelDistanceRating: 1
     distanceRating: 1
     challengeType: 2
-    specialCondition: 1
+    specialStartCondition: 1
+    specialEndCondition: 1
   - spawnTime: 15
     completionTimer: 600
+    startDistanceRating: 1
+    travelDistanceRating: 3
     distanceRating: 3
     challengeType: 2
-    specialCondition: 0
+    specialStartCondition: 1
+    specialEndCondition: 0
   - spawnTime: 45
     completionTimer: 600
+    startDistanceRating: 3
+    travelDistanceRating: 1
     distanceRating: 2
     challengeType: 2
-    specialCondition: 0
+    specialStartCondition: 0
+    specialEndCondition: 1
   - spawnTime: 60
     completionTimer: 600
+    startDistanceRating: 1
+    travelDistanceRating: 2
     distanceRating: 1
     challengeType: 2
-    specialCondition: 0
+    specialStartCondition: 0
+    specialEndCondition: 0
   - spawnTime: 45
     completionTimer: 600
+    startDistanceRating: 2
+    travelDistanceRating: 1
     distanceRating: 2
     challengeType: 2
-    specialCondition: 0
+    specialStartCondition: 0
+    specialEndCondition: 0
 --- !u!1 &841591217
 GameObject:
   m_ObjectHideFlags: 0

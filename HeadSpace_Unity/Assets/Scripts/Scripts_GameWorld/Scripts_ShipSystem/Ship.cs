@@ -30,6 +30,7 @@ public class Ship : MonoBehaviour
     // Linked Marker
     private ShipMarker linkedMarker;
     public GameObject markerPrefab;
+    [HideInInspector] public bool spawnMarkerOnShipPosition;
 
     //STATS
     [Header("Info")]
@@ -260,7 +261,7 @@ public class Ship : MonoBehaviour
         List<PathNode> pathNodes = PathFinder.instance.FindLinearPath(currentTileCoords.tileX, currentTileCoords.tileY, destCoords.tileX, destCoords.tileY, out nodeCost);
         if (pathNodes == null)
         {
-            CancelRoute("Invalid path to destination - " + destName + ". Movement between tiles must be HORIZONTAL or VERTICAL.");
+            CancelRoute("Invalid path to destination - " + destName + ".");
             yield break;
         }
 
@@ -359,18 +360,16 @@ public class Ship : MonoBehaviour
         shipStartingState = startingState;
         ChangeShipName(shipName, shipCallsign);
         ChangeShipState(startingState);
-
-        SpawnMarker();
     }
 
     // Function that spawns a marker when a ship is activated (in start) and assigns its info.
-    private void SpawnMarker()
+    public void SpawnMarker()
     {
         if (markerPrefab != null)
         {
             // For now, spawn a marker at center.
             linkedMarker = Instantiate(markerPrefab).GetComponentInChildren<ShipMarker>();
-            linkedMarker.InitializeMarker(this);
+            linkedMarker.InitializeMarker(this, spawnMarkerOnShipPosition);
         }
     }
 

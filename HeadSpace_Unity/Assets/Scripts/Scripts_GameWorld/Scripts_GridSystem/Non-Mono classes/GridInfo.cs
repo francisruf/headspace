@@ -18,6 +18,14 @@ public class GridInfo
     public GridQuadrants gameGridQuadrants;
     public int positiveQuadrantIndex;
 
+    public float TileWidth
+    {
+        get
+        {
+            return gameGridWorldBounds.size.x / gameGridSize.x;
+        }
+    }
+
     // CONSTRUCTEUR : Fonction qui sert à déclarer un nouvel objet de type GridInfo (avec new GridInfo(...))
     // - Et d'assigner les valeurs des variables, à l'aide des paramètres en appel (dans les parenthèses)
     public GridInfo(GridTile[,] gameGridTiles, Vector2Int gameGridSize, Bounds gameGridWorldBounds)

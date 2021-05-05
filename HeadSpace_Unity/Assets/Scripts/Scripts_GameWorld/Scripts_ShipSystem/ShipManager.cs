@@ -33,6 +33,9 @@ public class ShipManager : MonoBehaviour
     // État de debug (visibilité des vaisseaux)
     private bool shipDebugVisible = true;
 
+    [HideInInspector] public float shipHeatDistance;
+    public LayerMask tileLayerMask;
+
     private void Awake()
     {
         // Déclaration du singleton
@@ -183,14 +186,8 @@ public class ShipManager : MonoBehaviour
         string shipName = GetDefaultName(ship, out shipCallsign);
         ship.InitializeShip(shipName, shipCallsign, ship.shipStartingState);
         UpdateShipInventoryUI();
-
-        GridTile_DeployPoint deployPoint = DeployManager.instance.CurrentDeployTile;
-        if (deployPoint != null)
-        {
-
-                ship.transform.position = deployPoint.TileCenter;
-            
-        }
+        PlaceSingleShipOnMap(ship);
+        ship.SpawnMarker();
     }
 
     // Enlever un ship de l'inventaire
@@ -264,18 +261,92 @@ public class ShipManager : MonoBehaviour
         }
     }
 
-    public void AssignShipsToDeploy()
+    private void PlaceSingleShipOnMap(Ship ship)
     {
-        if (DeployManager.instance != null)
+        List<GridTile> allCandidateTiles = new List<GridTile>();
+        List<GridTile> finalCandidates = new List<GridTile>();
+        int minShipHeat = int.MaxValue;
+        foreach (var tile in GridCoords.CurrentGridInfo.gameGridTiles)
         {
-            GridTile_DeployPoint deployPoint = DeployManager.instance.CurrentDeployTile;
-            if (deployPoint != null)
+            if (tile.tileType == 0)
             {
-                foreach (var ship in shipInventory)
+                allCandidateTiles.Add(tile);
+                if (tile.ShipStartHeat < minShipHeat)
                 {
-                    ship.transform.position = deployPoint.TileCenter;
+                    minShipHeat = tile.ShipStartHeat;
                 }
             }
+        }
+
+        foreach (var sh in shipInventory)
+        {
+            if (sh == ship)
+                continue;
+
+            TileCoordinates shipPos = GridCoords.FromWorldToTilePosition(sh.transform.position);
+            if (!GridCoords.IsInGrid(shipPos.tileX, shipPos.tileY))
+                continue;
+
+            GridTile tileToRemove = GridCoords.CurrentGridInfo.gameGridTiles[shipPos.tileX, shipPos.tileY];
+            allCandidateTiles.Remove(tileToRemove);
+        }
+
+        int count = 0;
+        foreach (var tile in allCandidateTiles)
+        {
+            if (tile.ShipStartHeat <= minShipHeat + 2)
+            {
+                finalCandidates.Add(tile);
+                count++;
+            }
+        }
+        int randomIndex = UnityEngine.Random.Range(0, count);
+        Vector2 shipPosition = finalCandidates[randomIndex].TileCenter;
+        TileCoordinates shipCoords = finalCandidates[randomIndex].TileCoordinates;
+        ship.transform.position = shipPosition;
+
+        // Add heat, one circle cast per heat distance
+        for (int j = 1; j <= shipHeatDistance; j++)
+        {
+            float heatCastRadius = GridCoords.CurrentGridInfo.TileWidth * j;
+
+            Collider2D[] allHits = Physics2D.OverlapCircleAll(shipPosition, heatCastRadius, tileLayerMask);
+            foreach (var hit in allHits)
+            {
+                GridTile candidate = hit.GetComponent<GridTile>();
+                if (hit != null)
+                {
+                    candidate.AddShipHeat(1);
+                }
+            }
+        }
+
+        foreach (var tile in allCandidateTiles)
+        {
+            // If same X
+            if (tile.tileX == shipCoords.tileX)
+                // If not exact same tile
+                if (tile.tileY != shipCoords.tileY)
+                {
+                    // If neighbour
+                    if (tile.tileY == shipCoords.tileY - 1 || tile.tileY == shipCoords.tileY + 1)
+                        tile.AddShipHeat(2);
+                    // If other
+                    else
+                        tile.AddShipHeat(2);
+                }
+
+            if (tile.tileY == shipCoords.tileY)
+                // If not exact same tile
+                if (tile.tileX != shipCoords.tileX)
+                {
+                    // If neighbour
+                    if (tile.tileX == shipCoords.tileX - 1 || tile.tileX == shipCoords.tileX + 1)
+                        tile.AddShipHeat(2);                    
+                    // If other
+                    else
+                        tile.AddShipHeat(2);
+                }
         }
     }
 }

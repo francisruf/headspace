@@ -125,7 +125,7 @@ public class GridManager : MonoBehaviour
         GenerateMapData();
         GenerateMapTiles();
         GenerateEnvironment();
-        GenerateDeployPoint();
+        //GenerateDeployPoint();
         //GenerateStartingObjects();
         //Array.Sort(newSegmentAfterCount);
 
@@ -809,6 +809,22 @@ public struct TileCoordinates
     {
         this.tileX = tileX;
         this.tileY = tileY;
+    }
+
+    public static bool operator ==(TileCoordinates a, TileCoordinates b)
+    {
+        if (a.tileX == b.tileX && a.tileX == b.tileY)
+            return true;
+
+        return false;
+    }
+
+    public static bool operator !=(TileCoordinates a, TileCoordinates b)
+    {
+        if (a.tileX == b.tileX && a.tileX == b.tileY)
+            return false;
+
+        return true;
     }
 }
 

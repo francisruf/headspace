@@ -159,17 +159,7 @@ public class ContractManager : MonoBehaviour
         // Client settings
         // Start planet
         List<GridTile_Planet> allCandidatePlanets = new List<GridTile_Planet>(PlanetManager.instance.AllPlanetTiles);
-        GridTile_Planet startPlanet = null;
-
-        if (_clientRules[_currentRuleIndex].specialCondition == SpecialConditions.ClosestPlanetToShip)
-        {
-            startPlanet = GetClosestPlanet(allCandidatePlanets);
-        }
-        else
-        {
-            List<GridTile_Planet> candidateStartPlanets = GetStartPlanets(allCandidatePlanets);
-            startPlanet = ExtractRandomPlanet(candidateStartPlanets);
-        }
+        GridTile_Planet startPlanet = GetStartPlanet(allCandidatePlanets);
 
         if (startPlanet == null)
         {
@@ -181,9 +171,8 @@ public class ContractManager : MonoBehaviour
         for (int i = 0; i < contractSize; i++)
         {
             // End planet
-            List<GridTile_Planet> candidateEndPlanets = GetEndPlanets(startPlanet, allCandidatePlanets);
-            List<GridTile_Planet> distanceCandidates = GetPlanetsByDistance(allCandidatePlanets, candidateEndPlanets, startPlanet);
-            GridTile_Planet endPlanet = ExtractRandomPlanet(distanceCandidates);
+            //List<GridTile_Planet> distanceCandidates = GetPlanetsByDistance(allCandidatePlanets, candidateEndPlanets, startPlanet);
+            GridTile_Planet endPlanet = GetEndPlanet(allCandidatePlanets, startPlanet);
 
             allClients.Add(CreateClient(startPlanet, endPlanet));
             allCandidatePlanets.Remove(endPlanet);
@@ -196,6 +185,8 @@ public class ContractManager : MonoBehaviour
                 _currentRuleIndex++;
             else
                 _currentRuleIndex = UnityEngine.Random.Range(0, ruleCount);
+
+            startPlanet.AddContractHeat(1);
         }
 
         if (contractSize == 1)
@@ -219,15 +210,32 @@ public class ContractManager : MonoBehaviour
             newContractReceived();
     }
 
-    private GridTile_Planet ExtractRandomPlanet(List<GridTile_Planet> originalList)
+    private GridTile_Planet GetRandomPlanet(List<GridTile_Planet> targetList)
     {
-        int randomIndex = UnityEngine.Random.Range(0, originalList.Count);
-        GridTile_Planet target = originalList[randomIndex];
-        originalList.Remove(target);
+        int randomIndex = UnityEngine.Random.Range(0, targetList.Count);
+        GridTile_Planet target = targetList[randomIndex];
         return target;
     }
 
-    private GridTile_Planet GetClosestPlanet(List<GridTile_Planet> completeList)
+    private GridTile_Planet GetStartPlanet(List<GridTile_Planet> completeList)
+    {
+        if (_clientRules[_currentRuleIndex].specialStartCondition == SpecialConditions.ClosestPlanet)
+        {
+            return GetClosestStartPlanet(completeList);
+        }
+        else if (_clientRules[_currentRuleIndex].startDistanceRating == 0)
+        {
+            List<GridTile_Planet> candidateStartPlanets = GetStartPlanetsByHeat(completeList);
+            return GetRandomPlanet(candidateStartPlanets);
+        }
+        else
+        {
+            List<GridTile_Planet> candidateStartPlanets = GetStartPlanetByDistance(completeList);
+            return GetRandomPlanet(candidateStartPlanets);
+        }
+    }
+
+    private GridTile_Planet GetClosestStartPlanet(List<GridTile_Planet> completeList)
     {
         if (ShipManager.instance == null)
             return null;
@@ -244,7 +252,221 @@ public class ContractManager : MonoBehaviour
             for (int i = 0; i < count; i++)
             {
                 TileCoordinates planetPos = completeList[i].TileCoordinates;
-                int distanceRating = PathFinder.instance.GetDistanceRating(shipPos.tileX, shipPos.tileY, planetPos.tileX, planetPos.tileY);
+                if (shipPos != planetPos)
+                {
+                    int distanceRating = PathFinder.instance.GetDistanceRating(shipPos.tileX, shipPos.tileY, planetPos.tileX, planetPos.tileY, true);
+                    if (distanceRating < minRating)
+                    {
+                        minRating = distanceRating;
+                        targetIndex = i;
+                    }
+                    //Debug.Log("Distance from " + ship.shipName + " to " + completeList[i].PlanetName + " : " + distanceRating);
+                }
+            }
+        }
+
+        if (targetIndex < count)
+        {
+            Debug.Log("CLOSEST PLANET : " + completeList[targetIndex].PlanetName);
+
+            return completeList[targetIndex];
+        }
+
+        return null;
+    }
+
+    private List<GridTile_Planet> GetStartPlanetsByHeat(List<GridTile_Planet> completeList)
+    {
+        //StartPlanetState startState = _clientRules[_currentRuleIndex].startPlanetState;
+        int count = 0;
+        int minHeat = int.MaxValue;
+        List<GridTile_Planet> candidatePlanets = new List<GridTile_Planet>();
+
+        foreach (var planet in completeList)
+        {
+            if (planet.ContractHeat < minHeat)
+            {
+                minHeat = planet.ContractHeat;
+            }
+        }
+
+        foreach (var planet in completeList)
+        {
+            int RandomChance = UnityEngine.Random.Range(0, 2);
+            if (planet.ContractHeat <= minHeat + RandomChance)
+            {
+                candidatePlanets.Add(planet);
+                count++;
+            }
+        }
+
+        if (count > 0)
+            return candidatePlanets;
+        else
+            return new List<GridTile_Planet>(completeList);
+    }
+
+    private List<GridTile_Planet> GetStartPlanetByDistance(List<GridTile_Planet> completeList)
+    {
+        if (ShipManager.instance == null)
+            return null;
+
+        List<int> planetDistances = new List<int>();
+        List<Ship> allShips = ShipManager.instance.AllShips;
+        int count = 0;
+
+        foreach (var planet in completeList)
+        {
+            TileCoordinates planetPos = planet.TileCoordinates;
+            int minDistance = int.MaxValue;
+
+            foreach (var ship in allShips)
+            {
+                TileCoordinates shipPos = GridCoords.FromWorldToTilePosition(ship.transform.position);
+                if (shipPos != planetPos)
+                {
+                    int distanceRating = PathFinder.instance.GetDistanceRating(shipPos.tileX, shipPos.tileY, planetPos.tileX, planetPos.tileY, true);
+                    if (distanceRating < minDistance)
+                        minDistance = distanceRating;
+                }
+            }
+            planet.CurrentDistanceRating = minDistance;
+            planetDistances.Add(minDistance);
+            count++;
+        }
+        planetDistances.Sort();
+
+        int targetDistanceRating = _clientRules[_currentRuleIndex].startDistanceRating;
+
+        List<GridTile_Planet> shortDistancePlanets = new List<GridTile_Planet>();
+        List<GridTile_Planet> mediumDistancePlanets = new List<GridTile_Planet>();
+        List<GridTile_Planet> longDistancePlanets = new List<GridTile_Planet>();
+        List<GridTile_Planet> candidates = new List<GridTile_Planet>();
+        int shortCount = 0;
+        int mediumCount = 0;
+        int longCount = 0;
+
+        int third = planetDistances[(count / 3) - 1];
+        int twoThirds = planetDistances[(count / 3 * 2) - 1];
+
+        foreach (var planet in completeList)
+        {
+            if (planet.CurrentDistanceRating <= third)
+            {
+                Debug.Log("SHORT DIST PLANET : " + planet.PlanetName);
+                shortDistancePlanets.Add(planet);
+                shortCount++;
+            }
+            else if (planet.CurrentDistanceRating > twoThirds)
+            {
+                Debug.Log("MEDIUM DIST PLANET : " + planet.PlanetName);
+                longDistancePlanets.Add(planet);
+                longCount++;
+            }
+            else
+            {
+                Debug.Log("LONG DIST PLANET : " + planet.PlanetName);
+                mediumDistancePlanets.Add(planet);
+                mediumCount++;
+            }
+        }
+
+        if (targetDistanceRating == 1)
+        {
+            if (shortCount > 0)
+                candidates = shortDistancePlanets;
+
+            else if (mediumCount > 0)
+                candidates = mediumDistancePlanets;
+
+            else if (longCount > 0)
+                candidates = longDistancePlanets;
+
+            else
+            {
+                candidates = new List<GridTile_Planet>(completeList);
+            }
+        }
+
+        else if (targetDistanceRating == 2)
+        {
+            if (mediumCount > 0)
+                candidates = mediumDistancePlanets;
+            else
+            {
+                List<GridTile_Planet> shortLong = new List<GridTile_Planet>();
+                int shortLongCount = 0;
+                foreach (var planet in shortDistancePlanets)
+                {
+                    shortLong.Add(planet);
+                    shortLongCount++;
+                }
+                foreach (var planet in longDistancePlanets)
+                {
+                    shortLong.Add(planet);
+                    shortLongCount++;
+                }
+
+                if (shortLongCount > 0)
+                {
+                    candidates = shortLong;
+                }
+                else
+                {
+                    candidates = new List<GridTile_Planet>(completeList);
+                }
+            }
+
+        }
+        else if (targetDistanceRating == 3)
+        {
+            if (longCount > 0)
+                candidates = longDistancePlanets;
+
+            else if (mediumCount > 0)
+                candidates = mediumDistancePlanets;
+
+            else if (shortCount > 0)
+                candidates = shortDistancePlanets;
+
+            else
+            {
+                candidates = new List<GridTile_Planet>(completeList);
+            }
+        }
+        return candidates;
+    }
+
+    private GridTile_Planet GetEndPlanet(List<GridTile_Planet> completeList, GridTile_Planet startPlanet)
+    {
+        if (_clientRules[_currentRuleIndex].specialEndCondition == SpecialConditions.ClosestPlanet)
+        {
+            return GetClosestEndPlanet(completeList, startPlanet);
+        }
+        else if (_clientRules[_currentRuleIndex].travelDistanceRating == 0)
+        {
+            return GetRandomEndPlanet(completeList, startPlanet);
+        }
+        else
+        {
+            List<GridTile_Planet> candidates = GetEndPlanetsByDistance(completeList, startPlanet);
+            return GetRandomPlanet(candidates);
+        }
+    }
+
+    private GridTile_Planet GetClosestEndPlanet(List<GridTile_Planet> completeList, GridTile_Planet startPlanet)
+    {
+        int count = completeList.Count;
+        int targetIndex = int.MaxValue;
+        int minRating = int.MaxValue;
+
+        TileCoordinates startPos = startPlanet.TileCoordinates;
+        for (int i = 0; i < count; i++)
+        {
+            if (completeList[i] != startPlanet)
+            {
+                TileCoordinates planetPos = completeList[i].TileCoordinates;
+                int distanceRating = PathFinder.instance.GetDistanceRating(startPos.tileX, startPos.tileY, planetPos.tileX, planetPos.tileY, true);
                 if (distanceRating < minRating)
                 {
                     minRating = distanceRating;
@@ -255,122 +477,44 @@ public class ContractManager : MonoBehaviour
 
         if (targetIndex < count)
         {
+            //Debug.Log("CLOSEST PLANET : " + completeList[targetIndex].PlanetName);
             return completeList[targetIndex];
         }
 
         return null;
     }
 
-    private List<GridTile_Planet> GetStartPlanets(List<GridTile_Planet> completeList)
+    private GridTile_Planet GetRandomEndPlanet(List<GridTile_Planet> completeList, GridTile_Planet startPlanet)
     {
-        //StartPlanetState startState = _clientRules[_currentRuleIndex].startPlanetState;
+        List<GridTile_Planet> candidates = new List<GridTile_Planet>(completeList);
+        candidates.Remove(startPlanet);
+
+        return candidates[UnityEngine.Random.Range(0, candidates.Count)];
+    }
+
+    private List<GridTile_Planet> GetEndPlanetsByDistance(List<GridTile_Planet> completeList, GridTile_Planet startPlanet)
+    {
+        List<int> planetDistances = new List<int>();
+        List<Ship> allShips = ShipManager.instance.AllShips;
         int count = 0;
-        List<GridTile_Planet> candidatePlanets = new List<GridTile_Planet>();
 
         foreach (var planet in completeList)
         {
-            candidatePlanets.Add(planet);
+            if (planet == startPlanet)
+                continue;
+
+            TileCoordinates planetPos = planet.TileCoordinates;
+            TileCoordinates startPos = startPlanet.TileCoordinates;
+            int distanceRating = PathFinder.instance.GetDistanceRating(startPos.tileX, startPos.tileY, planetPos.tileX, planetPos.tileY, true);
+
+            planet.CurrentDistanceRating = distanceRating;
+            planetDistances.Add(distanceRating);
             count++;
         }
+        planetDistances.Sort();
 
-        //if (startState == StartPlanetState.Random)
-        //{
-        //    foreach (var planet in completeList)
-        //    {
-        //        candidatePlanets.Add(planet);
-        //    }
-        //}
-        //else if (startState == StartPlanetState.Found)
-        //{
-        //    foreach (var planet in completeList)
-        //    {
-        //        if (planet.PlanetFound)
-        //        {
-        //            candidatePlanets.Add(planet);
-        //            count++;
-        //        }
-        //    }
-        //}
-        //else if (startState == StartPlanetState.NotFound)
-        //{
-        //    foreach (var planet in completeList)
-        //    {
-        //        if (!planet.PlanetFound)
-        //        {
-        //            candidatePlanets.Add(planet);
-        //            count++;
-        //        }
-        //    }
-        //}
-
-        if (count > 0)
-            return candidatePlanets;
-        else
-            return new List<GridTile_Planet>(completeList);
-    }
-
-    private List<GridTile_Planet> GetEndPlanets(GridTile_Planet startPlanet, List<GridTile_Planet> completeList)
-    {
-        //EndPlanetState endState = _clientRules[_currentRuleIndex].endPlanetState;
-        int count = 0;
-        List<GridTile_Planet> candidatePlanets = new List<GridTile_Planet>();
-
-        foreach (var planet in completeList)
-        {
-            if (planet != startPlanet)
-            {
-                candidatePlanets.Add(planet);
-                count++;
-            }
-                
-        }
-
-        //if (endState == EndPlanetState.Random)
-        //{
-        //    foreach (var planet in completeList)
-        //    {
-        //        if (planet != startPlanet)
-        //            candidatePlanets.Add(planet);
-        //    }
-        //}
-        //else if (endState == EndPlanetState.Found)
-        //{
-        //    foreach (var planet in completeList)
-        //    {
-        //        if (planet != startPlanet)
-        //            if (planet.PlanetFound)
-        //            {
-        //                candidatePlanets.Add(planet);
-        //                count++;
-        //            }
-        //    }
-        //}
-        //else if (endState == EndPlanetState.NotFound)
-        //{
-        //    foreach (var planet in completeList)
-        //    {
-        //        if (planet != startPlanet)
-        //            if (!planet.PlanetFound)
-        //            {
-        //                candidatePlanets.Add(planet);
-        //                count++;
-        //            }
-        //    }
-        //}
-
-        if (count > 0)
-            return candidatePlanets;
-        else
-        {
-            candidatePlanets = new List<GridTile_Planet>(completeList);
-            candidatePlanets.Remove(startPlanet);
-            return candidatePlanets;
-        }
-    }
-
-    private List<GridTile_Planet> GetPlanetsByDistance(List<GridTile_Planet> completeList, List<GridTile_Planet> listToModify, GridTile_Planet startPlanet)
-    {
-        int targetDistanceRating = _clientRules[_currentRuleIndex].distanceRating;
+        // CHANGE THIS
+        int targetDistanceRating = _clientRules[_currentRuleIndex].travelDistanceRating;
 
         List<GridTile_Planet> shortDistancePlanets = new List<GridTile_Planet>();
         List<GridTile_Planet> mediumDistancePlanets = new List<GridTile_Planet>();
@@ -380,32 +524,32 @@ public class ContractManager : MonoBehaviour
         int mediumCount = 0;
         int longCount = 0;
 
-        List<int> distances = new List<int>();
-        int count = 0;
+        int third = planetDistances[(count / 3) - 1];
+        int twoThirds = planetDistances[(count / 3 * 2) - 1];
+        //Debug.Log("----- END PLANETS 1/3 DIST : " + third);
+        //Debug.Log("----- END PLANETS 2/3 DIST : " + twoThirds);
+
+
         foreach (var planet in completeList)
         {
-            distances.Add(planet.DistanceRating);
-            count++;
-        }
-        distances.Sort();
+            if (planet == startPlanet)
+                continue;
 
-        int third = distances[(count / 3) - 1];
-        int twoThirds = distances[(count / 3 * 2) - 1];
-
-        foreach (var planet in listToModify)
-        {
-            if (planet.DistanceRating <= third)
+            if (planet.CurrentDistanceRating < third)
             {
+                //Debug.Log("SHORT DIST PLANET (" + planet.CurrentDistanceRating + ") : " + planet.PlanetName);
                 shortDistancePlanets.Add(planet);
                 shortCount++;
             }
-            else if (planet.DistanceRating > twoThirds)
+            else if (planet.CurrentDistanceRating >= twoThirds)
             {
+                //Debug.Log("LONG DIST PLANET (" + planet.CurrentDistanceRating + ") : " + planet.PlanetName);
                 longDistancePlanets.Add(planet);
                 longCount++;
             }
             else
             {
+                //Debug.Log("MEDIUM DIST PLANET (" + planet.CurrentDistanceRating + ") : " + planet.PlanetName);
                 mediumDistancePlanets.Add(planet);
                 mediumCount++;
             }
@@ -479,6 +623,124 @@ public class ContractManager : MonoBehaviour
         }
         return candidates;
     }
+
+    //private List<GridTile_Planet> GetPlanetsByDistance(List<GridTile_Planet> completeList, List<GridTile_Planet> listToModify, GridTile_Planet startPlanet)
+    //{
+    //    int targetDistanceRating = _clientRules[_currentRuleIndex].distanceRating;
+
+    //    List<GridTile_Planet> shortDistancePlanets = new List<GridTile_Planet>();
+    //    List<GridTile_Planet> mediumDistancePlanets = new List<GridTile_Planet>();
+    //    List<GridTile_Planet> longDistancePlanets = new List<GridTile_Planet>();
+    //    List<GridTile_Planet> candidates = new List<GridTile_Planet>();
+    //    int shortCount = 0;
+    //    int mediumCount = 0;
+    //    int longCount = 0;
+
+    //    List<int> distances = new List<int>();
+    //    int count = 0;
+    //    foreach (var planet in completeList)
+    //    {
+    //        distances.Add(planet.DistanceRating);
+    //        count++;
+    //    }
+    //    distances.Sort();
+
+    //    for (int i = 0; i < count; i++)
+    //    {
+    //        Debug.Log(distances[i]);
+    //    }
+
+    //    int third = distances[(count / 3) - 1];
+    //    int twoThirds = distances[(count / 3 * 2) - 1];
+
+    //    foreach (var planet in listToModify)
+    //    {
+    //        if (planet.DistanceRating <= third)
+    //        {
+    //            Debug.Log("SHORT DIST PLANET : " + planet.PlanetName);
+    //            shortDistancePlanets.Add(planet);
+    //            shortCount++;
+    //        }
+    //        else if (planet.DistanceRating > twoThirds)
+    //        {
+    //            longDistancePlanets.Add(planet);
+    //            longCount++;
+    //        }
+    //        else
+    //        {
+    //            mediumDistancePlanets.Add(planet);
+    //            mediumCount++;
+    //        }
+    //    }
+
+    //    if (targetDistanceRating == 1)
+    //    {
+    //        if (shortCount > 0)
+    //            candidates = shortDistancePlanets;
+
+    //        else if (mediumCount > 0)
+    //            candidates = mediumDistancePlanets;
+
+    //        else if (longCount > 0)
+    //            candidates = longDistancePlanets;
+
+    //        else
+    //        {
+    //            candidates = new List<GridTile_Planet>(completeList);
+    //            candidates.Remove(startPlanet);
+    //        }
+    //    }
+
+    //    else if (targetDistanceRating == 2)
+    //    {
+    //        if (mediumCount > 0)
+    //            candidates = mediumDistancePlanets;
+    //        else
+    //        {
+    //            List<GridTile_Planet> shortLong = new List<GridTile_Planet>();
+    //            int shortLongCount = 0;
+    //            foreach (var planet in shortDistancePlanets)
+    //            {
+    //                shortLong.Add(planet);
+    //                shortLongCount++;
+    //            }
+    //            foreach (var planet in longDistancePlanets)
+    //            {
+    //                shortLong.Add(planet);
+    //                shortLongCount++;
+    //            }
+
+    //            if (shortLongCount > 0)
+    //            {
+    //                candidates = shortLong;
+    //            }
+    //            else
+    //            {
+    //                candidates = new List<GridTile_Planet>(completeList);
+    //                candidates.Remove(startPlanet);
+    //            }
+    //        }
+
+    //    }
+    //    else if (targetDistanceRating == 3)
+    //    {
+    //        if (longCount > 0)
+    //            candidates = longDistancePlanets;
+
+    //        else if (mediumCount > 0)
+    //            candidates = mediumDistancePlanets;
+
+    //        else if (shortCount > 0)
+    //            candidates = shortDistancePlanets;
+
+    //        else
+    //        {
+    //            candidates = new List<GridTile_Planet>(completeList);
+    //            candidates.Remove(startPlanet);
+    //        }
+    //    }
+    //    return candidates;
+    //}
 
     private Client CreateClient(GridTile_Planet startPlanet, GridTile_Planet endPlanet)
     {

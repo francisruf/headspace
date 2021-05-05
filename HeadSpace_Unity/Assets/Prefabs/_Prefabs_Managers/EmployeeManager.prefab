@@ -49,9 +49,9 @@ MonoBehaviour:
     second: {fileID: 11400000, guid: a17bcb461da97d84f875f680de283bec, type: 2}
     third: {fileID: 11400000, guid: d19966bc0c7d59c4aa40aec9561eff48, type: 2}
   pointsPerLevels:
-  - first: 60
-    second: 45
-    third: 30
+  - first: 0
+    second: 0
+    third: 0
   - first: 60
     second: 45
     third: 30

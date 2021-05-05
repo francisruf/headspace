@@ -14,6 +14,7 @@ public class PathNode
     public int fCost;
 
     public bool isTraversable;
+    public bool isSafe;
     public PathNode cameFromNode;
 
     public PathNode(GridTile[,] grid, GridTile tile, int x, int y)
@@ -23,9 +24,13 @@ public class PathNode
         this.x = x;
         this.y = y;
         isTraversable = true;
+        isSafe = true;
 
         if (tile.tileType == 1)
             isTraversable = false;
+
+        if (tile.tileType == 4)
+            isSafe = false;
     }
 
     public void CalculateFCost()

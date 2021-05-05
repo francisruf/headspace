@@ -12,10 +12,19 @@ public class ClientRules
     public int completionTimer;
     //public StartPlanetState startPlanetState;
     //public EndPlanetState endPlanetState;
+    [Tooltip("Distance rating (1-3) calculated from all ship positions. 0 == Random")]
+    [Range(0, 3)]
+    public int startDistanceRating;
+    [Tooltip("Distance rating (1-3) calculated from start planet. 0 == Random")]
+    [Range(0, 3)]
+    public int travelDistanceRating;
     [Range(1, 3)]
     public int distanceRating;
     public ChallengeType challengeType;
-    public SpecialConditions specialCondition;
+    public SpecialConditions specialStartCondition;
+    public SpecialConditions specialEndCondition;
+
+    // start and end condition
 }
 
 public enum StartPlanetState
@@ -42,5 +51,5 @@ public enum ChallengeType
 public enum SpecialConditions
 {
     None,
-    ClosestPlanetToShip
+    ClosestPlanet
 }

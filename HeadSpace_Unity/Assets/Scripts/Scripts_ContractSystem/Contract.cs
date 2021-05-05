@@ -109,6 +109,7 @@ public abstract class Contract : MonoBehaviour
             if (client.currentState != ClientState.Debarked)
                 return;
         }
+
         Debug.Log("CONTRACT COMPLETE! HURRAY!");
         if (contractComplete != null)
             contractComplete(pointsReward);
@@ -120,13 +121,15 @@ public abstract class Contract : MonoBehaviour
     {
         foreach (var client in _allClients)
         {
-            pointsReward += GetChallengePoints(settings, client);
+            pointsReward += 10;
+
+            //pointsReward += GetChallengePoints(settings, client);
             //Debug.Log("Challenge points : " + GetChallengePoints(settings, client));
-            pointsReward += GetStartPlanetPoints(settings, client);
+            //pointsReward += GetStartPlanetPoints(settings, client);
             //Debug.Log("Start planet points : " + GetStartPlanetPoints(settings, client));
-            pointsReward += GetEndPlanetPoints(settings, client);
+            //pointsReward += GetEndPlanetPoints(settings, client);
             //Debug.Log("End planet points : " + GetEndPlanetPoints(settings, client));
-            pointsReward += GetDistanceTravelledPoints(settings, client);
+            //pointsReward += GetDistanceTravelledPoints(settings, client);
             //Debug.Log("DistanceTravelled points : " + GetDistanceTravelledPoints(settings, client));
         }
         rewardsText.text = pointsReward + "M";
@@ -145,54 +148,57 @@ public abstract class Contract : MonoBehaviour
 
     private int GetStartPlanetPoints(ContractPointsSettings settings, Client client)
     {
-        List<GridTile_Planet> allPlanets = PlanetManager.instance.AllPlanetTiles;
-        List<int> distances = new List<int>();
-        int count = 0;
-        foreach (var planet in allPlanets)
-        {
-            distances.Add(planet.DistanceRating);
-            count++;
-        }
-        distances.Sort();
+        //List<GridTile_Planet> allPlanets = PlanetManager.instance.AllPlanetTiles;
+        //List<int> distances = new List<int>();
+        //int count = 0;
+        //foreach (var planet in allPlanets)
+        //{
+        //    distances.Add(planet.DistanceRating);
+        //    count++;
+        //}
+        //distances.Sort();
 
-        int index = distances.IndexOf(client.startPlanet.DistanceRating);
+        //int index = distances.IndexOf(client.startPlanet.DistanceRating);
 
-        int third = (count / 3) + 1;
-        int twoThirds = ((count / 3) * 2) + 1;
+        //int third = (count / 3) + 1;
+        //int twoThirds = ((count / 3) * 2) + 1;
 
-        if (index <= third)
-            return settings.startShortDistancePoints;
-        else if (index > twoThirds)
-            return settings.startLongDistancePoints;
-        else
-            return settings.startMediumDistancePoints;
+        //if (index <= third)
+        //    return settings.startShortDistancePoints;
+        //else if (index > twoThirds)
+        //    return settings.startLongDistancePoints;
+        //else
+        //    return settings.startMediumDistancePoints;
+        return 0;
     }
 
     private int GetEndPlanetPoints(ContractPointsSettings settings, Client client)
     {
-        if (client.endPlanet != null)
-        {
-            List<GridTile_Planet> allPlanets = PlanetManager.instance.AllPlanetTiles;
-            List<int> distances = new List<int>();
-            int count = 0;
-            foreach (var planet in allPlanets)
-            {
-                distances.Add(planet.DistanceRating);
-                count++;
-            }
-            distances.Sort();
+        //if (client.endPlanet != null)
+        //{
+        //    List<GridTile_Planet> allPlanets = PlanetManager.instance.AllPlanetTiles;
+        //    List<int> distances = new List<int>();
+        //    int count = 0;
+        //    foreach (var planet in allPlanets)
+        //    {
+        //        distances.Add(planet.DistanceRating);
+        //        count++;
+        //    }
+        //    distances.Sort();
 
-            int index = distances.IndexOf(client.endPlanet.DistanceRating);
+        //    int index = distances.IndexOf(client.endPlanet.DistanceRating);
 
-            int third = (count / 3) + 1;
-            int twoThirds = ((count / 3) * 2) + 1;
+        //    int third = (count / 3) + 1;
+        //    int twoThirds = ((count / 3) * 2) + 1;
 
-            if (index <= third)
-                return settings.startShortDistancePoints;
-            else if (index > twoThirds)
-                return settings.startLongDistancePoints;
-        }
-        return settings.startMediumDistancePoints;
+        //    if (index <= third)
+        //        return settings.startShortDistancePoints;
+        //    else if (index > twoThirds)
+        //        return settings.startLongDistancePoints;
+        //}
+        //return settings.startMediumDistancePoints;
+
+        return 0;
     }
 
     private int GetDistanceTravelledPoints(ContractPointsSettings settings, Client client)
@@ -202,7 +208,7 @@ public abstract class Contract : MonoBehaviour
         if (client.endPlanet != null)
         {
             List<PathNode> pathToTravel = PathFinder.instance.FindPath(
-                client.endPlanet.tileX, client.endPlanet.tileY, client.startPlanet.tileX, client.startPlanet.tileY);
+                client.endPlanet.tileX, client.endPlanet.tileY, client.startPlanet.tileX, client.startPlanet.tileY, true);
 
             if (pathToTravel != null)
                 nodeCount = pathToTravel.Count;

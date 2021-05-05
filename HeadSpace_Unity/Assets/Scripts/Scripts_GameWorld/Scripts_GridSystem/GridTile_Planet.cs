@@ -19,12 +19,13 @@ public class GridTile_Planet : GridTile, PointOfInterest
     private Animator _planetAnimator;
     private SpriteMask _planetMask;
 
-    public int DistanceRating { get; private set; }
+    public int CurrentDistanceRating { get; set; }
     public bool PlanetFound { get; private set; }
 
     public List<Sprite> planetMaskSprites;
-
     private MapPointOfInterest _mapPointOfInterest;
+
+    public int ContractHeat { get; private set; }
 
     protected override void Awake()
     {
@@ -71,20 +72,8 @@ public class GridTile_Planet : GridTile, PointOfInterest
             _planetNameText.text = PlanetName;
             _planetNameText.ForceMeshUpdate();
         }
-
-        CalculateDistance();
     }
 
-    private void CalculateDistance()
-    {
-        GridTile_DeployPoint point = DeployManager.instance.CurrentDeployTile;
-        List<PathNode> pathToDeploy = PathFinder.instance.FindPath(tileX, tileY, point.tileX, point.tileY);
-
-        if (pathToDeploy != null)
-            DistanceRating = pathToDeploy[pathToDeploy.Count-1].fCost;
-        else
-            DistanceRating = 1000;
-    }
 
     private void PlacePlanetRenderer()
     {
@@ -155,5 +144,10 @@ public class GridTile_Planet : GridTile, PointOfInterest
     public void SetStartingState(MapPointOfInterest point, bool isVisible)
     {
         _mapPointOfInterest.SetStartingState(isVisible, this);
+    }
+
+    public void AddContractHeat(int amount)
+    {
+        ContractHeat += amount;
     }
 }

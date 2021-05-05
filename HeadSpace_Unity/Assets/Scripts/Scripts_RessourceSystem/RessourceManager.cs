@@ -15,7 +15,7 @@ public class RessourceManager : MonoBehaviour
 
     // LOCAL SECTOR RESSOURCES
     private int _contractsCompleted;
-    private int _currentCredits;
+    public int _currentCredits;
     public int CurrentCredits { get { return _currentCredits; } }
 
     private void Awake()
@@ -30,18 +30,6 @@ public class RessourceManager : MonoBehaviour
         {
             instance = this;
         }
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            OnContractComplete(1);
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            OnContractComplete(23);
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-            OnContractComplete(143);
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-            OnContractComplete(3210);
     }
 
     private void OnEnable()

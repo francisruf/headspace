@@ -43,3 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93e92348ae84d65488b1b45ebf847369, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shipHeatDistance: 0
+  tileLayerMask:
+    serializedVersion: 2
+    m_Bits: 32768

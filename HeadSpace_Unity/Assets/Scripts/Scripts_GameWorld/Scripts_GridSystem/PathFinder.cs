@@ -20,6 +20,9 @@ public class PathFinder : MonoBehaviour
     private List<PathNode> openList;
     private List<PathNode> closedList;
 
+    private bool _pathInit;
+    TileCoordinates startPos;
+
     //private void Update()
     //{
     //    if (currentGridInfo == null)
@@ -28,16 +31,30 @@ public class PathFinder : MonoBehaviour
     //    if (Input.GetMouseButtonDown(0))
     //    {
     //        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    //        TileCoordinates tileCoords = GridCoords.FromWorldToTilePosition(mousePos);
-    //        //List<PathNode> path = FindPath(0, 0, tileCoords.tileX, tileCoords.tileY);
-    //        List<PathNode> path = FindLinearPath(2, 2, tileCoords.tileX, tileCoords.tileY);
+    //        TileCoordinates mouseTilePos = GridCoords.FromWorldToTilePosition(mousePos);
 
-    //        for (int i = 0; i < path.Count; i++)
+    //        // Check if in grid before
+    //        if (!GridCoords.IsInGrid(mouseTilePos.tileX, mouseTilePos.tileY))
+    //            return;
+
+    //        if (!_pathInit)
     //        {
-    //            if (i + 1 < path.Count)
+    //            startPos = mouseTilePos;
+    //            _pathInit = true;
+    //        }
+    //        else
+    //        {
+    //            TileCoordinates endCoords = mouseTilePos;
+    //            List<PathNode> path = FindPath(startPos.tileX, startPos.tileY, endCoords.tileX, endCoords.tileY, true);
+    //            //List<PathNode> path = FindLinearPath(2, 2, tileCoords.tileX, tileCoords.tileY);
+    //            for (int i = 0; i < path.Count; i++)
     //            {
-    //                Debug.DrawLine(path[i].tile.TileCenter, path[i + 1].tile.TileCenter, Color.green, 3f);
+    //                if (i + 1 < path.Count)
+    //                {
+    //                    Debug.DrawLine(path[i].tile.TileCenter, path[i + 1].tile.TileCenter, Color.green, 3f);
+    //                }
     //            }
+    //            _pathInit = false;
     //        }
     //    }
     //}
@@ -185,17 +202,18 @@ public class PathFinder : MonoBehaviour
         return diagonalPath;
     }
 
-    public int GetDistanceRating(int startX, int startY, int endX, int endY)
+    public int GetDistanceRating(int startX, int startY, int endX, int endY, bool safePathOnly)
     {
-        List<PathNode> path = FindPath(startX, startY, endX, endY);
+        List<PathNode> path = FindPath(startX, startY, endX, endY, safePathOnly);
 
         if (path == null)
             return int.MaxValue;
 
+        return path.Count - 2;
         return path[path.Count - 1].fCost;
     }
 
-    public List<PathNode> FindPath(int startX, int startY, int endX, int endY)
+    public List<PathNode> FindPath(int startX, int startY, int endX, int endY, bool safePathOnly)
     {
         if (!GridCoords.IsInGrid(startX, startY))
             return null;
@@ -237,7 +255,13 @@ public class PathFinder : MonoBehaviour
             {
                 if (closedList.Contains(neighbourNode))
                     continue;
+
                 if (!neighbourNode.isTraversable)
+                {
+                    closedList.Add(neighbourNode);
+                    continue;
+                }
+                else if (!neighbourNode.isSafe && safePathOnly)
                 {
                     closedList.Add(neighbourNode);
                     continue;
@@ -342,18 +366,18 @@ public class PathFinder : MonoBehaviour
                 leftBlocked = true;
 
             // Left down
-            if (leftBlocked && downBlocked)
-            { }
-            else
-                if (currentNode.y - 1 >= 0)
-                    neighbourList.Add(grid[currentNode.x - 1, currentNode.y - 1].PathNode);
+            //if (leftBlocked && downBlocked)
+            //{ }
+            //else
+            //    if (currentNode.y - 1 >= 0)
+            //        neighbourList.Add(grid[currentNode.x - 1, currentNode.y - 1].PathNode);
             
             // Left up
-            if (leftBlocked && upBlocked)
-            { }
-            else
-                if (currentNode.y + 1 < currentGridInfo.gameGridSize.y)
-                    neighbourList.Add(grid[currentNode.x - 1, currentNode.y + 1].PathNode);
+            //if (leftBlocked && upBlocked)
+            //{ }
+            //else
+            //    if (currentNode.y + 1 < currentGridInfo.gameGridSize.y)
+            //        neighbourList.Add(grid[currentNode.x - 1, currentNode.y + 1].PathNode);
         }
         if (currentNode.x + 1 < currentGridInfo.gameGridSize.x)
         {
@@ -365,20 +389,20 @@ public class PathFinder : MonoBehaviour
                 rightBlocked = true;
 
             // Right down
-            if (rightBlocked && downBlocked)
-            { }
-            else
-                if (currentNode.y - 1 >= 0)
-                    neighbourList.Add(grid[currentNode.x + 1, currentNode.y - 1].PathNode);
+            //if (rightBlocked && downBlocked)
+            //{ }
+            //else
+            //    if (currentNode.y - 1 >= 0)
+            //        neighbourList.Add(grid[currentNode.x + 1, currentNode.y - 1].PathNode);
 
 
-            // Right up
-            if (rightBlocked && upBlocked)
-            {
-            }
-            else
-                if (currentNode.y + 1 < currentGridInfo.gameGridSize.y)
-                    neighbourList.Add(grid[currentNode.x + 1, currentNode.y + 1].PathNode);
+            //// Right up
+            //if (rightBlocked && upBlocked)
+            //{
+            //}
+            //else
+            //    if (currentNode.y + 1 < currentGridInfo.gameGridSize.y)
+            //        neighbourList.Add(grid[currentNode.x + 1, currentNode.y + 1].PathNode);
         }
         return neighbourList;
     }

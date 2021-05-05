@@ -51,8 +51,12 @@ public class LevelLoader : MonoBehaviour
         if (GridManager.instance != null)
             GridManager.instance.GenerateNewGrid();
 
-        if (ShipManager.instance != null)
-            ShipManager.instance.AssignShipsToDeploy();
+        //if (ShipManager.instance != null)
+        //    ShipManager.instance.PlaceAllShipsOnMap();
+
+        if (_levelSettings != null)
+            if (_levelSettings.inventorySettings != null)
+                _levelSettings.inventorySettings.InitializeInventory();
 
         if (levelLoaded != null)
             levelLoaded();
@@ -65,14 +69,16 @@ public class LevelLoader : MonoBehaviour
                 GridManager.instance.AssignSettings(_levelSettings.gridSettings);
 
         if (_levelSettings.planetLevelSettings != null)
+        {
             if (PlanetManager.instance != null)
                 PlanetManager.instance.AssignLevelSettings(_levelSettings.planetLevelSettings);
 
+            if (ShipManager.instance != null)
+                ShipManager.instance.shipHeatDistance = _levelSettings.planetLevelSettings.planetHeatDistance;
+        }
+            
         if (ContractManager.instance != null)
             ContractManager.instance.AssignLevelSettings(_levelSettings.allClientRules, _levelSettings.contractSpawnConditions, _levelSettings.defaultContractSpawnInterval);
-
-        if (_levelSettings.inventorySettings != null)
-            _levelSettings.inventorySettings.InitializeInventory();
     }
 
     public void StartGameDebug()

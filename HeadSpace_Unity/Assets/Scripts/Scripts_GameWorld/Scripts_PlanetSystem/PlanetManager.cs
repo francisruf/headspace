@@ -320,14 +320,14 @@ public class PlanetManager : MonoBehaviour
 
         int planetCount = _allPlanetTiles.Count;
 
-        int totalDistance = 0;
-        int averageDistance = 0;
+        //int totalDistance = 0;
+        //int averageDistance = 0;
 
-        foreach (var planet in _allPlanetTiles)
-        {
-            totalDistance += planet.DistanceRating;
-        }
-        averageDistance = totalDistance / planetCount;
+        //foreach (var planet in _allPlanetTiles)
+        //{
+        //    totalDistance += planet.DistanceRating;
+        //}
+        //averageDistance = totalDistance / planetCount;
 
         //Debug.Log("Average distance : " + averageDistance);
 
@@ -335,13 +335,13 @@ public class PlanetManager : MonoBehaviour
         List<GridTile_Planet> closePlanets = new List<GridTile_Planet>();
         List<GridTile_Planet> farPlanets = new List<GridTile_Planet>();
 
-        foreach (var planet in _allPlanetTiles)
-        {
-            if (planet.DistanceRating >= averageDistance)
-                farPlanets.Add(planet);
-            else
-                closePlanets.Add(planet);
-        }
+        //foreach (var planet in _allPlanetTiles)
+        //{
+        //    if (planet.DistanceRating >= averageDistance)
+        //        farPlanets.Add(planet);
+        //    else
+        //        closePlanets.Add(planet);
+        //}
 
         int closeCount = closePlanets.Count;
         int farCount = farPlanets.Count;
