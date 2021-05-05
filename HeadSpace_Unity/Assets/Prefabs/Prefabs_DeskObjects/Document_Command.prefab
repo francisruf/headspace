@@ -211,7 +211,7 @@ SpriteRenderer:
   m_SortingLayerID: 1351713243
   m_SortingLayer: 6
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3891082131902103957, guid: 23cdf700a12d3fb449bfd5983739ecfd,
+  m_Sprite: {fileID: -482871140979308130, guid: 0eff68804791e6b47b5afc0d5fc14a45,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -238,9 +238,9 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 1.640625, y: -0.5}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0.03125}
+    border: {x: 0.25, y: 0.0625, z: 0, w: 0.125}
     pivot: {x: 0, y: 1}
-    oldSize: {x: 3.28125, y: 0.21875}
+    oldSize: {x: 3.375, y: 0.25}
     newSize: {x: 3.28125, y: 1.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 2
@@ -261,12 +261,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a2149671014ec648b6681d4a11b9d60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startEnabled: 1
   ignoreSelectedBringToFront: 0
   objectType: 1
   dropZoneLayerMask:
     serializedVersion: 2
     m_Bits: 270336
+  colliderStartEnabled: 0
   lineHeight: 0.5
+  baseSprite: {fileID: -482871140979308130, guid: 0eff68804791e6b47b5afc0d5fc14a45,
+    type: 3}
+  leftCornerSprite: {fileID: 5484746639784315868, guid: 0eff68804791e6b47b5afc0d5fc14a45,
+    type: 3}
+  rightCornerSprite: {fileID: 6697620064969676242, guid: 0eff68804791e6b47b5afc0d5fc14a45,
+    type: 3}
+  openDrawer: 1
 --- !u!1 &4936675365891656420
 GameObject:
   m_ObjectHideFlags: 0

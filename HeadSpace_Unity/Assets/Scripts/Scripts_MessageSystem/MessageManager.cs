@@ -234,7 +234,7 @@ public class MessageManager : MonoBehaviour
         else
             newMessageText += ".";
 
-        newMessageText += " Current position: " + tileName + "\nAwaiting further instructions.";
+        newMessageText += " Current position: " + tileName + "\nAwaiting instructions.";
 
         QueueMessage(newMessageText);
     }
@@ -251,7 +251,7 @@ public class MessageManager : MonoBehaviour
         TileCoordinates shipTile = GridCoords.FromWorldToTilePosition(ship.transform.position);
         string tileName = GridCoords.GetTileName(shipTile);
 
-        string newMessageText = ship.shipName + " has completed his ROUTE at " + tileName + ".";
+        string newMessageText = ship.shipName + " has completed its ROUTE at " + tileName + ".";
 
         QueueMessage(newMessageText, false);
     }
@@ -278,7 +278,7 @@ public class MessageManager : MonoBehaviour
         else
             newMessageText = "Command error :" + ship.shipName + " is already idle at position " + tileName + ".";
 
-        newMessageText += "\n\nAwaiting further instructions.";
+        newMessageText += "\n\nAwaiting instructions.";
 
         //int clientCount = ship.ClientsOnBoard.Count;
         //if (clientCount > 0)
@@ -306,8 +306,8 @@ public class MessageManager : MonoBehaviour
         string tileName = GridCoords.GetTileName(shipTile);
 
         string newMessageText = "Ship status request : ";
-        newMessageText += "\n" + ship.shipName + " at position " + tileName;
-        newMessageText += "\n\nClients on board : ";
+        newMessageText += "\n" + ship.shipName + " at position " + tileName + ".";
+        newMessageText += "\n\nOfficials on board : ";
 
         int clientCount = ship.ClientsOnBoard.Count;
         if (clientCount > 0)
@@ -356,7 +356,7 @@ public class MessageManager : MonoBehaviour
         TileCoordinates shipTile = GridCoords.FromWorldToTilePosition(ship.transform.position);
         string tileName = GridCoords.GetTileName(shipTile);
         string newMessageText = ship.shipName + " auto-reinitialization complete.";
-        newMessageText += "\n\nAwaiting further instructions.";
+        newMessageText += "\n\nAwaiting instructions.";
 
         QueueMessage(newMessageText, false);
     }

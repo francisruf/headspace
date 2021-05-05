@@ -185,6 +185,16 @@ public class PathFinder : MonoBehaviour
         return diagonalPath;
     }
 
+    public int GetDistanceRating(int startX, int startY, int endX, int endY)
+    {
+        List<PathNode> path = FindPath(startX, startY, endX, endY);
+
+        if (path == null)
+            return int.MaxValue;
+
+        return path[path.Count - 1].fCost;
+    }
+
     public List<PathNode> FindPath(int startX, int startY, int endX, int endY)
     {
         if (!GridCoords.IsInGrid(startX, startY))
@@ -272,12 +282,12 @@ public class PathFinder : MonoBehaviour
             neighbourList.Add(grid[currentNode.x - 1, currentNode.y].PathNode);
 
 
-            if (currentNode.y - 1 >= 0)
-            neighbourList.Add(grid[currentNode.x - 1, currentNode.y - 1].PathNode);
+            //if (currentNode.y - 1 >= 0)
+            //neighbourList.Add(grid[currentNode.x - 1, currentNode.y - 1].PathNode);
 
 
-            if (currentNode.y + 1 < currentGridInfo.gameGridSize.y)
-            neighbourList.Add(grid[currentNode.x - 1, currentNode.y + 1].PathNode);
+            //if (currentNode.y + 1 < currentGridInfo.gameGridSize.y)
+            //neighbourList.Add(grid[currentNode.x - 1, currentNode.y + 1].PathNode);
         }
 
         if (currentNode.x + 1 < currentGridInfo.gameGridSize.x)
@@ -285,11 +295,11 @@ public class PathFinder : MonoBehaviour
             // Right
             neighbourList.Add(grid[currentNode.x + 1, currentNode.y].PathNode);
 
-            if (currentNode.y - 1 >= 0)
-            neighbourList.Add(grid[currentNode.x + 1, currentNode.y - 1].PathNode);
+            //if (currentNode.y - 1 >= 0)
+            //neighbourList.Add(grid[currentNode.x + 1, currentNode.y - 1].PathNode);
 
-            if (currentNode.y + 1 < currentGridInfo.gameGridSize.y)
-            neighbourList.Add(grid[currentNode.x + 1, currentNode.y + 1].PathNode);
+            //if (currentNode.y + 1 < currentGridInfo.gameGridSize.y)
+            //neighbourList.Add(grid[currentNode.x + 1, currentNode.y + 1].PathNode);
         }
         return neighbourList;
     }

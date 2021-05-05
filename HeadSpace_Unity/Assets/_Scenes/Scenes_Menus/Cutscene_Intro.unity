@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -154,44 +154,37 @@ MonoBehaviour:
   - frame: {fileID: -7454401371687827062, guid: d32063a5a24c6be449b0ae8dbba88427,
       type: 3}
     allLines:
-    - Welcome, dear employee, to the UNITED FEDERATION OF GALATIC GOVERNANCE (UFGG).
-    - Oh yes dear employee, it is today that you become someone.
+    - Hello {#error=insert name here} to the first day of your life.
+    - Oh yes, dear employee, for your life was meaningless up until today. Today,
+      you become the newest employee of the Space Travel Ministry (STM)!
   - frame: {fileID: 3261840738970259679, guid: d32063a5a24c6be449b0ae8dbba88427, type: 3}
     allLines:
-    - 'Today that you become apart of the largest, oldest and greatest branch of
-      our government: the SPACE TRAVEL MINISTRY (STM)!'
+    - 'You will thus join thousands of men and women of all known galaxies in doing
+      one of the most important job there is: Space transport dispatcher.'
+    - You will be the lifeline between our space fleet and the many government officials
+      who are in need to get where they're going.
   - frame: {fileID: 3549399559826818699, guid: d32063a5a24c6be449b0ae8dbba88427, type: 3}
     allLines:
-    - 'As our new dispatching officer, your job is simple: lead our transport drones
-      to UFGG personnel as quickly as possible. Then direct them to their destination.'
+    - As such, your job is simple. You will receive Work Orders from our partners
+      containing their travel requests.
+    - Using cutting edge communications technology, you will control our transport
+      drones to lead them to their destinations.
   - frame: {fileID: -2318615565200658058, guid: d32063a5a24c6be449b0ae8dbba88427,
       type: 3}
     allLines:
-    - 'But as all the galaxies you''re about to work in have been discovered fairly
-      recently, the ministry does not have the budget for high tech gear. Yeah, everything
-      is pretty low tech around here. '
-    - But who knows, do your job efficiently enough and maybe the upgrades will come.
-  - frame: {fileID: 1640864383783234604, guid: d32063a5a24c6be449b0ae8dbba88427, type: 3}
-    allLines:
-    - You will most likely encounter the ANOMALY we've had to deal with in the last
-      few years. I can assure you that we will provide all the information we have
-      about this bizarre lifeform.
-    - That is to say, not a lot.
-    - All we know for sure is that it shatters the minds of anyone that comes in
-      contact with it. So until we know more, your best bet is to keep your fleet
-      away from it as much as possible.
-  - frame: {fileID: 5951614300355461573, guid: d32063a5a24c6be449b0ae8dbba88427, type: 3}
-    allLines:
-    - Also keep in mind, the better job you do the more MERIT POINTS you gain, and
-      therefore, responsibilities you get.
-    - I have no doubt that you'll be on the leaderboard of our top employees in no
-      time.
-    - 'The following training will teach you everything you need to know to do your
-      job as efficiently as can be. '
-  - frame: {fileID: -5379024997501827949, guid: d32063a5a24c6be449b0ae8dbba88427,
+    - But be wary! You will need to watch out for this anomaly we've had to deal
+      with in the last few years.
+    - 'We still don''t know much about this terrifying phenomenon, but it seems to
+      corrupt everything it comes in contact with. '
+    - In others words, STAY AWAY !
+  - frame: {fileID: -7454401371687827062, guid: d32063a5a24c6be449b0ae8dbba88427,
       type: 3}
     allLines:
-    - Good luck dear employee and remember your duty as a citizen comes before all!
+    - During the next few days, you'll learn to become the best and most efficient
+      dispatcher you can be.
+    - The better job you do, the more responsibilities you'll get!
+    - We have no doubt that you'll fit right in this enterprise. Good luck {#error=insert
+      name here} and godspeed!
   nextSceneName: TutorialPrompt
   sceneType: 0
 --- !u!4 &254707062

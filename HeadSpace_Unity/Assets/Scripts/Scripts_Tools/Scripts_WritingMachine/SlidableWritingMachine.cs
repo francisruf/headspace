@@ -5,10 +5,12 @@ using UnityEngine;
 [RequireComponent(typeof(WritingMachineController))]
 public class SlidableWritingMachine : SlidableTool
 {
+    [Header("Other machine components")]
     public SpriteRenderer machineBGRenderer;
     private WritingMachineController _machineController;
     private WritingMachineKeyboard _keyboard;
-    private ObjectInteractionZone _openCloseInteractionZone;
+    public ObjectInteractionZone openCloseInteractionZone0;
+    public ObjectInteractionZone openCloseInteractionZone1;
 
     protected override void Awake()
     {
@@ -16,13 +18,14 @@ public class SlidableWritingMachine : SlidableTool
         _machineController = GetComponent<WritingMachineController>();
         _keyboard = GetComponentInChildren<WritingMachineKeyboard>();
 
-        _openCloseInteractionZone = GetComponentInChildren<ObjectInteractionZone>();
-        _openCloseInteractionZone.interactRequest += TriggerOpenClose;
+        openCloseInteractionZone0.interactRequest += TriggerOpenClose;
+        openCloseInteractionZone1.interactRequest += TriggerOpenClose;
     }
 
     private void OnDisable()
     {
-        _openCloseInteractionZone.interactRequest -= TriggerOpenClose;
+        openCloseInteractionZone0.interactRequest -= TriggerOpenClose;
+        openCloseInteractionZone1.interactRequest -= TriggerOpenClose;
     }
 
     protected override void Update()

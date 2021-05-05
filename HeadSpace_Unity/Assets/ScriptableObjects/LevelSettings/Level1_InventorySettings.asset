@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0acfd37b6db30ea40b26991d793125a8, type: 3}
+  m_Name: Level1_InventorySettings
+  m_EditorClassIdentifier: 
+  playerStartingShips:
+  - objectPrefab: {fileID: 2659199698218941218, guid: f8d210add64fac84890ac52c8524c074,
+      type: 3}
+    quantity: 3
+    spawnZone: 4
+  playerDeskObjects:
+  - objectPrefab: {fileID: 1869587051099370962, guid: e70da85313896c24ab901f899e01edb2,
+      type: 3}
+    quantity: 10
+    spawnZone: 1

@@ -260,7 +260,7 @@ public class Ship : MonoBehaviour
         List<PathNode> pathNodes = PathFinder.instance.FindLinearPath(currentTileCoords.tileX, currentTileCoords.tileY, destCoords.tileX, destCoords.tileY, out nodeCost);
         if (pathNodes == null)
         {
-            CancelRoute("Invalid path to destination - " + destName);
+            CancelRoute("Invalid path to destination - " + destName + ". Movement between tiles must be HORIZONTAL or VERTICAL.");
             yield break;
         }
 

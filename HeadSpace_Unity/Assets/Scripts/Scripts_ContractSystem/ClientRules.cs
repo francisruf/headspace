@@ -5,11 +5,17 @@ using UnityEngine;
 [System.Serializable]
 public class ClientRules
 {
-    public StartPlanetState startPlanetState;
-    public EndPlanetState endPlanetState;
+    [Tooltip("Time required to spawn, calculated from previous contract spawn")]
+    [Range(1, 120)]
+    public int spawnTime;
+    [Range(60, 600)]
+    public int completionTimer;
+    //public StartPlanetState startPlanetState;
+    //public EndPlanetState endPlanetState;
     [Range(1, 3)]
     public int distanceRating;
     public ChallengeType challengeType;
+    public SpecialConditions specialCondition;
 }
 
 public enum StartPlanetState
@@ -31,4 +37,10 @@ public enum ChallengeType
     Random,
     Coords,
     PlanetName
+}
+
+public enum SpecialConditions
+{
+    None,
+    ClosestPlanetToShip
 }

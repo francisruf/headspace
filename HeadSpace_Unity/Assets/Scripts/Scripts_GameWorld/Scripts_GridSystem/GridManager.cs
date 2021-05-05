@@ -247,6 +247,20 @@ public class GridManager : MonoBehaviour
         foreach (var tile in _gameGridTiles)
         {
             tile.InitializeTile(new Vector2(tileWidth, tileWidth), _currentGridMode, _currentGridInfo);
+            //bool addHeat = false;
+
+            //if (tile.tileX == 0)
+            //    addHeat = true;
+            //else if (tile.tileY == 0)
+            //    addHeat = true;
+            //else if (tile.tileX == mapSizeX - 1)
+            //    addHeat = true;
+            //else if (tile.tileY == mapSizeY - 1)
+            //    addHeat = true;
+
+            //if (addHeat)
+            //    tile.AddPlanetHeat(1);
+
         }
     }
 
@@ -553,6 +567,7 @@ public class GridManager : MonoBehaviour
         gt.tileY = deadTile.tileY;
         gt.tileName = deadTile.tileName;
         gt.tileType = newTileType;
+        gt.PlanetHeat = deadTile.PlanetHeat;
         gt.InitializeTile(deadTile.tileDimensions, _currentGridMode, _currentGridInfo);
 
         gt.TransferObjectList(deadTile.CurrentObjectsInTile);
@@ -625,6 +640,7 @@ public class GridManager : MonoBehaviour
         newTile.tileY = deadTile.tileY;
         newTile.tileName = deadTile.tileName;
         newTile.tileType = newTileType;
+        newTile.PlanetHeat = deadTile.PlanetHeat;
         newTile.InitializeTile(deadTile.tileDimensions, _currentGridMode, _currentGridInfo);
 
         newTile.TransferObjectList(deadTile.CurrentObjectsInTile);
@@ -751,6 +767,9 @@ public class GridManager : MonoBehaviour
                 yield return new WaitForEndOfFrame();
                 continue;
             }
+
+            if (_allAnomalyPatches.Count == 0)
+                break;
 
             yield return new WaitForSeconds(anomalySpreadTime);
 

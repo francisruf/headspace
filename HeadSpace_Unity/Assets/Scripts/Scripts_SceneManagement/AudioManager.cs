@@ -561,7 +561,7 @@ public class AudioManager : MonoBehaviour
     #region Tools
     private void ShredderStarted()
     {
-        PlaySoundLoop("Shredder_Loop", false, 1f ,true);
+        PlaySoundLoop("Shredder_Loop", false, 0.2f ,true);
     }
 
     private void ShredderStopped()

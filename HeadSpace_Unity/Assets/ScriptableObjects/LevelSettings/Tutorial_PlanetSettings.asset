@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d29382ba62647d04fa6305f2fc0411f0, type: 3}
   m_Name: Tutorial_PlanetSettings
   m_EditorClassIdentifier: 
-  planetTileCount: 8
-  minTilesBetweenDeployPoint: 2
+  planetTileCount: 6
+  minTilesBetweenDeployPoint: 1
   planetHeatDistance: 2
-  planetsRevealedOnStart: 8
+  planetsRevealedOnStart: 6
   planetsRevealedCloseToDeploy: 2
   planetsRevealedFarFromDeploy: 1

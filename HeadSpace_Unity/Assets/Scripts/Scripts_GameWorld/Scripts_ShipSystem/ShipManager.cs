@@ -25,6 +25,7 @@ public class ShipManager : MonoBehaviour
 
     // Liste de tous les ships qui ont été déclarés
     private List<Ship> shipInventory = new List<Ship>();
+    public List<Ship> AllShips { get { return shipInventory; } }
 
     private int _activeShipsCount;
     public int ActiveShipsCount { get { return _activeShipsCount; } }

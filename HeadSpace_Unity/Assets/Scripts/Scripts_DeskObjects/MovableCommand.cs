@@ -10,14 +10,20 @@ public class MovableCommand : MovableObject
     public static Action commandSinglePrint;
     public static Action commandInOutbox;
 
+    [Header("MovableCommand settings")]
+    public bool colliderStartEnabled;
+
     private TextMeshProUGUI _commandText;
     private Canvas _canvas;
     private BoxCollider2D _boxCollider2D;
 
     public float lineHeight;
-    private bool _wasTeared;
-
+    protected bool _wasTeared;
     private float _previousSpriteHeight;
+
+    public Sprite baseSprite;
+    public Sprite leftCornerSprite;
+    public Sprite rightCornerSprite;
 
     [HideInInspector] public bool openDrawer = true;
     public string CommandName { get; protected set; } = "";
@@ -45,6 +51,7 @@ public class MovableCommand : MovableObject
     {
         base.Start();
         AssignSpriteStartSize();
+        _collider.enabled = colliderStartEnabled;
     }
 
     public override void Select(bool fireEvent = true)
@@ -52,12 +59,47 @@ public class MovableCommand : MovableObject
         if (!_wasTeared)
         {
             _wasTeared = true;
+            _spriteRenderer.sprite = baseSprite;
 
             if (commandTeared != null)
                 commandTeared(this);
         }
 
         base.Select(fireEvent);
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        if (!_wasTeared)
+            CheckForMouse();
+    }
+
+    protected virtual void CheckForMouse()
+    {
+        if (CurrentCommandState == CommandState.HasLines)
+        {
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (_boxCollider2D.bounds.Contains(mousePos))
+            {
+                float leftDistance = Mathf.Abs(mousePos.x - _boxCollider2D.bounds.min.x);
+                float rightDistance = Mathf.Abs(mousePos.x - _boxCollider2D.bounds.max.x);
+
+                if (leftDistance < rightDistance)
+                {
+                    _spriteRenderer.sprite = leftCornerSprite;
+                }
+                else
+                {
+                    _spriteRenderer.sprite = rightCornerSprite;
+                }
+            }
+            else
+            {
+                _spriteRenderer.sprite = baseSprite;
+            }
+        }
     }
 
     private void LateUpdate()

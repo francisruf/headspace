@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -336,28 +336,49 @@ MonoBehaviour:
   gridSettings: {fileID: 11400000, guid: 3889d46582226c04b805a34fd79aa40f, type: 2}
   planetLevelSettings: {fileID: 11400000, guid: a8cf540eb25b39042b86a2c7457ecc40,
     type: 2}
-  inventorySettings: {fileID: 11400000, guid: 7910a0d62269f2c4483a7c6626ebdd56, type: 2}
+  inventorySettings: {fileID: 11400000, guid: 3abcaf5a08502cf46be5dd996c96286a, type: 2}
+  defaultContractSpawnInterval: 60
   allClientRules:
-  - startPlanetState: 1
-    endPlanetState: 2
+  - spawnTime: 1
+    completionTimer: 600
     distanceRating: 1
     challengeType: 2
-  - startPlanetState: 1
-    endPlanetState: 1
-    distanceRating: 1
-    challengeType: 2
-  - startPlanetState: 1
-    endPlanetState: 2
+    specialCondition: 1
+  - spawnTime: 3
+    completionTimer: 600
     distanceRating: 2
     challengeType: 2
-  - startPlanetState: 2
-    endPlanetState: 1
+    specialCondition: 1
+  - spawnTime: 15
+    completionTimer: 600
+    distanceRating: 2
+    challengeType: 2
+    specialCondition: 0
+  - spawnTime: 60
+    completionTimer: 600
+    distanceRating: 1
+    challengeType: 2
+    specialCondition: 1
+  - spawnTime: 45
+    completionTimer: 600
     distanceRating: 3
     challengeType: 2
-  - startPlanetState: 0
-    endPlanetState: 0
+    specialCondition: 0
+  - spawnTime: 60
+    completionTimer: 600
+    distanceRating: 1
+    challengeType: 2
+    specialCondition: 1
+  - spawnTime: 60
+    completionTimer: 600
+    distanceRating: 3
+    challengeType: 2
+    specialCondition: 0
+  - spawnTime: 30
+    completionTimer: 600
     distanceRating: 2
     challengeType: 2
+    specialCondition: 1
 --- !u!1 &513372322
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,48 +880,81 @@ MonoBehaviour:
   logbookFinalPos: {fileID: 513372323}
   allMessages:
   - messageName: MSG_Welcome
-    messageText: Hello dude. Tear me to continue.
+    messageText: 'Hello trainee, welcome to training day!
+
+
+      Tear this message
+      to continue.'
   - messageName: MSG_Objectives
-    messageText: First things first. Typical work day = get most govt. officials
-      to their destinations. Use your DRONE SHIPS yo
+    messageText: On a typical work day, your job is simple. Pick up UFGG officials
+      with your drone ships and take them to their destinations.
   - messageName: MSG_ShipInfo
-    messageText: You available ships are displayed on your assignment board, and
-      you also have pitouches.
+    messageText: 'Ships are displayed on your assignment board.
+
+      Use provided
+      ship markers to track their positions.'
   - messageName: MSG_ShipStatus
-    messageText: Uh oh! Last trainee didn't mark last drone positions. Find thei
-      positions by typing STATUS command on Compu-Typer<sup>tm</sup>
+    messageText: 'Last trainee forgot to mark final positions.
+
+      Find lost ships
+      by using the STAT command on your Compu-Typer<sup>tm</sup>.'
   - messageName: MSG_WorkOrderBase
-    messageText: First order! You will find planet to PICK that mf up, and their
-      destination.
+    messageText: 'You have received your first WORK ORDER!
+
+      Read it to find
+      your first PICK-UP PLANET and DESTINATION PLANET.'
   - messageName: MSG_ShipMovement
-    messageText: Pickup official at destination with MOVE command. Drone ships can
-      only travel linear. Might need to enter a ROUTE with multiple tiles.
-  - messageName: MSG_WorkOrderBoard
-    messageText: In order to assign an order to a droneship, place it on board slot.
-      The ship will AUTO pickup a UFGG official when it passes its PICK UP planet
-      tile.
+    messageText: 'Use the MOVE command to assign HORIZONTAL or VERTICAL travel routes.
+
+      Enter
+      multiple waypoints if required.'
+  - messageName: MSG_WorkOrderBoard0
+    messageText: Assign an order to a ship by placing it on its cargo slot on the
+      assignment board.
   - messageName: MSG_MoveReceived
-    messageText: Ship has received move command. Track state on assignment board.
+    messageText: 'Your ship has received your MOVE command.
+
+      You can track
+      its state on the assignment board.'
   - messageName: MSG_ClientPickedUp
-    messageText: Official embarked. Updated status on thing on board. Now bring to
-      destination.
+    messageText: 'UFGG official embarked! Verify order for status updates.
+
+      To
+      complete, travel to the DESTINATION planet.'
   - messageName: MSG_Markers
-    messageText: Mark itineray on map for visual aid. Might look quicker to eyeball,
-      but time saver as you manage multiple ships.
+    messageText: 'Tip: Avoid eyeballing complex movements.
+
+      Use waypoint markers
+      stored in your drawer to mark travel routes.'
   - messageName: MSG_WorkOrderComplete
-    messageText: Work order completed. Dispense on assignment board slot to calculate
-      merit points (awarded anyways).
+    messageText: 'UFGG official debarked!
+
+      Store the completed order on the
+      designated space to calculate your total Merit Points (optional).'
   - messageName: MSG_WorkOrderDay
-    messageText: Complete most work orders in a day to top the leaderboard charts
-      and avoid being in the danger zone!
-  - messageName: MSG_EndTraining
-    messageText: That's all you need to know to get started. When you've had enough
-      practice, send the "END TRAINING" document all we'll see you tomorrow!
+    messageText: On a regular work day, complete the most orders you can and fight
+      for your place among the higher ranks!
+  - messageName: MSG_EndTraining0
+    messageText: '<color=red>Free practice unlocked</color>
+
+      (Please note that
+      Merit Points on training day will not be counted on the leaderboard.)'
   - messageName: MSG_Shredder
-    messageText: You might notice that your desk space is getting cluttered by now.
-      You can discard unused documents using your SECU-SHREDDER<sup>tm</sup>.
+    messageText: Your desk space is probably getting cluttered by now. Discard unused
+      documents with your SECU-SHREDDER<sup>tm</sup>.
   - messageName: MSG_Journal
-    messageText: You can always find relevant information in your STM USER GUIDE.
+    messageText: While you wait, take a look at the provided STM USER GUIDE for ship
+      information and reminders.
+  - messageName: MSG_WorkOrderBoard1
+    messageText: Upon arrival on the PICK-UP PLANET, the UFGG official will be embarked
+      if your ship has enough space.
+  - messageName: MSG_EndTraining1
+    messageText: 'When you feel ready, send the "END TRAINING" document to finish.
+
+
+
+      Be
+      here tomorrow at 9:00!'
 --- !u!1 &1726143132
 GameObject:
   m_ObjectHideFlags: 0

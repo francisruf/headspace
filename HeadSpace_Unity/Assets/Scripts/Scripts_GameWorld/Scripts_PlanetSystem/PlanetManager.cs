@@ -158,7 +158,7 @@ public class PlanetManager : MonoBehaviour
 
             // Add heat as if a planet was on this tile
             if (addHeat)
-                tile.AddPlanetHeat(planetHeatDistance / 2);
+                tile.AddPlanetHeat(1);
         }
 
         // Spawn planets
@@ -166,7 +166,7 @@ public class PlanetManager : MonoBehaviour
         {
             // Get best matching tiles
             float lowestHeat = float.MaxValue;
-            int heatMargin = 2;
+            int heatMargin = 1;
             foreach (var tile in allowedSpawnTiles)
             {
                 if (tile.PlanetHeat < lowestHeat)
@@ -208,6 +208,34 @@ public class PlanetManager : MonoBehaviour
 
             if (GridManager.instance != null)
                 GridManager.instance.ReplaceTile(randomTile, 3);
+
+            foreach (var tile in _currentGridInfo.gameGridTiles)
+            {
+                // If same X
+                if (tile.tileX == randomTile.tileX)
+                    // If not exact same tile
+                    if (tile.tileY != randomTile.tileY)
+                    {
+                        // If neighbour
+                        if (tile.tileY == randomTile.tileY - 1 || tile.tileY == randomTile.tileY + 1)
+                            tile.AddPlanetHeat(2);
+                        // If other
+                        else
+                            tile.AddPlanetHeat(1);
+                    }
+                        
+                if (tile.tileY == randomTile.tileY)
+                    // If not exact same tile
+                    if (tile.tileX != randomTile.tileX)
+                    {
+                        // If neighbour
+                        if (tile.tileX == randomTile.tileX - 1 || tile.tileX == randomTile.tileX + 1)
+                            tile.AddPlanetHeat(2);
+                        // If other
+                        else
+                            tile.AddPlanetHeat(1);
+                    }
+            }
 
             planetCount++;
         }

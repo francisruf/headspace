@@ -25,6 +25,7 @@ public class TutorialController : MonoBehaviour
     private bool _step_statusTear;
     private bool _step_workerOrderPrint;
     private bool _step_shipMoveReceived;
+    private bool _step_contractAssigned;
     private bool _step_clientEmbarked;
     private bool _step_contractComplete;
     private bool _step_writingMachineOpen;
@@ -66,10 +67,16 @@ public class TutorialController : MonoBehaviour
     private void Start()
     {
         _messageManager = MessageManager.instance;
+        _logbook = FindObjectOfType<MovableLogbook>();
+
+        if (_logbook != null)
+            _logbook.transform.position = logbookSpawnPos.position;
     }
 
     private void OnLogbookInit(MovableLogbook logbook)
     {
+        if (_logbook != null)
+            return;
         this._logbook = logbook;
         logbook.transform.position = logbookSpawnPos.position;
     }
@@ -137,7 +144,7 @@ public class TutorialController : MonoBehaviour
         {
             StartCoroutine(WorkOrderBoardTimer());
         }
-        else if (messageName == "MSG_WorkOrderComplete")
+        else if (messageName == "MSG_WorkOrderDay")
         {
             StartCoroutine(EndTrainingMessageTimer());
         }
@@ -154,6 +161,10 @@ public class TutorialController : MonoBehaviour
 
     private void OnContractAssigned(MovableContract contract)
     {
+        if (_step_contractAssigned)
+            return;
+
+        _step_contractAssigned = true;
         NewMessage("MSG_ShipMovement");
     }
 
@@ -183,9 +194,6 @@ public class TutorialController : MonoBehaviour
 
         NewMessage("MSG_WorkOrderComplete");
         NewMessage("MSG_WorkOrderDay");
-
-        if (ContractManager.instance != null)
-            ContractManager.instance.ChangeContractConditions(ContractSpawnCondition.Timed);
     }
 
     private void OnSpecialMessagePrint(string messageName)
@@ -213,6 +221,12 @@ public class TutorialController : MonoBehaviour
                 StartCoroutine(AnimateNewObject(_logbook, logbookSpawnPos.position, logbookFinalPos.position));
             }
         }
+
+        if (messageName == "MSG_EndTraining0")
+        {
+            if (ContractManager.instance != null)
+                ContractManager.instance.ChangeContractConditions(ContractSpawnCondition.Timed);
+        }
     }
 
     private IEnumerator StatusMessageTimer()
@@ -230,13 +244,15 @@ public class TutorialController : MonoBehaviour
     private IEnumerator WorkOrderBoardTimer()
     {
         yield return new WaitForSeconds(1.0f);
-        NewMessage("MSG_WorkOrderBoard");
+        NewMessage("MSG_WorkOrderBoard0");
+        NewMessage("MSG_WorkOrderBoard1");
     }
 
     private IEnumerator EndTrainingMessageTimer()
     {
         yield return new WaitForSeconds(1.5f);
-        NewMessage("MSG_EndTraining");
+        NewMessage("MSG_EndTraining0");
+        NewMessage("MSG_EndTraining1");
     }
 
     private IEnumerator EnableShredderTimer()
@@ -247,7 +263,7 @@ public class TutorialController : MonoBehaviour
 
     private IEnumerator EnableJournalTimer()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(2.5f);
         NewMessage("MSG_Journal");
     }
 
@@ -294,7 +310,7 @@ public class TutorialController : MonoBehaviour
                 controller.PrintText(instructions, true, false);
                 instructions = "1- Type in ship 3-letter CODE.";
                 controller.PrintText(instructions, true, false);
-                instructions = "2- Press RETURN to confirm.";
+                instructions = "2- Press ENTER to confirm.";
                 controller.PrintText(instructions, true, false);
                 instructions = "3- Type in command keyword.";
                 controller.PrintText(instructions, true, false);
@@ -334,5 +350,6 @@ public class TutorialController : MonoBehaviour
 public struct TutorialMessage
 {
     public string messageName;
+    [TextArea]
     public string messageText;
 }

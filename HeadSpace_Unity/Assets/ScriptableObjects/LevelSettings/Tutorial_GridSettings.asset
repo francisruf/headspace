@@ -15,5 +15,5 @@ MonoBehaviour:
   mapSizeX: 12
   mapSizeY: 6
   tilemapPrefabs:
-  - {fileID: 7992391782099493898, guid: d3408abd7ce21fc469629bd083546c97, type: 3}
+  - {fileID: 1945838251012804924, guid: 8bf15b87195290345bd32fbd716f8e09, type: 3}
   anomalySpreadTime: 120

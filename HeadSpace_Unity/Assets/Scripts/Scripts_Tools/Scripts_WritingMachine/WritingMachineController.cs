@@ -494,8 +494,9 @@ public class WritingMachineController : MonoBehaviour
             printText = "Following this route : ";
             for (int i = 0; i < count; i++)
             {
-                if (i == 1)
+                if (i == 0 || i == 5)
                     printText += "\n";
+
 
                 printText += routeEntry[i];
                 if (i < count - 1)

@@ -10,7 +10,7 @@ public class ContractManager : MonoBehaviour
 
     [Header("Spawn settings")]
     public float firstContractSpawnTime;
-    public float contractSpawnInterval;
+    private float _defaultContractSpawnInterval;
 
     [Header("Prefabs")]
     public GameObject singleContractPrefab;
@@ -81,10 +81,11 @@ public class ContractManager : MonoBehaviour
         _newContractRoutine = null;
     }
 
-    public void AssignLevelSettings(List<ClientRules> clientRules, ContractSpawnCondition condition)
+    public void AssignLevelSettings(List<ClientRules> clientRules, ContractSpawnCondition condition, float defaultSpawnInterval)
     {
         this._currentSpawnCondition = condition;
         this._clientRules = clientRules;
+        this._defaultContractSpawnInterval = defaultSpawnInterval;
         Debug.Log("Received client rules");
     }
 
@@ -120,15 +121,15 @@ public class ContractManager : MonoBehaviour
     public void CreateNewSingleContract()
     {
         List<Client> allClients = new List<Client>();
-        int contractSize = ContractSizeRandomizer();
+        int contractSize = 1;
         MovableContract movableContract = null;
 
         // Contract object
         if (contractSize == 1)
             movableContract = Instantiate(singleContractPrefab).GetComponent<MovableContract>();
 
-        else if (contractSize == 2)
-            movableContract = Instantiate(doubleContractPrefab).GetComponent<MovableContract>();
+        //else if (contractSize == 2)
+        //    movableContract = Instantiate(doubleContractPrefab).GetComponent<MovableContract>();
 
         Vector2 spawnPos = Vector2.zero;
         Vector2 endPos = Vector2.zero;
@@ -158,15 +159,31 @@ public class ContractManager : MonoBehaviour
         // Client settings
         // Start planet
         List<GridTile_Planet> allCandidatePlanets = new List<GridTile_Planet>(PlanetManager.instance.AllPlanetTiles);
-        List<GridTile_Planet> candidateStartPlanets = GetStartPlanets(allCandidatePlanets);
-        GridTile_Planet startPlanet = ExtractRandomPlanet(candidateStartPlanets);
+        GridTile_Planet startPlanet = null;
+
+        if (_clientRules[_currentRuleIndex].specialCondition == SpecialConditions.ClosestPlanetToShip)
+        {
+            startPlanet = GetClosestPlanet(allCandidatePlanets);
+        }
+        else
+        {
+            List<GridTile_Planet> candidateStartPlanets = GetStartPlanets(allCandidatePlanets);
+            startPlanet = ExtractRandomPlanet(candidateStartPlanets);
+        }
+
+        if (startPlanet == null)
+        {
+            Debug.LogWarning("Could not find target start planet. Check start settings.");
+            int randomIndex = UnityEngine.Random.Range(0, allCandidatePlanets.Count);
+            startPlanet = allCandidatePlanets[randomIndex];
+        }
 
         for (int i = 0; i < contractSize; i++)
         {
             // End planet
             List<GridTile_Planet> candidateEndPlanets = GetEndPlanets(startPlanet, allCandidatePlanets);
-            GetPlanetsByDistance(allCandidatePlanets, candidateEndPlanets, startPlanet);
-            GridTile_Planet endPlanet = ExtractRandomPlanet(candidateEndPlanets);
+            List<GridTile_Planet> distanceCandidates = GetPlanetsByDistance(allCandidatePlanets, candidateEndPlanets, startPlanet);
+            GridTile_Planet endPlanet = ExtractRandomPlanet(distanceCandidates);
 
             allClients.Add(CreateClient(startPlanet, endPlanet));
             allCandidatePlanets.Remove(endPlanet);
@@ -188,13 +205,13 @@ public class ContractManager : MonoBehaviour
             contract.CalculatePointsReward(pointSettings);
             _allContracts.Add(contract);
         }
-        else if (contractSize == 2)
-        {
-            Contract_Double contract = movableContract.GetComponent<Contract_Double>();
-            contract.AssignClients(allClients);
-            contract.CalculatePointsReward(pointSettings);
-            _allContracts.Add(contract);
-        }
+        //else if (contractSize == 2)
+        //{
+        //    Contract_Double contract = movableContract.GetComponent<Contract_Double>();
+        //    contract.AssignClients(allClients);
+        //    contract.CalculatePointsReward(pointSettings);
+        //    _allContracts.Add(contract);
+        //}
 
         _spawnCount++;
 
@@ -210,41 +227,81 @@ public class ContractManager : MonoBehaviour
         return target;
     }
 
+    private GridTile_Planet GetClosestPlanet(List<GridTile_Planet> completeList)
+    {
+        if (ShipManager.instance == null)
+            return null;
+
+        List<Ship> allShips = ShipManager.instance.AllShips;
+        int count = completeList.Count;
+        int targetIndex = int.MaxValue;
+        int minRating = int.MaxValue;
+
+        foreach (var ship in allShips)
+        {
+            TileCoordinates shipPos = GridCoords.FromWorldToTilePosition(ship.transform.position);
+
+            for (int i = 0; i < count; i++)
+            {
+                TileCoordinates planetPos = completeList[i].TileCoordinates;
+                int distanceRating = PathFinder.instance.GetDistanceRating(shipPos.tileX, shipPos.tileY, planetPos.tileX, planetPos.tileY);
+                if (distanceRating < minRating)
+                {
+                    minRating = distanceRating;
+                    targetIndex = i;
+                }
+            }
+        }
+
+        if (targetIndex < count)
+        {
+            return completeList[targetIndex];
+        }
+
+        return null;
+    }
+
     private List<GridTile_Planet> GetStartPlanets(List<GridTile_Planet> completeList)
     {
-        StartPlanetState startState = _clientRules[_currentRuleIndex].startPlanetState;
+        //StartPlanetState startState = _clientRules[_currentRuleIndex].startPlanetState;
         int count = 0;
         List<GridTile_Planet> candidatePlanets = new List<GridTile_Planet>();
 
-        if (startState == StartPlanetState.Random)
+        foreach (var planet in completeList)
         {
-            foreach (var planet in completeList)
-            {
-                candidatePlanets.Add(planet);
-            }
+            candidatePlanets.Add(planet);
+            count++;
         }
-        else if (startState == StartPlanetState.Found)
-        {
-            foreach (var planet in completeList)
-            {
-                if (planet.PlanetFound)
-                {
-                    candidatePlanets.Add(planet);
-                    count++;
-                }
-            }
-        }
-        else if (startState == StartPlanetState.NotFound)
-        {
-            foreach (var planet in completeList)
-            {
-                if (!planet.PlanetFound)
-                {
-                    candidatePlanets.Add(planet);
-                    count++;
-                }
-            }
-        }
+
+        //if (startState == StartPlanetState.Random)
+        //{
+        //    foreach (var planet in completeList)
+        //    {
+        //        candidatePlanets.Add(planet);
+        //    }
+        //}
+        //else if (startState == StartPlanetState.Found)
+        //{
+        //    foreach (var planet in completeList)
+        //    {
+        //        if (planet.PlanetFound)
+        //        {
+        //            candidatePlanets.Add(planet);
+        //            count++;
+        //        }
+        //    }
+        //}
+        //else if (startState == StartPlanetState.NotFound)
+        //{
+        //    foreach (var planet in completeList)
+        //    {
+        //        if (!planet.PlanetFound)
+        //        {
+        //            candidatePlanets.Add(planet);
+        //            count++;
+        //        }
+        //    }
+        //}
 
         if (count > 0)
             return candidatePlanets;
@@ -254,42 +311,52 @@ public class ContractManager : MonoBehaviour
 
     private List<GridTile_Planet> GetEndPlanets(GridTile_Planet startPlanet, List<GridTile_Planet> completeList)
     {
-        EndPlanetState endState = _clientRules[_currentRuleIndex].endPlanetState;
+        //EndPlanetState endState = _clientRules[_currentRuleIndex].endPlanetState;
         int count = 0;
         List<GridTile_Planet> candidatePlanets = new List<GridTile_Planet>();
 
-        if (endState == EndPlanetState.Random)
+        foreach (var planet in completeList)
         {
-            foreach (var planet in completeList)
+            if (planet != startPlanet)
             {
-                if (planet != startPlanet)
-                    candidatePlanets.Add(planet);
+                candidatePlanets.Add(planet);
+                count++;
             }
+                
         }
-        else if (endState == EndPlanetState.Found)
-        {
-            foreach (var planet in completeList)
-            {
-                if (planet != startPlanet)
-                    if (planet.PlanetFound)
-                    {
-                        candidatePlanets.Add(planet);
-                        count++;
-                    }
-            }
-        }
-        else if (endState == EndPlanetState.NotFound)
-        {
-            foreach (var planet in completeList)
-            {
-                if (planet != startPlanet)
-                    if (!planet.PlanetFound)
-                    {
-                        candidatePlanets.Add(planet);
-                        count++;
-                    }
-            }
-        }
+
+        //if (endState == EndPlanetState.Random)
+        //{
+        //    foreach (var planet in completeList)
+        //    {
+        //        if (planet != startPlanet)
+        //            candidatePlanets.Add(planet);
+        //    }
+        //}
+        //else if (endState == EndPlanetState.Found)
+        //{
+        //    foreach (var planet in completeList)
+        //    {
+        //        if (planet != startPlanet)
+        //            if (planet.PlanetFound)
+        //            {
+        //                candidatePlanets.Add(planet);
+        //                count++;
+        //            }
+        //    }
+        //}
+        //else if (endState == EndPlanetState.NotFound)
+        //{
+        //    foreach (var planet in completeList)
+        //    {
+        //        if (planet != startPlanet)
+        //            if (!planet.PlanetFound)
+        //            {
+        //                candidatePlanets.Add(planet);
+        //                count++;
+        //            }
+        //    }
+        //}
 
         if (count > 0)
             return candidatePlanets;
@@ -301,13 +368,14 @@ public class ContractManager : MonoBehaviour
         }
     }
 
-    private void GetPlanetsByDistance(List<GridTile_Planet> completeList, List<GridTile_Planet> listToModify, GridTile_Planet startPlanet)
+    private List<GridTile_Planet> GetPlanetsByDistance(List<GridTile_Planet> completeList, List<GridTile_Planet> listToModify, GridTile_Planet startPlanet)
     {
         int targetDistanceRating = _clientRules[_currentRuleIndex].distanceRating;
 
         List<GridTile_Planet> shortDistancePlanets = new List<GridTile_Planet>();
         List<GridTile_Planet> mediumDistancePlanets = new List<GridTile_Planet>();
         List<GridTile_Planet> longDistancePlanets = new List<GridTile_Planet>();
+        List<GridTile_Planet> candidates = new List<GridTile_Planet>();
         int shortCount = 0;
         int mediumCount = 0;
         int longCount = 0;
@@ -346,25 +414,25 @@ public class ContractManager : MonoBehaviour
         if (targetDistanceRating == 1)
         {
             if (shortCount > 0)
-                listToModify = shortDistancePlanets;
+                candidates = shortDistancePlanets;
 
             else if (mediumCount > 0)
-                listToModify = mediumDistancePlanets;
+                candidates = mediumDistancePlanets;
 
             else if (longCount > 0)
-                listToModify = longDistancePlanets;
+                candidates = longDistancePlanets;
 
             else
             {
-                listToModify = new List<GridTile_Planet>(completeList);
-                listToModify.Remove(startPlanet);
+                candidates = new List<GridTile_Planet>(completeList);
+                candidates.Remove(startPlanet);
             }
         }
 
         else if (targetDistanceRating == 2)
         {
             if (mediumCount > 0)
-                listToModify = mediumDistancePlanets;
+                candidates = mediumDistancePlanets;
             else
             {
                 List<GridTile_Planet> shortLong = new List<GridTile_Planet>();
@@ -382,12 +450,12 @@ public class ContractManager : MonoBehaviour
 
                 if (shortLongCount > 0)
                 {
-                    listToModify = shortLong;
+                    candidates = shortLong;
                 }
                 else
                 {
-                    listToModify = new List<GridTile_Planet>(completeList);
-                    listToModify.Remove(startPlanet);
+                    candidates = new List<GridTile_Planet>(completeList);
+                    candidates.Remove(startPlanet);
                 }
             }
 
@@ -395,20 +463,21 @@ public class ContractManager : MonoBehaviour
         else if (targetDistanceRating == 3)
         {
             if (longCount > 0)
-                listToModify = longDistancePlanets;
+                candidates = longDistancePlanets;
 
             else if (mediumCount > 0)
-                listToModify = mediumDistancePlanets;
+                candidates = mediumDistancePlanets;
 
             else if (shortCount > 0)
-                listToModify = shortDistancePlanets;
+                candidates = shortDistancePlanets;
 
             else
             {
-                listToModify = new List<GridTile_Planet>(completeList);
-                listToModify.Remove(startPlanet);
+                candidates = new List<GridTile_Planet>(completeList);
+                candidates.Remove(startPlanet);
             }
         }
+        return candidates;
     }
 
     private Client CreateClient(GridTile_Planet startPlanet, GridTile_Planet endPlanet)
@@ -452,54 +521,50 @@ public class ContractManager : MonoBehaviour
 
     private IEnumerator NewContractTimer()
     {
-        yield return new WaitForSeconds(firstContractSpawnTime);
-        CreateNewSingleContract();
-
-        // 2e contrat
-        yield return new WaitForSeconds(23f);
-        CreateNewSingleContract();
-
-        // TEMP
-        float actualInterval = contractSpawnInterval;
-
-        if (_spawnCount > 8)
-            actualInterval = 60f;
-
         while (true)
         {
-            yield return new WaitForSeconds(actualInterval);
-            _spawnRoutine = SpawnContractTimer(actualInterval);
-            StartCoroutine(_spawnRoutine);
+            float interval = _clientRules[_currentRuleIndex].spawnTime;
+
+            if (_allRulesApplied)
+                interval = _defaultContractSpawnInterval;
+
+            _spawnRoutine = SpawnContractTimer(interval);
+            yield return StartCoroutine(_spawnRoutine);
         }
     }
 
     private IEnumerator SpawnContractTimer(float spawnInterval)
     {
-        float maxTime = spawnInterval / 4f;
-        float randomTime = UnityEngine.Random.Range(0f, maxTime);
+        float randomOffset = spawnInterval / 8f;
+        float randomTime = UnityEngine.Random.Range(spawnInterval - randomOffset, spawnInterval + randomOffset);
 
         yield return new WaitForSeconds(randomTime);
         CreateNewSingleContract();
+
         _spawnRoutine = null;
     }
 
-    private int ContractSizeRandomizer()
-    {
-        int randomRoll = UnityEngine.Random.Range(1, 101);
-        //Debug.Log("Random roll... " + randomRoll);
-        if (randomRoll < _doubleContractChance)
-        {
-            //Debug.Log("DOUBLE CONTRACT");
 
-            _doubleContractChance = 0;
-            return 2;
-        }
-        else
-        {
-            //Debug.Log("SINGLE CONTRACT");
+    // ATTENTION!!!! Le spawnTimer index est indépendant du client rule index.
+    // Si un contrat double est spawné, le timer index est en ce moment décalé.
 
-            _doubleContractChance += 0;
-            return 1;
-        }
-    }
+    //private int ContractSizeRandomizer()
+    //{
+    //    int randomRoll = UnityEngine.Random.Range(1, 101);
+    //    //Debug.Log("Random roll... " + randomRoll);
+    //    if (randomRoll < _doubleContractChance)
+    //    {
+    //        //Debug.Log("DOUBLE CONTRACT");
+
+    //        _doubleContractChance = 0;
+    //        return 2;
+    //    }
+    //    else
+    //    {
+    //        //Debug.Log("SINGLE CONTRACT");
+
+    //        _doubleContractChance += 0;
+    //        return 1;
+    //    }
+    //}
 }
