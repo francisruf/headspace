@@ -349,7 +349,8 @@ MonoBehaviour:
     type: 3}
   spacePrefab: {fileID: 4534624915837120962, guid: 05bd32a29dd420a48a4e13eabc9f86e8,
     type: 3}
-  tabPrefab: {fileID: 0}
+  tabPrefab: {fileID: 4534624915837120962, guid: 023e45605fc4bb84dbd55c02931faba4,
+    type: 3}
 --- !u!1 &1117686964857781188
 GameObject:
   m_ObjectHideFlags: 0

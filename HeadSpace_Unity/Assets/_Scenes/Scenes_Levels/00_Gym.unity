@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -297,31 +297,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4b13a30cbf15d7439a372f960ce68a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelEndCondition: 0
+  contractSpawnConditions: 0
   gridSettings: {fileID: 11400000, guid: 68651e6f3fc46b841a240c6571b12c4b, type: 2}
   planetLevelSettings: {fileID: 11400000, guid: cd9a12451108a044480dab21c8ae034b,
     type: 2}
   inventorySettings: {fileID: 11400000, guid: 7910a0d62269f2c4483a7c6626ebdd56, type: 2}
+  defaultContractSpawnInterval: 0
   allClientRules:
-  - startPlanetState: 1
-    endPlanetState: 2
+  - spawnTime: 0
+    completionTimer: 0
+    startDistanceRating: 0
+    travelDistanceRating: 0
     distanceRating: 1
     challengeType: 2
-  - startPlanetState: 1
-    endPlanetState: 1
+    specialStartCondition: 0
+    specialEndCondition: 0
+  - spawnTime: 0
+    completionTimer: 0
+    startDistanceRating: 0
+    travelDistanceRating: 0
     distanceRating: 1
     challengeType: 2
-  - startPlanetState: 1
-    endPlanetState: 2
+    specialStartCondition: 0
+    specialEndCondition: 0
+  - spawnTime: 0
+    completionTimer: 0
+    startDistanceRating: 0
+    travelDistanceRating: 0
     distanceRating: 2
     challengeType: 2
-  - startPlanetState: 2
-    endPlanetState: 1
+    specialStartCondition: 0
+    specialEndCondition: 0
+  - spawnTime: 0
+    completionTimer: 0
+    startDistanceRating: 0
+    travelDistanceRating: 0
     distanceRating: 3
     challengeType: 2
-  - startPlanetState: 0
-    endPlanetState: 0
+    specialStartCondition: 0
+    specialEndCondition: 0
+  - spawnTime: 0
+    completionTimer: 0
+    startDistanceRating: 0
+    travelDistanceRating: 0
     distanceRating: 2
     challengeType: 2
+    specialStartCondition: 0
+    specialEndCondition: 0
 --- !u!1 &841591217
 GameObject:
   m_ObjectHideFlags: 0

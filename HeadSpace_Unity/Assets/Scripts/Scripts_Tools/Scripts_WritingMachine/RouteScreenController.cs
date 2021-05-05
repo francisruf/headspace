@@ -95,6 +95,21 @@ public class RouteScreenController : MonoBehaviour
         }
     }
 
+    public void OnUpArrowInput()
+    {
+        int previousScreen = _currentScreenIndex;
+        _currentScreenIndex = _currentScreenIndex - 1;
+
+        if (_currentScreenIndex < 0)
+            _currentScreenIndex = allScreens.Count - 1;
+
+        UpdateTexts();
+    }
+
+    public void OnDownArrowInput()
+    {
+        OnTabInput();
+    }
 
     public void OnBackspaceInput()
     {

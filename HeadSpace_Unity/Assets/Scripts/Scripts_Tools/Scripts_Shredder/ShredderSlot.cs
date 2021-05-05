@@ -11,14 +11,12 @@ public class ShredderSlot : MonoBehaviour
     public Transform minObjectPosY;
     public Transform maxObjectPosY;
     public Transform EndPosition;
-    public SpriteRenderer GreenButton;
-    public SpriteRenderer RedButton;
-    private SlidableShredder parent = null;
+    private Shredder parent = null;
     private Animator lightAnimator;
     private bool shredding = false;
     public bool canShred;
 
-    private LightState currentLightState = LightState.Red;
+    private int _topSortOrder;
 
     private List<ShreddingRoutine> currentShreddingRoutines = new List<ShreddingRoutine>();
     private int currentRoutineIndex = 0;
@@ -26,31 +24,11 @@ public class ShredderSlot : MonoBehaviour
     private void Awake()
     {
         lightAnimator = GetComponentInParent<Animator>();
-    }
-
-    private void Start()
-    {
-        GreenButton.enabled = false;
-        RedButton.enabled = true;
-
         if (parent == null)
         {
-            parent = transform.parent.GetComponent<SlidableShredder>();
+            parent = GetComponentInParent<Shredder>();
         }
     }
-    //private void Update()
-    //{
-    //    if (canShred || shredding)
-    //    {
-    //        GreenButton.enabled = false;
-    //        RedButton.enabled = true;
-    //    }
-    //    else
-    //    {
-    //        GreenButton.enabled = true;
-    //        RedButton.enabled = false;
-    //    }
-    //}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -72,7 +50,8 @@ public class ShredderSlot : MonoBehaviour
 
                     //objToShred.ObjSpriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
                     objToShred.SetSortingLayer(parent.ObjSpriteRenderer.sortingLayerID);
-                    objToShred.SetOrderInLayer(parent.ObjSpriteRenderer.sortingOrder + 1);
+                    objToShred.SetOrderInLayer(_topSortOrder + 1);
+                    _topSortOrder = objToShred.GetHighestOrder();
 
                     IEnumerator newShreddingRoutine = Shred(objToShred, currentRoutineIndex);
                     currentShreddingRoutines.Add(new ShreddingRoutine(currentRoutineIndex, newShreddingRoutine));
@@ -198,31 +177,6 @@ public class ShredderSlot : MonoBehaviour
         lightAnimator.SetBool("InteractionsEnabled", parent.InteractionsEnabled);
         lightAnimator.SetBool("Shredding", shredding);
         lightAnimator.SetBool("CanShred", canShred);
-    }
-
-    private void ChangeLights(LightState newState)
-    {
-        if (currentLightState == newState)
-            return;
-
-        currentLightState = newState;
-
-        if (currentLightState == LightState.Red)
-        {
-            GreenButton.enabled = false;
-            RedButton.enabled = true;
-        }
-        else
-        {
-            GreenButton.enabled = true;
-            RedButton.enabled = false;
-        }
-    }
-
-    private enum LightState
-    {
-        Red,
-        Green
     }
 
     //private bool CanShred()

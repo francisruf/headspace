@@ -290,6 +290,18 @@ public class WritingMachineController : MonoBehaviour
             _keyboard.PressKey(SpecialKey.Space);
         }
 
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            _routeScreenController.OnUpArrowInput();
+            _keyboard.PressKey(SpecialKey.Backspace);
+        }
+
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            _routeScreenController.OnDownArrowInput();
+            _keyboard.PressKey(SpecialKey.Tab);
+        }
+
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
             _routeScreenController.OnBackspaceInput();

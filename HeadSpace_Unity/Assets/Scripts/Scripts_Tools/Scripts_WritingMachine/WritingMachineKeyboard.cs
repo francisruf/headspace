@@ -129,15 +129,15 @@ public class WritingMachineKeyboard : MonoBehaviour
         Vector2 spawnPos = keyboardStartPoint.position;
         spawnPos.y -= LINE_SPACING * 3;
 
-        //GameObject tabObj = Instantiate(tabPrefab, spawnPos, Quaternion.identity, transform);
-        //TextMeshProUGUI txt3 = null;
-        //Animator anim3 = tabObj.GetComponent<Animator>();
-        //_allKeys.Add(new KeyMatch('>', txt3, anim3));
+        GameObject tabObj = Instantiate(tabPrefab, spawnPos, Quaternion.identity, transform);
+        TextMeshProUGUI txt3 = null;
+        Animator anim3 = tabObj.GetComponent<Animator>();
+        _allKeys.Add(new KeyMatch('>', txt3, anim3));
 
-        //SpriteRenderer sr3 = tabObj.GetComponent<SpriteRenderer>();
-        //sr3.sortingOrder = sortingOrder;
+        SpriteRenderer sr3 = tabObj.GetComponent<SpriteRenderer>();
+        sr3.sortingOrder = sortingOrder;
 
-        spawnPos.x += LINE_INDENT * 2;
+        spawnPos.x += LINE_INDENT * 3;
 
         for (int i = 0; i < _zKeys.Length; i++)
         {
