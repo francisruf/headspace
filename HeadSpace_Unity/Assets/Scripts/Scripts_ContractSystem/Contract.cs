@@ -27,13 +27,13 @@ public abstract class Contract : MonoBehaviour
     public List<TextMeshProUGUI> clientNameTexts;
     public List<SpriteRenderer> clientFaceRenderers;
     public List<TextMeshProUGUI> clientDestinationTexts;
-    public List<SpriteRenderer> clientChipRenderers;
+    public List<SpriteRenderer> clientStartStatusRenderers;
+    public List<SpriteRenderer> clientEndStatusRenderers;
+    public List<SpriteRenderer> destinationPlanetRenderers;
 
     [Header("Chip states sprites")]
-    public Sprite chipWaitingSprite;
-    public Sprite chipEmbarkedSprite;
-    public Sprite chipDebarkedSprite;
-    public Sprite chipDeadSprite;
+    public Sprite statusCompletedSprite;
+    public Sprite statusFailedSprite;
 
     protected List<Client> _allClients = new List<Client>();
     public List<Client> AllClients { get { return _allClients; } }
@@ -60,11 +60,17 @@ public abstract class Contract : MonoBehaviour
 
     protected virtual void AddClient(Client client, int index)
     {
+        clientStartStatusRenderers[index].sprite = null;
+        clientEndStatusRenderers[index].sprite = null;
+
         _allClients.Add(client);
 
         clientNameTexts[index].text = client.GetDisplayName();
         clientFaceRenderers[index].sprite = client.clientSprite;
         clientDestinationTexts[index].text = client.GetDestinationInfo();
+
+        if (client.endPlanet != null)
+            destinationPlanetRenderers[index].sprite = client.endPlanet.SpriteMatch.contractSprite;
 
         client.clientStateChanged += OnClientStateChanged;
     }
@@ -72,31 +78,33 @@ public abstract class Contract : MonoBehaviour
     private void OnClientStateChanged(Client client)
     {
         int index = _allClients.IndexOf(client);
-        Sprite targetSprite = null;
 
         switch (client.currentState)
         {
             case ClientState.Waiting:
-                targetSprite = chipWaitingSprite;
+                clientStartStatusRenderers[index].sprite = null;
+                clientEndStatusRenderers[index].sprite = null;
                 break;
 
             case ClientState.Embarked:
-                targetSprite = chipEmbarkedSprite;
+                clientStartStatusRenderers[index].sprite = statusCompletedSprite;
                 break;
 
             case ClientState.Debarked:
-                targetSprite = chipDebarkedSprite;
+                clientStartStatusRenderers[index].sprite = statusCompletedSprite;
+                clientEndStatusRenderers[index].sprite = statusCompletedSprite;
                 CheckCompletion();
                 break;
 
             case ClientState.Dead:
-                targetSprite = chipDeadSprite;
+                clientStartStatusRenderers[index].sprite = statusFailedSprite;
+                clientEndStatusRenderers[index].sprite = statusFailedSprite;
                 break;
 
             default:
                 break;
         }
-        clientChipRenderers[index].sprite = targetSprite;
+        
     }
 
     private void CheckCompletion()
