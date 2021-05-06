@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SlidableDrawer : SlidableTool
 {
+    public DrawerType drawerType;
+
     protected override void OpenTool()
     {
         base.OpenTool();
@@ -13,4 +15,10 @@ public class SlidableDrawer : SlidableTool
     {
         base.FullyCloseTool();
     }
+}
+
+public enum DrawerType
+{
+    Solo,
+    Double
 }

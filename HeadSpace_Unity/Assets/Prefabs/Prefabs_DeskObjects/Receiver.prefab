@@ -269,6 +269,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2094206931499458885}
   - component: {fileID: 3794731924957621416}
+  - component: {fileID: 1659049651295461301}
   m_Layer: 0
   m_Name: Receptor_Back
   m_TagString: Untagged
@@ -340,6 +341,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1659049651295461301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3322140059880809900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 514f8987fe85bb14fb85448119668cbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pixelOffset: {x: 1, y: 4}
+  rendererOverride: {fileID: 3391058004764032105}
 --- !u!1 &3391058004764032106
 GameObject:
   m_ObjectHideFlags: 0
@@ -352,6 +367,7 @@ GameObject:
   - component: {fileID: 3391058004764032105}
   - component: {fileID: 8478995645959105591}
   - component: {fileID: 798593709}
+  - component: {fileID: 4944744860310436396}
   m_Layer: 13
   m_Name: Receiver
   m_TagString: Untagged
@@ -467,6 +483,20 @@ MonoBehaviour:
     type: 3}
   printPoint: {fileID: 7386924865294376313}
   timeText: {fileID: 442499450496654991}
+--- !u!114 &4944744860310436396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3391058004764032106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 514f8987fe85bb14fb85448119668cbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pixelOffset: {x: 1, y: 4}
+  rendererOverride: {fileID: 0}
 --- !u!1 &7442303542032442210
 GameObject:
   m_ObjectHideFlags: 0

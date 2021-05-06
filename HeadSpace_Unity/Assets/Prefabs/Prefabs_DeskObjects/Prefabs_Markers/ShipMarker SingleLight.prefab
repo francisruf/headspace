@@ -315,31 +315,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &7110461467510289157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5156024988069624554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5b49afa1b36125428d8508de9d01fa0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ignoreSelectedBringToFront: 0
-  objectType: 0
-  dropZoneLayerMask:
-    serializedVersion: 2
-    m_Bits: 270336
-  upSprite: {fileID: 0}
-  angleSprite: {fileID: 0}
-  lightOn: {fileID: -6752980415491694992, guid: ad2d44e177330f84ea0b6ca96d9b240e,
-    type: 3}
-  lightOff: {fileID: -2416090988513126967, guid: ad2d44e177330f84ea0b6ca96d9b240e,
-    type: 3}
-  allLights:
-  - {fileID: 4341078687659743634}
 --- !u!95 &8704556815208542872
 Animator:
   serializedVersion: 3
@@ -371,6 +346,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9834388ce5cbb084cb5c8e702efe01e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7110461467510289157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5156024988069624554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5b49afa1b36125428d8508de9d01fa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startEnabled: 1
+  ignoreSelectedBringToFront: 0
+  objectType: 0
+  dropZoneLayerMask:
+    serializedVersion: 2
+    m_Bits: 270336
+  upSprite: {fileID: 0}
+  angleSprite: {fileID: 0}
+  lightOn: {fileID: -6752980415491694992, guid: ad2d44e177330f84ea0b6ca96d9b240e,
+    type: 3}
+  lightOff: {fileID: -2416090988513126967, guid: ad2d44e177330f84ea0b6ca96d9b240e,
+    type: 3}
+  allLights:
+  - {fileID: 4341078687659743634}
 --- !u!1 &5939062223495577688
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,12 +571,6 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 8592807304816130939, guid: 2e40d8db7fd569c4c9328e2043b741b7,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 2868848167751270405, guid: eeeda51e92a69be46a91db21610777cc,
-        type: 3}
     - target: {fileID: 8592807304816130939, guid: 2e40d8db7fd569c4c9328e2043b741b7,
         type: 3}
       propertyPath: m_Color.b

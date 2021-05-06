@@ -22,6 +22,8 @@ public class DropZone_CompletedContracts : DropZone
         HighestSortingOrder = obj.GetHighestOrder() + 1;
 
         obj.DisableInteractions();
+
+        _objectCount++;
     }
 
     public override bool CheckIfAccepted(MovableObject obj)

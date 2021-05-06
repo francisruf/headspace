@@ -236,7 +236,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 514f8987fe85bb14fb85448119668cbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pixelOffset: {x: 2, y: 6}
+  pixelOffset: {x: 1, y: 6}
+  rendererOverride: {fileID: 0}
 --- !u!114 &9071300826989569983
 MonoBehaviour:
   m_ObjectHideFlags: 0

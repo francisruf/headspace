@@ -16,6 +16,8 @@ public abstract class DropZone : MonoBehaviour
     public int ContainerSortingLayer { get { return _containerSpriteRenderer.sortingLayerID; } }
     public int HighestSortingOrder { get; protected set; } = 0;
 
+    protected int _objectCount;
+
     protected virtual void Awake()
     {
         _collider = GetComponent<Collider2D>();
@@ -74,6 +76,7 @@ public abstract class DropZone : MonoBehaviour
         //{
         //    obj.Rigidbody.bodyType = RigidbodyType2D.Dynamic;
         //}
+        _objectCount++;
     }
 
     public virtual void RemoveObjectFromDropZone(MovableObject obj)
@@ -84,5 +87,6 @@ public abstract class DropZone : MonoBehaviour
         //}
 
         obj.transform.parent = null;
+        _objectCount--;
     }
 }

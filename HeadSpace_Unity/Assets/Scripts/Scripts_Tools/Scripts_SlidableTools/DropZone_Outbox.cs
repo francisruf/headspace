@@ -77,6 +77,7 @@ public class DropZone_Outbox : DropZone
             if (tc != null)
                 _timeCard = tc;
         }
+        _objectCount++;
     }
 
     public override void RemoveObjectFromDropZone(MovableObject obj)

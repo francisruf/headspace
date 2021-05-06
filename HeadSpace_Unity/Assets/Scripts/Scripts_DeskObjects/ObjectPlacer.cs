@@ -9,6 +9,7 @@ public class ObjectPlacer : MonoBehaviour
 
     public static ObjectPlacer instance;
     private DropZone_Outbox _outbox;
+    private SlidableDrawer _slidableDrawer;
     private DropZone_Drawer[] _drawers;
     private Vector2 _currentCenterSpawnPos = Vector2.zero;
     private Vector2 _currentDeskSpawnPos = new Vector2(6f, 0f);
@@ -58,6 +59,7 @@ public class ObjectPlacer : MonoBehaviour
     private void AssignReferences()
     {
         _outbox = FindObjectOfType<DropZone_Outbox>();
+        _slidableDrawer = FindObjectOfType<SlidableDrawer>();
         _drawers = FindObjectsOfType<DropZone_Drawer>();
     }
 
@@ -130,6 +132,14 @@ public class ObjectPlacer : MonoBehaviour
 
             if (_drawers == null)
                 yield return null;
+        }
+
+        if (_slidableDrawer == null)
+            _slidableDrawer = FindObjectOfType<SlidableDrawer>();
+
+        if (_slidableDrawer.drawerType == DrawerType.Solo)
+        {
+            tray = DrawerTray.bottom;
         }
 
         foreach (var drawer in _drawers)

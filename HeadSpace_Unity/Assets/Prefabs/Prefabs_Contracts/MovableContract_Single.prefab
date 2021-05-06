@@ -1014,7 +1014,7 @@ MonoBehaviour:
   dropZoneLayerMask:
     serializedVersion: 2
     m_Bits: 270336
-  animationSpeed: 1
+  animationSpeed: 0.8
   documentsLayerMask:
     serializedVersion: 2
     m_Bits: 16384

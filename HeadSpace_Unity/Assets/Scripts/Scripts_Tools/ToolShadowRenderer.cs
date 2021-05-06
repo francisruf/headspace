@@ -11,11 +11,13 @@ public class ToolShadowRenderer : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private SpriteRenderer _shadowRenderer;
 
+    public SpriteRenderer rendererOverride;
+
     private const float PIXEL_SIZE = 0.03125f;
 
     private void Awake()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+         _spriteRenderer = GetComponent<SpriteRenderer>();
         _interactableObject = GetComponent<InteractableObject>();
     }
 
@@ -35,9 +37,17 @@ public class ToolShadowRenderer : MonoBehaviour
         Color shadowColor = Color.black;
         shadowColor.a = 0.2f;
         _shadowRenderer.color = shadowColor;
-        _shadowRenderer.sortingLayerID = _spriteRenderer.sortingLayerID;
 
+        if (rendererOverride != null)
+        {
+            _shadowRenderer.sortingLayerID = rendererOverride.sortingLayerID;
+            _shadowRenderer.sortingOrder = rendererOverride.sortingOrder - 1;
+        }
+        else
+        {
+            _shadowRenderer.sortingLayerID = _spriteRenderer.sortingLayerID;
+            _shadowRenderer.sortingOrder = _spriteRenderer.sortingOrder - 1;
+        }
 
-        _shadowRenderer.sortingOrder = _spriteRenderer.sortingOrder - 1;
     }
 }
