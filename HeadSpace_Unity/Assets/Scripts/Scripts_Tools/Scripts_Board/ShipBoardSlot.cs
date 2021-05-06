@@ -34,12 +34,14 @@ public class ShipBoardSlot : MonoBehaviour
     {
         Ship.shipStateChange += ChangeDisplayState;
         Ship.shipInfoChange += OnShipNameChange;
+        Ship.shipDirectionChange += OnShipDirectionChange;
     }
 
     private void OnDisable()
     {
         Ship.shipStateChange -= ChangeDisplayState;
         Ship.shipInfoChange -= OnShipNameChange;
+        Ship.shipDirectionChange -= OnShipDirectionChange;
     }
 
     public void AssignInfo(Ship linkedShip, int slotIndex)
@@ -71,6 +73,39 @@ public class ShipBoardSlot : MonoBehaviour
             return;
 
         _shipCallsignText.text = LinkedShip.shipCallsign;
+    }
+
+    private void OnShipDirectionChange(Ship ship, MoveDirection dir)
+    {
+        if (ship != LinkedShip)
+            return;
+
+        if (LinkedShip == null)
+            return;
+
+        switch (dir)
+        {
+            case MoveDirection.Up:
+                _shipDisplayAnimator.SetFloat("VerticalMove", 1.0f);
+                _shipDisplayAnimator.SetFloat("HorizontalMove", 0.0f);
+                break;
+            case MoveDirection.Down:
+                _shipDisplayAnimator.SetFloat("VerticalMove", -1.0f);
+                _shipDisplayAnimator.SetFloat("HorizontalMove", 0.0f);
+                break;
+            case MoveDirection.Left:
+                _shipDisplayAnimator.SetFloat("VerticalMove", 0.0f);
+                _shipDisplayAnimator.SetFloat("HorizontalMove", -1.0f);
+                break;
+            case MoveDirection.Right:
+                _shipDisplayAnimator.SetFloat("VerticalMove", 0.0f);
+                _shipDisplayAnimator.SetFloat("HorizontalMove", 1.0f);
+                break;
+            case MoveDirection.None:
+                _shipDisplayAnimator.SetFloat("VerticalMove", 0.0f);
+                _shipDisplayAnimator.SetFloat("HorizontalMove", 0.0f);
+                break;
+        }
     }
 
     private void ChangeDisplayState(Ship ship)

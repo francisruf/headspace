@@ -83,6 +83,12 @@ TagManager:
   - name: Board
     uniqueID: 2281617069
     locked: 0
+  - name: BoardDoneZone
+    uniqueID: 629370949
+    locked: 0
+  - name: BoardDoneZoneForeground
+    uniqueID: 991195581
+    locked: 0
   - name: ObjectsOnTools
     uniqueID: 1176445009
     locked: 0

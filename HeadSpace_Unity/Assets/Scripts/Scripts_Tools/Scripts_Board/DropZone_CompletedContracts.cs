@@ -5,8 +5,25 @@ using UnityEngine;
 
 public class DropZone_CompletedContracts : DropZone
 {
+    private Animator _lightStickAnimator;
     private int contractIndex = 0;
     public static Action<int> newPointsInDropZone;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        _lightStickAnimator = GetComponent<Animator>();
+    }
+
+    private void OnEnable()
+    {
+        CreditsCounter.pointsCalculationEnd += OnPointsCalculationEnd;
+    }
+
+    private void OnDisable()
+    {
+        CreditsCounter.pointsCalculationEnd -= OnPointsCalculationEnd;
+    }
 
     public override void AddObjectToDropZone(MovableObject obj)
     {
@@ -23,7 +40,14 @@ public class DropZone_CompletedContracts : DropZone
 
         obj.DisableInteractions();
 
+        _lightStickAnimator.SetBool("PointsCalculation", true);
+        _lightStickAnimator.SetTrigger("NewContract");
         _objectCount++;
+    }
+
+    private void OnPointsCalculationEnd()
+    {
+        _lightStickAnimator.SetBool("PointsCalculation", false);
     }
 
     public override bool CheckIfAccepted(MovableObject obj)

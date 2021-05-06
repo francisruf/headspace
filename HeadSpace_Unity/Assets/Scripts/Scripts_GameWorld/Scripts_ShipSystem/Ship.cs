@@ -20,6 +20,7 @@ public class Ship : MonoBehaviour
     public static Action<Ship> shipInfoChange;
     public static Action<int> soulsUnloaded;
     public static Action<Ship> routeFinished;
+    public static Action<Ship, MoveDirection> shipDirectionChange;
     public static Action<PlanetSoulsMatch> soulsFromPlanetSaved;
 
     // Components
@@ -227,6 +228,10 @@ public class Ship : MonoBehaviour
                 break;
             }
         }
+
+        if (shipDirectionChange != null)
+            shipDirectionChange(this, MoveDirection.None);
+
         ChangeShipState(ShipState.Idle);
         mM.RouteFinishedNotif(this);
 
@@ -291,6 +296,23 @@ public class Ship : MonoBehaviour
             if (i == 0)
                 continue;
 
+            TileCoordinates currentShipCoords = GridCoords.FromWorldToTilePosition(transform.position);
+            MoveDirection moveDirection = default;
+
+            if (pathNodes[i].x < currentShipCoords.tileX)
+                moveDirection = MoveDirection.Left;
+            else if (pathNodes[i].x > currentShipCoords.tileX)
+                moveDirection = MoveDirection.Right;
+            else if (pathNodes[i].y > currentShipCoords.tileY)
+                moveDirection = MoveDirection.Down;
+            else if (pathNodes[i].y < currentShipCoords.tileY)
+                moveDirection = MoveDirection.Up;
+            else
+                moveDirection = MoveDirection.None;
+
+            if (shipDirectionChange != null)
+                shipDirectionChange(this, moveDirection);
+
             yield return new WaitForSeconds(tileTravelSpeed * nodeCost);
             transform.position = pathPositions[i];
         }
@@ -316,6 +338,9 @@ public class Ship : MonoBehaviour
             _currentMove = null;
             cancelled = true;
         }
+
+        if (shipDirectionChange != null)
+            shipDirectionChange(this, MoveDirection.None);
 
         ChangeShipState(ShipState.Idle);
 
@@ -708,7 +733,7 @@ public class Ship : MonoBehaviour
         }
         foreach (var client in clientsList)
         {
-            EmbarkClient(client);
+            EmbarkClient(client, planet);
         }
         clientsList.Clear();
 
@@ -723,11 +748,11 @@ public class Ship : MonoBehaviour
 
         foreach (var client in clientsList)
         {
-            DebarkClient(client);
+            DebarkClient(client, planet);
         }
     }
 
-    private void EmbarkClient(Client client)
+    private void EmbarkClient(Client client, GridTile_Planet planet)
     {
         if (!_clientsOnBoard.Contains(client))
         {
@@ -736,17 +761,21 @@ public class Ship : MonoBehaviour
                 _clientsOnBoard.Add(client);
                 client.ChangeState(ClientState.Embarked);
                 currentCargo++;
+
+                mM.ClientEmbarkedNotif(this, client, planet);
             }
         }
         linkedMarker.UpdateLights(currentCargo);
     }
 
-    private void DebarkClient(Client client)
+    private void DebarkClient(Client client, GridTile_Planet planet)
     {
         if (_clientsOnBoard.Remove(client))
         {
             client.ChangeState(ClientState.Debarked);
             currentCargo--;
+
+            mM.ClientDebarkedNotif(this, client, planet);
         }
         linkedMarker.UpdateLights(currentCargo);
     }
@@ -789,5 +818,14 @@ public enum ShipState
     Idle,
     Busy,
     Disabled
+}
+
+public enum MoveDirection
+{
+    Up,
+    Down,
+    Left,
+    Right,
+    None
 }
 

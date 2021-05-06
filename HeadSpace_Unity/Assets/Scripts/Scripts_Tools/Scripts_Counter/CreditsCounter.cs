@@ -7,7 +7,9 @@ using TMPro;
 public class CreditsCounter : MonoBehaviour
 {
     public static Action newCredits;
+    public static Action pointsCalculationEnd;
 
+    private Animator _creditsLightAnimator;
     private TextMeshProUGUI _creditsText;
     private int _currentCreditsDisplayed;
     private int _currentCreditsValue;
@@ -23,6 +25,7 @@ public class CreditsCounter : MonoBehaviour
 
     private void Awake()
     {
+        _creditsLightAnimator = GetComponent<Animator>();
         _creditsText = GetComponentInChildren<TextMeshProUGUI>();
         UpdateText();
     }
@@ -59,10 +62,11 @@ public class CreditsCounter : MonoBehaviour
     {
         int multiplier = difference < 0 ? -1 : 1;
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.5f);
 
         while (_currentCreditsDisplayed != _currentCreditsValue)
         {
+            _creditsLightAnimator.SetBool("NewCredits", true);
             _currentCreditsDisplayed += 1 * multiplier;
             UpdateText();
 
@@ -73,6 +77,10 @@ public class CreditsCounter : MonoBehaviour
             yield return new WaitForEndOfFrame();
             yield return new WaitForEndOfFrame();
         }
+        _creditsLightAnimator.SetBool("NewCredits", false);
+        if (pointsCalculationEnd != null)
+            pointsCalculationEnd();
+
         _currentRoutine = null;
     }
 

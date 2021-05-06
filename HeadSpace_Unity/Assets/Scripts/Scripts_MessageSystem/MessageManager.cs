@@ -346,7 +346,7 @@ public class MessageManager : MonoBehaviour
         else
             newMessageText += "\n";
 
-        newMessageText += "\nPlease wait for auto-reinitialization.";
+        newMessageText += "Please wait for auto-reinitialization.";
 
         QueueMessage(newMessageText, false);
     }
@@ -359,6 +359,22 @@ public class MessageManager : MonoBehaviour
         newMessageText += "\n\nAwaiting instructions.";
 
         QueueMessage(newMessageText, false);
+    }
+
+    public void ClientEmbarkedNotif(Ship ship, Client client, GridTile_Planet planet)
+    {
+        string newMessageText = ship.shipName + " has picked up " + client.clientFirstName + " "
+            + client.clientLastName + " on planet " + planet.PlanetName + ".";
+
+        QueueMessage(newMessageText, true);
+    }
+
+    public void ClientDebarkedNotif(Ship ship, Client client, GridTile_Planet planet)
+    {
+        string newMessageText = ship.shipName + " has debarked " + client.clientFirstName + " "
+            + client.clientLastName + " on planet " + planet.PlanetName + ".";
+
+        QueueMessage(newMessageText, true);
     }
 
     public void GenericMessage(string message, bool playSound)
