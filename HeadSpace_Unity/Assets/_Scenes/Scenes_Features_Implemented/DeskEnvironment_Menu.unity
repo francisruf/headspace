@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -370,6 +370,11 @@ PrefabInstance:
         type: 3}
       propertyPath: commandName
       value: QuitGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 6253526718171900308, guid: d60a623f469b63142b1e82fc9111c103,
+        type: 3}
+      propertyPath: openOutboxOnSelect
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4936675364520526122, guid: d60a623f469b63142b1e82fc9111c103, type: 3}
@@ -750,6 +755,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Indestruc
+      objectReference: {fileID: 0}
+    - target: {fileID: 6253526718171900308, guid: d60a623f469b63142b1e82fc9111c103,
+        type: 3}
+      propertyPath: openOutboxOnSelect
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4936675364520526122, guid: d60a623f469b63142b1e82fc9111c103, type: 3}
@@ -1175,7 +1185,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 00000000f5c4caaddb819150670f7f1b
+  m_ApplyToSortingLayers: 00000000f5c4caaddb819150670f7f1b918d08dee3fa6b86
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0

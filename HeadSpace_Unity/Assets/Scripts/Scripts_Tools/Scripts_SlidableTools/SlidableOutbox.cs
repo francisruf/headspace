@@ -19,11 +19,13 @@ public class SlidableOutbox : SlidableTool
     private void OnEnable()
     {
         WritingMachineController.commandReadyToTear += OnCommandReadyToTear;
+        MovableCommand_Keyword.openOutboxRequest += OnOpenRequest;
     }
 
     private void OnDisable()
     {
         WritingMachineController.commandReadyToTear -= OnCommandReadyToTear;
+        MovableCommand_Keyword.openOutboxRequest -= OnOpenRequest;
     }
 
     protected override void Awake()
@@ -49,6 +51,11 @@ public class SlidableOutbox : SlidableTool
         _dropZone.SendCommands();
     }
 
+    private void OnOpenRequest()
+    {
+        OnCommandReadyToTear(true);
+    }
+
     private void OnCommandReadyToTear(bool openDrawer)
     {
         if (!openDrawer)
@@ -65,8 +72,8 @@ public class SlidableOutbox : SlidableTool
     {
         if (!IsOpen)
         {
-            if (outboxAutoOpen != null)
-                outboxAutoOpen();
+            //if (outboxAutoOpen != null)
+            //    outboxAutoOpen();
         }
         //Debug.Log("DERIVED");
 

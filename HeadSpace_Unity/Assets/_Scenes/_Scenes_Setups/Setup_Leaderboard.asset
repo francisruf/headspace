@@ -13,10 +13,6 @@ MonoBehaviour:
   m_Name: Setup_Leaderboard
   m_EditorClassIdentifier: 
   Setups:
-  - m_Path: Assets/_Scenes/Scenes_Features_Implemented/Camera.unity
-    m_IsLoaded: 1
-    m_IsActive: 0
-    m_IsSubScene: 0
   - m_Path: Assets/_Scenes/Scenes_Features_Implemented/AudioManager.unity
     m_IsLoaded: 1
     m_IsActive: 0

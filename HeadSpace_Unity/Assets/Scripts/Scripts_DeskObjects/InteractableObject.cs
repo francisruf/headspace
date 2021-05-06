@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 // Une classe abstraite est une classe générale qui ne peut être directement appliquée à un objet.
 // Elle sert principalement à déterminer des fonctionnalités partagées par plusieurs SOUS-CLASSES, qui héritent de celle-ci.
@@ -25,6 +26,10 @@ public abstract class InteractableObject : MonoBehaviour
     // Canvas des child objects
     protected Canvas[] _childCanvases;
     protected int _childCanvasesCount;
+
+    protected TextMeshPro[] _childTexts;
+    protected int _childTextCount;
+
     public int RendererAmount { get { return _childCanvasesCount + _childSpriteRenderersCount + 1; } }
 
     protected ObjectInteractionZone[] _interactionZones;
@@ -51,10 +56,12 @@ public abstract class InteractableObject : MonoBehaviour
 
         _childSpriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         _childCanvases = GetComponentsInChildren<Canvas>();
+        _childTexts = GetComponentsInChildren<TextMeshPro>();
         _interactionZones = GetComponentsInChildren<ObjectInteractionZone>();
 
         _childSpriteRenderersCount = _childSpriteRenderers.Length;
         _childCanvasesCount = _childCanvases.Length;
+        _childTextCount = _childTexts.Length;
 
         _defaultSortingLayerID = _spriteRenderer.sortingLayerID;
 
@@ -130,6 +137,11 @@ public abstract class InteractableObject : MonoBehaviour
         {
             c.enabled = false;
         }
+
+        foreach (var t in _childTexts)
+        {
+            t.enabled = false;
+        }
     }
 
     public virtual void DisableInteractions()
@@ -181,6 +193,11 @@ public abstract class InteractableObject : MonoBehaviour
             {
                 _childCanvases[i].sortingLayerID = _spriteRenderer.sortingLayerID;
             }
+
+            for (int i = 0; i < _childTextCount; i++)
+            {
+                _childTexts[i].sortingLayerID = _spriteRenderer.sortingLayerID;
+            }
         }
 
         // Sinon, retourner 0 (ne devrait pas arriver)
@@ -208,6 +225,12 @@ public abstract class InteractableObject : MonoBehaviour
             {
                 if (c.sortingOrder > maxOrder)
                     maxOrder = c.sortingOrder;
+            }
+
+            foreach (var t in _childTexts)
+            {
+                if (t.sortingOrder > maxOrder)
+                    maxOrder = t.sortingOrder;
             }
 
             return maxOrder;
@@ -244,6 +267,12 @@ public abstract class InteractableObject : MonoBehaviour
                     _childCanvases[i].sortingOrder = currentOrder;
                     currentOrder++;
                 }
+
+                for (int i = 0; i < _childTextCount; i++)
+                {
+                    _childTexts[i].sortingOrder = currentOrder;
+                    currentOrder++;
+                }
             }
             // Sinon, retourner 0 (ne devrait pas arriver)
             else
@@ -269,6 +298,11 @@ public abstract class InteractableObject : MonoBehaviour
                 for (int i = 0; i < _childCanvasesCount; i++)
                 {
                     _childCanvases[i].sortingOrder = newOrderInLayer;
+                }
+
+                for (int i = 0; i < _childTextCount; i++)
+                {
+                    _childTexts[i].sortingOrder = newOrderInLayer;
                 }
             }
             // Sinon, retourner 0 (ne devrait pas arriver)
@@ -298,6 +332,11 @@ public abstract class InteractableObject : MonoBehaviour
             if (c.sortingOrder > order)
                 order = c.sortingOrder;
         }
+        foreach (var t in _childTexts)
+        {
+            if (t.sortingOrder > order)
+                order = t.sortingOrder;
+        }
         return order;
     }
 
@@ -313,6 +352,11 @@ public abstract class InteractableObject : MonoBehaviour
         {
             if (c.sortingOrder < order)
                 order = c.sortingOrder;
+        }
+        foreach (var t in _childTexts)
+        {
+            if (t.sortingOrder < order)
+                order = t.sortingOrder;
         }
         return order;
     }
@@ -348,6 +392,11 @@ public abstract class InteractableObject : MonoBehaviour
         foreach (var c in _childCanvases)
         {
             c.enabled = toggleON;
+        }
+
+        foreach (var t in _childTexts)
+        {
+            t.enabled = toggleON;
         }
     }
 }

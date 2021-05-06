@@ -157,4 +157,9 @@ public class MovableLogbook : MovableObject
         else if (_currentPageIndex + 1 <= _pageCount - 1)
             rightCorner.ToggleZone(true);
     }
+
+    public override void ToggleInteractions(bool toggleON)
+    {
+        _collider.enabled = toggleON;
+    }
 }

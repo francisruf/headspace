@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     public Sprite selectCursor;
     public Sprite interactCursor;
     public GameObject cursorObj;
+    private RectTransform cursorRect;
     public LayerMask objectLayers;
     private Image _cursorRenderer;
     public DayInfo CurrentDayInfo;
@@ -52,8 +53,9 @@ public class GameManager : MonoBehaviour
         }
 
         Application.targetFrameRate = 60;
-        _cursorRenderer = cursorObj.GetComponent<Image>();
         Cursor.visible = false;
+        _cursorRenderer = cursorObj.GetComponent<Image>();
+        cursorRect = cursorObj.GetComponent<RectTransform>();
 
         CurrentDayInfo = new DayInfo();
         CurrentDayInfo.day = 0;
@@ -146,7 +148,9 @@ public class GameManager : MonoBehaviour
     private void MoveCursor()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        cursorObj.transform.position = Input.mousePosition;
+
+        //cursorRect.anchoredPosition
+        cursorObj.transform.position = mousePos;
     }
 
     private void SetCursor()

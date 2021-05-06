@@ -64,14 +64,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'MOVE
+  m_text: 'MOVE to liasdjk
 
     ShipName
 
     (12, 15)'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5f7144bd698432140968615aa62b02ca, type: 2}
-  m_sharedMaterial: {fileID: 7591405503483456888, guid: 5f7144bd698432140968615aa62b02ca,
+  m_fontAsset: {fileID: 11400000, guid: 5458991a50ed08b4dad7c8043bed995e, type: 2}
+  m_sharedMaterial: {fileID: -6745654118127383484, guid: 5458991a50ed08b4dad7c8043bed995e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -96,8 +96,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.18
-  m_fontSizeBase: 0.18
+  m_fontSize: 0.2
+  m_fontSizeBase: 0.2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

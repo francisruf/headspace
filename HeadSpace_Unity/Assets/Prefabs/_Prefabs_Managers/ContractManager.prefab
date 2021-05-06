@@ -77,12 +77,29 @@ MonoBehaviour:
   - Corriveau
   - Tremblay
   - Rufiange
-  defaultSprite: {fileID: 21300000, guid: 0f0291e82fb7f834895a7c8903f3e0e9, type: 3}
+  defaultSprite: {fileID: -3006286288988564110, guid: cd0126b99bebc28458a24583c0b2e215,
+    type: 3}
   clientFaceSprites:
-  - {fileID: 21300000, guid: 624375cc07de06e46b21b8e6934d16ad, type: 3}
-  - {fileID: 21300000, guid: 30365ae65e3bbd54cb8478e451b5bc72, type: 3}
-  - {fileID: 21300000, guid: 0f0291e82fb7f834895a7c8903f3e0e9, type: 3}
-  - {fileID: 21300000, guid: d6372acf62fc8e54cae4245f5e1e1c12, type: 3}
+  - {fileID: -3006286288988564110, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
+  - {fileID: 3931446014947681417, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
+  - {fileID: 3033197568602078182, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
+  - {fileID: -3570650375305798029, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
+  - {fileID: -7196150287342321042, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
+  - {fileID: -2125793332200601574, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
+  - {fileID: 5354421481015157402, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
+  - {fileID: 4671334941271426898, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
+  - {fileID: -6466867997799773623, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
+  - {fileID: 545943486094497672, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
+  - {fileID: -7163646432799993488, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
+  - {fileID: -1780770329914877726, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
+  - {fileID: -8716620557358582088, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
+  - {fileID: -2712268801253122764, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
+  - {fileID: -6076252372335016793, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
+  - {fileID: 7536277895123154995, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
+  - {fileID: 2604166347766867885, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
+  - {fileID: -7378198394703379997, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
+  - {fileID: -5433946527206798960, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
+  - {fileID: 2935347861705955858, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
 --- !u!1 &8095210373961893094
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,7 +145,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstContractSpawnTime: 3
-  contractSpawnInterval: 45
   singleContractPrefab: {fileID: 9029962078798673231, guid: 51f25231ccf4cf64c837d431f8db918f,
     type: 3}
   doubleContractPrefab: {fileID: 5697276903824523097, guid: 5af592715e62d12418ab2d5c4a258702,

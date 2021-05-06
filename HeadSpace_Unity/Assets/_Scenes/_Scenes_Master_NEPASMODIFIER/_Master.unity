@@ -339,7 +339,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseScenes:
-  - Camera
   - AudioManager
   - Utilities
   mainMenuScenes:

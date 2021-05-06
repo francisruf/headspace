@@ -374,6 +374,8 @@ public class MessageManager : MonoBehaviour
         string newMessageText = ship.shipName + " has debarked " + client.clientFirstName + " "
             + client.clientLastName + " on planet " + planet.PlanetName + ".";
 
+        newMessageText += "\nWORK ORDER COMPLETE!";
+
         QueueMessage(newMessageText, true);
     }
 

@@ -14,6 +14,7 @@ public class DebugManager : MonoBehaviour
 
     // Sections de debug
     [Header("Debug references")]
+    public Canvas mainCanvas;
     public GameObject buttonsPanel;
     public GameObject timePanel;
     public TextMeshProUGUI gameTimeText;
@@ -87,6 +88,8 @@ public class DebugManager : MonoBehaviour
 
     private void Start()
     {
+        mainCanvas.worldCamera = Camera.main;
+        mainCanvas.sortingLayerName = "UI";
         _remainingMessages = new List<string>(testMessages);
 
         buttonsPanel.SetActive(false);
