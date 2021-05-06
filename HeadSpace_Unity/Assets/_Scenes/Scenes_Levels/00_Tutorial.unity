@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -345,48 +345,48 @@ MonoBehaviour:
     travelDistanceRating: 0
     distanceRating: 1
     challengeType: 2
-    specialStartCondition: 0
-    specialEndCondition: 0
+    specialStartCondition: 1
+    specialEndCondition: 1
   - spawnTime: 3
     completionTimer: 600
     startDistanceRating: 0
     travelDistanceRating: 0
     distanceRating: 2
     challengeType: 2
-    specialStartCondition: 0
+    specialStartCondition: 1
     specialEndCondition: 0
   - spawnTime: 15
     completionTimer: 600
-    startDistanceRating: 0
-    travelDistanceRating: 0
+    startDistanceRating: 2
+    travelDistanceRating: 1
     distanceRating: 2
     challengeType: 2
     specialStartCondition: 0
-    specialEndCondition: 0
+    specialEndCondition: 1
   - spawnTime: 60
     completionTimer: 600
-    startDistanceRating: 0
-    travelDistanceRating: 0
+    startDistanceRating: 1
+    travelDistanceRating: 2
     distanceRating: 1
     challengeType: 2
     specialStartCondition: 0
     specialEndCondition: 0
   - spawnTime: 45
     completionTimer: 600
-    startDistanceRating: 0
-    travelDistanceRating: 0
+    startDistanceRating: 2
+    travelDistanceRating: 1
     distanceRating: 3
     challengeType: 2
     specialStartCondition: 0
     specialEndCondition: 0
   - spawnTime: 60
     completionTimer: 600
-    startDistanceRating: 0
-    travelDistanceRating: 0
+    startDistanceRating: 1
+    travelDistanceRating: 3
     distanceRating: 1
     challengeType: 2
-    specialStartCondition: 0
-    specialEndCondition: 0
+    specialStartCondition: 1
+    specialEndCondition: 1
   - spawnTime: 60
     completionTimer: 600
     startDistanceRating: 0
@@ -394,11 +394,11 @@ MonoBehaviour:
     distanceRating: 3
     challengeType: 2
     specialStartCondition: 0
-    specialEndCondition: 0
+    specialEndCondition: 1
   - spawnTime: 30
     completionTimer: 600
-    startDistanceRating: 0
-    travelDistanceRating: 0
+    startDistanceRating: 2
+    travelDistanceRating: 2
     distanceRating: 2
     challengeType: 2
     specialStartCondition: 0
@@ -974,7 +974,6 @@ MonoBehaviour:
       if your ship has enough space.
   - messageName: MSG_EndTraining1
     messageText: 'When you feel ready, send the "END TRAINING" document to finish.
-
 
 
       Be

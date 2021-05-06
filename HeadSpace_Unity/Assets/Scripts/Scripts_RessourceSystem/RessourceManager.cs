@@ -69,6 +69,10 @@ public class RessourceManager : MonoBehaviour
 
     private void OnContractComplete(int reward)
     {
+        if (GameManager.instance != null)
+            if (GameManager.instance.CurrentDayInfo.day == 0)
+                return;
+
         _contractsCompleted++;
         TotalContractsCompleted++;
         AddCredits(reward);
@@ -76,6 +80,10 @@ public class RessourceManager : MonoBehaviour
 
     public void AddCredits(int amount, bool dontAddToTotal = false)
     {
+        if (GameManager.instance != null)
+            if (GameManager.instance.CurrentDayInfo.day == 0)
+                return;
+
         _currentCredits += amount;
         TotalCredits += amount;
         UpdateRessources();
