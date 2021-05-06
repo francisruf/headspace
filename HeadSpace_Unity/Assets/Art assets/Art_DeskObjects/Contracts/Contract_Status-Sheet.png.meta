@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 6c0953d5fda7d6149bc2461cf315099d
+=======
+guid: 67227a2ecd7c2444d99c292c1ab8caf1
+>>>>>>> integration-laurent
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
