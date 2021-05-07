@@ -176,7 +176,7 @@ MonoBehaviour:
       with in the last few years.
     - 'We still don''t know much about this terrifying phenomenon, but it seems to
       corrupt everything it comes in contact with. '
-    - In others words, STAY AWAY !
+    - In others words, STAY AWAY!
   - frame: {fileID: -7454401371687827062, guid: d32063a5a24c6be449b0ae8dbba88427,
       type: 3}
     allLines:
@@ -497,6 +497,7 @@ GameObject:
   - component: {fileID: 1190452294}
   - component: {fileID: 1190452293}
   - component: {fileID: 1190452292}
+  - component: {fileID: 1190452296}
   m_Layer: 5
   m_Name: CutsceneCanvas
   m_TagString: Untagged
@@ -552,7 +553,7 @@ Canvas:
   m_GameObject: {fileID: 1190452291}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -584,3 +585,15 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1190452296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190452291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61a63c84a569e924386e36803e523836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

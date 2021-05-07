@@ -457,6 +457,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1626419210344661960, guid: 4ad41b68fe447f845af5a9644dda99fa,
+        type: 3}
+      propertyPath: charactersPerSec
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 1626419210344661961, guid: 4ad41b68fe447f845af5a9644dda99fa,
         type: 3}
       propertyPath: m_Name
@@ -480,6 +485,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RenderMode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 136927529803882609, guid: 946ea27eb8f398f4a9f6bb8b038101e7,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 136927529803882609, guid: 946ea27eb8f398f4a9f6bb8b038101e7,
         type: 3}

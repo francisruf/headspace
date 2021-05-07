@@ -21,5 +21,5 @@ MonoBehaviour:
   playerDeskObjects:
   - objectPrefab: {fileID: 1869587051099370962, guid: e70da85313896c24ab901f899e01edb2,
       type: 3}
-    quantity: 10
+    quantity: 8
     spawnZone: 1

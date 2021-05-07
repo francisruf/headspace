@@ -6,6 +6,7 @@ using UnityEngine;
 public class TutorialController : MonoBehaviour
 {
     public static Action shredderEnableRequest;
+    public static Action openDrawerRequest;
 
     public GameObject endTrainingPrefab;
     public Transform endTrainingSpawnPos;
@@ -122,7 +123,7 @@ public class TutorialController : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         MovableCommand_Keyword cmd = Instantiate(endTrainingPrefab, endTrainingSpawnPos.position, Quaternion.identity).GetComponent<MovableCommand_Keyword>();
-        yield return AnimateNewObject(cmd, endTrainingSpawnPos.position, endTrainingFinalPos.position);
+        yield return AnimateNewObject(cmd, endTrainingSpawnPos.position, endTrainingFinalPos.position, true);
         Debug.Log("YO");
     }
 
@@ -218,7 +219,7 @@ public class TutorialController : MonoBehaviour
             if (_logbook != null)
             {
                 _step_journalTear = true;
-                StartCoroutine(AnimateNewObject(_logbook, logbookSpawnPos.position, logbookFinalPos.position));
+                StartCoroutine(AnimateNewObject(_logbook, logbookSpawnPos.position, logbookFinalPos.position, false));
             }
         }
 
@@ -226,6 +227,12 @@ public class TutorialController : MonoBehaviour
         {
             if (ContractManager.instance != null)
                 ContractManager.instance.ChangeContractConditions(ContractSpawnCondition.Timed);
+        }
+
+        if (messageName == "MSG_Markers")
+        {
+            if (openDrawerRequest != null)
+                openDrawerRequest();
         }
     }
 
@@ -326,9 +333,10 @@ public class TutorialController : MonoBehaviour
 
     }
 
-    private IEnumerator AnimateNewObject(InteractableObject obj, Vector2 startPos, Vector2 endPos)
+    private IEnumerator AnimateNewObject(InteractableObject obj, Vector2 startPos, Vector2 endPos, bool toggleInteractions)
     {
-        obj.ToggleInteractions(false);
+        if (toggleInteractions)
+            obj.ToggleInteractions(false);
 
         float smoothTime = 0.2f;
         Vector2 velocity = new Vector2();
@@ -338,10 +346,15 @@ public class TutorialController : MonoBehaviour
             Vector2 smooth = Vector2.SmoothDamp(obj.transform.position, endPos, ref velocity, smoothTime);
             obj.transform.position = smooth;
 
+            if (obj.IsSelected)
+                break;
+
             yield return new WaitForEndOfFrame();
         }
         obj.transform.position = endPos;
-        obj.ToggleInteractions(true);
+
+        if (toggleInteractions)
+            obj.ToggleInteractions(true);
     }
 }
 

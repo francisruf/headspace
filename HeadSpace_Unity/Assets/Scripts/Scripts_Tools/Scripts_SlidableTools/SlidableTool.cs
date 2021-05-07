@@ -30,7 +30,7 @@ public class SlidableTool : InteractableObject
 
     private float boxHalfSize;
     private Vector3 mouseOffset;
-    private float openDistanceBuffer;
+    public float openDistanceBuffer = 0.25f;
 
     protected float minPosX;
     protected float maxPosX;
@@ -76,8 +76,6 @@ public class SlidableTool : InteractableObject
     {
         float vertExtent = Camera.main.orthographicSize;
         float horExtent = vertExtent * Screen.width / Screen.height;
-
-        openDistanceBuffer = 0.25f;
 
         switch (slidingDirection)
         {
@@ -430,11 +428,11 @@ public class SlidableTool : InteractableObject
                 distance = Vector2.Distance(startPos2, currentPos2);
 
                 if (distance < 0.025f)
-                    time += 0.0125f;
+                    time += 0.0075f;
                 else
                     time = 0f;
 
-                if (time >= 0.25f)
+                if (time >= 0.15f)
                 {
                     openEventFired = false;
                     closeEventFired = false;
@@ -443,10 +441,10 @@ public class SlidableTool : InteractableObject
             }
 
             Vector2 startPos = transform.position;
-            yield return new WaitForSeconds(0.0125f);
+            yield return new WaitForSeconds(0.025f);
             Vector2 currentPos = transform.position;
             distance = Vector2.Distance(startPos, currentPos);
-            moving = distance > 0.00625f;
+            moving = distance > 0.01250f;
             bool opening = false;
 
             switch (slidingDirection)
@@ -472,12 +470,16 @@ public class SlidableTool : InteractableObject
                     openEventFired = true;
                     if (toolOpening != null)
                         toolOpening(toolType);
+
+                    yield return new WaitForSeconds(0.5f);
                 }
                 else if (!closeEventFired && !opening)
                 {
                     closeEventFired = true;
                     if (toolClosing != null)
                         toolClosing(toolType);
+
+                    yield return new WaitForSeconds(0.5f);
                 }
             }
         }

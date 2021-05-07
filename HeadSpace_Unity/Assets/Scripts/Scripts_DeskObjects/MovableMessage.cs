@@ -48,9 +48,10 @@ public class MovableMessage : MovableObject
         _collider.enabled = true;
     }
 
-    public void SetText(string messageText)
+    public void SetText(string messageText, Color messageColor)
     {
         _messageText.text = messageText;
+        _spriteRenderer.color = messageColor;
     }
 
     public override void DisableObject()

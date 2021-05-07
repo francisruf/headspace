@@ -65,6 +65,9 @@ TagManager:
   - name: DeskObjects
     uniqueID: 1351713243
     locked: 0
+  - name: ConveyorBelt
+    uniqueID: 3842049119
+    locked: 0
   - name: ToolsBottom
     uniqueID: 3081615327
     locked: 0

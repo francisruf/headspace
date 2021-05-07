@@ -12,6 +12,7 @@ public class LogbookPage : MonoBehaviour
 
     public virtual void InitializePage(MovableLogbook logbook)
     {
+        Debug.Log("PAGE INIT - " + this.gameObject.name);
         Logbook = logbook;
     }
 

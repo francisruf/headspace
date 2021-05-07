@@ -165,6 +165,7 @@ public class CutsceneController : MonoBehaviour
         int count = 0;
         textMesh.enabled = true;
         textMesh.ForceMeshUpdate();
+        int charCount = textMesh.text.Length;
         int maxVisible = info.characterCount;
         textMesh.maxVisibleCharacters = 0;
 
@@ -172,7 +173,22 @@ public class CutsceneController : MonoBehaviour
         {
             count++;
             textMesh.maxVisibleCharacters = count;
-            yield return new WaitForSeconds(1f / _charactersPerSec);
+
+            int index = Mathf.Clamp(count - 1, 0, charCount - 1);
+
+            if (count >= maxVisible)
+                yield return null;
+
+            else
+            {
+                if (textMesh.text[index] == '.' || textMesh.text[index] == '!' || textMesh.text[index] == '?')
+                    yield return new WaitForSeconds(0.5f);
+                else if (textMesh.text[index] == ',' || textMesh.text[index] == ':')
+                    yield return new WaitForSeconds(0.25f);
+                else
+                    yield return new WaitForSeconds(1f / _charactersPerSec);
+            }
+
         }
         _currentTextRoutine = null;
     }

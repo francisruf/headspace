@@ -36,6 +36,7 @@ public abstract class InteractableObject : MonoBehaviour
 
     // État de l'objet
     protected bool _isSelected;
+    public bool IsSelected { get { return _isSelected; } }
 
     public int CurrentSortingLayer { get; set; }
 

@@ -16,6 +16,8 @@ public class DropZone_Outbox : DropZone
     private List<MovableCommand> _sentCommands = new List<MovableCommand>();
     private MovableTimeCard _timeCard;
 
+    private SlidableOutbox _slidableOutbox;
+
     private Animator _animator;
 
     public List<string> startCommandsAccepted;
@@ -36,6 +38,7 @@ public class DropZone_Outbox : DropZone
     {
         base.Awake();
         _animator = GetComponentInParent<Animator>();
+        _slidableOutbox = GetComponentInParent<SlidableOutbox>();
     }
 
     public override void AddObjectToDropZone(MovableObject obj)
@@ -95,6 +98,15 @@ public class DropZone_Outbox : DropZone
             if (_timeCard == obj.GetComponent<MovableTimeCard>())
                 _timeCard = null;
         }
+    }
+
+    public override bool CheckIfAccepted(MovableObject obj)
+    {
+        if (_slidableOutbox != null)
+            if (_slidableOutbox.IsFullyClosed)
+                return false;
+
+        return base.CheckIfAccepted(obj);
     }
 
     public void SendCommands()

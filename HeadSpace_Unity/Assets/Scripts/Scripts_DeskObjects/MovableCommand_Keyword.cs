@@ -33,8 +33,10 @@ public class MovableCommand_Keyword : MovableCommand
     {
         base.Select(fireEvent);
 
-        if (openOutboxRequest != null)
-            openOutboxRequest();
-
+        if (openOutboxOnSelect)
+        {
+            if (openOutboxRequest != null)
+                openOutboxRequest();
+        }
     }
 }

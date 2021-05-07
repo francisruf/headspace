@@ -307,7 +307,7 @@ public class DebugManager : MonoBehaviour
         }
 
         if (MessageManager.instance != null)
-            MessageManager.instance.QueueMessage(messageText);
+            MessageManager.instance.QueueMessage(messageText, Color.white);
     }
 
     #endregion

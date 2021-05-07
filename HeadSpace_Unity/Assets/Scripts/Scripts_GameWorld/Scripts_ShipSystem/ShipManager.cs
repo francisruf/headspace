@@ -57,6 +57,7 @@ public class ShipManager : MonoBehaviour
         Ship.shipUnavailable += OnShipUnavailable;
         Ship.shipRemoved += OnShipDestroyed;
         Ship.shipStateChange += OnShipStateChange;
+        LevelLoader.levelLoaded += OnLevelLoaded;
     }
 
     // Unsubscription
@@ -66,6 +67,7 @@ public class ShipManager : MonoBehaviour
         Ship.shipUnavailable -= OnShipUnavailable;
         Ship.shipRemoved -= OnShipDestroyed;
         Ship.shipStateChange -= OnShipStateChange;
+        LevelLoader.levelLoaded -= OnLevelLoaded;
     }
 
     public string GetDefaultName(Ship newShip, out string defaultCallsign)
@@ -348,5 +350,18 @@ public class ShipManager : MonoBehaviour
                         tile.AddShipHeat(2);
                 }
         }
+    }
+    private void OnLevelLoaded(int levelID)
+    {
+        if (levelID == 0)
+            return;
+
+        StartCoroutine(ShipStartNotif());
+    }
+
+    private IEnumerator ShipStartNotif()
+    {
+        yield return new WaitForSeconds(1f);
+        MessageManager.instance.ShipStateMessage(shipInventory);
     }
 }

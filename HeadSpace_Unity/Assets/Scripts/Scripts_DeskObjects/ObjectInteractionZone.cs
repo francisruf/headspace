@@ -11,10 +11,13 @@ public class ObjectInteractionZone : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
 
     public bool startEnabled;
+    public bool overrideStartState;
     private bool _isEnabled;
 
     private void Start()
     {
+        if (overrideStartState)
+            return;
         ToggleZone(startEnabled);
     }
 

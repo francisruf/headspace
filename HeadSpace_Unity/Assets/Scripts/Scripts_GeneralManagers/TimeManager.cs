@@ -7,6 +7,8 @@ public class TimeManager : MonoBehaviour
 {
     public static Action levelTimerEnded;
     public static Action levelTimerEndPreTrigger;
+    public static Action halfWarning;
+    public static Action threeQuarterWarning;
     public static Action thirtyMinsWarning;
     public static Action<bool> timeSet;
 
@@ -26,11 +28,15 @@ public class TimeManager : MonoBehaviour
     private bool _levelEnded;
     private bool _triggerFired;
     private bool _thirtyMinsFired;
+    private bool _halfFired;
+    private bool _threeQuarterFired;
     private float _timeScaleBeforePause;
 
     private float _thirtyMinsTimer;
     private float _levelEndTimer;
     private float _endPreTrigger;
+    private float _halfTrigger;
+    private float _threeQuarterTrigger;
 
     public float GetCurrentTime
     {
@@ -90,6 +96,8 @@ public class TimeManager : MonoBehaviour
                 _levelEndTimer = _currentTime + (GameManager.instance.LevelDurationInMinutes * 60f * 60f * timeMultiplier);
                 _endPreTrigger = _levelEndTimer - 2.15f * 60f * timeMultiplier;
                 _thirtyMinsTimer = _levelEndTimer - (15f * 60f);
+                _halfTrigger = _levelEndTimer - (4f * 60f * 60f);
+                _threeQuarterTrigger = _levelEndTimer - (2f * 60f * 60f);
                 _timeStarted = true;
             }
         }
@@ -107,7 +115,6 @@ public class TimeManager : MonoBehaviour
             if (!_thirtyMinsFired && _currentTime >= _thirtyMinsTimer)
             {
                 _thirtyMinsFired = true;
-                Debug.Log("30");
                 if (thirtyMinsWarning != null)
                     thirtyMinsWarning();
             }
@@ -117,6 +124,20 @@ public class TimeManager : MonoBehaviour
                 _triggerFired = true;
                 if (levelTimerEndPreTrigger != null)
                     levelTimerEndPreTrigger();
+            }
+
+            if (!_halfFired && _currentTime >= _halfTrigger)
+            {
+                _halfFired = true;
+                if (halfWarning != null)
+                    halfWarning();
+            }
+
+            if (!_threeQuarterFired && _currentTime >= _threeQuarterTrigger)
+            {
+                _threeQuarterFired = true;
+                if (threeQuarterWarning != null)
+                    threeQuarterWarning();
             }
 
             if (_currentTime >= _levelEndTimer)

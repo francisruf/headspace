@@ -748,6 +748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93734353c71dfb0419ad4fec7c948369, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startEnabled: 1
   ignoreSelectedBringToFront: 0
   objectType: 4
   dropZoneLayerMask:
@@ -1659,6 +1660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startEnabled: 0
+  overrideStartState: 0
 --- !u!1 &1218995809469678830
 GameObject:
   m_ObjectHideFlags: 0
@@ -1782,6 +1784,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startEnabled: 0
+  overrideStartState: 0
 --- !u!1 &1218995809560855424
 GameObject:
   m_ObjectHideFlags: 0

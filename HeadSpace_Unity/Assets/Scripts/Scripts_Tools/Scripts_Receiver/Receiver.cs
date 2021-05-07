@@ -62,7 +62,7 @@ public class Receiver : StaticTool
 
     //Si le recepteur est sorti: Print message (Print next message in Queue plus tard)
 
-    public void PrintMessage(string messageText)
+    public void PrintMessage(string messageText, Color messageColor)
     {
         // Ne pas imprimer de message si un message est dans la fente
         if (_messageInSlot != null)
@@ -70,7 +70,7 @@ public class Receiver : StaticTool
 
         _messageInSlot = Instantiate(messagePrefab, printPoint).GetComponent<MovableMessage>();
         _messageInSlot.transform.localPosition = Vector2.zero;
-        _messageInSlot.SetText(messageText);
+        _messageInSlot.SetText(messageText, messageColor);
         _messageInSlot.SetSortingLayer(_spriteRenderer.sortingLayerID);
         _messageInSlot.SetOrderInLayer(_spriteRenderer.sortingOrder + 1);
 
@@ -78,7 +78,7 @@ public class Receiver : StaticTool
         _messageInSlot.messageTeared += ClearSlot;
     }
 
-    public void PrintTutorialMessage(string messageName, string messageText)
+    public void PrintTutorialMessage(string messageName, string messageText, Color messageColor)
     {
         // Ne pas imprimer de message si un message est dans la fente
         if (_messageInSlot != null)
@@ -88,7 +88,7 @@ public class Receiver : StaticTool
         tutMessage.messageName = messageName;
         _messageInSlot = tutMessage;
         _messageInSlot.transform.localPosition = Vector2.zero;
-        _messageInSlot.SetText(messageText);
+        _messageInSlot.SetText(messageText, messageColor);
         _messageInSlot.SetSortingLayer(_spriteRenderer.sortingLayerID);
         _messageInSlot.SetOrderInLayer(_spriteRenderer.sortingOrder + 1);
 

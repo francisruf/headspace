@@ -414,6 +414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startGameDebug: {fileID: 933495825}
+  levelID: 1
 --- !u!1 &933495822
 GameObject:
   m_ObjectHideFlags: 0

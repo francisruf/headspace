@@ -63,7 +63,6 @@ public class MovableLogbook : MovableObject
     public override void Select(bool fireEvent = true)
     {
         base.Select(fireEvent);
-        Debug.Log("SELECT");
 
         if (logbookPickup != null)
             logbookPickup();
@@ -72,7 +71,6 @@ public class MovableLogbook : MovableObject
     public override void Deselect(bool fireEvent = true)
     {
         base.Deselect(fireEvent);
-        Debug.Log("DESELECT");
         if (logbookDrop != null)
             logbookDrop();
     }
@@ -139,7 +137,9 @@ public class MovableLogbook : MovableObject
     {
         // IF first page
         if (_currentPageIndex == 0)
+        {
             leftCorner.ToggleZone(false);
+        }
 
         // IF last page
         if (_currentPageIndex == _pageCount - 1)
@@ -149,17 +149,25 @@ public class MovableLogbook : MovableObject
 
         // IF has previous page
         if (_currentPageIndex - 1 >= 0)
+        {
             leftCorner.ToggleZone(true);
-
+        }
+            
         // IF has next page
         if (_currentPageIndex == 0)
+        {
             rightCorner.ToggleZoneWithoutSprite(true);
+        }
         else if (_currentPageIndex + 1 <= _pageCount - 1)
+        {
             rightCorner.ToggleZone(true);
+        }
+            
     }
 
     public override void ToggleInteractions(bool toggleON)
     {
+        Debug.Log("INTERACTIONS TOGGLED");
         _collider.enabled = toggleON;
     }
 }

@@ -29,8 +29,6 @@ public class LogbookPage_FleetDetails : LogbookPage
     {
         base.InitializePage(logbook);
 
-        Debug.Log("INIT");
-
         _currentFleetPage = true;
 
         currentFleetPageIndex = fleetPageCount;

@@ -215,7 +215,7 @@ public class MovableObject : InteractableObject
         float vertExtent = Camera.main.orthographicSize;
         float horExtent = vertExtent * Screen.width / Screen.height;
 
-        Bounds screenBounds = new Bounds(Camera.main.transform.position, new Vector3(horExtent * 2f, vertExtent * 2f, 0f));
+        Bounds screenBounds = new Bounds(Camera.main.transform.position, new Vector3((horExtent * 2f) - 1f, (vertExtent * 2f) - 1f, 0f));
         Bounds objectBounds = _collider.bounds;
 
 
@@ -248,6 +248,11 @@ public class MovableObject : InteractableObject
             _clampYmin = screenBounds.min.y - ((objectBounds.size.y / 2f) - 0.5f);
             _clampYmax = screenBounds.max.y + ((objectBounds.size.y / 2f) - 0.5f);
         }
+
+        _clampXmin -= (objectBounds.center.x - transform.position.x);
+        _clampXmax -= (objectBounds.center.x - transform.position.x);
+        _clampYmin -= (objectBounds.center.y - transform.position.y);
+        _clampYmax -= (objectBounds.center.y - transform.position.y);
     }
 
     private IEnumerator CheckMovement()

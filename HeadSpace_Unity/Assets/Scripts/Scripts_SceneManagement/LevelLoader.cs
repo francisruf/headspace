@@ -6,12 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
-    public static Action levelLoaded;
+    public static Action<int> levelLoaded;
 
     private PlayerInventory _inventory;
     private LevelSettings _levelSettings;
 
     public Canvas startGameDebug;
+    public int levelID;
 
     private void Awake()
     {
@@ -59,7 +60,7 @@ public class LevelLoader : MonoBehaviour
                 _levelSettings.inventorySettings.InitializeInventory();
 
         if (levelLoaded != null)
-            levelLoaded();
+            levelLoaded(levelID);
     }
 
     private void AssignLevelSettings()

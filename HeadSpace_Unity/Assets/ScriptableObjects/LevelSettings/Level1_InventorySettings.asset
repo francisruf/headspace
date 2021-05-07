@@ -16,7 +16,7 @@ MonoBehaviour:
   - objectPrefab: {fileID: 2659199698218941218, guid: f8d210add64fac84890ac52c8524c074,
       type: 3}
     quantity: 3
-    spawnMarkerOnShipPosition: 1
+    spawnMarkerOnShipPosition: 0
     spawnZone: 4
   playerDeskObjects:
   - objectPrefab: {fileID: 1869587051099370962, guid: e70da85313896c24ab901f899e01edb2,

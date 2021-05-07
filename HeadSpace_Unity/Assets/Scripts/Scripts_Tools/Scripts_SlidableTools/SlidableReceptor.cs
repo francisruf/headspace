@@ -61,7 +61,7 @@ public class SlidableReceptor : SlidableTool
     
     //Si le recepteur est sorti: Print message (Print next message in Queue plus tard)
 
-    public void PrintMessage(string messageText)
+    public void PrintMessage(string messageText, Color messageColor)
     {
         // Ne pas imprimer de message si un message est dans la fente
         if (_messageInSlot != null)
@@ -69,7 +69,7 @@ public class SlidableReceptor : SlidableTool
 
         _messageInSlot = Instantiate(messagePrefab, printPoint).GetComponent<MovableMessage>();
         _messageInSlot.transform.localPosition = Vector2.zero;
-        _messageInSlot.SetText(messageText);
+        _messageInSlot.SetText(messageText, messageColor);
 
         _printerAnimator.SetBool("MessageInSlot", true);
         _messageInSlot.messageTeared += ClearSlot;

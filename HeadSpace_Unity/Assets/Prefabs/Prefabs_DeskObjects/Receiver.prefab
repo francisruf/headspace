@@ -43,6 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 969169dd06657334289486e395fd194d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultColor: {r: 0.99215686, g: 0.827451, b: 0.78039217, a: 1}
+  shipMessageColor: {r: 0.7247686, g: 0.7949776, b: 0.8396226, a: 1}
+  timeMessageColor: {r: 0.93333334, g: 0.8392157, b: 0.40784314, a: 1}
+  contractMessageColor: {r: 0.7176471, g: 0.6392157, b: 0.56078434, a: 1}
+  dangerMessageColor: {r: 0.8980392, g: 0.41960785, b: 0.41960785, a: 1}
   currentMessageText: {fileID: 0}
   messageCountText: {fileID: 5923372071149951078}
 --- !u!1 &1667395619257580614
@@ -246,7 +251,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1379220235
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 4426025c9e039954abe8f7da4310c110, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -328,7 +333,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1379220235
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 9
   m_Sprite: {fileID: 21300000, guid: 86e87e2456cbf8f4abe9e2b3e08de6b4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -431,7 +436,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1379220235
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 6
   m_Sprite: {fileID: 21300000, guid: b41fdc5b67e4bc04d96582001646c01c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

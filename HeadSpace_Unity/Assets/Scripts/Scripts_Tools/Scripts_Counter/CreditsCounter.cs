@@ -62,7 +62,7 @@ public class CreditsCounter : MonoBehaviour
     {
         int multiplier = difference < 0 ? -1 : 1;
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.75f);
 
         while (_currentCreditsDisplayed != _currentCreditsValue)
         {

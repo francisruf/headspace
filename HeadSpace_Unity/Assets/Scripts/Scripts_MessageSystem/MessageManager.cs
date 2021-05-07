@@ -8,6 +8,13 @@ public class MessageManager : MonoBehaviour
 {
     public static Action<bool> newMessageReceived;
 
+    [Header("Message colors")]
+    public Color defaultColor;
+    public Color shipMessageColor;
+    public Color timeMessageColor;
+    public Color contractMessageColor;
+    public Color dangerMessageColor;
+
     // Singleton
     public static MessageManager instance;
 
@@ -21,6 +28,18 @@ public class MessageManager : MonoBehaviour
     // Textes de DEBUG temporaires
     public TextMeshProUGUI currentMessageText;
     public TextMeshProUGUI messageCountText;
+
+    private void OnEnable()
+    {
+        TimeManager.halfWarning += HalfTimeWarning;
+        TimeManager.threeQuarterWarning += ThreeQuarterTimeWarning;
+    }
+
+    private void OnDisable()
+    {
+        TimeManager.halfWarning -= HalfTimeWarning;
+        TimeManager.threeQuarterWarning -= ThreeQuarterTimeWarning;
+    }
 
     private void Awake()
     {
@@ -59,9 +78,9 @@ public class MessageManager : MonoBehaviour
     }
 
     // Fonction qui ajoute un message à la file d'attente (sans l'imprimer)
-    public void QueueMessage(string newMessage, bool playSound = true)
+    public void QueueMessage(string newMessage, Color messageColor, bool playSound = true)
     {
-        MessageInfo newMessageInfo = new MessageInfo("", newMessage, false);
+        MessageInfo newMessageInfo = new MessageInfo("", newMessage, messageColor, false);
         StartCoroutine(QueueDelay(newMessageInfo, playSound));
     }
 
@@ -98,9 +117,9 @@ public class MessageManager : MonoBehaviour
         _messageCount--;
 
         if (messageInfo.specialMessage)
-            _receiver.PrintTutorialMessage(messageInfo.messageName, messageInfo.messageText);
+            _receiver.PrintTutorialMessage(messageInfo.messageName, messageInfo.messageText, messageInfo.messageColor);
         else
-            _receiver.PrintMessage(messageInfo.messageText);
+            _receiver.PrintMessage(messageInfo.messageText, messageInfo.messageColor);
         
         UpdateMessageCount();
     }
@@ -121,49 +140,49 @@ public class MessageManager : MonoBehaviour
 
         string newMessageText = ship.shipName + " discovered a new Planet at " + planet.GridCoordinates;
 
-        QueueMessage(newMessageText);
+        QueueMessage(newMessageText, defaultColor);
     }
 
     public void NewHazardDetectedNotif(Ship ship, Hazard hazard) {
 
         string newMessageText = ship.shipName + " discovered a new " + hazard.objectNameLine + " at " + hazard.GridCoordinates;
 
-        QueueMessage(newMessageText);
+        QueueMessage(newMessageText, defaultColor);
     }
 
     public void NewTransmissionDetectedNotif(Ship ship, Planet planet) {
 
         string newMessageText = ship.shipName + " discovered a new Transmission at " + ship.currentPositionInGridCoords;
 
-        QueueMessage(newMessageText);
+        QueueMessage(newMessageText, defaultColor);
     }
 
     public void NewAnomalyDetectedNotif(Ship ship, GridTile_Anomaly anomaly)
     {
         string newMessageText = ship.shipName + " reports that tile " + anomaly.tileX + ", " + anomaly.tileY + " has been affected";
 
-        QueueMessage(newMessageText);
+        QueueMessage(newMessageText, defaultColor);
     }
 
     public void ContactWithAnomalyNotif(Ship ship, GridTile_Anomaly anomaly) 
     {
         string newMessageText = "DANGER: " + ship.shipName + " currently affected by Stage " + anomaly.tileType + " Anomaly at " + ship.currentPositionInGridCoords;
 
-        QueueMessage(newMessageText);
+        QueueMessage(newMessageText, defaultColor);
     }
 
     public void ContactWithCloudNotif(Ship ship) {
 
         string newMessageText = ship.shipName + " $t#ck &ns&d3 m%gn3ti( $l#ud &t " + ship.currentPositionInGridCoords + " Pl3@$e s&nd #ver n%w c#mm@nd.";
 
-        QueueMessage(newMessageText);
+        QueueMessage(newMessageText, defaultColor);
     }
 
     public void ContactWithWormholeNotif(Ship ship) {
 
         string newMessageText = ship.shipName + " entered a Wormhole at " + ship.currentPositionInGridCoords + ". New MOVE target set to " + ship.targetWorldCoords;
 
-        QueueMessage(newMessageText);
+        QueueMessage(newMessageText, defaultColor);
     }
 
     public void EnteredPlanetOrbitNotif(Ship ship, Planet planet) {
@@ -171,19 +190,19 @@ public class MessageManager : MonoBehaviour
         if (planet.TotalSouls <= 0) {
             string newMessageText = ship.shipName + " is now in orbit of Planet at " + planet.GridCoordinates + " . This planet is uninhabited.";
 
-            QueueMessage(newMessageText);
+            QueueMessage(newMessageText, defaultColor);
         }
 
         else if (planet.CurrentSouls <= 0) {
             string newMessageText = ship.shipName + " is now in orbit of Planet at " + planet.GridCoordinates + " . No more souls on this Planet.";
 
-            QueueMessage(newMessageText);
+            QueueMessage(newMessageText, defaultColor);
         }
 
         else {
             string newMessageText = ship.shipName + " is now in orbit of Planet at " + planet.GridCoordinates + " . There are " + planet.CurrentSouls + " souls on this Planet. Ready to LOAD.";
 
-            QueueMessage(newMessageText);
+            QueueMessage(newMessageText, defaultColor);
         }
 
     }
@@ -192,35 +211,54 @@ public class MessageManager : MonoBehaviour
 
         string newMessageText = ship.shipName + " entered the Deploy Point at " + deploy.GridCoordinates + " and is now ready to leave the system.";
 
-        QueueMessage(newMessageText);
+        QueueMessage(newMessageText, defaultColor);
     }
 
     public void ShipDeployedNotif(Ship ship) {
 
         string newMessageText = ship.shipName + " is now Deployed at " + ship.currentPositionInGridCoords;
 
-        QueueMessage(newMessageText);
+        QueueMessage(newMessageText, defaultColor);
     }
 
     public void MoveFinishedNotif(Ship ship) {
 
         string newMessageText = ship.shipName + " has completed his move at " + ship.currentPositionInGridCoords;
 
-        QueueMessage(newMessageText);
+        QueueMessage(newMessageText, defaultColor);
     }
 
     public void MoveAbortedNotif(Ship ship) {
 
         string newMessageText = ship.shipName + " aborted its MOVE command and is now at " + ship.currentPositionInGridCoords;
 
-        QueueMessage(newMessageText);
+        QueueMessage(newMessageText, defaultColor);
     }
 
     public void PickupAbortedNotif(Ship ship) {
 
         string newMessageText = ship.shipName + " aborted its PICKUP command at " + ship.currentPositionInGridCoords + ". Cargo status: " + ship.currentCargo + " / " + ship.cargoCapacity;
 
-        QueueMessage(newMessageText);
+        QueueMessage(newMessageText, defaultColor);
+    }
+
+    public void PickupFinishedNotif(Ship ship)
+    {
+
+        string newMessageText = ship.shipName + " finished its PICKUP command at " + ship.currentPositionInGridCoords + ". Cargo status: " + ship.currentCargo + " / " + ship.cargoCapacity;
+
+        QueueMessage(newMessageText, shipMessageColor);
+    }
+
+    public void BonusCreditsNotif(Planet planet)
+    {
+        string creditText = planet.CompletionCreditsBonus > 1 ? "credits" : "credit";
+
+        string newMessageText = "Relayed message :";
+        newMessageText += "\nThank you for saving all of our people. Please take this as a token of our gratitude";
+        newMessageText += "\n\n[" + planet.CompletionCreditsBonus + " additional " + creditText + " awarded.]";
+
+        QueueMessage(newMessageText, shipMessageColor);
     }
 
     public void InvalidDestinationNotif(Ship ship, string message)
@@ -236,14 +274,7 @@ public class MessageManager : MonoBehaviour
 
         newMessageText += " Current position: " + tileName + "\nAwaiting instructions.";
 
-        QueueMessage(newMessageText);
-    }
-
-    public void PickupFinishedNotif(Ship ship) {
-
-        string newMessageText = ship.shipName + " finished its PICKUP command at " + ship.currentPositionInGridCoords + ". Cargo status: " + ship.currentCargo + " / " + ship.cargoCapacity;
-
-        QueueMessage(newMessageText);
+        QueueMessage(newMessageText, shipMessageColor);
     }
 
     public void RouteFinishedNotif(Ship ship)
@@ -253,18 +284,7 @@ public class MessageManager : MonoBehaviour
 
         string newMessageText = ship.shipName + " has completed its ROUTE at " + tileName + ".";
 
-        QueueMessage(newMessageText, false);
-    }
-
-    public void BonusCreditsNotif(Planet planet)
-    {
-        string creditText = planet.CompletionCreditsBonus > 1 ? "credits" : "credit";
-
-        string newMessageText = "Relayed message :";
-        newMessageText += "\nThank you for saving all of our people. Please take this as a token of our gratitude";
-        newMessageText += "\n\n[" + planet.CompletionCreditsBonus + " additional " + creditText + " awarded.]";
-
-        QueueMessage(newMessageText);
+        QueueMessage(newMessageText, shipMessageColor, false);
     }
 
     public void ShipStopMovementNotif(Ship ship, bool isMoving)
@@ -297,7 +317,7 @@ public class MessageManager : MonoBehaviour
         //{
         //    newMessageText += "none.";
         //}
-        QueueMessage(newMessageText);
+        QueueMessage(newMessageText, shipMessageColor);
     }
 
     public void ShipStatusNotif(Ship ship)
@@ -326,14 +346,14 @@ public class MessageManager : MonoBehaviour
         {
             newMessageText += "none.";
         }
-        QueueMessage(new MessageInfo("CMD_Status", newMessageText, true));
+        QueueMessage(new MessageInfo("CMD_Status", newMessageText, shipMessageColor, true));
     }
 
     public void ShipAnomalyNotif(Ship ship, int soulsLost)
     {
         TileCoordinates shipTile = GridCoords.FromWorldToTilePosition(ship.transform.position);
         string tileName = GridCoords.GetTileName(shipTile);
-        string newMessageText = ship.shipName + " has been attacked by an anomaly at position " + tileName + ".";
+        string newMessageText = ship.shipName + " has been attacked by an anomaly.";
 
         if (soulsLost > 1)
         {
@@ -348,7 +368,7 @@ public class MessageManager : MonoBehaviour
 
         newMessageText += "Please wait for auto-reinitialization.";
 
-        QueueMessage(newMessageText, false);
+        QueueMessage(newMessageText, dangerMessageColor, false);
     }
 
     public void ShipResetNotif(Ship ship)
@@ -356,9 +376,10 @@ public class MessageManager : MonoBehaviour
         TileCoordinates shipTile = GridCoords.FromWorldToTilePosition(ship.transform.position);
         string tileName = GridCoords.GetTileName(shipTile);
         string newMessageText = ship.shipName + " auto-reinitialization complete.";
-        newMessageText += "\n\nAwaiting instructions.";
+        newMessageText += "Current position : " + tileName + ".";
+        newMessageText += "\nAwaiting instructions.";
 
-        QueueMessage(newMessageText, false);
+        QueueMessage(newMessageText, shipMessageColor, false);
     }
 
     public void ClientEmbarkedNotif(Ship ship, Client client, GridTile_Planet planet)
@@ -366,7 +387,7 @@ public class MessageManager : MonoBehaviour
         string newMessageText = ship.shipName + " has picked up " + client.clientFirstName + " "
             + client.clientLastName + " on planet " + planet.PlanetName + ".";
 
-        QueueMessage(newMessageText, true);
+        QueueMessage(newMessageText, contractMessageColor, true);
     }
 
     public void ClientDebarkedNotif(Ship ship, Client client, GridTile_Planet planet)
@@ -376,17 +397,40 @@ public class MessageManager : MonoBehaviour
 
         newMessageText += "\nWORK ORDER COMPLETE!";
 
-        QueueMessage(newMessageText, true);
+        QueueMessage(newMessageText, contractMessageColor, true);
+    }
+
+    public void ShipStateMessage(List<Ship> allShips)
+    {
+        string message = "FLEET STATUS : ";
+        for (int i = 0; i < allShips.Count; i++)
+        {
+            string tileName = GridCoords.GetTileName(GridCoords.FromWorldToTilePosition(allShips[i].transform.position));
+            message += "\n" + allShips[i].shipName + " position : " + tileName;
+        }
+        QueueMessage(message, shipMessageColor);
+    }
+
+    public void HalfTimeWarning()
+    {
+        string message = "[STM auto time tracker]\n\n4 HOURS REMAINING";
+        QueueMessage(message, timeMessageColor);
+    }
+
+    public void ThreeQuarterTimeWarning()
+    {
+        string message = "[STM auto time tracker]\n\n2 HOURS REMAINING";
+        QueueMessage(message, timeMessageColor);
     }
 
     public void GenericMessage(string message, bool playSound)
     {
-        QueueMessage(message, playSound);
+        QueueMessage(message, defaultColor, playSound);
     }
 
     public void SpecialMessage(string messageName, string messageText)
     {
-        QueueMessage(new MessageInfo(messageName, messageText, true));
+        QueueMessage(new MessageInfo(messageName, messageText, defaultColor, true));
     }
 
     #endregion
@@ -396,12 +440,15 @@ public struct MessageInfo
 {
     public string messageName;
     public string messageText;
+    public Color messageColor;
+
     public bool specialMessage;
 
-    public MessageInfo(string messageName, string messageText, bool specialMessage)
+    public MessageInfo(string messageName, string messageText, Color messageColor, bool specialMessage)
     {
         this.messageName = messageName;
         this.messageText = messageText;
+        this.messageColor = messageColor;
         this.specialMessage = specialMessage;
     }
 }
