@@ -67,8 +67,8 @@ MonoBehaviour:
   m_text: "Bob VII is now in orbit of Planet at (X.x, Y.y) . \n\nThere are 22 souls
     on this Planet.\n\nReady to LOAD.\""
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5f7144bd698432140968615aa62b02ca, type: 2}
-  m_sharedMaterial: {fileID: 7591405503483456888, guid: 5f7144bd698432140968615aa62b02ca,
+  m_fontAsset: {fileID: 11400000, guid: 69db765913504fd49b6d7bf64b84a35f, type: 2}
+  m_sharedMaterial: {fileID: -2958693133491194307, guid: 69db765913504fd49b6d7bf64b84a35f,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -93,8 +93,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.16
-  m_fontSizeBase: 0.16
+  m_fontSize: 0.13
+  m_fontSizeBase: 0.13
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: -50
+  m_lineSpacing: 4
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0

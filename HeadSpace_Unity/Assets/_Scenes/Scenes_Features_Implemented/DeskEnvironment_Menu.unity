@@ -271,36 +271,26 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4936675364272175184, guid: d60a623f469b63142b1e82fc9111c103,
         type: 3}
-      propertyPath: m_text
-      value: QUIT
+      propertyPath: m_margin.x
+      value: 0.48635304
       objectReference: {fileID: 0}
     - target: {fileID: 4936675364272175184, guid: d60a623f469b63142b1e82fc9111c103,
         type: 3}
-      propertyPath: m_fontSize
-      value: 0.5
+      propertyPath: m_margin.y
+      value: 0.28183565
       objectReference: {fileID: 0}
     - target: {fileID: 4936675364272175184, guid: d60a623f469b63142b1e82fc9111c103,
         type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: b3c287d86ad51114ea723b2b668f6f41,
+      objectReference: {fileID: 11400000, guid: 3a4785d4c5e06f64481ad2bb32993593,
         type: 2}
     - target: {fileID: 4936675364272175184, guid: d60a623f469b63142b1e82fc9111c103,
         type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 1969930889862385010, guid: b3c287d86ad51114ea723b2b668f6f41,
+      objectReference: {fileID: 2472633590048798595, guid: 3a4785d4c5e06f64481ad2bb32993593,
         type: 2}
-    - target: {fileID: 4936675364272175184, guid: d60a623f469b63142b1e82fc9111c103,
-        type: 3}
-      propertyPath: m_enableAutoSizing
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4936675364272175184, guid: d60a623f469b63142b1e82fc9111c103,
-        type: 3}
-      propertyPath: m_VerticalAlignment
-      value: 512
-      objectReference: {fileID: 0}
     - target: {fileID: 4936675364520526103, guid: d60a623f469b63142b1e82fc9111c103,
         type: 3}
       propertyPath: m_RootOrder
@@ -361,23 +351,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuDocument_Quit
       objectReference: {fileID: 0}
-    - target: {fileID: 4936675364520526123, guid: d60a623f469b63142b1e82fc9111c103,
-        type: 3}
-      propertyPath: m_TagString
-      value: Indestruc
-      objectReference: {fileID: 0}
     - target: {fileID: 6253526718171900308, guid: d60a623f469b63142b1e82fc9111c103,
         type: 3}
       propertyPath: commandName
       value: QuitGame
       objectReference: {fileID: 0}
-    - target: {fileID: 6253526718171900308, guid: d60a623f469b63142b1e82fc9111c103,
-        type: 3}
-      propertyPath: openOutboxOnSelect
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4936675364520526122, guid: d60a623f469b63142b1e82fc9111c103, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d60a623f469b63142b1e82fc9111c103, type: 3}
 --- !u!1001 &343874489
 PrefabInstance:
@@ -666,31 +645,41 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4936675364272175184, guid: d60a623f469b63142b1e82fc9111c103,
         type: 3}
-      propertyPath: m_fontSize
-      value: 0.5
+      propertyPath: m_text
+      value: NEW GAME
+      objectReference: {fileID: 0}
+    - target: {fileID: 4936675364272175184, guid: d60a623f469b63142b1e82fc9111c103,
+        type: 3}
+      propertyPath: m_margin.w
+      value: 0.21964043
+      objectReference: {fileID: 0}
+    - target: {fileID: 4936675364272175184, guid: d60a623f469b63142b1e82fc9111c103,
+        type: 3}
+      propertyPath: m_margin.x
+      value: 0.5044552
+      objectReference: {fileID: 0}
+    - target: {fileID: 4936675364272175184, guid: d60a623f469b63142b1e82fc9111c103,
+        type: 3}
+      propertyPath: m_margin.y
+      value: 0.28678516
+      objectReference: {fileID: 0}
+    - target: {fileID: 4936675364272175184, guid: d60a623f469b63142b1e82fc9111c103,
+        type: 3}
+      propertyPath: m_margin.z
+      value: 0.3602352
       objectReference: {fileID: 0}
     - target: {fileID: 4936675364272175184, guid: d60a623f469b63142b1e82fc9111c103,
         type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: b3c287d86ad51114ea723b2b668f6f41,
+      objectReference: {fileID: 11400000, guid: 3a4785d4c5e06f64481ad2bb32993593,
         type: 2}
     - target: {fileID: 4936675364272175184, guid: d60a623f469b63142b1e82fc9111c103,
         type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 1969930889862385010, guid: b3c287d86ad51114ea723b2b668f6f41,
+      objectReference: {fileID: 2472633590048798595, guid: 3a4785d4c5e06f64481ad2bb32993593,
         type: 2}
-    - target: {fileID: 4936675364272175184, guid: d60a623f469b63142b1e82fc9111c103,
-        type: 3}
-      propertyPath: m_enableAutoSizing
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4936675364272175184, guid: d60a623f469b63142b1e82fc9111c103,
-        type: 3}
-      propertyPath: m_VerticalAlignment
-      value: 512
-      objectReference: {fileID: 0}
     - target: {fileID: 4936675364520526103, guid: d60a623f469b63142b1e82fc9111c103,
         type: 3}
       propertyPath: m_RootOrder
@@ -751,18 +740,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuDocument_NewGame
       objectReference: {fileID: 0}
-    - target: {fileID: 4936675364520526123, guid: d60a623f469b63142b1e82fc9111c103,
-        type: 3}
-      propertyPath: m_TagString
-      value: Indestruc
-      objectReference: {fileID: 0}
     - target: {fileID: 6253526718171900308, guid: d60a623f469b63142b1e82fc9111c103,
         type: 3}
-      propertyPath: openOutboxOnSelect
-      value: 1
+      propertyPath: commandName
+      value: NewGame
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4936675364520526122, guid: d60a623f469b63142b1e82fc9111c103, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d60a623f469b63142b1e82fc9111c103, type: 3}
 --- !u!1001 &971295908
 PrefabInstance:
