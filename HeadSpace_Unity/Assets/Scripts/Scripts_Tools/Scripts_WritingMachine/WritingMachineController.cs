@@ -718,7 +718,7 @@ public class WritingMachineController : MonoBehaviour
 
         string startMessage = "<color=red><i>TEAR THIS DOCUMENT</color></i>";
         PrintText(startMessage, false, false, "StartLevel");
-        startMessage = "Welcome, trainee #01235!";
+        startMessage = "Welcome, {#error=insert name}!";
         PrintText(startMessage, false, false, "StartLevel");
         startMessage = "When ready to start day, sign-in by sending this document through your outbox.";
         PrintText(startMessage, false, false, "StartLevel");
