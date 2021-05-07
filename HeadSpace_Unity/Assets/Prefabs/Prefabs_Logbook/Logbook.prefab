@@ -1659,8 +1659,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fddf01bdf9286254f8c4a4fa0c6cc8f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startEnabled: 0
-  overrideStartState: 0
+  startEnabled: 1
+  overrideStartState: 1
 --- !u!1 &1218995809469678830
 GameObject:
   m_ObjectHideFlags: 0
@@ -1783,8 +1783,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fddf01bdf9286254f8c4a4fa0c6cc8f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startEnabled: 0
-  overrideStartState: 0
+  startEnabled: 1
+  overrideStartState: 1
 --- !u!1 &1218995809560855424
 GameObject:
   m_ObjectHideFlags: 0
@@ -4265,7 +4265,7 @@ PrefabInstance:
     - target: {fileID: 7359078846187366789, guid: d5a65cb7d371c204692b2a1537237dce,
         type: 3}
       propertyPath: maxShipContainers
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5a65cb7d371c204692b2a1537237dce, type: 3}

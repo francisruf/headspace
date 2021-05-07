@@ -17,8 +17,6 @@ public class LogbookPage_FleetDetails : LogbookPage
     public GameObject fleetDetailsPagePrefab;
     public VerticalLayoutGroup shipLayoutGroup;
 
-    public TextMeshProUGUI fleetPageCountText;
-
     private List<Logbook_ShipContainer> _shipContainers = new List<Logbook_ShipContainer>();
     private int _containerCount;
     private bool _currentFleetPage;
@@ -34,15 +32,6 @@ public class LogbookPage_FleetDetails : LogbookPage
         currentFleetPageIndex = fleetPageCount;
         pageParent = Instantiate(fleetDetailsPagePrefab, Logbook.MainCanvas.transform);
         shipLayoutGroup = pageParent.GetComponentInChildren<VerticalLayoutGroup>();
-
-        foreach (var txt in pageParent.GetComponentsInChildren<TextMeshProUGUI>())
-        {
-            if (txt.gameObject.tag == "FleetPageText")
-            {
-                fleetPageCountText = txt;
-                break;
-            }
-        }
 
         if (newFleetPage != null)
             newFleetPage();
@@ -64,22 +53,12 @@ public class LogbookPage_FleetDetails : LogbookPage
     {
         Ship.newShipAvailable += OnNewShipAvailable;
         Ship.shipStateChange += OnShipStateChange;
-        LogbookPage_FleetDetails.newFleetPage += UpdateFleetPageText;
     }
 
     private void OnDisable()
     {
         Ship.newShipAvailable -= OnNewShipAvailable;
         Ship.shipStateChange -= OnShipStateChange;
-        LogbookPage_FleetDetails.newFleetPage -= UpdateFleetPageText;
-    }
-
-    private void UpdateFleetPageText()
-    {
-        if (fleetPageCountText != null)
-        {
-            fleetPageCountText.text = currentFleetPageIndex + "/" + fleetPageCount;
-        }
     }
 
     private void OnNewShipAvailable(Ship ship)
