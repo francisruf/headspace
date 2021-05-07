@@ -1,105 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6584510059659434664
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7325107042745401108}
-  - component: {fileID: 7003277830798999805}
-  m_Layer: 0
-  m_Name: ContractsDB
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7325107042745401108
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6584510059659434664}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2756499472058052606}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7003277830798999805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6584510059659434664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21c61e59cf1a919468f7f92248989ea4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clientFirstNames:
-  - Tom
-  - Barry
-  - Clint
-  - Larry
-  - Ty
-  - Alice
-  - Lily
-  - Ann
-  - Lizzie
-  - Joe
-  - Willy
-  - Sondra
-  - Benoit
-  - Paul
-  - Francis
-  - Laurent
-  clientLastNames:
-  - Moss
-  - Hariss
-  - Ashford
-  - Evans
-  - Rock
-  - Urkhal
-  - Musk
-  - Welman
-  - Sanfers
-  - Ranold
-  - Rippley
-  - Carter
-  - Lemieux
-  - Corriveau
-  - Tremblay
-  - Rufiange
-  defaultSprite: {fileID: -3006286288988564110, guid: cd0126b99bebc28458a24583c0b2e215,
-    type: 3}
-  clientFaceSprites:
-  - {fileID: -3006286288988564110, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
-  - {fileID: 3931446014947681417, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
-  - {fileID: 3033197568602078182, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
-  - {fileID: -3570650375305798029, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
-  - {fileID: -7196150287342321042, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
-  - {fileID: -2125793332200601574, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
-  - {fileID: 5354421481015157402, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
-  - {fileID: 4671334941271426898, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
-  - {fileID: -6466867997799773623, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
-  - {fileID: 545943486094497672, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
-  - {fileID: -7163646432799993488, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
-  - {fileID: -1780770329914877726, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
-  - {fileID: -8716620557358582088, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
-  - {fileID: -2712268801253122764, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
-  - {fileID: -6076252372335016793, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
-  - {fileID: 7536277895123154995, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
-  - {fileID: 2604166347766867885, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
-  - {fileID: -7378198394703379997, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
-  - {fileID: -5433946527206798960, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
-  - {fileID: 2935347861705955858, guid: cd0126b99bebc28458a24583c0b2e215, type: 3}
 --- !u!1 &8095210373961893094
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,8 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 7325107042745401108}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

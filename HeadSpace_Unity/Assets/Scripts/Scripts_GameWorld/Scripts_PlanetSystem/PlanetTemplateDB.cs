@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlanetTemplateDB : MonoBehaviour
 {
+    [Header("Settings")]
+    public bool allCaps;
+
     [Header("Planet names")]
     public List<string> planetNames = new List<string>();
     private List<string> remainingNames = new List<string>();
@@ -34,7 +37,11 @@ public class PlanetTemplateDB : MonoBehaviour
         int randomIndex = UnityEngine.Random.Range(0, count);
         string planetName = remainingNames[randomIndex];
         remainingNames.RemoveAt(randomIndex);
-        return planetName;
+
+        if (allCaps)
+            return planetName.ToUpper();
+        else
+            return planetName;
     }
 
     public PlanetSpriteMatch GetRandomPlanetSpriteMatch()

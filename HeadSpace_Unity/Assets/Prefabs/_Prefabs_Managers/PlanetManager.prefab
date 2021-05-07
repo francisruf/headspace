@@ -1,149 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3246573891768086181
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1727916593960494005}
-  - component: {fileID: 2051598815981333164}
-  m_Layer: 0
-  m_Name: PlanetNameDB
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1727916593960494005
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3246573891768086181}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 5322473505593619110}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2051598815981333164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3246573891768086181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eec8af8c1db1c034e85c1fbb68a17373, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  planetNames:
-  - Chankeon
-  - Vilwilmer
-  - Leera - 34
-  - Nogawa 2
-  - Zlenda
-  - Aeriss
-  - Ivyus 21
-  - Beethord
-  - Haxia 3
-  - Pulimeus
-  - Red Iris
-  - Yio 16
-  - AP-134
-  - Xa Per 77
-  defaultSpriteMatch:
-    mapSprite: {fileID: -331147489971266040, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-    contractSprite: {fileID: -5506835072467488133, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-  planetSprites:
-  - mapSprite: {fileID: -331147489971266040, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-    contractSprite: {fileID: -5506835072467488133, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-  - mapSprite: {fileID: -4683106121963867922, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-    contractSprite: {fileID: 3104410949829990490, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-  - mapSprite: {fileID: -8019216674379603652, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-    contractSprite: {fileID: -6820363090114793405, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-  - mapSprite: {fileID: -2437595478038604729, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-    contractSprite: {fileID: 8146603230576975036, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-  - mapSprite: {fileID: 8333075979982315202, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-    contractSprite: {fileID: -8876298003673606369, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-  - mapSprite: {fileID: 54930310537543916, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-    contractSprite: {fileID: -529620578106415927, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-  - mapSprite: {fileID: -8715358788849784850, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-    contractSprite: {fileID: -1037562832911013991, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-  - mapSprite: {fileID: 1088721121960017839, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-    contractSprite: {fileID: -6696574771045973966, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-  - mapSprite: {fileID: -3701400894552018864, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-    contractSprite: {fileID: 6446021064367132791, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-  - mapSprite: {fileID: -647300945402613674, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-    contractSprite: {fileID: 4589010835593705857, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-  - mapSprite: {fileID: 2779127040882600372, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-    contractSprite: {fileID: -2289190463248598646, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-  - mapSprite: {fileID: -5117146852070540599, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-    contractSprite: {fileID: -3329143803434471493, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-  - mapSprite: {fileID: -6993894491371802089, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-    contractSprite: {fileID: 7348990487677303622, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-  - mapSprite: {fileID: -7996497113191530360, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-    contractSprite: {fileID: 8189863319464852320, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-  - mapSprite: {fileID: -5582841403012328295, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-    contractSprite: {fileID: 3360317848879970593, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-  - mapSprite: {fileID: 7011779817624369488, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-    contractSprite: {fileID: 4903263362498778328, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-  - mapSprite: {fileID: 2339233893775672360, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-    contractSprite: {fileID: -2484847392981023567, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-  - mapSprite: {fileID: 285953656357506146, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-    contractSprite: {fileID: 1307195031302852261, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-  - mapSprite: {fileID: -2337464213033375489, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-    contractSprite: {fileID: 531451544239541036, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-  - mapSprite: {fileID: -5729766669341028292, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
-    contractSprite: {fileID: 4275511589007787621, guid: ecae109305ef74440bdf07a683a13096,
-      type: 3}
 --- !u!1 &5322473505593619104
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,8 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1727916593960494005}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -188,26 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d4ab665c549c64c82bba54745ad37f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomArchetypes: 0
-  randomPlanetCount: 20
-  planetTileCount: 10
-  minTilesBetweenDeployPoint: 2
-  planetHeatDistance: 4
   tileLayerMask:
     serializedVersion: 2
     m_Bits: 32768
-  allArchetypes:
-  - archetype: {fileID: 11400000, guid: 0827764fac4fe7e47a05df3f7d79475b, type: 2}
-    amountToSpawn: 1
-  - archetype: {fileID: 11400000, guid: e5769ad44f253794fa488e3171836b9b, type: 2}
-    amountToSpawn: 1
-  - archetype: {fileID: 11400000, guid: 38c085e39864d704fb0dbf420ea18d58, type: 2}
-    amountToSpawn: 3
-  - archetype: {fileID: 11400000, guid: 9c16d36415d3d8841a4e36550b990020, type: 2}
-    amountToSpawn: 4
-  - archetype: {fileID: 11400000, guid: f347aa5ccf28bfe4c8b4c63e82ae9a89, type: 2}
-    amountToSpawn: 2
-  - archetype: {fileID: 11400000, guid: 75175559925b6404aa57e3738045a16d, type: 2}
-    amountToSpawn: 1
-  planetPrefab: {fileID: 2620573376535800384, guid: 7f0f414053a8dd241b680ad37f81eb90,
-    type: 3}

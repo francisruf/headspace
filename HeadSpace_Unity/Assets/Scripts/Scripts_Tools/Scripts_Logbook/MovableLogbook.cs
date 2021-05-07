@@ -167,7 +167,6 @@ public class MovableLogbook : MovableObject
 
     public override void ToggleInteractions(bool toggleON)
     {
-        Debug.Log("INTERACTIONS TOGGLED");
         _collider.enabled = toggleON;
     }
 }

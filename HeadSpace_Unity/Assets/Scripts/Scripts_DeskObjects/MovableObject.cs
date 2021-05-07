@@ -177,6 +177,11 @@ public class MovableObject : InteractableObject
         return found;
     }
 
+    public void ForceDropZone(DropZone zone)
+    {
+        _currentDropZone = zone;
+    }
+
     protected virtual void AssignToDropZone()
     {
         _currentDropZone.AddObjectToDropZone(this);

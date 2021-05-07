@@ -20,13 +20,13 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 8006880843654687139, guid: 481d8904baa9fd3499a7735cd837c187,
+      value: {fileID: 5951344212810241509, guid: 481d8904baa9fd3499a7735cd837c187,
         type: 3}
     - time: 0.33333334
-      value: {fileID: 2577857126148836741, guid: 481d8904baa9fd3499a7735cd837c187,
+      value: {fileID: -5329602625265843268, guid: 481d8904baa9fd3499a7735cd837c187,
         type: 3}
     - time: 0.5833333
-      value: {fileID: 2577857126148836741, guid: 481d8904baa9fd3499a7735cd837c187,
+      value: {fileID: -5329602625265843268, guid: 481d8904baa9fd3499a7735cd837c187,
         type: 3}
     attribute: m_Sprite
     path: CardReader_Lights_PA_0
@@ -47,9 +47,9 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 8006880843654687139, guid: 481d8904baa9fd3499a7735cd837c187, type: 3}
-    - {fileID: 2577857126148836741, guid: 481d8904baa9fd3499a7735cd837c187, type: 3}
-    - {fileID: 2577857126148836741, guid: 481d8904baa9fd3499a7735cd837c187, type: 3}
+    - {fileID: 5951344212810241509, guid: 481d8904baa9fd3499a7735cd837c187, type: 3}
+    - {fileID: -5329602625265843268, guid: 481d8904baa9fd3499a7735cd837c187, type: 3}
+    - {fileID: -5329602625265843268, guid: 481d8904baa9fd3499a7735cd837c187, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -80,12 +80,12 @@ AnimationClip:
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 1
     messageOptions: 0
   - time: 0.33333334
     functionName: TriggerSound
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 1
+    intParameter: 0
     messageOptions: 0

@@ -46,8 +46,6 @@ public class PlanetManager : MonoBehaviour
         {
             instance = this;
         }
-
-        _planetTemplateDB = GetComponentInChildren<PlanetTemplateDB>();
     }
 
     // Subscription à différentes actions
@@ -58,6 +56,8 @@ public class PlanetManager : MonoBehaviour
         //GridManager.firstAnomalyTile += OnFirstAnomalyTile;
         Ship.soulsFromPlanetSaved += TrackSavedSouls;
         GridTile_Planet.newPlanetTile += OnNewPlanetTileSpawned;
+
+        _planetTemplateDB = FindObjectOfType<PlanetTemplateDB>();
     }
 
     // Unsubscription
@@ -89,6 +89,9 @@ public class PlanetManager : MonoBehaviour
     // Fonction appelée lorsqu'un planète spawn, qui sert à garder à jour la liste de planètes
     private void OnNewPlanetTileSpawned(GridTile_Planet planetTile)
     {
+        if (_planetTemplateDB == null)
+            _planetTemplateDB = FindObjectOfType<PlanetTemplateDB>();
+
         _allPlanetTiles.Add(planetTile);
 
         if (_planetTemplateDB != null)
@@ -105,8 +108,8 @@ public class PlanetManager : MonoBehaviour
         _allPlanetTiles.Clear();
         _currentGridInfo = null;
 
-        if (_planetTemplateDB != null)
-            _planetTemplateDB.ResetDB();
+        //if (_planetTemplateDB != null)
+        //    _planetTemplateDB.ResetDB();
     }
 
     public void SpawnPlanetTiles()

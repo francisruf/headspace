@@ -416,7 +416,6 @@ public class GridManager : MonoBehaviour
             if (x >= _currentGridInfo.gameGridSize.x - 1 && y >= _currentGridInfo.gameGridSize.y)
                 break;
         }
-        Debug.Log("SEGMENT COUNT " + _allAnomalyPatches.Count);
     }
 
     private void GenerateDeployPoint()

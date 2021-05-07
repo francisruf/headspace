@@ -1123,6 +1123,7 @@ MonoBehaviour:
   targetSortingLayer: Map
   acceptedObjects: 01000000
   cardLocation: {fileID: 918409449}
+  animSpeed: 10
 --- !u!61 &1565243123
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1136,7 +1137,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.4170122, y: -1.6439524}
+  m_Offset: {x: 1.4053941, y: -0.32518637}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1147,7 +1148,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.1308174, y: 3.0593624}
+  m_Size: {x: 2.7465792, y: 0.42183042}
   m_EdgeRadius: 0
 --- !u!1 &1616749107
 GameObject:
@@ -1161,7 +1162,8 @@ GameObject:
   - component: {fileID: 1616749109}
   - component: {fileID: 1616749108}
   - component: {fileID: 1616749111}
-  m_Layer: 14
+  - component: {fileID: 1616749112}
+  m_Layer: 20
   m_Name: TimeCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1271,6 +1273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63ac24b1a097c5444a9bc82a1a6cd175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startEnabled: 1
   ignoreSelectedBringToFront: 0
   objectType: 1
   dropZoneLayerMask:
@@ -1286,6 +1289,27 @@ MonoBehaviour:
   - {fileID: 253797958141054322, guid: d8037e645df6dec4ba91300e728257a0, type: 3}
   - {fileID: 7390535963833806971, guid: d8037e645df6dec4ba91300e728257a0, type: 3}
   - {fileID: 436299662432220422, guid: d8037e645df6dec4ba91300e728257a0, type: 3}
+--- !u!50 &1616749112
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616749107}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!1 &1621516621
 GameObject:
   m_ObjectHideFlags: 0

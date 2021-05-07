@@ -106,7 +106,6 @@ public class LogbookPage_FleetDetails : LogbookPage
 
     public IEnumerator AddShip(Ship ship)
     {
-        Debug.Log("Adding ship to " + this.gameObject.name);
         yield return new WaitForEndOfFrame();
         Logbook_ShipContainer newContainer = Instantiate(shipContainerPrefab, shipLayoutGroup.transform).GetComponent<Logbook_ShipContainer>();
         newContainer.InitializeContainer(ship);

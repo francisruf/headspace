@@ -1,11 +1,20 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MovableTimeCard : MovableObject
 {
+    private Rigidbody2D _rb;
+
     [Header("Time card sprites")]
     public Sprite[] allSprites;
+
+    protected override void Awake()
+    {
+        _rb = GetComponent<Rigidbody2D>();
+        base.Awake();
+    }
 
     protected override void Start()
     {
@@ -22,6 +31,18 @@ public class MovableTimeCard : MovableObject
     private void OnDisable()
     {
         GameManager.dayInfoChange -= AssignSprite;
+    }
+
+    public override void Select(bool fireEvent = true)
+    {
+        _rb.isKinematic = false;
+        base.Select(fireEvent);
+    }
+
+    public override void Deselect(bool fireEvent = true)
+    {
+        _rb.isKinematic = true;
+        base.Deselect(fireEvent);
     }
 
     private void AssignSprite(DayInfo info)

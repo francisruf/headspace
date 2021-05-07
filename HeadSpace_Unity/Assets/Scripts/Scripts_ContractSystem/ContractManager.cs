@@ -50,7 +50,7 @@ public class ContractManager : MonoBehaviour
             instance = this;
         }
 
-        _contractsDB = GetComponentInChildren<ContractsDB>();
+        
     }
 
     private void Start()
@@ -62,6 +62,8 @@ public class ContractManager : MonoBehaviour
     {
         GameManager.levelStarted += OnGameStarted;
         TimeManager.thirtyMinsWarning += StopSpawning;
+
+        _contractsDB = FindObjectOfType<ContractsDB>();
     }
 
     private void OnDisable()
@@ -86,11 +88,13 @@ public class ContractManager : MonoBehaviour
         this._currentSpawnCondition = condition;
         this._clientRules = clientRules;
         this._defaultContractSpawnInterval = defaultSpawnInterval;
-        Debug.Log("Received client rules");
     }
 
     private void OnGameStarted()
     {
+        if (_contractsDB == null)
+            _contractsDB = FindObjectOfType<ContractsDB>();
+
         if (_currentSpawnCondition == ContractSpawnCondition.Timed)
         {
             _newContractRoutine = NewContractTimer();
@@ -267,8 +271,6 @@ public class ContractManager : MonoBehaviour
 
         if (targetIndex < count)
         {
-            Debug.Log("CLOSEST PLANET : " + completeList[targetIndex].PlanetName);
-
             return completeList[targetIndex];
         }
 
@@ -353,19 +355,16 @@ public class ContractManager : MonoBehaviour
         {
             if (planet.CurrentDistanceRating <= third)
             {
-                Debug.Log("SHORT DIST PLANET : " + planet.PlanetName);
                 shortDistancePlanets.Add(planet);
                 shortCount++;
             }
             else if (planet.CurrentDistanceRating > twoThirds)
             {
-                Debug.Log("MEDIUM DIST PLANET : " + planet.PlanetName);
                 longDistancePlanets.Add(planet);
                 longCount++;
             }
             else
             {
-                Debug.Log("LONG DIST PLANET : " + planet.PlanetName);
                 mediumDistancePlanets.Add(planet);
                 mediumCount++;
             }

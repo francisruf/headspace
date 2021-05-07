@@ -221,15 +221,25 @@ public class MovableCommand : MovableObject
         if (commandSinglePrint != null)
             commandSinglePrint();
 
+
+
         while (Vector2.Distance(transform.localPosition, targetPos) > 0.001f)
         {
             transform.localPosition = Vector2.MoveTowards(transform.localPosition, targetPos, 1f * Time.deltaTime);
+
+            if (_printQueueCount == 0)
+                if (Vector2.Distance(transform.localPosition, targetPos) < heightStep / 1.35f && !_collider.enabled)
+                    _collider.enabled = true;
+
+            if (IsSelected)
+                break;
+
             yield return new WaitForEndOfFrame();
         }
 
-        yield return new WaitForSeconds(0.2f);
+        if (!IsSelected)
+            yield return new WaitForSeconds(0.2f);
 
-        _collider.enabled = true;
         _currentPrintingRoutine = null;
     }
 

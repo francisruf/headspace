@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ContractsDB : MonoBehaviour
 {
+    [Header("Settings")]
+    public bool allCaps;
+
     [Header("Client names")]
     public List<string> clientFirstNames = new List<string>();
     private List<string> remainingFirstNames = new List<string>();
@@ -39,7 +42,15 @@ public class ContractsDB : MonoBehaviour
         firstName = remainingFirstNames[randomFirstIndex];
         remainingFirstNames.RemoveAt(randomFirstIndex);
 
-        return firstName;
+        if (firstCount - 1 == 0)
+        {
+            ResetFirstNameDB();
+        }
+
+        if (allCaps)
+            return firstName.ToUpper();
+        else
+            return firstName;
     }
 
     public string GetRandomClientLastName()
@@ -54,7 +65,15 @@ public class ContractsDB : MonoBehaviour
         lastName = remainingLastNames[randomLastIndex];
         remainingLastNames.RemoveAt(randomLastIndex);
 
-        return lastName;
+        if (lastCount - 1 == 0)
+        {
+            ResetLastNameDB();
+        }
+
+        if (allCaps)
+            return lastName.ToUpper();
+        else
+            return lastName;
     }
 
     public Sprite GetRandomFaceSprite()
@@ -69,11 +88,9 @@ public class ContractsDB : MonoBehaviour
 
         if (count - 1 == 0)
         {
-            foreach (var s in clientFaceSprites)
-            {
-                remainingFaceSprites.Add(s);
-            }
+            ResetFaceDB();
         }
+
         return spr;
     }
 
@@ -91,5 +108,29 @@ public class ContractsDB : MonoBehaviour
 
         foreach (var s in clientFaceSprites)
             remainingFaceSprites.Add(s);
+    }
+
+    private void ResetFaceDB()
+    {
+        remainingFaceSprites.Clear();
+
+        foreach (var s in clientFaceSprites)
+            remainingFaceSprites.Add(s);
+    }
+
+    private void ResetFirstNameDB()
+    {
+        remainingFirstNames.Clear();
+
+        foreach (var n in clientFirstNames)
+            remainingFirstNames.Add(n);
+    }
+
+    private void ResetLastNameDB()
+    { 
+        remainingLastNames.Clear();
+
+        foreach (var n in clientLastNames)
+            remainingLastNames.Add(n);
     }
 }
