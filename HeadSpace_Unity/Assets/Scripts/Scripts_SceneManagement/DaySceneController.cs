@@ -33,11 +33,11 @@ public class DaySceneController : MonoBehaviour
 
         if (currentDay == 0)
         {
-            _dayText.text = "Training";
+            _dayText.text = "DAY 0: TRAINING";
         }
         else
         {
-            _dayText.text = "Day " + currentDay;
+            _dayText.text = "DAY " + currentDay;
         }
     }
 

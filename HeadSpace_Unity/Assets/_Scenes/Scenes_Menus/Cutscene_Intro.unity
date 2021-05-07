@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -154,37 +154,34 @@ MonoBehaviour:
   - frame: {fileID: -7454401371687827062, guid: d32063a5a24c6be449b0ae8dbba88427,
       type: 3}
     allLines:
-    - Hello {#error=insert name here} to the first day of your life.
-    - Oh yes, dear employee, for your life was meaningless up until today. Today,
-      you become the newest employee of the Space Travel Ministry (STM)!
+    - Hello Training Subject #3007.
+    - The time has come to put your meaningless life behind you. Today, we welcome
+      you to the Space Travel Ministry!
   - frame: {fileID: 3261840738970259679, guid: d32063a5a24c6be449b0ae8dbba88427, type: 3}
     allLines:
     - 'You will thus join thousands of men and women of all known galaxies in doing
-      one of the most important job there is: Space transport dispatcher.'
+      one of the most important job there is: Space Transport Dispatch.'
     - You will be the lifeline between our space fleet and the many government officials
-      who are in need to get where they're going.
+      who are in need to get where they want to go.
   - frame: {fileID: 3549399559826818699, guid: d32063a5a24c6be449b0ae8dbba88427, type: 3}
     allLines:
-    - As such, your job is simple. You will receive Work Orders from our partners
+    - As such, your job is simple. You will receive WORK ORDERS from our partners
       containing their travel requests.
-    - Using cutting edge communications technology, you will control our transport
-      drones to lead them to their destinations.
+    - Using CUTTING EDGE communications technology, you will control our transport
+      drones and lead them to their desired destination.
   - frame: {fileID: -2318615565200658058, guid: d32063a5a24c6be449b0ae8dbba88427,
       type: 3}
     allLines:
-    - But be wary! You will need to watch out for this anomaly we've had to deal
-      with in the last few years.
+    - BUT BE WARY! You will need to watch out for this anomaly we've had to deal
+      with these past few years.
     - 'We still don''t know much about this terrifying phenomenon, but it seems to
       corrupt everything it comes in contact with. '
-    - In others words, STAY AWAY!
   - frame: {fileID: -7454401371687827062, guid: d32063a5a24c6be449b0ae8dbba88427,
       type: 3}
     allLines:
-    - During the next few days, you'll learn to become the best and most efficient
-      dispatcher you can be.
-    - The better job you do, the more responsibilities you'll get!
-    - We have no doubt that you'll fit right in this enterprise. Good luck {#error=insert
-      name here} and godspeed!
+    - If you do well, we will keep you around. If not, well, you will be dismissed,
+      and someone else will take your place.
+    - Good luck Trainee #3007.
   nextSceneName: TutorialPrompt
   sceneType: 0
 --- !u!4 &254707062
@@ -318,7 +315,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 180}
+  m_AnchoredPosition: {x: 0, y: 155}
   m_SizeDelta: {x: 1088, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &475546826
@@ -343,8 +340,8 @@ MonoBehaviour:
   m_text: Hello dude.This is the first message of the cutscene. This is very incredible
     text yes yes very good write. Ok dokey? Here story.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fb5f99923d5e6ff4aa86e2d92fc9e210, type: 2}
-  m_sharedMaterial: {fileID: -3077001409806670181, guid: fb5f99923d5e6ff4aa86e2d92fc9e210,
+  m_fontAsset: {fileID: 11400000, guid: 2e1092c51bd22ec499a2d22fab59e7a0, type: 2}
+  m_sharedMaterial: {fileID: 2065341443962806096, guid: 2e1092c51bd22ec499a2d22fab59e7a0,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -369,14 +366,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 39.1
-  m_fontSizeBase: 39.1
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 8
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0

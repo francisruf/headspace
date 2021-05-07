@@ -64,10 +64,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: NEW GAME
+  m_text: QUIT
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5f7144bd698432140968615aa62b02ca, type: 2}
-  m_sharedMaterial: {fileID: 7591405503483456888, guid: 5f7144bd698432140968615aa62b02ca,
+  m_fontAsset: {fileID: 11400000, guid: ec333bee195126f4a95473281c7a4268, type: 2}
+  m_sharedMaterial: {fileID: -7268410212287389567, guid: ec333bee195126f4a95473281c7a4268,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -272,8 +272,9 @@ MonoBehaviour:
   rightCornerSprite: {fileID: 6697620064969676242, guid: 0eff68804791e6b47b5afc0d5fc14a45,
     type: 3}
   openDrawer: 1
-  commandName: NewGame
+  commandName: Quit
   startTeared: 1
+  openOutboxOnSelect: 0
 --- !u!1 &4936675365891656420
 GameObject:
   m_ObjectHideFlags: 0

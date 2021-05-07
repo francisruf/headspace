@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -288,10 +288,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Training
+  m_text: Training Day
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fb5f99923d5e6ff4aa86e2d92fc9e210, type: 2}
-  m_sharedMaterial: {fileID: -3077001409806670181, guid: fb5f99923d5e6ff4aa86e2d92fc9e210,
+  m_fontAsset: {fileID: 11400000, guid: 2e1092c51bd22ec499a2d22fab59e7a0, type: 2}
+  m_sharedMaterial: {fileID: 2065341443962806096, guid: 2e1092c51bd22ec499a2d22fab59e7a0,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -316,8 +316,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
