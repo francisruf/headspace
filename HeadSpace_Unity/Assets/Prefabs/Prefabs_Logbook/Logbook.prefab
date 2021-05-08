@@ -205,6 +205,52 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &318263976324288997
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8105996225399861488}
+  - component: {fileID: 5493777632962880061}
+  m_Layer: 14
+  m_Name: Page4Controller_Commands_Stat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8105996225399861488
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 318263976324288997}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1218995809212384768}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5493777632962880061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 318263976324288997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f33b49a4c26e8c4d9af3e9957bb8207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pageSprite: {fileID: -8142618869659526127, guid: 302b80513ab623b428ef17261aa484c0,
+    type: 3}
+  pageParent: {fileID: 7662157869844350044}
 --- !u!1 &384275742802029679
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,6 +640,52 @@ RectTransform:
   m_AnchoredPosition: {x: 1.1, y: -0.375}
   m_SizeDelta: {x: 2.2, y: 0.75}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1148287357953175494
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3689511155273337077}
+  - component: {fileID: 9168912698435433851}
+  m_Layer: 14
+  m_Name: Page7Controller_HouseRules
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3689511155273337077
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148287357953175494}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1218995809212384768}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9168912698435433851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148287357953175494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f33b49a4c26e8c4d9af3e9957bb8207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pageSprite: {fileID: -8142618869659526127, guid: 302b80513ab623b428ef17261aa484c0,
+    type: 3}
+  pageParent: {fileID: 6679607427159931121}
 --- !u!1 &1218995807747660680
 GameObject:
   m_ObjectHideFlags: 0
@@ -1325,6 +1417,10 @@ MonoBehaviour:
   - {fileID: 1218995808279324812}
   - {fileID: 9150855153712047695}
   - {fileID: 7389972947848455058}
+  - {fileID: 5493777632962880061}
+  - {fileID: 8834187683505838128}
+  - {fileID: 785517007205078988}
+  - {fileID: 9168912698435433851}
 --- !u!1 &1218995809017432224
 GameObject:
   m_ObjectHideFlags: 0
@@ -1965,6 +2061,10 @@ Transform:
   - {fileID: 1218995808279324811}
   - {fileID: 7054734678957144326}
   - {fileID: 6112591531866861591}
+  - {fileID: 8105996225399861488}
+  - {fileID: 5754005433694368088}
+  - {fileID: 2440207116736242088}
+  - {fileID: 3689511155273337077}
   m_Father: {fileID: 1218995808782181055}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3146,7 +3246,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: TRANSIT ORDERS
+  m_text: WORK ORDERS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 400304662e7adcc4fa040425605c7692, type: 2}
   m_sharedMaterial: {fileID: -551588994171984083, guid: 400304662e7adcc4fa040425605c7692,
@@ -3643,7 +3743,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: When you start your Work Day, you will start to receive TRANSIT ORDERS.
+  m_text: When you start your Work Day, you will start to receive WORK ORDERS.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 65f5390c33509744787d60f7afdbb980, type: 2}
   m_sharedMaterial: {fileID: 5554252403587247314, guid: 65f5390c33509744787d60f7afdbb980,
@@ -3816,8 +3916,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: To complete a TRANSIT ORDER, you must pickup a passenger on a specified
-    planet and drop it on another specified planet.
+  m_text: To complete a WORK ORDER, you must pickup a passenger on a specified planet
+    and drop it on another specified planet.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 65f5390c33509744787d60f7afdbb980, type: 2}
   m_sharedMaterial: {fileID: 5554252403587247314, guid: 65f5390c33509744787d60f7afdbb980,
@@ -4441,7 +4541,7 @@ GameObject:
   - component: {fileID: 7054734678957144326}
   - component: {fileID: 9150855153712047695}
   m_Layer: 14
-  m_Name: Page2Controller_Instructions0
+  m_Name: Page2Controller_Commands_Move
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4475,7 +4575,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pageSprite: {fileID: -8142618869659526127, guid: 302b80513ab623b428ef17261aa484c0,
     type: 3}
-  pageParent: {fileID: 2413756402269473952}
+  pageParent: {fileID: 5108020940281962067}
 --- !u!1 &3626986435139965908
 GameObject:
   m_ObjectHideFlags: 0
@@ -4695,7 +4795,7 @@ GameObject:
   - component: {fileID: 6112591531866861591}
   - component: {fileID: 7389972947848455058}
   m_Layer: 14
-  m_Name: Page3Controller_Instructions1
+  m_Name: Page3Controller_Commands_Stop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4729,7 +4829,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pageSprite: {fileID: -8142618869659526127, guid: 302b80513ab623b428ef17261aa484c0,
     type: 3}
-  pageParent: {fileID: 1992339468752234137}
+  pageParent: {fileID: 7815250950480111219}
 --- !u!1 &3948881808519210505
 GameObject:
   m_ObjectHideFlags: 0
@@ -5200,8 +5300,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: To complete a TRANSIT ORDER, you must pickup a passenger on a specified
-    planet and drop it on another specified planet.
+  m_text: To complete a WORK ORDER, you must pickup a passenger on a specified planet
+    and drop it on another specified planet.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 65f5390c33509744787d60f7afdbb980, type: 2}
   m_sharedMaterial: {fileID: 5554252403587247314, guid: 65f5390c33509744787d60f7afdbb980,
@@ -6032,7 +6132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5477860996837498232}
   m_Layer: 14
-  m_Name: TransitOrders
+  m_Name: WorkOrders1/2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6328,6 +6428,52 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &5034351981647737548
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2440207116736242088}
+  - component: {fileID: 785517007205078988}
+  m_Layer: 14
+  m_Name: Page6Controller_WorkOrders2/2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2440207116736242088
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5034351981647737548}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1218995809212384768}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &785517007205078988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5034351981647737548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f33b49a4c26e8c4d9af3e9957bb8207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pageSprite: {fileID: -8142618869659526127, guid: 302b80513ab623b428ef17261aa484c0,
+    type: 3}
+  pageParent: {fileID: 7394339296902400196}
 --- !u!1 &5053868941405746234
 GameObject:
   m_ObjectHideFlags: 0
@@ -7089,7 +7235,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: When you start your Work Day, you will start to receive TRANSIT ORDERS.
+  m_text: When you start your Work Day, you will start to receive WORK ORDERS.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 65f5390c33509744787d60f7afdbb980, type: 2}
   m_sharedMaterial: {fileID: 5554252403587247314, guid: 65f5390c33509744787d60f7afdbb980,
@@ -7431,6 +7577,52 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &6580533648592773080
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5754005433694368088}
+  - component: {fileID: 8834187683505838128}
+  m_Layer: 14
+  m_Name: Page5Controller_WorkOrders1/2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5754005433694368088
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6580533648592773080}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1218995809212384768}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8834187683505838128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6580533648592773080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f33b49a4c26e8c4d9af3e9957bb8207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pageSprite: {fileID: -8142618869659526127, guid: 302b80513ab623b428ef17261aa484c0,
+    type: 3}
+  pageParent: {fileID: 4630425564865475526}
 --- !u!1 &6679607427159931121
 GameObject:
   m_ObjectHideFlags: 0
@@ -7928,7 +8120,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5851009865832168385}
   m_Layer: 14
-  m_Name: TransitOrders_2
+  m_Name: WorkOrders2/2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8191,7 +8383,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: TRANSIT ORDERS
+  m_text: WORK ORDERS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 400304662e7adcc4fa040425605c7692, type: 2}
   m_sharedMaterial: {fileID: -551588994171984083, guid: 400304662e7adcc4fa040425605c7692,
@@ -9324,10 +9516,16 @@ PrefabInstance:
     - target: {fileID: 7359078846187366789, guid: d5a65cb7d371c204692b2a1537237dce,
         type: 3}
       propertyPath: maxShipContainers
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5a65cb7d371c204692b2a1537237dce, type: 3}
+--- !u!4 &1218995808279324811 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7359078846187366786, guid: d5a65cb7d371c204692b2a1537237dce,
+    type: 3}
+  m_PrefabInstance: {fileID: 8559668347539226889}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1218995808279324812 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7359078846187366789, guid: d5a65cb7d371c204692b2a1537237dce,
@@ -9340,9 +9538,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42b740c2253fe734ba82cf14f29dcd78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &1218995808279324811 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7359078846187366786, guid: d5a65cb7d371c204692b2a1537237dce,
-    type: 3}
-  m_PrefabInstance: {fileID: 8559668347539226889}
-  m_PrefabAsset: {fileID: 0}
