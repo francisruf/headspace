@@ -68,7 +68,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1379220235
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 1
   m_Sprite: {fileID: 6290647696963438016, guid: f8c1a83e4b2ae4f4eafa6f92bc1008ab,
     type: 3}
@@ -150,7 +150,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1379220235
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 1
   m_Sprite: {fileID: -8679209051487295871, guid: f8c1a83e4b2ae4f4eafa6f92bc1008ab,
     type: 3}
@@ -236,7 +236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minSortingOrder: 2
   targetSortingLayer: 
-  acceptedObjects: 01000000000000000300000002000000
+  acceptedObjects: 0100000000000000030000000200000005000000
   startCommandsAccepted:
   - NewGame
   - QuitGame
@@ -319,7 +319,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1379220235
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 539c87f2b75f18643af1f0319867dfff, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -423,6 +423,7 @@ MonoBehaviour:
   toolType: 1
   smoothTime: 0.15
   slidingSoundName: 
+  openDistanceBuffer: 0.25
 --- !u!114 &8517712216500709045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -436,6 +437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pixelOffset: {x: 2, y: 8}
+  rendererOverride: {fileID: 0}
 --- !u!1 &5564266464341686601
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,7 +506,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2039743773
-  m_SortingLayer: 9
+  m_SortingLayer: 10
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 5f3e6fea1c91344418a302f6d8a0d407, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -585,7 +587,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2039743773
-  m_SortingLayer: 9
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3ee812daa47b12943a7d9f25002228d7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

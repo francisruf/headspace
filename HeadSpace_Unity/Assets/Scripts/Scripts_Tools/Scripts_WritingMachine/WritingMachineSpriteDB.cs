@@ -11,6 +11,10 @@ public class WritingMachineSpriteDB : MonoBehaviour
     public Sprite commandCharCaretOn;
     [SerializeField] private List<CharMatch> _commandLetters;
 
+    [Header("Keyboard")]
+    [SerializeField] private List<Sprite> _keyboardLetters;
+    [SerializeField] private List<Sprite> _keyboardNumbers;
+
     [Header("Route screen")]
     public Sprite emptyCoord;
     [SerializeField] private List<Sprite> _coordLetters;
@@ -65,6 +69,25 @@ public class WritingMachineSpriteDB : MonoBehaviour
 
         if (targetSprite == null)
             targetSprite = emptyCoord;
+
+        return targetSprite;
+    }
+
+    public Sprite GetKeyboardChar(char c)
+    {
+        c = char.ToUpper(c);
+        Sprite targetSprite = null;
+
+        if (c >= 'A' && c <= 'Z')
+        {
+            int index = Mathf.Abs((int)'A' - (int)c);
+            targetSprite = _keyboardLetters[index];
+        }
+        else if (c >= '0' && c <= '9')
+        {
+            int index = (int)c - 48;
+            targetSprite = _keyboardNumbers[index];
+        }
 
         return targetSprite;
     }

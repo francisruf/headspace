@@ -121,6 +121,7 @@ public class MovableObject : InteractableObject
         }
         else
         {
+            CheckForExclusionZones();
             base.Deselect(fireEvent);
         }
 
@@ -146,6 +147,25 @@ public class MovableObject : InteractableObject
         if (_isSelected)
         {
             Deselect();
+        }
+    }
+
+    protected virtual void CheckForExclusionZones()
+    {
+        List<Collider2D> allOverlappedColliders = new List<Collider2D>();
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(dropZoneLayerMask);
+
+        int colliderCount = _collider.OverlapCollider(filter, allOverlappedColliders);
+
+        for (int i = 0; i < colliderCount; i++)
+        {
+            ObjectExclusionZone candidate = allOverlappedColliders[i].GetComponent<ObjectExclusionZone>();
+
+            if (candidate != null)
+            {
+                candidate.ClampObject(this);
+            }
         }
     }
 
@@ -220,13 +240,13 @@ public class MovableObject : InteractableObject
         float vertExtent = Camera.main.orthographicSize;
         float horExtent = vertExtent * Screen.width / Screen.height;
 
-        Bounds screenBounds = new Bounds(Camera.main.transform.position, new Vector3((horExtent * 2f) - 1f, (vertExtent * 2f) - 1f, 0f));
+        Bounds screenBounds = new Bounds(Camera.main.transform.position, new Vector3((horExtent * 2f), (vertExtent * 2f), 0f));
         Bounds objectBounds = _collider.bounds;
 
 
         // SI la largeur de l'objet est plus petite que 0.5f, le depassement maximal X de l'objet est de la moitié de sa largeur
         // (transform.position donne un point au CENTRE de l'objet)
-        if (objectBounds.size.x < 0.5f)
+        if (objectBounds.size.x < 0.4f)
         {
             _clampXmin = screenBounds.min.x;
             _clampXmax = screenBounds.max.x;
@@ -235,13 +255,13 @@ public class MovableObject : InteractableObject
         // Calculé à partir du point central (transform.position)
         else
         {
-            _clampXmin = screenBounds.min.x - ((objectBounds.size.x / 2f) - 0.5f);
-            _clampXmax = screenBounds.max.x + ((objectBounds.size.x / 2f) - 0.5f);
+            _clampXmin = screenBounds.min.x - ((objectBounds.size.x / 2f) - 0.4f);
+            _clampXmax = screenBounds.max.x + ((objectBounds.size.x / 2f) - 0.4f);
         }
 
         // SI la hauteur de l'objet est plus petite que 0.5f, le depassement maximal Y de l'objet est de la moitié de sa hauteur
         // (transform.position donne un point au CENTRE de l'objet)
-        if (objectBounds.size.y < 0.5f)
+        if (objectBounds.size.y < 0.4f)
         {
             _clampYmin = screenBounds.min.y;
             _clampYmax = screenBounds.max.y;
@@ -250,8 +270,8 @@ public class MovableObject : InteractableObject
         // Calculé à partir du point central (transform.position)
         else
         {
-            _clampYmin = screenBounds.min.y - ((objectBounds.size.y / 2f) - 0.5f);
-            _clampYmax = screenBounds.max.y + ((objectBounds.size.y / 2f) - 0.5f);
+            _clampYmin = screenBounds.min.y - ((objectBounds.size.y / 2f) - 0.4f);
+            _clampYmax = screenBounds.max.y + ((objectBounds.size.y / 2f) - 0.4f);
         }
 
         _clampXmin -= (objectBounds.center.x - transform.position.x);

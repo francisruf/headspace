@@ -19,6 +19,8 @@ public abstract class Contract : MonoBehaviour
     public bool IsComplete { get { return _complete; } }
     protected bool _failed;
     public bool IsFailed { get { return _failed; } }
+    protected int _clientsCompleted;
+    public int ClientsCompleted { get { return _clientsCompleted; } }
     protected GridTile_Planet _startPlanet;
     public GridTile_Planet StartPlanet { get { return _startPlanet; } }
 
@@ -106,7 +108,7 @@ public abstract class Contract : MonoBehaviour
         client.clientStateChanged += OnClientStateChanged;
     }
 
-    private void ContractFailed()
+    private void ContractFailed(bool clientDead)
     {
         bool started = false;
         foreach (var client in _allClients)
@@ -117,8 +119,14 @@ public abstract class Contract : MonoBehaviour
                 client.ChangeState(ClientState.Left);
         }
 
-        if (!started)
+        if (!started || clientDead)
         {
+            if (_currentTimer != null)
+            {
+                StopCoroutine(_currentTimer);
+                _currentTimer = null;
+            }
+
             foreach (var clientStartStatus in clientStartStatusRenderers)
             {
                 clientStartStatus.sprite = statusFailedSprite;
@@ -132,6 +140,7 @@ public abstract class Contract : MonoBehaviour
             size.x = 0.14f;
             timeSlider.size = size;
             timeSlider.color = failColor;
+            _complete = true;
         }
 
         else
@@ -161,6 +170,7 @@ public abstract class Contract : MonoBehaviour
             case ClientState.Debarked:
                 clientStartStatusRenderers[index].sprite = statusCompletedSprite;
                 clientEndStatusRenderers[index].sprite = statusCompletedSprite;
+                _clientsCompleted++;
                 CheckCompletion();
                 break;
 
@@ -174,7 +184,7 @@ public abstract class Contract : MonoBehaviour
                 clientEndStatusRenderers[index].sprite = statusFailedSprite;
                 clientFaceRenderers[index].sprite = deadFaceSprite;
                 clientNameTexts[index].color = failColor;
-                ContractFailed();
+                ContractFailed(true);
                 break;
 
             default:
@@ -215,6 +225,9 @@ public abstract class Contract : MonoBehaviour
 
     public int GetFinalPoints()
     {
+        if (_clientsCompleted <= 0)
+            return 0;
+
         int points = 10;
 
         if (_timedContract)
@@ -365,7 +378,7 @@ public abstract class Contract : MonoBehaviour
             _currentTime += 1;
             UpdateSlider();
         }
-        ContractFailed();
+        ContractFailed(false);
         _currentTimer = null;
     }
 

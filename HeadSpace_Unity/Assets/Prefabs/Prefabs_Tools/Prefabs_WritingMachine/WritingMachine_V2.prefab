@@ -341,7 +341,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keyboardStartPoint: {fileID: 134320262651556783}
-  keyPrefab: {fileID: 1151343586844369470, guid: 4801f842a81757f4a89025d4aa241d35,
+  keyPrefab: {fileID: 7211726721468803741, guid: a2626db0473cc4b4b845fc0f70b49132,
     type: 3}
   backSpacePrefab: {fileID: 571636464117721273, guid: e348164c1d328bf41b7b49762425dbb4,
     type: 3}
@@ -1908,6 +1908,44 @@ MonoBehaviour:
       type: 3}
     onSprite: {fileID: 8772381560216673303, guid: 4c50158609af3a7499361ec084712e45,
       type: 3}
+  _keyboardLetters:
+  - {fileID: -4619121658642732564, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: -1265746724407684436, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: 4350767782159532971, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: -2646701488512663076, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: 5198535089761036857, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: 5448064867032136238, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: -5763446593534324926, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: -8291795767073661926, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: 2988470449260374420, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: 7917318562070141082, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: -9027587281661811189, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: 7077501370937112899, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: 2365036767865017517, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: -5448821144549744707, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: -5988506647713096641, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: 5574191007385400420, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: -1309270730318133737, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: -5257390793624499238, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: 225507711489113571, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: 8523050537023425745, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: 3862421458428689726, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: -3650363570072595919, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: 1587027888649129955, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: 8650276813660526977, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: -4325125060307779830, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: 7574425691975569816, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  _keyboardNumbers:
+  - {fileID: -2594117239039702524, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: -4785503838435888843, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: 5213825148855043099, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: 1108730882014389997, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: -2854989397873035917, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: 8771309642689929761, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: -623065135477644301, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: -2229140044412915321, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: -7687528350625065093, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
+  - {fileID: -3133520088764068000, guid: 3ff7ffea018402a4baf43c7e5492ce60, type: 3}
   emptyCoord: {fileID: 717156838814154678, guid: e61e2c05dff5f614d9873b12e0bea6cd,
     type: 3}
   _coordLetters:

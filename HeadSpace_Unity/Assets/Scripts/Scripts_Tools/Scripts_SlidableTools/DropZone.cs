@@ -10,6 +10,7 @@ public abstract class DropZone : MonoBehaviour
 
     protected SpriteRenderer _containerSpriteRenderer;
     protected Collider2D _collider;
+    protected Collider2D _activeCollider;
     public Bounds ColliderBounds { get { return _collider.bounds; } }
 
     [SerializeField] protected ObjectType[] acceptedObjects;
@@ -21,7 +22,7 @@ public abstract class DropZone : MonoBehaviour
     protected virtual void Awake()
     {
         _collider = GetComponent<Collider2D>();
-
+        _activeCollider = _collider;
         // Assigner le sprite renderer du parent, ou sinon celui de l'objet DropZone lui-même
         _containerSpriteRenderer = GetComponentInParent<SpriteRenderer>();
         if (_containerSpriteRenderer == null)
@@ -45,8 +46,8 @@ public abstract class DropZone : MonoBehaviour
 
     public Vector2 GetRandomPointInZone()
     {
-        float randomX = Random.Range(_collider.bounds.min.x + 0.05f, _collider.bounds.max.x - 0.05f);
-        float randomY = Random.Range(_collider.bounds.min.y + 0.05f, _collider.bounds.max.y - _collider.bounds.extents.y);
+        float randomX = Random.Range(_activeCollider.bounds.min.x + 0.05f, _activeCollider.bounds.max.x - 0.05f);
+        float randomY = Random.Range(_activeCollider.bounds.min.y + 0.05f, _activeCollider.bounds.max.y - _activeCollider.bounds.extents.y);
 
         return new Vector2(randomX, randomY);
     }
@@ -56,10 +57,10 @@ public abstract class DropZone : MonoBehaviour
         Bounds objBounds = obj.ColliderBounds;
         Vector2 centerOffset = objBounds.center - obj.transform.position;
 
-        float minX = _collider.bounds.min.x + (objBounds.size.x / 2f) - centerOffset.x;
-        float maxX = _collider.bounds.max.x - (objBounds.size.x / 2f) - centerOffset.x;
-        float minY = _collider.bounds.min.y + (objBounds.size.y / 2f) - centerOffset.y;
-        float maxY = _collider.bounds.max.y - (objBounds.size.y / 2f) - centerOffset.y;
+        float minX = _activeCollider.bounds.min.x + (objBounds.size.x / 2f) - centerOffset.x;
+        float maxX = _activeCollider.bounds.max.x - (objBounds.size.x / 2f) - centerOffset.x;
+        float minY = _activeCollider.bounds.min.y + (objBounds.size.y / 2f) - centerOffset.y;
+        float maxY = _activeCollider.bounds.max.y - (objBounds.size.y / 2f) - centerOffset.y;
 
         Vector2 newPos = obj.transform.position;
         newPos.x = Mathf.Clamp(newPos.x, minX, maxX);

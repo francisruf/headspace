@@ -18,6 +18,8 @@ public class WritingMachineKeyboard : MonoBehaviour
     private const float LINE_SPACING = 0.5f;
     private const float LINE_INDENT = 0.25f;
 
+    private WritingMachineSpriteDB _spriteDB;
+
     private List<KeyMatch> _allKeys = new List<KeyMatch>();
     private int _keyCount;
     private char[] _qKeys = { 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p' };
@@ -27,6 +29,8 @@ public class WritingMachineKeyboard : MonoBehaviour
 
     private void Awake()
     {
+        _spriteDB = GetComponentInParent<WritingMachineSpriteDB>();
+
         Spawn1Row();
         SpawnQRow();
         SpawnARow();
@@ -41,27 +45,28 @@ public class WritingMachineKeyboard : MonoBehaviour
         for (char c = '1'; c <='9'; c++)
         {
             GameObject obj = Instantiate(keyPrefab, spawnPos, Quaternion.identity, transform);
-            TextMeshProUGUI txt = obj.GetComponentInChildren<TextMeshProUGUI>();
-            txt.text = c.ToString();
             Animator anim = obj.GetComponent<Animator>();
-            _allKeys.Add(new KeyMatch(c, txt, anim));
+            KeyRenderer renderer = obj.GetComponentInChildren<KeyRenderer>();
+            renderer.Initialize(_spriteDB.GetKeyboardChar(c));
+            _allKeys.Add(new KeyMatch(c, anim));
             spawnPos.x += KEY_SPACING;
 
             SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
             sortingOrder = sr.sortingOrder;
+            renderer.SetRenderingOrder(sortingOrder);
+            sortingOrder += 3;
         }
         GameObject obj2 = Instantiate(keyPrefab, spawnPos, Quaternion.identity, transform);
-        TextMeshProUGUI txt2 = obj2.GetComponentInChildren<TextMeshProUGUI>();
-        txt2.text = '0'.ToString();
+        KeyRenderer renderer2 = obj2.GetComponentInChildren<KeyRenderer>();
+        renderer2.Initialize(_spriteDB.GetKeyboardChar('0'));
         Animator anim2 = obj2.GetComponent<Animator>();
-        _allKeys.Add(new KeyMatch('0', txt2, anim2));
-
+        _allKeys.Add(new KeyMatch('0', anim2));
+        renderer2.SetRenderingOrder(sortingOrder);
         spawnPos.x += KEY_SPACING;
 
         GameObject obj3 = Instantiate(backSpacePrefab, spawnPos, Quaternion.identity, transform);
-        TextMeshProUGUI txt3 = null;
         Animator anim3 = obj3.GetComponent<Animator>();
-        _allKeys.Add(new KeyMatch('@', txt3, anim3));
+        _allKeys.Add(new KeyMatch('@', anim3));
         sortingOrder++;
     }
 
@@ -75,17 +80,17 @@ public class WritingMachineKeyboard : MonoBehaviour
         {
             char c = char.ToUpper(_qKeys[i]);
             GameObject obj = Instantiate(keyPrefab, spawnPos, Quaternion.identity, transform);
-            TextMeshProUGUI txt = obj.GetComponentInChildren<TextMeshProUGUI>();
-            txt.text = c.ToString();
+            KeyRenderer renderer = obj.GetComponentInChildren<KeyRenderer>();
+            renderer.Initialize(_spriteDB.GetKeyboardChar(c));
             Animator anim = obj.GetComponent<Animator>();
-            _allKeys.Add(new KeyMatch(c, txt, anim));
+            _allKeys.Add(new KeyMatch(c, anim));
 
             spawnPos.x += KEY_SPACING;
 
             SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
-            Canvas can = obj.GetComponentInChildren<Canvas>();
             sr.sortingOrder = sortingOrder;
-            can.sortingOrder = sortingOrder;
+            renderer.SetRenderingOrder(sortingOrder);
+            sortingOrder += 3;
         }
         sortingOrder++;
     }
@@ -100,27 +105,25 @@ public class WritingMachineKeyboard : MonoBehaviour
         {
             char c = char.ToUpper(_aKeys[i]);
             GameObject obj = Instantiate(keyPrefab, spawnPos, Quaternion.identity, transform);
-            TextMeshProUGUI txt = obj.GetComponentInChildren<TextMeshProUGUI>();
-            txt.text = c.ToString();
+            KeyRenderer renderer = obj.GetComponentInChildren<KeyRenderer>();
+            renderer.Initialize(_spriteDB.GetKeyboardChar(c));
             Animator anim = obj.GetComponent<Animator>();
-            _allKeys.Add(new KeyMatch(c, txt, anim));
+            _allKeys.Add(new KeyMatch(c, anim));
 
             spawnPos.x += KEY_SPACING;
 
             SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
-            Canvas can = obj.GetComponentInChildren<Canvas>();
             sr.sortingOrder = sortingOrder;
-            can.sortingOrder = sortingOrder;
+            renderer.SetRenderingOrder(sortingOrder);
+            sortingOrder += 3;
         }
         
         GameObject obj2 = Instantiate(returnPrefab, spawnPos, Quaternion.identity, transform);
-        TextMeshProUGUI txt2 = null;
         Animator anim2 = obj2.GetComponent<Animator>();
-        _allKeys.Add(new KeyMatch('#', txt2, anim2));
+        _allKeys.Add(new KeyMatch('#', anim2));
 
         SpriteRenderer sr2 = obj2.GetComponent<SpriteRenderer>();
         sr2.sortingOrder = sortingOrder;
-
         sortingOrder++;
     }
 
@@ -130,9 +133,8 @@ public class WritingMachineKeyboard : MonoBehaviour
         spawnPos.y -= LINE_SPACING * 3;
 
         GameObject tabObj = Instantiate(tabPrefab, spawnPos, Quaternion.identity, transform);
-        TextMeshProUGUI txt3 = null;
         Animator anim3 = tabObj.GetComponent<Animator>();
-        _allKeys.Add(new KeyMatch('>', txt3, anim3));
+        _allKeys.Add(new KeyMatch('>', anim3));
 
         SpriteRenderer sr3 = tabObj.GetComponent<SpriteRenderer>();
         sr3.sortingOrder = sortingOrder;
@@ -143,26 +145,23 @@ public class WritingMachineKeyboard : MonoBehaviour
         {
             char c = char.ToUpper(_zKeys[i]);
             GameObject obj = Instantiate(keyPrefab, spawnPos, Quaternion.identity, transform);
-            TextMeshProUGUI txt = obj.GetComponentInChildren<TextMeshProUGUI>();
-            txt.text = c.ToString();
+            KeyRenderer renderer = obj.GetComponentInChildren<KeyRenderer>();
+            renderer.Initialize(_spriteDB.GetKeyboardChar(c));
             Animator anim = obj.GetComponent<Animator>();
-            _allKeys.Add(new KeyMatch(c, txt, anim));
+            _allKeys.Add(new KeyMatch(c, anim));
 
             spawnPos.x += KEY_SPACING;
 
             SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
-            Canvas can = obj.GetComponentInChildren<Canvas>();
             sr.sortingOrder = sortingOrder;
-            can.sortingOrder = sortingOrder;
+            renderer.SetRenderingOrder(sortingOrder + 1);
         }
         GameObject obj2 = Instantiate(spacePrefab, spawnPos, Quaternion.identity, transform);
-        TextMeshProUGUI txt2 = null;
         Animator anim2 = obj2.GetComponent<Animator>();
-        _allKeys.Add(new KeyMatch(' ', txt2, anim2));
+        _allKeys.Add(new KeyMatch(' ', anim2));
 
         SpriteRenderer sr2 = obj2.GetComponent<SpriteRenderer>();
         sr2.sortingOrder = sortingOrder;
-
         sortingOrder++;
     }
 
@@ -207,13 +206,11 @@ public class WritingMachineKeyboard : MonoBehaviour
     private struct KeyMatch
     {
         public char key;
-        public TextMeshProUGUI textMesh;
         public Animator animator;
 
-        public KeyMatch(char key, TextMeshProUGUI textMesh, Animator animator)
+        public KeyMatch(char key, Animator animator)
         {
             this.key = key;
-            this.textMesh = textMesh;
             this.animator = animator;
         }
     }
