@@ -881,7 +881,7 @@ GameObject:
   - component: {fileID: 6184536118608675505}
   - component: {fileID: 5112146728397818241}
   m_Layer: 0
-  m_Name: TentaclesIdle
+  m_Name: TentaclesSpawning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
