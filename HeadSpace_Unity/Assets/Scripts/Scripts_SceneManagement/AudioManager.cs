@@ -723,6 +723,9 @@ public class AudioManager : MonoBehaviour
             case ObjectType.Contract:
                 PlaySound("Contract_Take");
                 break;
+            case ObjectType.Scissors:
+                PlaySound("Contract_Take");
+                break;
             default:
                 break;
         }
@@ -744,6 +747,9 @@ public class AudioManager : MonoBehaviour
             case ObjectType.Other:
                 break;
             case ObjectType.Contract:
+                PlaySound("Contract_Drop");
+                break;
+            case ObjectType.Scissors:
                 PlaySound("Contract_Drop");
                 break;
             default:

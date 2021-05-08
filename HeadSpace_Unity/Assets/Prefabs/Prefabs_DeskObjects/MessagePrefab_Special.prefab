@@ -17,7 +17,7 @@ MonoBehaviour:
   objectType: 2
   dropZoneLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 270336
   messageName: 
 --- !u!1001 &1310003128616732218
 PrefabInstance:
@@ -29,7 +29,7 @@ PrefabInstance:
     - target: {fileID: 8898473608756375696, guid: cf0ee7b8e9cbe5a48adaac6eb7d9d8d2,
         type: 3}
       propertyPath: m_Name
-      value: MessagePrefab_Tutorial
+      value: MessagePrefab_Special
       objectReference: {fileID: 0}
     - target: {fileID: 8898473608756375698, guid: cf0ee7b8e9cbe5a48adaac6eb7d9d8d2,
         type: 3}

@@ -12,6 +12,7 @@ public class GridTile_StaticAnomaly : GridTile
     private Animator[] _soloTentaclesAnimators = new Animator[4];
 
     public SpriteRenderer corruptedTileRenderer;
+    private Animator _corruptedTileAnimator;
     private TentacleAnimTrigger _animTrigger;
 
     [Header("Scissors settings")]
@@ -20,13 +21,18 @@ public class GridTile_StaticAnomaly : GridTile
     public float regenStartCooldown;
     public int _currentHP;
     private IEnumerator _regenRoutine;
+    private IEnumerator _displaceRoutine;
+    public ParticleSystem psHit;
+    public ParticleSystem psDead;
+    private bool _destroyed;
 
     protected override void Awake()
     {
         base.Awake();
         _animTrigger = GetComponentInChildren<TentacleAnimTrigger>();
         _animTrigger.idleComplete += OnIdleComplete;
-
+        _corruptedTileAnimator = corruptedTileRenderer.GetComponent<Animator>();
+        _corruptedTileAnimator.SetFloat("Speed", 1.0f);
         for (int i = 0; i < 4; i++)
         {
             _soloTentaclesAnimators[i] = soloTentaclesRenderer[i].GetComponent<Animator>();
@@ -37,14 +43,14 @@ public class GridTile_StaticAnomaly : GridTile
         _currentHP = totalHP;
     }
 
-    private void Update()
-    {
-        if (!this.gameObject.activeSelf)
-            return;
+    //private void Update()
+    //{
+    //    if (!this.gameObject.activeSelf)
+    //        return;
 
-        if (Input.GetKeyDown(KeyCode.H))
-            Hit();
-    }
+    //    if (Input.GetKeyDown(KeyCode.H))
+    //        Hit();
+    //}
 
     private void OnDisable()
     {
@@ -87,8 +93,11 @@ public class GridTile_StaticAnomaly : GridTile
         }
     }
 
-    private void Hit()
+    public void Hit(Vector2 hitPosition)
     {
+        psHit.transform.position = hitPosition;
+        psDead.transform.position = hitPosition;
+
         if (_regenRoutine != null)
         {
             StopCoroutine(_regenRoutine);
@@ -97,8 +106,21 @@ public class GridTile_StaticAnomaly : GridTile
 
         _regenRoutine = RegenHP();
         StartCoroutine(_regenRoutine);
-
         AddHP(-1);
+
+        if (_currentHP > 0)
+        {
+            psHit.Play();
+            foreach (var anim in _soloTentaclesAnimators)
+            {
+                anim.SetTrigger("Hit");
+            }
+            if (_displaceRoutine == null)
+            {
+                _displaceRoutine = Displace();
+                StartCoroutine(_displaceRoutine);
+            }
+        }
     }
 
     private IEnumerator RegenHP()
@@ -139,6 +161,45 @@ public class GridTile_StaticAnomaly : GridTile
 
     private void DestroyTile()
     {
+        if (_destroyed)
+            return;
+
+        _destroyed = true;
+        StartCoroutine(DestroyAnim());
+    }
+
+    private IEnumerator Displace()
+    {
+        Vector2[] startPos = new Vector2[4];
+
+        for (int i = 0; i < 4; i++)
+        {
+            startPos[i] = soloTentaclesRenderer[i].transform.position;
+            int randomMultiplier = UnityEngine.Random.Range(0, 10) > 4 ? -1 : 1;
+            Vector2 newPos = startPos[i];
+            newPos.x += randomMultiplier * 0.03125f;
+            randomMultiplier = UnityEngine.Random.Range(0, 10) > 4 ? -1 : 1;
+            newPos.y += randomMultiplier * 0.03125f;
+            soloTentaclesRenderer[i].transform.position = newPos;
+        }
+        yield return new WaitForSeconds(0.1f);
+
+        for (int i = 0; i < 4; i++)
+        {
+            soloTentaclesRenderer[i].transform.position = startPos[i];
+        }
+        _displaceRoutine = null;
+    }
+
+    private IEnumerator DestroyAnim()
+    {
+        psDead.Play();
+
+        _corruptedTileAnimator.SetFloat("Speed", -2.0f);
+        _corruptedTileAnimator.Play("Animaly_CorruptedTile_Spawn", 0, 0.99f);
+
+        yield return new WaitForSeconds(1.1f);
+
         if (anomalyTileDestroyed != null)
             anomalyTileDestroyed(this);
 

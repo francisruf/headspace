@@ -289,5 +289,6 @@ public enum ObjectType
     Document,
     Message,
     Contract,
-    Other
+    Other,
+    Scissors
 }

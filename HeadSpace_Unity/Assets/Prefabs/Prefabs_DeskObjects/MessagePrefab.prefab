@@ -363,7 +363,7 @@ MonoBehaviour:
   objectType: 2
   dropZoneLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 270336
 --- !u!95 &897544838
 Animator:
   serializedVersion: 3

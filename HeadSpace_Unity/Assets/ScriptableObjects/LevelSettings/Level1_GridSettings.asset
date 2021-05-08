@@ -17,4 +17,4 @@ MonoBehaviour:
   tilemapPrefabs:
   - {fileID: 1826517630118387644, guid: 8aa7b5960b5105d4f841b630be4a18f5, type: 3}
   - {fileID: 1826517630118387644, guid: 887eeabcddd2c45499fa6810798459f4, type: 3}
-  anomalySpreadTime: 120
+  anomalySpreadTime: 30
