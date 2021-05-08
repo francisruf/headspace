@@ -193,6 +193,11 @@ public class PlanetManager : MonoBehaviour
             GridTile randomTile = lowestHeatTiles[randomIndex];
             allowedSpawnTiles.Remove(randomTile);
 
+            foreach (var neighbour in randomTile.AllNeighbours)
+            {
+                allowedSpawnTiles.Remove(neighbour);
+            }
+
             // Add heat, one circle cast per heat distance
             for (int j = 1; j <= planetHeatDistance; j++)
             {
@@ -239,7 +244,6 @@ public class PlanetManager : MonoBehaviour
                             tile.AddPlanetHeat(1);
                     }
             }
-
             planetCount++;
         }
     }

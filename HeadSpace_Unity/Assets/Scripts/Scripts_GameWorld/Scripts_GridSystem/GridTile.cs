@@ -46,7 +46,7 @@ public class GridTile : MonoBehaviour
     [HideInInspector] public Vector2 tileDimensions;
 
     // Informations de la grille
-    private GridInfo _gridInfo;
+    protected GridInfo _gridInfo;
     private GridMode _currentGridMode;
     // Liste d'objets statics qui se trouvent dans la tuile
     [SerializeField] private List<GridStaticObject> _currentObjectsInTile = new List<GridStaticObject>();
@@ -156,6 +156,7 @@ public class GridTile : MonoBehaviour
         _debugCanvas.GetComponent<RectTransform>().sizeDelta = tileDimensions;
 
         ToggleGridMode(_currentGridMode);
+        AssignCheckeredSprite();
     }
 
     // Fonction pour initialiser les components de la tuile, lorsqu'elle spawn
@@ -408,6 +409,16 @@ public class GridTile : MonoBehaviour
     public void AddShipHeat(int amount)
     {
         ShipStartHeat += amount;
+    }
+
+    protected virtual void AssignCheckeredSprite()
+    {
+        bool even = (tileX + tileY) % 2 == 0 ? true : false;
+        if (even)
+            _spriteRenderer.sprite = _gridInfo.evenSprite;
+        else
+            _spriteRenderer.sprite = _gridInfo.oddSprite;
+
     }
 }
 

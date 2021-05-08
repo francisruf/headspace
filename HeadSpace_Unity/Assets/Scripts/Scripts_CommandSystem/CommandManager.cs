@@ -48,9 +48,9 @@ public class CommandManager : MonoBehaviour
             {
                 string errorMessage = "";
                 if (command.Route != null)
-                    commandIsValid = foundCommand.TryExecution(command.ShipName, command.Route, out errorMessage);
+                    commandIsValid = foundCommand.TryExecution(command.ShipCallsign, command.Route, out errorMessage);
                 else
-                    commandIsValid = foundCommand.TryExecution(command.ShipName, command.TargetGridCoords, command.ProductCode, out errorMessage);
+                    commandIsValid = foundCommand.TryExecution(command.ShipCallsign, command.TargetGridCoords, command.ProductCode, out errorMessage);
             }
 
             if (commandIsValid)
@@ -82,9 +82,9 @@ public class CommandManager : MonoBehaviour
             {
                 string errorMessage = "";
                 if (cmd.Route != null)
-                    commandIsValid = foundCommand.TryExecution(cmd.ShipName, cmd.Route, out errorMessage);
+                    commandIsValid = foundCommand.TryExecution(cmd.ShipCallsign, cmd.Route, out errorMessage);
                 else
-                    commandIsValid = foundCommand.TryExecution(cmd.ShipName, cmd.TargetGridCoords, cmd.ProductCode, out errorMessage);
+                    commandIsValid = foundCommand.TryExecution(cmd.ShipCallsign, cmd.TargetGridCoords, cmd.ProductCode, out errorMessage);
             }
 
             if (commandIsValid)
@@ -132,6 +132,24 @@ public class CommandManager : MonoBehaviour
                 foundCommand = cmd;
                 break;
             }
+        }
+
+        if (foundCommand == null)
+        {
+            string errorMessage = "";
+            if (candidateKeyword.Length > 0)
+            {
+                errorMessage = "Syntax error : \n\n";
+                errorMessage += "Command " + candidateKeyword + " does not exist.";
+            }
+            else
+            {
+                errorMessage = "Syntax error : \n\n";
+                errorMessage += "No command entered.";
+            }
+
+            if (MessageManager.instance != null)
+                MessageManager.instance.GenericMessage(errorMessage, true);
         }
 
         return foundCommand;

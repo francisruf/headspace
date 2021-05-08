@@ -12,6 +12,10 @@ public class GridManager : MonoBehaviour
     public static Action gridDataDestroyed;
     public static Action<GridMode> newGridMode;
 
+    [Header("Grid sprites")]
+    public Sprite evenSprite;
+    public Sprite oddSprite;
+
     // Singleton
     public static GridManager instance;
 
@@ -242,7 +246,7 @@ public class GridManager : MonoBehaviour
 
         // Assignation des informations de la grille et appel de l'ACTION de nouvelle grille
         Bounds newBounds = new Bounds(Vector3.zero, new Vector3(actualWidth, tileWidth * mapSizeY, 0f));
-        _currentGridInfo = new GridInfo(_gameGridTiles, new Vector2Int(mapSizeX, mapSizeY), newBounds);
+        _currentGridInfo = new GridInfo(_gameGridTiles, new Vector2Int(mapSizeX, mapSizeY), newBounds, tileWidth, evenSprite, oddSprite);
 
         foreach (var tile in _gameGridTiles)
         {
@@ -788,9 +792,7 @@ public class GridManager : MonoBehaviour
             GridTile newTile = _currentGridInfo.gameGridTiles[tileX, tileY];
             GridTile_SpawningStaticAnomaly anomalyTile = newTile.GetComponent<GridTile_SpawningStaticAnomaly>();
             anomalyTile.ParentPatch = targetPatch;
-
             newTile.tileLifeOver += OnSpawningAnomalyTileLifeOver;
-
         }
     }
 }

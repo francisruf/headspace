@@ -433,7 +433,7 @@ public class WritingMachineController : MonoBehaviour
                 _currentCommandDocument.AssignCommandName(currentButton.GetButtonCommandField(), currentButton.GetButtonPrintText());
                 break;
             case ButtonSectionType.Ships:
-                _currentCommandDocument.AssignShipName(currentButton.GetButtonCommandField(), currentButton.GetButtonPrintText());
+                _currentCommandDocument.AssignShipCallsign(_currentString, currentButton.GetButtonPrintText());
                 break;
             case ButtonSectionType.End:
                 break;
@@ -718,7 +718,7 @@ public class WritingMachineController : MonoBehaviour
 
         string startMessage = "<color=red><i>TEAR THIS DOCUMENT</color></i>";
         PrintText(startMessage, false, false, "StartLevel");
-        startMessage = "Welcome, {#error=insert name}!";
+        startMessage = "Welcome, Trainee #3007!";
         PrintText(startMessage, false, false, "StartLevel");
         startMessage = "When ready to start day, sign-in by sending this document through your outbox.";
         PrintText(startMessage, false, false, "StartLevel");

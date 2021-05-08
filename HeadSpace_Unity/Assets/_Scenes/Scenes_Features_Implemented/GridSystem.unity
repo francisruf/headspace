@@ -230,6 +230,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6129731023839162511, guid: 6c443e8432b675c4cb502969fc5382e9,
         type: 3}
+      propertyPath: oddSprite
+      value: 
+      objectReference: {fileID: 3621601570889756760, guid: d335bfeeb131e1d44ad4641f42753aa3,
+        type: 3}
+    - target: {fileID: 6129731023839162511, guid: 6c443e8432b675c4cb502969fc5382e9,
+        type: 3}
+      propertyPath: evenSprite
+      value: 
+      objectReference: {fileID: -8310998624700051391, guid: d335bfeeb131e1d44ad4641f42753aa3,
+        type: 3}
+    - target: {fileID: 6129731023839162511, guid: 6c443e8432b675c4cb502969fc5382e9,
+        type: 3}
       propertyPath: anomalySpreadTime
       value: 120
       objectReference: {fileID: 0}

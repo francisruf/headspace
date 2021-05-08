@@ -228,30 +228,40 @@ public class ShipManager : MonoBehaviour
      * La fonction assigne également un paramètre de SORTIE avec la clause OUT, permettant d'envoyer
      * une référence au vaisseau trouvé du même coup.
      */
-    public bool FindShipByName(string shipNameToFind, out Ship foundShip)
+    public bool FindShipByCallsign(string shipCallsignToFind, out Ship foundShip)
     {
-        string shipNameLowerCase = shipNameToFind.ToLower();   // Mettre le nom recherché en minuscules
+        string shipCallsignLowerCase = shipCallsignToFind.ToLower();   // Mettre le nom recherché en minuscules
 
         // Assigner variables de départ
-        bool shipNameFound = false;
+        bool shipCallsignFound = false;
         foundShip = null;
 
         // Itérer dans shipInventory, et vérifier si un ship a le nom correspondant
         foreach (var ship in shipInventory)
         {
             // Si un ship correspondant trouvé, retourner VRAI et assigner le foundShip en paramètre de sortie
-            if (ship.shipName.ToLower() == shipNameLowerCase)
+            if (ship.shipCallsign.ToLower() == shipCallsignLowerCase)
             {
                 if (ship.CurrentShipState != ShipState.Disabled)
                 {
                     foundShip = ship;
-                    shipNameFound = true;
+                    shipCallsignFound = true;
                     break;
                 }
             }
         }
+
+        if (!shipCallsignFound)
+        {
+            string errorMessage = "Syntax error : \n\n";
+            errorMessage += "Invalid ship CODE.";
+
+            if (MessageManager.instance != null)
+                MessageManager.instance.GenericMessage(errorMessage, true);
+        }
+
         // Sinon, retourner FAUX (le foundShip sera null)
-        return shipNameFound;
+        return shipCallsignFound;
     }
 
     // Fonction qui affiche ou non les sprites de tous les vaisseaux

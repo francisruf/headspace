@@ -26,7 +26,7 @@ public class Command_Exit : Command
         //Validation 1 : -Vérifier avec le ShipManager si le vaisseau entré est trouvable.
         if (ShipManager.instance != null)
         {
-            validShip = ShipManager.instance.FindShipByName(shipName, out targetShip);
+            validShip = ShipManager.instance.FindShipByCallsign(shipName, out targetShip);
         }
         else
         {

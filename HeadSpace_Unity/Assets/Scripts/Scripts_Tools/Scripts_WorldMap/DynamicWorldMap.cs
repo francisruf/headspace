@@ -11,11 +11,17 @@ using TMPro;
 [RequireComponent(typeof(SpriteRenderer))]
 public class DynamicWorldMap : MonoBehaviour
 {
+    [Header("Color settings")]
+    public Color letterColor;
+    public Color numberColor;
+
+    [Header("Display settings")]
     public bool topXCoordinates;
     public bool bottomXCoordinates;
     public bool leftYCoordinates;
     public bool rightYCoordinates;
 
+    [Header("Misc")]
     public GameObject coordinatesTextPrefab;
     public float coordinatesOffsetFromMap;
 
@@ -46,10 +52,16 @@ public class DynamicWorldMap : MonoBehaviour
 
     private void InitializeWorldMap(GridInfo gridInfo)
     {
-        Vector2 margins = new Vector2(0.375f, 0.375f);
+        Vector2 margins = new Vector2(0.34375f, 0.34375f);
 
         _currentGridInfo = gridInfo;
-        _spriteRenderer.size = (Vector2)_currentGridInfo.gameGridWorldBounds.size + (margins * 2f);
+        //_spriteRenderer.size = (Vector2)_currentGridInfo.gameGridWorldBounds.size + (margins * 2f);
+        Vector2 size = new Vector2();
+        size.x = _currentGridInfo.tileWidth * _currentGridInfo.gameGridSize.x;
+        size.y = _currentGridInfo.tileWidth * _currentGridInfo.gameGridSize.y;
+        _spriteRenderer.size = size + (margins * 2f);
+        Debug.Log("WORLD BOUNDS : " + _currentGridInfo.gameGridWorldBounds);
+        Debug.Log("WORLD BOUNDS SIZE : " + _currentGridInfo.gameGridWorldBounds.size);
         Vector2 pos = Vector2.zero;
         pos.x += 0.03125f;
         pos.y -= 0.03125f;
@@ -84,6 +96,7 @@ public class DynamicWorldMap : MonoBehaviour
                 TextMeshProUGUI txt = Instantiate(coordinatesTextPrefab, _coordinatesCanvas.transform).GetComponent<TextMeshProUGUI>();
                 txt.text = (i + 1).ToString();
                 txt.transform.position = spawnPos;
+                txt.color = numberColor;
                 _allCoordinateTexts.Add(txt);
             }
 
@@ -93,6 +106,7 @@ public class DynamicWorldMap : MonoBehaviour
                 spawnPos.y = _currentGridInfo.gameGridWorldBounds.max.y + coordinatesOffsetFromMap;
                 txt2.text = (i + 1).ToString();
                 txt2.transform.position = spawnPos;
+                txt2.color = numberColor;
                 _allCoordinateTexts.Add(txt2);
             }
         }
@@ -111,6 +125,7 @@ public class DynamicWorldMap : MonoBehaviour
                 TextMeshProUGUI txt = Instantiate(coordinatesTextPrefab, _coordinatesCanvas.transform).GetComponent<TextMeshProUGUI>();
                 txt.text = GridCoords.GetTileLetter(i);
                 txt.transform.position = spawnPos;
+                txt.color = letterColor;
                 _allCoordinateTexts.Add(txt);
             }
 
@@ -123,7 +138,7 @@ public class DynamicWorldMap : MonoBehaviour
                 spawnPos.x += 0.0625f;
                 txt2.text = GridCoords.GetTileLetter(i);
                 txt2.transform.position = spawnPos;
-
+                txt2.color = letterColor;
                 _allCoordinateTexts.Add(txt2);
             }
         }

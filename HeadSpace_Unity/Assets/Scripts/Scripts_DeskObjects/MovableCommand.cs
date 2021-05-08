@@ -27,7 +27,7 @@ public class MovableCommand : MovableObject
 
     [HideInInspector] public bool openDrawer = true;
     public string CommandName { get; protected set; } = "";
-    public string ShipName { get; private set; } = "";
+    public string ShipCallsign { get; private set; } = "";
     public string TargetGridCoords { get; private set; } = "";
     public string ProductCode { get; private set; } = "";
     public List<string> Route { get; private set; }
@@ -116,9 +116,9 @@ public class MovableCommand : MovableObject
         PrintLine(printText);
     }
 
-    public void AssignShipName(string shipName, string printText)
+    public void AssignShipCallsign(string shipCallsign, string printText)
     {
-        ShipName = shipName;
+        ShipCallsign = shipCallsign;
         PrintLine(printText);
     }
 

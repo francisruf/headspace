@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class GridTile_Planet : GridTile, PointOfInterest
@@ -18,6 +19,8 @@ public class GridTile_Planet : GridTile, PointOfInterest
     private TextMeshProUGUI _planetNameText;
     private Animator _planetAnimator;
     private SpriteMask _planetMask;
+    private Image _planetLabel;
+    private Canvas _planetCanvas;
 
     public int CurrentDistanceRating { get; set; }
     public bool PlanetFound { get; private set; }
@@ -33,7 +36,9 @@ public class GridTile_Planet : GridTile, PointOfInterest
         _planetSpriteRenderer = planetRenderer.GetComponent<SpriteRenderer>();
         _planetNameText = planetRenderer.GetComponentInChildren<TextMeshProUGUI>();
         _planetAnimator = planetRenderer.GetComponent<Animator>();
+        _planetLabel = planetRenderer.GetComponentInChildren<Image>();
         _planetMask = planetRenderer.GetComponent<SpriteMask>();
+        _planetCanvas = planetRenderer.GetComponent<Canvas>();
         _mapPointOfInterest = GetComponentInChildren<MapPointOfInterest>();
 
         PlanetFound = false;
@@ -71,9 +76,45 @@ public class GridTile_Planet : GridTile, PointOfInterest
         {
             _planetNameText.text = PlanetName;
             _planetNameText.ForceMeshUpdate();
+
+            StartCoroutine(AssignPlanetLabel());
         }
     }
 
+    private IEnumerator AssignPlanetLabel()
+    {
+        yield return new WaitForEndOfFrame();
+
+        RectTransform planetRect = _planetLabel.GetComponent<RectTransform>();
+        Vector2 newSize = planetRect.sizeDelta;
+        newSize.x = _planetNameText.textBounds.size.x + 0.06f;
+        planetRect.sizeDelta = newSize;
+
+        Vector3[] corners = new Vector3[4];
+        planetRect.GetWorldCorners(corners);
+
+        if (corners[0].x < GridCoords.CurrentGridInfo.gameGridWorldBounds.min.x)
+        {
+            float offset = GridCoords.CurrentGridInfo.gameGridWorldBounds.min.x - corners[0].x + 0.0625f;
+            Vector2 newRectPos = planetRect.transform.position;
+            Vector2 newTextPos = _planetNameText.transform.position;
+            newRectPos.x += offset;
+            newTextPos.x += offset;
+            planetRect.transform.position = newRectPos;
+            _planetNameText.transform.position = newTextPos;
+        }
+
+        else if (corners[3].x > GridCoords.CurrentGridInfo.gameGridWorldBounds.max.x)
+        {
+            float offset = GridCoords.CurrentGridInfo.gameGridWorldBounds.max.x - corners[3].x - 0.03125f;
+            Vector2 newRectPos = planetRect.transform.position;
+            Vector2 newTextPos = _planetNameText.transform.position;
+            newRectPos.x += offset;
+            newTextPos.x += offset;
+            planetRect.transform.position = newRectPos;
+            _planetNameText.transform.position = newTextPos;
+        }
+    }
 
     private void PlacePlanetRenderer()
     {
@@ -82,11 +123,10 @@ public class GridTile_Planet : GridTile, PointOfInterest
 
         float minX = _spriteRenderer.bounds.min.x + planetRadius + margin;
         float maxX = _spriteRenderer.bounds.max.x - planetRadius - margin;
-        float minY = _spriteRenderer.bounds.min.y + planetRadius + margin;
-        float maxY = _spriteRenderer.bounds.max.y - planetRadius - margin;
-        Vector2 randomPos = new Vector2(UnityEngine.Random.Range(minX, maxX), UnityEngine.Random.Range(minY, maxY));
-        planetRenderer.transform.position = randomPos;
+        float posY = _spriteRenderer.bounds.center.y + 0.09375f;
 
+        Vector2 planetPos = new Vector2(UnityEngine.Random.Range(minX, maxX), posY);
+        planetRenderer.transform.position = planetPos;
         SetStartingState(_mapPointOfInterest, true);
     }
 

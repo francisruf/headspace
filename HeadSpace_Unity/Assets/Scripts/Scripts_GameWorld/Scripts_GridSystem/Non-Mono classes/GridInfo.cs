@@ -17,6 +17,9 @@ public class GridInfo
     public Bounds gameGridWorldBounds;
     public GridQuadrants gameGridQuadrants;
     public int positiveQuadrantIndex;
+    public float tileWidth;
+    public Sprite evenSprite;
+    public Sprite oddSprite;
 
     public float TileWidth
     {
@@ -28,13 +31,16 @@ public class GridInfo
 
     // CONSTRUCTEUR : Fonction qui sert à déclarer un nouvel objet de type GridInfo (avec new GridInfo(...))
     // - Et d'assigner les valeurs des variables, à l'aide des paramètres en appel (dans les parenthèses)
-    public GridInfo(GridTile[,] gameGridTiles, Vector2Int gameGridSize, Bounds gameGridWorldBounds)
+    public GridInfo(GridTile[,] gameGridTiles, Vector2Int gameGridSize, Bounds gameGridWorldBounds, float tileWidth, Sprite evenSprite, Sprite oddSprite)
     {
         this.gameGridTiles = gameGridTiles;
         this.gameGridSize = gameGridSize;
         this.tileCount = (int)gameGridSize.x * (int)gameGridSize.y;
         this.gameGridWorldBounds = gameGridWorldBounds;
         this.gameGridQuadrants = new GridQuadrants(gameGridWorldBounds);
+        this.tileWidth = tileWidth;
+        this.evenSprite = evenSprite;
+        this.oddSprite = oddSprite;
         //Debug.Log("New grid with " + tileCount + " tiles");
     }
 

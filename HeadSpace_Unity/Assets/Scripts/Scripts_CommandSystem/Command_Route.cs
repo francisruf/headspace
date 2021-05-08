@@ -21,17 +21,30 @@ public class Command_Route : Command
         // Variables locales temporaires
         bool success = false;
         bool validShip = false;
+        bool validCoords = false;
+        string coordsError = "";
         Ship targetShip = null;
         errorMessage = "";
 
         //Validation 1 : -Vérifier avec le ShipManager si le vaisseau entré est trouvable.
         if (ShipManager.instance != null)
         {
-            validShip = ShipManager.instance.FindShipByName(shipName, out targetShip);
+            validShip = ShipManager.instance.FindShipByCallsign(shipName, out targetShip);
         }
         else
         {
             Debug.Log("Error : Could not find ShipManager.");
+        }
+
+        foreach (var pos in route)
+        {
+            TileCoordinates coords = default;
+            validCoords = (GridCoords.FromTileNameToTilePosition(pos, out coords));
+            if (!validCoords)
+            {
+                coordsError = "Position " + pos + " does not exist.";
+                break;
+            }
         }
 
         //TODO: Confirmation finale 1 : Le vaisseau est valide?
@@ -40,7 +53,15 @@ public class Command_Route : Command
             success = false;
             errorMessage = "Invalid ship name : " + shipName;
         }
+        else if (!validCoords)
+        {
+            errorMessage = "MOVE syntax error : \n\n" + coordsError;
 
+            if (MessageManager.instance != null)
+                MessageManager.instance.GenericMessage(errorMessage, true);
+
+            success = false;
+        }
         // Si tout est valide, exécution de la commande et envoie du bool succès au CommandManager
         else
         {

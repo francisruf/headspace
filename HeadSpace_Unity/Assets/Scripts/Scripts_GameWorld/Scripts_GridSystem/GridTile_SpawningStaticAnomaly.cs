@@ -7,6 +7,7 @@ public class GridTile_SpawningStaticAnomaly : GridTile
     private Animator _animator;
     public AnomalyPatch ParentPatch { get; set; }
     private bool _spawnBeforeStart;
+    public SpriteRenderer baseTileRenderer;
 
     protected override void Awake()
     {
@@ -20,6 +21,18 @@ public class GridTile_SpawningStaticAnomaly : GridTile
             lifeTime = UnityEngine.Random.Range(0f, 0.6f);
             _spawnBeforeStart = true;
         }
+    }
+
+    public override void InitializeTile(Vector2 tileDimensions, GridMode gridMode)
+    {
+        base.InitializeTile(tileDimensions, gridMode);
+        baseTileRenderer.size = tileDimensions;
+    }
+
+    public override void InitializeTile(Vector2 tileDimensions, GridMode gridMode, GridInfo currentGridInfo)
+    {
+        base.InitializeTile(tileDimensions, gridMode, currentGridInfo);
+        baseTileRenderer.size = tileDimensions;
     }
 
     private IEnumerator WaitRandom()
@@ -36,5 +49,14 @@ public class GridTile_SpawningStaticAnomaly : GridTile
 
         if (_spawnBeforeStart)
             GridManager.instance.ReplaceTile(this, 4);
+    }
+
+    protected override void AssignCheckeredSprite()
+    {
+        bool even = (tileX + tileY) % 2 == 0 ? true : false;
+        if (even)
+            baseTileRenderer.sprite = _gridInfo.evenSprite;
+        else
+            baseTileRenderer.sprite = _gridInfo.oddSprite;
     }
 }

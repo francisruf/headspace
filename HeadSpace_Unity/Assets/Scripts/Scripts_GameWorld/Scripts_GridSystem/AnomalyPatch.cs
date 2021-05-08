@@ -11,7 +11,14 @@ public class AnomalyPatch
     public AnomalyPatch(List<GridTile> gridTiles)
     {
         _allTiles = gridTiles;
-        AssignCandidateTiles(); 
+        AssignCandidateTiles();
+    }
+
+    private void OnTileDestroyed(GridTile_StaticAnomaly anomaly)
+    {
+        anomaly.anomalyTileDestroyed -= OnTileDestroyed;
+        _allTiles.Remove(anomaly);
+        AssignCandidateTiles();
     }
 
     private void AssignCandidateTiles()
@@ -52,5 +59,8 @@ public class AnomalyPatch
     public void AddTileToPatch(GridTile newTile)
     {
         _allTiles.Add(newTile);
+        GridTile_StaticAnomaly anomaly = newTile.GetComponent<GridTile_StaticAnomaly>();
+
+        anomaly.anomalyTileDestroyed += OnTileDestroyed;
     }
 }

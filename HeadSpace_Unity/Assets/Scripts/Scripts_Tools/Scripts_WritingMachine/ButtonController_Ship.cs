@@ -34,7 +34,7 @@ public class ButtonController_Ship : ButtonController
 
     public override string GetButtonCommandField()
     {
-        return _linkedShip.shipName;
+        return _linkedShip.shipCallsign;
     }
 
     public override string GetButtonPrintText()
