@@ -4091,7 +4091,7 @@ PrefabInstance:
     - target: {fileID: 3913113971409041265, guid: 0f14143b6e3cf66458c390c1fe676bdd,
         type: 3}
       propertyPath: printText
-      value: STATUS REQUESTED
+      value: <b>STATUS REQUESTED</b>
       objectReference: {fileID: 0}
     - target: {fileID: 3913113971409041265, guid: 0f14143b6e3cf66458c390c1fe676bdd,
         type: 3}
@@ -4532,7 +4532,7 @@ PrefabInstance:
     - target: {fileID: 3913113971409041265, guid: 0f14143b6e3cf66458c390c1fe676bdd,
         type: 3}
       propertyPath: printText
-      value: 'New command : MOVE'
+      value: 'New command : <b>MOVE</b>'
       objectReference: {fileID: 0}
     - target: {fileID: 3913113971409041265, guid: 0f14143b6e3cf66458c390c1fe676bdd,
         type: 3}
@@ -4968,7 +4968,7 @@ PrefabInstance:
     - target: {fileID: 3913113971409041265, guid: 0f14143b6e3cf66458c390c1fe676bdd,
         type: 3}
       propertyPath: printText
-      value: 'New command : STOP'
+      value: 'New command : <b>STOP</b>'
       objectReference: {fileID: 0}
     - target: {fileID: 3913113971409041265, guid: 0f14143b6e3cf66458c390c1fe676bdd,
         type: 3}

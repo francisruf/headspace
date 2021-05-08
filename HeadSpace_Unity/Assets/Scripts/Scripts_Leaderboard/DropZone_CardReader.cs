@@ -78,15 +78,17 @@ public class DropZone_CardReader : DropZone
         AddObjectToDropZone(obj);
 
         Bounds objBounds = obj.ColliderBounds;
+        Bounds colBounds = _collider.bounds;
         Vector2 centerOffset = objBounds.center - obj.transform.position;
 
-        float minX = _collider.bounds.min.x + (objBounds.size.x / 2f) - centerOffset.x;
-        float maxX = _collider.bounds.max.x - (objBounds.size.x / 2f) - centerOffset.x;
+        float minX = colBounds.min.x + (objBounds.size.x / 2f) - centerOffset.x;
+        float maxX = colBounds.max.x - (objBounds.size.x / 2f) - centerOffset.x;
 
         _collider.enabled = false;
 
         Vector2 newPos = obj.transform.position;
-        newPos.x = Mathf.Clamp(newPos.x, minX, maxX);
+        //newPos.x = Mathf.Clamp(newPos.x, minX, maxX);
+        newPos.x = colBounds.center.x;
         obj.transform.position = newPos;
 
         //Vector2 velocity = new Vector2();

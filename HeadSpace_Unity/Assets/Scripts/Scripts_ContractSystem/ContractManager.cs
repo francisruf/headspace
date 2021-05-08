@@ -11,6 +11,8 @@ public class ContractManager : MonoBehaviour
     [Header("Spawn settings")]
     public float firstContractSpawnTime;
     private float _defaultContractSpawnInterval;
+    private bool _timedContracts;
+    private int _completionTime;
 
     [Header("Prefabs")]
     public GameObject singleContractPrefab;
@@ -83,11 +85,13 @@ public class ContractManager : MonoBehaviour
         _newContractRoutine = null;
     }
 
-    public void AssignLevelSettings(List<ClientRules> clientRules, ContractSpawnCondition condition, float defaultSpawnInterval)
+    public void AssignLevelSettings(ContractSettings contract)
     {
-        this._currentSpawnCondition = condition;
-        this._clientRules = clientRules;
-        this._defaultContractSpawnInterval = defaultSpawnInterval;
+        this._currentSpawnCondition = contract.contractSpawnConditions;
+        this._clientRules = new List<ClientRules>(contract.allClientRules);
+        this._defaultContractSpawnInterval = contract.defaultContractSpawnInterval;
+        this._timedContracts = contract.timedContracts;
+        this._completionTime = contract.completionTimeInSeconds;
     }
 
     private void OnGameStarted()
@@ -107,9 +111,10 @@ public class ContractManager : MonoBehaviour
         StartCoroutine(SpawnContractTimer(0f));
     }
 
-    public void ChangeContractConditions(ContractSpawnCondition newConditions)
+    public void ChangeContractConditions(ContractSpawnCondition newConditions, bool timedContracts)
     {
         _currentSpawnCondition = newConditions;
+        _timedContracts = timedContracts;
 
         if (_currentSpawnCondition == ContractSpawnCondition.Timed)
         {
@@ -124,6 +129,7 @@ public class ContractManager : MonoBehaviour
     // TODO : Wrapper ça dans container de contrat de grosseur différente
     public void CreateNewSingleContract()
     {
+
         List<Client> allClients = new List<Client>();
         int contractSize = 1;
         MovableContract movableContract = null;
@@ -174,11 +180,22 @@ public class ContractManager : MonoBehaviour
 
         for (int i = 0; i < contractSize; i++)
         {
+            int travelDistanceRating = _clientRules[_currentRuleIndex].travelDistanceRating;
+
+            if (_clientRules[_currentRuleIndex].specialEndCondition == SpecialConditions.ClosestPlanet)
+                travelDistanceRating = 1;
+
+            if (travelDistanceRating == 0)
+            {
+                int randomDistance = UnityEngine.Random.Range(1, 4);
+                travelDistanceRating = randomDistance;
+            }
+
             // End planet
             //List<GridTile_Planet> distanceCandidates = GetPlanetsByDistance(allCandidatePlanets, candidateEndPlanets, startPlanet);
-            GridTile_Planet endPlanet = GetEndPlanet(allCandidatePlanets, startPlanet);
+            GridTile_Planet endPlanet = GetEndPlanet(allCandidatePlanets, startPlanet, travelDistanceRating);
 
-            allClients.Add(CreateClient(startPlanet, endPlanet));
+            allClients.Add(CreateClient(startPlanet, endPlanet, travelDistanceRating));
             allCandidatePlanets.Remove(endPlanet);
             int ruleCount = _clientRules.Count;
 
@@ -196,8 +213,9 @@ public class ContractManager : MonoBehaviour
         if (contractSize == 1)
         {
             Contract_Single contract = movableContract.GetComponent<Contract_Single>();
-            contract.AssignClients(allClients);
+            contract.AssignClients(allClients, _completionTime, _timedContracts);
             contract.CalculatePointsReward(pointSettings);
+
             _allContracts.Add(contract);
         }
         //else if (contractSize == 2)
@@ -436,19 +454,20 @@ public class ContractManager : MonoBehaviour
         return candidates;
     }
 
-    private GridTile_Planet GetEndPlanet(List<GridTile_Planet> completeList, GridTile_Planet startPlanet)
+    private GridTile_Planet GetEndPlanet(List<GridTile_Planet> completeList, GridTile_Planet startPlanet, int travelDistanceRating)
     {
+
         if (_clientRules[_currentRuleIndex].specialEndCondition == SpecialConditions.ClosestPlanet)
         {
             return GetClosestEndPlanet(completeList, startPlanet);
         }
-        else if (_clientRules[_currentRuleIndex].travelDistanceRating == 0)
-        {
-            return GetRandomEndPlanet(completeList, startPlanet);
-        }
+        //else if (travelDistanceRating == 0)
+        //{
+        //    return GetRandomEndPlanet(completeList, startPlanet);
+        //}
         else
         {
-            List<GridTile_Planet> candidates = GetEndPlanetsByDistance(completeList, startPlanet);
+            List<GridTile_Planet> candidates = GetEndPlanetsByDistance(completeList, startPlanet, travelDistanceRating);
             return GetRandomPlanet(candidates);
         }
     }
@@ -491,7 +510,7 @@ public class ContractManager : MonoBehaviour
         return candidates[UnityEngine.Random.Range(0, candidates.Count)];
     }
 
-    private List<GridTile_Planet> GetEndPlanetsByDistance(List<GridTile_Planet> completeList, GridTile_Planet startPlanet)
+    private List<GridTile_Planet> GetEndPlanetsByDistance(List<GridTile_Planet> completeList, GridTile_Planet startPlanet, int travelDistanceRating)
     {
         List<int> planetDistances = new List<int>();
         List<Ship> allShips = ShipManager.instance.AllShips;
@@ -511,9 +530,6 @@ public class ContractManager : MonoBehaviour
             count++;
         }
         planetDistances.Sort();
-
-        // CHANGE THIS
-        int targetDistanceRating = _clientRules[_currentRuleIndex].travelDistanceRating;
 
         List<GridTile_Planet> shortDistancePlanets = new List<GridTile_Planet>();
         List<GridTile_Planet> mediumDistancePlanets = new List<GridTile_Planet>();
@@ -554,7 +570,7 @@ public class ContractManager : MonoBehaviour
             }
         }
 
-        if (targetDistanceRating == 1)
+        if (travelDistanceRating == 1)
         {
             if (shortCount > 0)
                 candidates = shortDistancePlanets;
@@ -572,7 +588,7 @@ public class ContractManager : MonoBehaviour
             }
         }
 
-        else if (targetDistanceRating == 2)
+        else if (travelDistanceRating == 2)
         {
             if (mediumCount > 0)
                 candidates = mediumDistancePlanets;
@@ -603,7 +619,7 @@ public class ContractManager : MonoBehaviour
             }
 
         }
-        else if (targetDistanceRating == 3)
+        else if (travelDistanceRating == 3)
         {
             if (longCount > 0)
                 candidates = longDistancePlanets;
@@ -741,9 +757,9 @@ public class ContractManager : MonoBehaviour
     //    return candidates;
     //}
 
-    private Client CreateClient(GridTile_Planet startPlanet, GridTile_Planet endPlanet)
+    private Client CreateClient(GridTile_Planet startPlanet, GridTile_Planet endPlanet, int travelDistanceRating)
     {
-        ChallengeType challengeType = _clientRules[_currentRuleIndex].challengeType;
+        ChallengeType challengeType = ChallengeType.PlanetName;
 
         if (challengeType == ChallengeType.Random)
         {
@@ -762,7 +778,7 @@ public class ContractManager : MonoBehaviour
             client.clientSprite = _contractsDB.GetRandomFaceSprite();
             client.startPlanet = startPlanet;
             client.endPlanet = endPlanet;
-            client.maxCompletionTimeInGameMinutes = 0;
+            client.travelDistanceRating = travelDistanceRating;
             client.challengeType = challengeType;
             return client;
         }
@@ -774,7 +790,7 @@ public class ContractManager : MonoBehaviour
             client.clientSprite = _contractsDB.GetRandomFaceSprite();
             client.startPlanet = startPlanet;
             client.endPlanet = endPlanet;
-            client.maxCompletionTimeInGameMinutes = 0;
+            client.travelDistanceRating = travelDistanceRating;
             client.challengeType = challengeType;
             return client;
         }

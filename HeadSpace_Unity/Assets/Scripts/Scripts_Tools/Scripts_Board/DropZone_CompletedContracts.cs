@@ -62,10 +62,9 @@ public class DropZone_CompletedContracts : DropZone
                     if (ctr.ContractInfo.IsComplete)
                     {
                         if (newPointsInDropZone != null)
-                            newPointsInDropZone(ctr.ContractInfo.PointsReward);
+                            newPointsInDropZone(ctr.ContractInfo.GetFinalPoints());
                         return true;
                     }
-                        
                 }
             }
         }

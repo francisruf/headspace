@@ -332,77 +332,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelEndCondition: 1
-  contractSpawnConditions: 1
   gridSettings: {fileID: 11400000, guid: 3889d46582226c04b805a34fd79aa40f, type: 2}
   planetLevelSettings: {fileID: 11400000, guid: a8cf540eb25b39042b86a2c7457ecc40,
     type: 2}
   inventorySettings: {fileID: 11400000, guid: 3abcaf5a08502cf46be5dd996c96286a, type: 2}
-  defaultContractSpawnInterval: 60
-  allClientRules:
-  - spawnTime: 1
-    completionTimer: 600
-    startDistanceRating: 0
-    travelDistanceRating: 0
-    distanceRating: 1
-    challengeType: 2
-    specialStartCondition: 1
-    specialEndCondition: 1
-  - spawnTime: 3
-    completionTimer: 600
-    startDistanceRating: 0
-    travelDistanceRating: 0
-    distanceRating: 2
-    challengeType: 2
-    specialStartCondition: 1
-    specialEndCondition: 0
-  - spawnTime: 15
-    completionTimer: 600
-    startDistanceRating: 2
-    travelDistanceRating: 1
-    distanceRating: 2
-    challengeType: 2
-    specialStartCondition: 0
-    specialEndCondition: 1
-  - spawnTime: 60
-    completionTimer: 600
-    startDistanceRating: 1
-    travelDistanceRating: 2
-    distanceRating: 1
-    challengeType: 2
-    specialStartCondition: 0
-    specialEndCondition: 0
-  - spawnTime: 45
-    completionTimer: 600
-    startDistanceRating: 2
-    travelDistanceRating: 1
-    distanceRating: 3
-    challengeType: 2
-    specialStartCondition: 0
-    specialEndCondition: 0
-  - spawnTime: 60
-    completionTimer: 600
-    startDistanceRating: 1
-    travelDistanceRating: 3
-    distanceRating: 1
-    challengeType: 2
-    specialStartCondition: 1
-    specialEndCondition: 1
-  - spawnTime: 60
-    completionTimer: 600
-    startDistanceRating: 0
-    travelDistanceRating: 0
-    distanceRating: 3
-    challengeType: 2
-    specialStartCondition: 0
-    specialEndCondition: 1
-  - spawnTime: 30
-    completionTimer: 600
-    startDistanceRating: 2
-    travelDistanceRating: 2
-    distanceRating: 2
-    challengeType: 2
-    specialStartCondition: 0
-    specialEndCondition: 0
+  contractSettings: {fileID: 11400000, guid: e7edb1f79b28bb0409290da04f865047, type: 2}
 --- !u!1 &513372322
 GameObject:
   m_ObjectHideFlags: 0

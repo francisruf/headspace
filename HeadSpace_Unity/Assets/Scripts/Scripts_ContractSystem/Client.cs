@@ -14,7 +14,8 @@ public abstract class Client
     public Sprite clientSprite;
     public GridTile_Planet startPlanet;
     public GridTile_Planet endPlanet;
-    public int maxCompletionTimeInGameMinutes;
+    public int travelDistanceRating;
+    //public int maxCompletionTimeInGameMinutes;
     public ChallengeType challengeType;
     [HideInInspector] public ClientState currentState;
 
@@ -63,6 +64,7 @@ public enum ClientState
     Waiting,
     Embarked,
     Debarked,
+    Left,
     Dead
 }
 

@@ -8,8 +8,8 @@ public class ClientRules
     [Tooltip("Time required to spawn, calculated from previous contract spawn")]
     [Range(1, 120)]
     public int spawnTime;
-    [Range(60, 600)]
-    public int completionTimer;
+    //[Range(60, 600)]
+    //public int completionTimer;
     //public StartPlanetState startPlanetState;
     //public EndPlanetState endPlanetState;
     [Tooltip("Distance rating (1-3) calculated from all ship positions. 0 == Random")]
@@ -18,11 +18,11 @@ public class ClientRules
     [Tooltip("Distance rating (1-3) calculated from start planet. 0 == Random")]
     [Range(0, 3)]
     public int travelDistanceRating;
-    [Range(1, 3)]
-    public int distanceRating;
-    public ChallengeType challengeType;
+    //public ChallengeType challengeType;
     public SpecialConditions specialStartCondition;
     public SpecialConditions specialEndCondition;
+
+    [HideInInspector]public int storedDistanceRating;
 
     // start and end condition
 }

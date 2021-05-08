@@ -8,6 +8,7 @@ public class MovableContract : MovableObject
     [Header("MovableContract settings")]
     public float animationSpeed;
     public LayerMask documentsLayerMask;
+    public SpriteRenderer bottomLineRenderer;
 
     public static Action<MovableContract> contractOnBelt;
     public static Action<MovableContract> contractExitBelt;
@@ -43,8 +44,7 @@ public class MovableContract : MovableObject
             SetSortingLayer(SortingLayer.NameToID("DeskObjects"));
             ObjectsManager.instance.ForceTopRenderingOrder(this);
 
-            if (contractExitBelt != null)
-                contractExitBelt(this);
+            ContractExitBelt();
         }
         base.Select(fireEvent);
 
@@ -65,40 +65,17 @@ public class MovableContract : MovableObject
         transform.position = animationEndPos;
 
         Deselect();
+        ContractExitBelt();
 
-        //_spriteRenderer.sortingLayerID = SortingLayer.NameToID("DeskObjects");
+        _currentMovingRoutine = null;
+    }
 
-        //List<Collider2D> allOverlappedColliders = new List<Collider2D>();
-        //ContactFilter2D filter = new ContactFilter2D();
-        //filter.SetLayerMask(documentsLayerMask);
-        //int colliderCount = _collider.OverlapCollider(filter, allOverlappedColliders);
-
-        //MovableContract latestContract = null;
-        //foreach (var col in allOverlappedColliders)
-        //{
-        //    MovableContract other = col.GetComponent<MovableContract>();
-        //    if (other != null)
-        //    {
-        //        if (latestContract == null)
-        //            latestContract = other;
-        //        else
-        //        {
-        //            if (other.ContractID > latestContract.ContractID)
-        //                latestContract = other;
-        //        }
-        //    }
-        //}
-
-        //if (latestContract != null)
-        //{
-        //    Vector2 offset = new Vector2(0f, 1 / 32f);
-        //    transform.position = latestContract.transform.position + (Vector3)offset;
-        //}
+    private void ContractExitBelt()
+    {
+        _contractInfo.OnContractBeltExit();
 
         if (contractExitBelt != null)
             contractExitBelt(this);
-
-        _currentMovingRoutine = null;
     }
 
     protected override bool CheckForDropZone(out DropZone dropZone)
@@ -183,6 +160,10 @@ public class MovableContract : MovableObject
             {
                 foreach (var dz in contractDropZones)
                 {
+                    if (dz.ZoneIndex == 0)
+                    {
+                        bottomLineRenderer.enabled = false;
+                    }
                     dz.AddObjectToDropZone(this);
                 }
 
@@ -212,6 +193,8 @@ public class MovableContract : MovableObject
 
     protected override void RemoveFromDropZone()
     {
+        bottomLineRenderer.enabled = true;
+
         foreach (var dz in contractDropZones)
         {
             dz.Occupied = false;

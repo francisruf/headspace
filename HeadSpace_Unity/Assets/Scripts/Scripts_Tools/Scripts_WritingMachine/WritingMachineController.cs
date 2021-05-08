@@ -512,21 +512,21 @@ public class WritingMachineController : MonoBehaviour
         string printText = "";
 
         if (count == 1)
-            printText = "Towards this destination : " + routeEntry[0] + ".";
+            printText = "Towards this destination : <b>" + routeEntry[0] + "</b>.";
         else
         {
-            printText = "Following this route : ";
+            printText = "Following this route : \n<b>";
             for (int i = 0; i < count; i++)
             {
-                if (i == 0 || i == 5)
-                    printText += "\n";
+                //if (i == 0 || i == 5)
+                //    printText += "\n";
 
 
                 printText += routeEntry[i];
                 if (i < count - 1)
-                    printText += " - ";
+                    printText += "-";
                 else
-                    printText += ".";
+                    printText += "</b>.";
             }
         }
         _currentCommandDocument.AssignRoute(routeEntry, printText);

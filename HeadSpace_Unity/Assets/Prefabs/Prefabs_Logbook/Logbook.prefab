@@ -5574,8 +5574,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: When a ship receives a STOP command, he will stop at his current location
-    and forget his MOVE command.
+  m_text: When a ship receives a STOP command, it will stop at his current location
+    and forget its MOVE command.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 65f5390c33509744787d60f7afdbb980, type: 2}
   m_sharedMaterial: {fileID: 5554252403587247314, guid: 65f5390c33509744787d60f7afdbb980,
@@ -8554,9 +8554,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "1. Get the Compu-Typer\u2122 out with LSHFT\r\n2. Type-in ship CODE, then
-    press ENTER\r\n3. Type-in COMMAND, then press ENTER\r\n4. Correct typing with
-    BACKSPACE\r\n5. TEAR paper when done\r\n6. Send COMMAND with SILVER DRAWER\r"
+  m_text: "1. Get the Compu-Typer\u2122 out with LSHIFT\r\n2. Type-in ship CODE,
+    then press ENTER\r\n3. Type-in COMMAND, then press ENTER\r\n4. Correct typing
+    with BACKSPACE\r\n5. TEAR paper when done\r\n6. Send COMMAND with SILVER DRAWER\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 65f5390c33509744787d60f7afdbb980, type: 2}
   m_sharedMaterial: {fileID: 5554252403587247314, guid: 65f5390c33509744787d60f7afdbb980,

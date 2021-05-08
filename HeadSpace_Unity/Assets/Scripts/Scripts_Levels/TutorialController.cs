@@ -226,7 +226,7 @@ public class TutorialController : MonoBehaviour
         if (messageName == "MSG_EndTraining0")
         {
             if (ContractManager.instance != null)
-                ContractManager.instance.ChangeContractConditions(ContractSpawnCondition.Timed);
+                ContractManager.instance.ChangeContractConditions(ContractSpawnCondition.Timed, true);
         }
 
         if (messageName == "MSG_Markers")

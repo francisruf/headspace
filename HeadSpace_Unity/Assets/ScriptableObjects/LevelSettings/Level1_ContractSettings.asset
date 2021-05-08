@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4b4228cbd5a26848a9160ffaf97e79b, type: 3}
+  m_Name: Level1_ContractSettings
+  m_EditorClassIdentifier: 
+  contractSpawnConditions: 0
+  timedContracts: 1
+  defaultContractSpawnInterval: 50
+  completionTimeInSeconds: 180
+  allClientRules:
+  - spawnTime: 1
+    startDistanceRating: 1
+    travelDistanceRating: 1
+    specialStartCondition: 1
+    specialEndCondition: 1
+    storedDistanceRating: 0
+  - spawnTime: 20
+    startDistanceRating: 1
+    travelDistanceRating: 0
+    specialStartCondition: 0
+    specialEndCondition: 1
+    storedDistanceRating: 0
+  - spawnTime: 45
+    startDistanceRating: 1
+    travelDistanceRating: 3
+    specialStartCondition: 0
+    specialEndCondition: 1
+    storedDistanceRating: 0
+  - spawnTime: 60
+    startDistanceRating: 1
+    travelDistanceRating: 2
+    specialStartCondition: 0
+    specialEndCondition: 0
+    storedDistanceRating: 0
+  - spawnTime: 45
+    startDistanceRating: 3
+    travelDistanceRating: 1
+    specialStartCondition: 1
+    specialEndCondition: 1
+    storedDistanceRating: 0
+  - spawnTime: 60
+    startDistanceRating: 1
+    travelDistanceRating: 3
+    specialStartCondition: 0
+    specialEndCondition: 0
+    storedDistanceRating: 0
+  - spawnTime: 45
+    startDistanceRating: 1
+    travelDistanceRating: 1
+    specialStartCondition: 0
+    specialEndCondition: 1
+    storedDistanceRating: 0
+  - spawnTime: 60
+    startDistanceRating: 2
+    travelDistanceRating: 2
+    specialStartCondition: 1
+    specialEndCondition: 0
+    storedDistanceRating: 0

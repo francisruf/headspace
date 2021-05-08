@@ -39,7 +39,7 @@ public class ButtonController_Ship : ButtonController
 
     public override string GetButtonPrintText()
     {
-        return printText + _linkedShip.shipName;
+        return printText + "<b>" + _linkedShip.shipName + "</b>";
     }
 
     protected override void Start()

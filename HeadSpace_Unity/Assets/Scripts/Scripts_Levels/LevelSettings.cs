@@ -6,7 +6,6 @@ public class LevelSettings : MonoBehaviour
 {
     [Header("General conditions")]
     public LevelEndCondition levelEndCondition;
-    public ContractSpawnCondition contractSpawnConditions;
     [Header("Grid")]
     public GridSettings gridSettings;
     [Header("Planets")]
@@ -14,10 +13,7 @@ public class LevelSettings : MonoBehaviour
     [Header("Inventory")]
     public PlayerInventory inventorySettings;
     [Header("Contracts")]
-    [Tooltip("Time used when no client rule found.")]
-    [Range(1, 120)]
-    public int defaultContractSpawnInterval;
-    public List<ClientRules> allClientRules;
+    public ContractSettings contractSettings;
 }
 
 public enum LevelEndCondition

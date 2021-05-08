@@ -79,7 +79,7 @@ public class LevelLoader : MonoBehaviour
         }
             
         if (ContractManager.instance != null)
-            ContractManager.instance.AssignLevelSettings(_levelSettings.allClientRules, _levelSettings.contractSpawnConditions, _levelSettings.defaultContractSpawnInterval);
+            ContractManager.instance.AssignLevelSettings(_levelSettings.contractSettings);
     }
 
     public void StartGameDebug()

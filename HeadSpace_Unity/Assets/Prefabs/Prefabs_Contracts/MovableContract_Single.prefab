@@ -602,12 +602,94 @@ SpriteRenderer:
   m_SortingLayerID: 1351713243
   m_SortingLayer: 6
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 624375cc07de06e46b21b8e6934d16ad, type: 3}
+  m_Sprite: {fileID: 4671334941271426898, guid: cd0126b99bebc28458a24583c0b2e215,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.5, y: 0.5}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!1 &3371576927598404782
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8568430273037257540}
+  - component: {fileID: 7807278661698768162}
+  m_Layer: 0
+  m_Name: TimeSlider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8568430273037257540
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3371576927598404782}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.313, y: -0.125, z: 0}
+  m_LocalScale: {x: 3.125, y: 3.125, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7014596700423436575}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &7807278661698768162
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3371576927598404782}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 1351713243
+  m_SortingLayer: 6
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 584bf9f06adefa349892c87dd0ab46f6, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 1
+  m_Size: {x: 0.14, y: 0.04}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -624,7 +706,7 @@ GameObject:
   - component: {fileID: 8007201165248682046}
   - component: {fileID: 379150668809808851}
   m_Layer: 0
-  m_Name: Contract_V2_BOTLINE-Sheet
+  m_Name: BottomLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -845,7 +927,7 @@ SpriteRenderer:
   m_SortingLayerID: 1351713243
   m_SortingLayer: 6
   m_SortingOrder: 1
-  m_Sprite: {fileID: 8104224165311985457, guid: 6c0953d5fda7d6149bc2461cf315099d,
+  m_Sprite: {fileID: -6709642596088834459, guid: 6c0953d5fda7d6149bc2461cf315099d,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1163,6 +1245,7 @@ Transform:
   - {fileID: 5329423412074090919}
   - {fileID: 807239489773497242}
   - {fileID: 8007201165248682046}
+  - {fileID: 8568430273037257540}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1264,6 +1347,7 @@ MonoBehaviour:
   documentsLayerMask:
     serializedVersion: 2
     m_Bits: 16384
+  bottomLineRenderer: {fileID: 379150668809808851}
   ClientAmount: 0
 --- !u!114 &6571372113320757154
 MonoBehaviour:
@@ -1278,9 +1362,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetClientCount: 1
+  chillColor: {r: 0.20784315, g: 0.32941177, b: 0.121568635, a: 1}
+  hurryColor: {r: 0.7735849, g: 0.69513017, b: 0.25907797, a: 1}
+  dangerColor: {r: 0.5568628, g: 0.3613472, b: 0.11372547, a: 1}
+  failColor: {r: 0.41960788, g: 0.1137255, b: 0.07450981, a: 1}
   startPlanetSpriteRenderer: {fileID: 5990496607734664773}
   startPlanetText: {fileID: 760342120384286831}
   rewardsText: {fileID: 5006343251640087905}
+  timeSlider: {fileID: 7807278661698768162}
   clientNameTexts:
   - {fileID: 2052710902808022564}
   clientFaceRenderers:
@@ -1296,4 +1385,6 @@ MonoBehaviour:
   statusCompletedSprite: {fileID: 8104224165311985457, guid: 6c0953d5fda7d6149bc2461cf315099d,
     type: 3}
   statusFailedSprite: {fileID: -6709642596088834459, guid: 6c0953d5fda7d6149bc2461cf315099d,
+    type: 3}
+  deadFaceSprite: {fileID: 2247905943358756100, guid: 41696c74256b7e14885eb0f41709f8d5,
     type: 3}

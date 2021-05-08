@@ -41,7 +41,7 @@ public abstract class ButtonController : MonoBehaviour
     {
         if (printButtonName)
         {
-            return printText + BaseButtonText;
+            return printText + "<b>" + BaseButtonText + "</b>";
         }
         return printText;
     }

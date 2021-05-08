@@ -303,46 +303,32 @@ MonoBehaviour:
   planetLevelSettings: {fileID: 11400000, guid: cd9a12451108a044480dab21c8ae034b,
     type: 2}
   inventorySettings: {fileID: 11400000, guid: 7910a0d62269f2c4483a7c6626ebdd56, type: 2}
+  contractSettings: {fileID: 11400000, guid: 1f4c0c3d93b422d43be646388f178252, type: 2}
   defaultContractSpawnInterval: 0
   allClientRules:
   - spawnTime: 1
-    completionTimer: 0
     startDistanceRating: 0
     travelDistanceRating: 0
-    distanceRating: 1
-    challengeType: 2
     specialStartCondition: 0
     specialEndCondition: 0
   - spawnTime: 14
-    completionTimer: 0
     startDistanceRating: 0
     travelDistanceRating: 0
-    distanceRating: 1
-    challengeType: 2
     specialStartCondition: 0
     specialEndCondition: 0
   - spawnTime: 56
-    completionTimer: 0
     startDistanceRating: 0
     travelDistanceRating: 0
-    distanceRating: 2
-    challengeType: 2
     specialStartCondition: 0
     specialEndCondition: 0
   - spawnTime: 31
-    completionTimer: 0
     startDistanceRating: 0
     travelDistanceRating: 0
-    distanceRating: 3
-    challengeType: 2
     specialStartCondition: 0
     specialEndCondition: 0
   - spawnTime: 58
-    completionTimer: 0
     startDistanceRating: 0
     travelDistanceRating: 0
-    distanceRating: 2
-    challengeType: 2
     specialStartCondition: 0
     specialEndCondition: 0
 --- !u!1 &841591217
