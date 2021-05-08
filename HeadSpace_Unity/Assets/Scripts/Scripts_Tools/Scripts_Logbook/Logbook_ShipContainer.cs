@@ -37,12 +37,6 @@ public class Logbook_ShipContainer : MonoBehaviour
 
         shipNameField.text = _linkedShip.shipName;
         shipCallsignField.text = _linkedShip.shipCallsign;
-        //shipNameText.text = _linkedShip.shipName;
-        //shipCallsignText.text = _linkedShip.shipCallsign;
-        //shipClassText.text = _linkedShip.shipClass + " class";
-        //Color textColor;
-        //shipStateText.text = GetShipStatusFromState(_linkedShip.CurrentShipState, out textColor);
-        //shipStateText.color = textColor;
     }
 
     public void OnNameChange()
