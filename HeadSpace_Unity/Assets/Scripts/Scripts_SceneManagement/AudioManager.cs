@@ -140,6 +140,8 @@ public class AudioManager : MonoBehaviour
         DropZone_CardReader.cardProcessed += CommandGood;
         CardReader.lightTick += VoyantFlash;
         CreditsCounter.newCredits += NewCreditsReceived;
+
+        MovableScissors.scissorsCut += ScissorsCut;
     }
 
     private void OnDisable()
@@ -198,6 +200,8 @@ public class AudioManager : MonoBehaviour
         DropZone_CardReader.cardProcessed -= CommandGood;
         CardReader.lightTick -= VoyantFlash;
         CreditsCounter.newCredits -= NewCreditsReceived;
+
+        MovableScissors.scissorsCut -= ScissorsCut;
     }
 
     //Update function only to test feature. Remove when necessary.
@@ -567,6 +571,11 @@ public class AudioManager : MonoBehaviour
     private void ShredderStopped()
     {
         StopSoundLoop("Shredder_Loop", true);
+    }
+
+    private void ScissorsCut()
+    {
+        PlayRandomSound("Scissor_One", "Scissor_Two", "Scissor_Three");
     }
 
     #endregion

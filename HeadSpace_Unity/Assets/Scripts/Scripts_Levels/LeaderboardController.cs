@@ -2,12 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class LeaderboardController : MonoBehaviour
 {
     public static Action leaderboardLoaded;
     public static Action dayStart;
     public static Action dayFinish;
+
+    [Header("Dynamic Info")]
+    public List<LeaderboardDayInfo> customDayInformation;
+    public SpriteRenderer posterRenderer;
+    public TextMeshProUGUI messageBoard;
 
     [Header("EmployeeSlots")]
     public Transform[] employeePos;
@@ -82,6 +88,24 @@ public class LeaderboardController : MonoBehaviour
             leaderboardLoaded();
     }
 
+    private void AssignCustomInformation()
+    {
+        int day = _currentInfo.day;
+        if (day < customDayInformation.Count)
+        {
+            if (_currentInfo.time == LevelTime.DayStart)
+            {
+                posterRenderer.sprite = customDayInformation[day].dayPoster;
+                messageBoard.text = customDayInformation[day].dayMessage;
+            }
+            else
+            {
+                posterRenderer.sprite = customDayInformation[day].nightPoster;
+                messageBoard.text = customDayInformation[day].nightMessage;
+            }
+        }
+    }
+
     private void OnCardProcessed()
     {
         StartCoroutine(EndOfScene());
@@ -109,4 +133,14 @@ public enum leaderboardSceneType
 {
     Day,
     Night
+}
+
+[System.Serializable]
+public struct LeaderboardDayInfo
+{
+    public string dayMessage;
+    public string nightMessage;
+
+    public Sprite dayPoster;
+    public Sprite nightPoster;
 }
