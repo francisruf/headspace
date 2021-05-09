@@ -11,6 +11,19 @@ public abstract class ButtonController : MonoBehaviour
     protected TextMeshProUGUI _buttonTextMesh;
     protected Animator _animator;
     public string BaseButtonText { get; protected set; }
+    private string _temp;
+    private string _highlightedText
+    {
+        get
+        {
+            return _temp;
+        }
+        set
+        {
+            _temp = value;
+            Debug.Log("SETTING : " + value);
+        }
+    }
 
     public string printText;
     public bool printButtonName;
@@ -27,6 +40,7 @@ public abstract class ButtonController : MonoBehaviour
     {
         _buttonTextMesh = GetComponentInChildren<TextMeshProUGUI>();
         _animator = GetComponent<Animator>();
+        _highlightedText = BaseButtonText;
     }
 
     protected virtual void Start()
@@ -56,24 +70,24 @@ public abstract class ButtonController : MonoBehaviour
         if (charIndex > _highlightedCharCount)
             return;
         //EEDF84
-        string newText = "<color=#" + ColorUtility.ToHtmlStringRGB(highlightColor) + ">";
+        _highlightedText = "<color=#" + ColorUtility.ToHtmlStringRGB(highlightColor) + ">";
         int charCount = 0;
 
         for (int i = 0; i <= charIndex; i++)
         {
-            newText += BaseButtonText[i];
+            _highlightedText += BaseButtonText[i];
             charCount++;
         }
 
-        newText += "</color>";
+        _highlightedText += "</color>";
 
         for (int i = charCount; i < BaseButtonText.Length; i++)
         {
-            newText += BaseButtonText[i];
+            _highlightedText += BaseButtonText[i];
         }
 
         _highlightedCharCount++;
-        _buttonTextMesh.text = newText;
+        _buttonTextMesh.text = _highlightedText;
 
         if (_highlightedCharCount >= BaseButtonText.Length)
         {
@@ -89,9 +103,15 @@ public abstract class ButtonController : MonoBehaviour
     public virtual void ClearHighlighting()
     {
         if (_buttonTextMesh != null)
+        {
             _buttonTextMesh.text = BaseButtonText;
-        _highlightedCharCount = 0;
+        }
 
+        if (BaseButtonText == "S01")
+            Debug.Log("CLEAR");
+
+        _highlightedCharCount = 0;
+        _highlightedText = BaseButtonText;
         ChangeButtonState(ButtonState.Available);
     }
 
@@ -115,7 +135,7 @@ public abstract class ButtonController : MonoBehaviour
         return BaseButtonText;
     }
 
-    public void ToggleAvailable(bool toggleON, bool forceDisable)
+    public virtual void ToggleAvailable(bool toggleON, bool forceDisable)
     {
         if (forceDisable)
         {
@@ -135,13 +155,38 @@ public abstract class ButtonController : MonoBehaviour
                 ChangeButtonState(ButtonState.Unavailable);
             }
         }
+        else
+        {
+            if (toggleON)
+            {
+                ChangeButtonState(ButtonState.Available);
+            }
+            else
+            {
+                ChangeButtonState(ButtonState.Unavailable);
+            }
+        }
+
+        if (_buttonTextMesh != null)
+        {
+            if (toggleON)
+            {
+                _buttonTextMesh.text = _highlightedText;
+            }
+            else
+                _buttonTextMesh.text = BaseButtonText;
+        }
+
     }
 
-    protected virtual void ChangeButtonState(ButtonState newState)
-    {
-        if (newState == CurrentState)
-            return;
+    //public virtual void OnSelectedButtonMachineClose()
+    //{
+    //    if (_buttonTextMesh != null)
+    //        _buttonTextMesh.text = BaseButtonText;
+    //}
 
+    public virtual void ChangeButtonState(ButtonState newState)
+    {
         CurrentState = newState;
 
         switch (newState)

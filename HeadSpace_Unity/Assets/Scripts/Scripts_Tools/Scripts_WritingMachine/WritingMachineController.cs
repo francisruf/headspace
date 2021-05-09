@@ -99,12 +99,13 @@ public class WritingMachineController : MonoBehaviour
 
     public void OnMachineOpen()
     {
-        ChangeButtonSection(_currentButtonSectionType);
+        ChangeButtonSection(_currentButtonSectionType, true);
 
         if (_currentButtonSectionType != ButtonSectionType.End)
         {
             foreach (var btn in _currentPressedButtons)
             {
+                btn.ToggleAvailable(true, false);
                 btn.PressButton();
             }
         }
@@ -532,16 +533,19 @@ public class WritingMachineController : MonoBehaviour
         _currentCommandDocument.AssignRoute(routeEntry, printText);
     }
 
-    private void ChangeButtonSection(ButtonSectionType nextSection)
+    private void ChangeButtonSection(ButtonSectionType nextSection, bool machineOpen = false)
     {
+
         if (_currentAvailableButtonsCount > 0)
         {
             for (int i = 0; i < _currentAvailableButtonsCount; i++)
             {
-                _currentAvailableButtons[i].ToggleAvailable(false, false);
+                if (!_currentPressedButtons.Contains(_currentAvailableButtons[i]))
+                    _currentAvailableButtons[i].ToggleAvailable(false, false);
             }
             _currentAvailableButtonsCount = 0;
         }
+
 
         _currentButtonSectionType = nextSection;
         //Debug.Log("new button section : " + nextSection);
@@ -599,7 +603,7 @@ public class WritingMachineController : MonoBehaviour
 
         UpdateButtonCount();
 
-        if (_currentAvailableButtonsCount > 0)
+        if (_currentAvailableButtonsCount > 0 && _slidableMachine.IsOpen)
         {
             for (int i = 0; i < _currentAvailableButtonsCount; i++)
             {
@@ -640,10 +644,13 @@ public class WritingMachineController : MonoBehaviour
     {
         foreach (var btn in _allButtons)
         {
-            if (forceReset)
+            if (_currentPressedButtons.Contains(btn))
+                btn.ToggleAvailable(false, false);
+            else
+            {
                 btn.ClearHighlighting();
-
-            btn.ToggleAvailable(false, true);
+                btn.ToggleAvailable(false, forceReset);
+            }
         }
     }
 

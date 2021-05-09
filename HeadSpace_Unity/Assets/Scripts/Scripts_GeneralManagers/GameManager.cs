@@ -189,6 +189,7 @@ public class GameManager : MonoBehaviour
 
     public void PrepareLevel(LevelEndCondition endCondition)
     {
+        GridTile_StaticAnomaly.anomalySpawned = false;
         CurrentEndCondition = endCondition;
         ChangeLevelTime(LevelTime.Level);
     }

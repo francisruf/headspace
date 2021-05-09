@@ -24,13 +24,13 @@ MonoBehaviour:
     specialEndCondition: 1
     storedDistanceRating: 0
   - spawnTime: 20
-    startDistanceRating: 1
-    travelDistanceRating: 0
+    startDistanceRating: 2
+    travelDistanceRating: 2
     specialStartCondition: 0
     specialEndCondition: 1
     storedDistanceRating: 0
   - spawnTime: 45
-    startDistanceRating: 1
+    startDistanceRating: 3
     travelDistanceRating: 3
     specialStartCondition: 0
     specialEndCondition: 1

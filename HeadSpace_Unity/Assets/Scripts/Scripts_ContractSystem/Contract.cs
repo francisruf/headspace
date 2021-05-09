@@ -88,8 +88,6 @@ public abstract class Contract : MonoBehaviour
 
         timeSlider.color = chillColor;
         timeSlider.enabled = _timedContract;
-
-        Debug.Log("Client " + clients[0].GetDisplayName() + " - rating : " + _travelDistanceRating + " - timer : " + _completionTime);
     }
 
     protected virtual void AddClient(Client client, int index)

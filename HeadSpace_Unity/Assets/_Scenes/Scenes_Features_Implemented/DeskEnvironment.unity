@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1548,7 +1548,7 @@ PrefabInstance:
     - target: {fileID: 1218995808782181055, guid: 62c5487795f17724bb2323258b25f938,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 1218995808782181055, guid: 62c5487795f17724bb2323258b25f938,
         type: 3}
@@ -1588,6 +1588,26 @@ PrefabInstance:
     - target: {fileID: 1218995808782181055, guid: 62c5487795f17724bb2323258b25f938,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844436604736863018, guid: 62c5487795f17724bb2323258b25f938,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844436604736863018, guid: 62c5487795f17724bb2323258b25f938,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844436604736863018, guid: 62c5487795f17724bb2323258b25f938,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844436604736863018, guid: 62c5487795f17724bb2323258b25f938,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1991,10 +2011,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 9183321123500514945, guid: bb0116cf8dd246b41826efdb0dbe83c2,
+    - target: {fileID: 3667028011446943221, guid: bb0116cf8dd246b41826efdb0dbe83c2,
         type: 3}
-      propertyPath: m_IsActive
+      propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3667028011446943221, guid: bb0116cf8dd246b41826efdb0dbe83c2,
+        type: 3}
+      propertyPath: m_PointLightInnerRadius
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3667028011446943221, guid: bb0116cf8dd246b41826efdb0dbe83c2,
+        type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 0.34
       objectReference: {fileID: 0}
     - target: {fileID: 9183321123995383738, guid: bb0116cf8dd246b41826efdb0dbe83c2,
         type: 3}
@@ -2055,36 +2085,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9183321124590639044, guid: bb0116cf8dd246b41826efdb0dbe83c2,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9183321125329591051, guid: bb0116cf8dd246b41826efdb0dbe83c2,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9183321125329591053, guid: bb0116cf8dd246b41826efdb0dbe83c2,
-        type: 3}
-      propertyPath: m_ApplyToSortingLayers.Array.size
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 9183321125329591053, guid: bb0116cf8dd246b41826efdb0dbe83c2,
-        type: 3}
-      propertyPath: m_ApplyToSortingLayers.Array.data[15]
-      value: -1379220235
-      objectReference: {fileID: 0}
-    - target: {fileID: 9183321125329591053, guid: bb0116cf8dd246b41826efdb0dbe83c2,
-        type: 3}
-      propertyPath: m_ApplyToSortingLayers.Array.data[16]
-      value: -2039743773
-      objectReference: {fileID: 0}
-    - target: {fileID: 9183321125329591053, guid: bb0116cf8dd246b41826efdb0dbe83c2,
-        type: 3}
-      propertyPath: m_ApplyToSortingLayers.Array.data[17]
-      value: -452918177
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb0116cf8dd246b41826efdb0dbe83c2, type: 3}

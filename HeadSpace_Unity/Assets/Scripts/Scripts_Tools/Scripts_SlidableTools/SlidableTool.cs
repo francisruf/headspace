@@ -17,6 +17,7 @@ public class SlidableTool : InteractableObject
     public float slidingAmount;
     public float drawerHandleSize = 1f;
     public SlidableToolType toolType;
+    public float closeDistanceBuffer;
 
     [Header("Animation settings")]
     public float smoothTime;
@@ -184,7 +185,7 @@ public class SlidableTool : InteractableObject
 
                 //fullyClosedPos.x = transform.position.x;
                 //fullyClosedPos.y = maxPosY;
-                fullyClosedDistance = Vector2.Distance(transform.position, fullyClosedPos) <= 0.001f;
+                fullyClosedDistance = Vector2.Distance(transform.position, fullyClosedPos) <= closeDistanceBuffer;
 
                 break;
 
@@ -197,7 +198,7 @@ public class SlidableTool : InteractableObject
 
                 //fullyClosedPos.x = transform.position.x;
                 //fullyClosedPos.y = minPosY;
-                fullyClosedDistance = Vector2.Distance(transform.position, fullyClosedPos) <= 0.001f;
+                fullyClosedDistance = Vector2.Distance(transform.position, fullyClosedPos) <= closeDistanceBuffer;
 
                 break;
 
@@ -210,7 +211,7 @@ public class SlidableTool : InteractableObject
 
                 //fullyClosedPos.x = maxPosX;
                 //fullyClosedPos.y = transform.position.y;
-                fullyClosedDistance = Vector2.Distance(transform.position, fullyClosedPos) <= 0.001f;
+                fullyClosedDistance = Vector2.Distance(transform.position, fullyClosedPos) <= closeDistanceBuffer;
 
                 break;
 
@@ -223,7 +224,7 @@ public class SlidableTool : InteractableObject
 
                 //fullyClosedPos.x = minPosX;
                 //fullyClosedPos.y = transform.position.y;
-                fullyClosedDistance = Vector2.Distance(transform.position, fullyClosedPos) <= 0.001f;
+                fullyClosedDistance = Vector2.Distance(transform.position, fullyClosedPos) <= closeDistanceBuffer;
 
                 break;
         }

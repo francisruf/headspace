@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class WritingMachineClock : MonoBehaviour
 {
+    public static Action clockTick;
+
     private SpriteRenderer _spriteRenderer;
 
     public GameObject digitPrefab;
@@ -100,6 +102,9 @@ public class WritingMachineClock : MonoBehaviour
                 }
                 else
                 {
+                    if (clockTick != null)
+                        clockTick();
+
                     _spriteRenderer.sprite = yellowSprite;
                     _digitRenderers[0].sprite = _spriteDB.GetDigit(_previousHours / 10, false);
                     _digitRenderers[1].sprite = _spriteDB.GetDigit(_previousHours % 10, false);

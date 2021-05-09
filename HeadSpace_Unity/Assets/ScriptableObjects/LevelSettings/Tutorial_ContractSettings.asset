@@ -22,38 +22,46 @@ MonoBehaviour:
     travelDistanceRating: 0
     specialStartCondition: 1
     specialEndCondition: 1
+    storedDistanceRating: 0
   - spawnTime: 3
-    startDistanceRating: 0
-    travelDistanceRating: 0
+    startDistanceRating: 1
+    travelDistanceRating: 3
     specialStartCondition: 1
     specialEndCondition: 0
+    storedDistanceRating: 0
   - spawnTime: 15
     startDistanceRating: 2
-    travelDistanceRating: 1
+    travelDistanceRating: 2
     specialStartCondition: 0
     specialEndCondition: 1
+    storedDistanceRating: 0
   - spawnTime: 60
     startDistanceRating: 1
     travelDistanceRating: 2
     specialStartCondition: 0
     specialEndCondition: 0
+    storedDistanceRating: 0
   - spawnTime: 45
     startDistanceRating: 2
     travelDistanceRating: 1
     specialStartCondition: 0
     specialEndCondition: 0
+    storedDistanceRating: 0
   - spawnTime: 60
     startDistanceRating: 1
     travelDistanceRating: 3
     specialStartCondition: 1
     specialEndCondition: 1
+    storedDistanceRating: 0
   - spawnTime: 60
-    startDistanceRating: 0
-    travelDistanceRating: 0
+    startDistanceRating: 2
+    travelDistanceRating: 3
     specialStartCondition: 0
     specialEndCondition: 1
+    storedDistanceRating: 0
   - spawnTime: 30
-    startDistanceRating: 2
-    travelDistanceRating: 2
+    startDistanceRating: 1
+    travelDistanceRating: 1
     specialStartCondition: 0
     specialEndCondition: 0
+    storedDistanceRating: 0

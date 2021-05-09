@@ -8,6 +8,7 @@ public class DisplayController_Command : ButtonController_Command
     public GameObject commandCharPrefab;
 
     public int CharCount { get { return baseDisplayText.Length; } }
+    private int _currentLength;
 
     private WritingMachineSpriteDB _spriteDB;
     private List<CommandChar> _allChars = new List<CommandChar>();
@@ -37,17 +38,17 @@ public class DisplayController_Command : ButtonController_Command
             return;
 
         //string newText = "<color=#EEDF84>";
-        int charCount = 0;
+        _currentLength = 0;
 
         for (int i = 0; i <= charIndex; i++)
         {
             _allChars[i].ToggleChar(true);
-            charCount++;
+            _currentLength++;
         }
 
         //newText += "</color>";
 
-        for (int i = charCount; i < BaseButtonText.Length; i++)
+        for (int i = _currentLength; i < BaseButtonText.Length; i++)
         {
             _allChars[i].ToggleChar(false);
             //newText += BaseButtonText[i];
@@ -75,7 +76,17 @@ public class DisplayController_Command : ButtonController_Command
         base.ClearHighlighting();
     }
 
-    protected override void ChangeButtonState(ButtonState newState)
+    public override void ToggleAvailable(bool toggleON, bool forceDisable)
+    {
+        base.ToggleAvailable(toggleON, forceDisable);
+
+        for (int i = 0; i < _allChars.Count; i++)
+        {
+            _allChars[i].ToggleChar(toggleON);
+        }
+    }
+
+    public override void ChangeButtonState(ButtonState newState)
     {
         if (newState == CurrentState)
             return;

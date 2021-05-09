@@ -222,6 +222,12 @@ public class RouteScreenController : MonoBehaviour
                 _currentAnimRoutine = RevealRouteScreen();
                 StartCoroutine(_currentAnimRoutine);
             }
+            else
+            {
+                StopCoroutine(_currentAnimRoutine);
+                _currentAnimRoutine = RevealRouteScreen();
+                StartCoroutine(_currentAnimRoutine);
+            }
         }
     }
 

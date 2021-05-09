@@ -68,6 +68,7 @@ public class SlidableOutbox : SlidableTool
         StartCoroutine(_openingRoutine);
     }
 
+
     protected override IEnumerator AutoOpenTool()
     {
         if (!IsOpen)

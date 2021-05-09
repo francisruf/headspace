@@ -33,7 +33,8 @@ public class SectorManager : MonoBehaviour
     private void OnNewSector()
     {
         _currentSectorInfo = new SectorInfo();
-        _currentSectorInfo.DayIndex = GameManager.instance.CurrentDayInfo.day;
+        if (GameManager.instance != null)
+            _currentSectorInfo.DayIndex = GameManager.instance.CurrentDayInfo.day;
         SendSectorInfoUpdates();
     }
 

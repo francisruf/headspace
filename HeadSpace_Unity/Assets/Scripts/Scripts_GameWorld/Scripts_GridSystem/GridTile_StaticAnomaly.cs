@@ -6,6 +6,9 @@ using UnityEngine;
 public class GridTile_StaticAnomaly : GridTile
 {
     public Action<GridTile_StaticAnomaly> anomalyTileDestroyed;
+    public static Action firstAnomalySpawned;
+
+    public static bool anomalySpawned;
 
     public SpriteRenderer idleTentaclesRenderer;
     public SpriteRenderer[] soloTentaclesRenderer = new SpriteRenderer[4];
@@ -51,6 +54,17 @@ public class GridTile_StaticAnomaly : GridTile
     //    if (Input.GetKeyDown(KeyCode.H))
     //        Hit();
     //}
+
+    protected override void Start()
+    {
+        base.Start();
+        if (!anomalySpawned && firstAnomalySpawned != null)
+        {
+            anomalySpawned = true;
+            firstAnomalySpawned();
+        }
+
+    }
 
     private void OnDisable()
     {

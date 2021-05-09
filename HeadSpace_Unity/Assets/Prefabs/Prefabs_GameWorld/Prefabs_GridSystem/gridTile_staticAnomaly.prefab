@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3066657363173549993}
   - component: {fileID: 963365125097249674}
-  - component: {fileID: 8907268852456161249}
   - component: {fileID: 7228425241626650366}
+  - component: {fileID: 4768429134669046041}
   m_Layer: 0
   m_Name: Tentacles1
   m_TagString: Untagged
@@ -84,19 +84,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!114 &8907268852456161249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 236065928658733840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b65c2dc4fe492a2429f68fd03987540c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetRenderer: {fileID: 963365125097249674}
 --- !u!95 &7228425241626650366
 Animator:
   serializedVersion: 3
@@ -116,6 +103,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4768429134669046041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236065928658733840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b65c2dc4fe492a2429f68fd03987540c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sortingOffset: 2
+  targetRenderer: {fileID: 963365125097249674}
 --- !u!1 &328405606139326222
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,8 +298,8 @@ GameObject:
   m_Component:
   - component: {fileID: 9178121007952372186}
   - component: {fileID: 4705315445965082089}
-  - component: {fileID: 7409188630853895996}
   - component: {fileID: 8906871762264657202}
+  - component: {fileID: 8448291960612173030}
   m_Layer: 0
   m_Name: Tentacles2
   m_TagString: Untagged
@@ -371,19 +372,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!114 &7409188630853895996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 726038813891052372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b65c2dc4fe492a2429f68fd03987540c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetRenderer: {fileID: 4705315445965082089}
 --- !u!95 &8906871762264657202
 Animator:
   serializedVersion: 3
@@ -403,6 +391,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8448291960612173030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726038813891052372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b65c2dc4fe492a2429f68fd03987540c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sortingOffset: 2
+  targetRenderer: {fileID: 4705315445965082089}
 --- !u!1 &792759034991735327
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,8 +548,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7572858867862675620}
   - component: {fileID: 6523240597387307265}
-  - component: {fileID: 6306699617126315447}
   - component: {fileID: 5487061845880891465}
+  - component: {fileID: 7170137969546714732}
   m_Layer: 0
   m_Name: Tentacles4
   m_TagString: Untagged
@@ -620,19 +622,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!114 &6306699617126315447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2702115255491860954}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b65c2dc4fe492a2429f68fd03987540c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetRenderer: {fileID: 6523240597387307265}
 --- !u!95 &5487061845880891465
 Animator:
   serializedVersion: 3
@@ -652,6 +641,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7170137969546714732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2702115255491860954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b65c2dc4fe492a2429f68fd03987540c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sortingOffset: 0
+  targetRenderer: {fileID: 6523240597387307265}
 --- !u!1 &2734248958338031911
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,8 +764,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1450379526681821269}
   - component: {fileID: 1833983077522783722}
-  - component: {fileID: 8188646753285083295}
   - component: {fileID: 4408943568109199730}
+  - component: {fileID: 6049446532415937119}
   m_Layer: 0
   m_Name: Tentacles3
   m_TagString: Untagged
@@ -835,19 +838,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!114 &8188646753285083295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3049441731798444104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b65c2dc4fe492a2429f68fd03987540c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetRenderer: {fileID: 1833983077522783722}
 --- !u!95 &4408943568109199730
 Animator:
   serializedVersion: 3
@@ -867,6 +857,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6049446532415937119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3049441731798444104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b65c2dc4fe492a2429f68fd03987540c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sortingOffset: 1
+  targetRenderer: {fileID: 1833983077522783722}
 --- !u!1 &3473635582395814857
 GameObject:
   m_ObjectHideFlags: 0
@@ -877,7 +881,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6899757891871704725}
   - component: {fileID: 1422309062588503403}
-  - component: {fileID: 2677380036640743174}
   - component: {fileID: 6184536118608675505}
   - component: {fileID: 5112146728397818241}
   m_Layer: 0
@@ -952,19 +955,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!114 &2677380036640743174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3473635582395814857}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b65c2dc4fe492a2429f68fd03987540c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetRenderer: {fileID: 1422309062588503403}
 --- !u!95 &6184536118608675505
 Animator:
   serializedVersion: 3

@@ -25,7 +25,9 @@ public class AudioManager : MonoBehaviour
     private IEnumerator _shredderRoutine;
     private bool _shredderPlaying;
 
-    private bool _oddCredits;
+    private int _coinIndex;
+    private bool _oddClockTick;
+    private bool _endDay;
 
     // Start is called before the first frame update
     void Awake()
@@ -145,6 +147,9 @@ public class AudioManager : MonoBehaviour
         CreditsCounter.newCredits += NewCreditsReceived;
 
         MovableScissors.scissorsCut += ScissorsCut;
+        GridTile_StaticAnomaly.firstAnomalySpawned += OnFirstAnomaly;
+        WritingMachineClock.clockTick += OnClockTick;
+        GameManager.levelStarted += OnLevelStart;
     }
 
     private void OnDisable()
@@ -205,6 +210,9 @@ public class AudioManager : MonoBehaviour
         CreditsCounter.newCredits -= NewCreditsReceived;
 
         MovableScissors.scissorsCut -= ScissorsCut;
+        GridTile_StaticAnomaly.firstAnomalySpawned -= OnFirstAnomaly;
+        WritingMachineClock.clockTick -= OnClockTick;
+        GameManager.levelStarted -= OnLevelStart;
     }
 
     //Update function only to test feature. Remove when necessary.
@@ -1224,7 +1232,7 @@ public class AudioManager : MonoBehaviour
     #region Contracts
     private void NewContract()
     {
-        PlaySound("Contract_Print");
+        PlaySound("ConveyorBelt_Contract_Print");
     }
 
     private void ContractSpark(MovableContract contract)
@@ -1234,24 +1242,71 @@ public class AudioManager : MonoBehaviour
 
     private void NewCreditsReceived()
     {
-        if (_oddCredits)
+        switch (_coinIndex)
         {
-            PlaySound("Coin_Received_One");
-            _oddCredits = false;
-        }
-        else
-        {
-            PlaySound("Coin_Received_Two");
-            _oddCredits = true;
+            case 0:
+                PlaySound("Coin_Received_One");
+                _coinIndex++;
+                break;
+            case 1:
+                PlaySound("Coin_Received_Two");
+                _coinIndex++;
+                break;
+            case 2:
+                PlaySound("Coin_Received_One2");
+                _coinIndex++;
+                break;
+            case 3:
+                PlaySound("Coin_Received_Two2");
+                _coinIndex = 0;
+                break;
         }
     }
 
     #endregion
     #region Game loop
+    private void OnLevelStart()
+    {
+        _endDay = false;
+        Sound s = FindSound("Timer_LastHour_One");
+        s.volume = 0.1f;
+        Sound s2 = FindSound("Timer_LastHour_Two");
+        s2.volume = 0.1f;
+    }
+
     private void LevelOver()
     {
+        _endDay = true;
         PlaySound("Timer_DayEnd");
     }
+
+    private void OnFirstAnomaly()
+    {
+        PlaySound("Anomalie_Spawn");
+    }
+    
+    private void OnClockTick()
+    {
+        if (_endDay)
+            return;
+
+        Sound s = FindSound("Timer_LastHour_One");
+        s.volume += 0.008333f;
+        Sound s2 = FindSound("Timer_LastHour_Two");
+        s2.volume += 0.08333f;
+
+        if (_oddClockTick)
+        {
+            PlaySound("Timer_LastHour_Two");
+            _oddClockTick = false;
+        }
+        else
+        {
+            PlaySound("Timer_LastHour_One");
+            _oddClockTick = true;
+        }
+    }
+
     #endregion
 
 

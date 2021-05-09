@@ -68,7 +68,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2039743773
-  m_SortingLayer: 9
+  m_SortingLayer: 10
   m_SortingOrder: 5
   m_Sprite: {fileID: -7256059011253182484, guid: 152ac112b5035bd4c9678d11eda1a3fc,
     type: 3}
@@ -150,7 +150,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1159484783
-  m_SortingLayer: 10
+  m_SortingLayer: 11
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2a68f1c4ae791c74a9a50d6a8adde3ba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -231,7 +231,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2039743773
-  m_SortingLayer: 9
+  m_SortingLayer: 10
   m_SortingOrder: 4
   m_Sprite: {fileID: -8969723268117210058, guid: 8e6d061f2fd24844f9c87f2aed524424,
     type: 3}
@@ -290,7 +290,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.46166837, y: 0.8915434}
+  m_Offset: {x: 0.3165835, y: 0.8915434}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -301,7 +301,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.5771706, y: 0.9642987}
+  m_Size: {x: 3.287001, y: 0.9642987}
   m_EdgeRadius: 0
 --- !u!114 &3666231872904970666
 MonoBehaviour:
@@ -415,7 +415,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2039743773
-  m_SortingLayer: 9
+  m_SortingLayer: 10
   m_SortingOrder: 3
   m_Sprite: {fileID: -7942930595979075852, guid: 152ac112b5035bd4c9678d11eda1a3fc,
     type: 3}
@@ -556,7 +556,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2039743773
-  m_SortingLayer: 9
+  m_SortingLayer: 10
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 1fe7b831b1469e743bdeede307a2756e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -587,8 +587,10 @@ MonoBehaviour:
   slidingAmount: 4.5
   drawerHandleSize: 0
   toolType: 0
-  smoothTime: 0
+  closeDistanceBuffer: 0
+  smoothTime: 0.15
   slidingSoundName: Drawer_Loop
+  openDistanceBuffer: 0.25
   drawerType: 0
 --- !u!114 &8671206267056210085
 MonoBehaviour:
