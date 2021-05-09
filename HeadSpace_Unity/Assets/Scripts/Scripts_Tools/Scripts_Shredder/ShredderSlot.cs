@@ -171,6 +171,8 @@ public class ShredderSlot : MonoBehaviour
     }
     private IEnumerator LerpToPosition(MovableObject obj)
     {
+        obj.DisableInteractions();
+
         Vector3 startingPosition = obj.transform.localPosition;
         Vector3 endingPosition = startingPosition;
 

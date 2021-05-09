@@ -11,13 +11,16 @@ public class MovableLogbook : MovableObject
     public static Action logbookPickup;
     public static Action logbookDrop;
 
-    public ObjectInteractionZone leftCorner;
-    public ObjectInteractionZone rightCorner;
+    [Header("Logbook settings")]
+    public int startPageIndex;
 
     public List<LogbookPage> logbookPages;
     private LogbookPage _currentPage;
     private int _currentPageIndex;
     private int _pageCount;
+
+    public ObjectInteractionZone leftCorner;
+    public ObjectInteractionZone rightCorner;
 
     private Canvas _canvas;
     public Canvas MainCanvas { get { return _canvas; } }
@@ -112,7 +115,11 @@ public class MovableLogbook : MovableObject
             logbookPages[i].HidePage();
         }
 
-        ChangePage(0);
+        if (startPageIndex < _pageCount)
+            ChangePage(startPageIndex);
+        else
+            ChangePage(0);
+
     }
 
     private void ChangePage(int newPageIndex)

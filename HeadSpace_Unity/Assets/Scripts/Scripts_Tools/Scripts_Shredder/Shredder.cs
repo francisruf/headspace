@@ -11,6 +11,11 @@ public class Shredder : StaticTool
     public float heightScale = 0.03125f;
     public float xScale = 1.0f;
 
+    [Header("Cover sprites")]
+    public Sprite closedSprite;
+    public Sprite openSprite;
+    public SpriteRenderer coverRenderer;
+
     private void OnEnable()
     {
         TutorialController.shredderEnableRequest += OnShredderEnableRequest;
@@ -27,6 +32,11 @@ public class Shredder : StaticTool
         base.Awake();
         child = transform.GetComponentInChildren<ShredderSlot>();
         _startPos = transform.position;
+
+        if (startEnabled)
+            coverRenderer.sprite = openSprite;
+        else
+            coverRenderer.sprite = closedSprite;
     }
 
     protected override void Start()
@@ -56,6 +66,7 @@ public class Shredder : StaticTool
     {
         ToggleInteractions(true);
         child.TriggerLightsEnable();
+        coverRenderer.sprite = openSprite;
     }
 
     public override void ToggleInteractions(bool toggleON)
