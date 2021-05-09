@@ -5,6 +5,11 @@ using UnityEngine;
 public class Shredder : StaticTool
 {
     private ShredderSlot child = null;
+    private Vector2 _startPos;
+
+    [Header("Noise settings")]
+    public float heightScale = 0.03125f;
+    public float xScale = 1.0f;
 
     private void OnEnable()
     {
@@ -21,6 +26,7 @@ public class Shredder : StaticTool
     {
         base.Awake();
         child = transform.GetComponentInChildren<ShredderSlot>();
+        _startPos = transform.position;
     }
 
     protected override void Start()
@@ -28,6 +34,22 @@ public class Shredder : StaticTool
         base.Start();
         child.canShred = startEnabled;
         child.UpdateLightState();
+    }
+
+    private void Update()
+    {
+        if (child.shredding)
+        {
+            float height = heightScale * Mathf.PerlinNoise(Time.time * xScale, 0.0f);
+            Vector3 pos = transform.position;
+            pos.y = _startPos.y + height;
+            transform.position = pos;
+        }
+        else
+        {
+            transform.position = _startPos;
+        }
+
     }
 
     private void OnShredderEnableRequest()

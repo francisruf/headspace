@@ -13,13 +13,16 @@ public class ShredderSlot : MonoBehaviour
     public Transform EndPosition;
     private Shredder parent = null;
     private Animator lightAnimator;
-    private bool shredding = false;
+    public bool shredding = false;
     public bool canShred;
 
     private int _topSortOrder;
 
     private List<MovableObject> _shreddingObjects = new List<MovableObject>();
     private IEnumerator _currentStopDelay;
+
+    public GameObject particleSystemPrefab;
+    private List<ParticleSystem> _allParticleSystems = new List<ParticleSystem>();
 
     private void Awake()
     {
@@ -28,6 +31,9 @@ public class ShredderSlot : MonoBehaviour
         {
             parent = GetComponentInParent<Shredder>();
         }
+
+        ParticleSystem ps = Instantiate(particleSystemPrefab, transform.parent).GetComponent<ParticleSystem>();
+        _allParticleSystems.Add(ps);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -135,12 +141,34 @@ public class ShredderSlot : MonoBehaviour
     {
         _shreddingObjects.Add(obj);
         ShredStart();
+
+        Vector2 scale = obj.ColliderBounds.size;
+        scale.x = 0.01f;
+        Vector2 pos = obj.ColliderBounds.center;
+        pos.x = obj.ColliderBounds.min.x;
+        pos.y += 0.1f;
+        pos.y = Mathf.Clamp(pos.y, minObjectPosY.position.y + (scale.y / 1.2f), maxObjectPosY.position.y) - (scale.y / 3f);
+        Color psColor = obj.ObjSpriteRenderer.color;
+        psColor.r -= 0.1f;
+        psColor.g -= 0.1f;
+        psColor.b -= 0.1f;
+
+
+        ParticleSystem ps = GetParticleSystem();
+        ps.transform.position = pos;
+        var settings = ps.main;
+        settings.startColor = psColor;
+        var shape = ps.shape;
+        shape.scale = scale;
+        ps.Play();
+
         yield return StartCoroutine(LerpToPosition(obj));
+        ps.Stop();
+
         _shreddingObjects.Remove(obj);
         obj.DisableObject();
         ShredEnd();
     }
-
     private IEnumerator LerpToPosition(MovableObject obj)
     {
         Vector3 startingPosition = obj.transform.localPosition;
@@ -158,15 +186,14 @@ public class ShredderSlot : MonoBehaviour
         {
             obj.transform.localPosition = Vector3.Lerp(startingPosition, endingPosition, timeElaps / duration);
             timeElaps += Time.deltaTime;
-            yield return null;
+            yield return new WaitForEndOfFrame();
         }
+        yield return new WaitForSeconds(0.05f);
     }
-
     public void TriggerLightsEnable()
     {
         lightAnimator.SetTrigger("Enable");
     }
-
     public void UpdateLightState()
     {
         lightAnimator.SetBool("InteractionsEnabled", parent.InteractionsEnabled);
@@ -174,12 +201,18 @@ public class ShredderSlot : MonoBehaviour
         lightAnimator.SetBool("CanShred", canShred);
     }
 
-    //private bool CanShred()
-    //{   //Determine if we can shred based on the position of the shredder compared to the total width of the camera
-    //    float neededRatioValue = 0.15f;
-    //    float ratio = 1 - (Mathf.Abs(parent.transform.position.x) / (Camera.main.orthographicSize * 2));
-    //    return ratio > neededRatioValue;
-    //}
+    private ParticleSystem GetParticleSystem()
+    {
+        foreach (var ps in _allParticleSystems)
+        {
+            if (!ps.isEmitting)
+                return ps;
+        }
+
+        ParticleSystem newPs = Instantiate(particleSystemPrefab, transform.parent).GetComponent<ParticleSystem>();
+        _allParticleSystems.Add(newPs);
+        return newPs;
+    }
 }
 
 public struct ShreddingRoutine

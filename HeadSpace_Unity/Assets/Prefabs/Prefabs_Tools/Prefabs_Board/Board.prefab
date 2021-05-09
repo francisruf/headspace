@@ -5278,7 +5278,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minSortingOrder: 20
   targetSortingLayer: Board
-  acceptedObjects: 0000000001000000020000000300000005000000
+  acceptedObjects: 000000000100000002000000030000000500000004000000
 --- !u!61 &3056156799633773869
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6009,7 +6009,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minSortingOrder: 20
   targetSortingLayer: Board
-  acceptedObjects: 0000000001000000020000000300000005000000
+  acceptedObjects: 000000000100000002000000030000000500000004000000
 --- !u!61 &1885309524143602427
 BoxCollider2D:
   m_ObjectHideFlags: 0

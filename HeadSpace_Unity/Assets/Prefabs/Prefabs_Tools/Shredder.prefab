@@ -100,7 +100,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1213351969
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -8617901384413675832, guid: 35bc4a4b87a716d439a6e7fe1e17befc,
     type: 3}
@@ -192,7 +192,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1379220235
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b08dc0c5e1b88db44ae73752a4f80b1c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -252,6 +252,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startEnabled: 1
   ignoreSelectedBringToFront: 1
+  heightScale: 0.1
+  xScale: 20
 --- !u!1 &2107078862033524702
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,8 +322,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2039743773
-  m_SortingLayer: 9
-  m_SortingOrder: 0
+  m_SortingLayer: 10
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: fd69c40a0515151408d9452cedf12fe9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -401,7 +403,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1213351969
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 1
   m_Sprite: {fileID: 8981130171644274973, guid: 35bc4a4b87a716d439a6e7fe1e17befc,
     type: 3}
@@ -483,7 +485,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1213351969
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 1
   m_Sprite: {fileID: -6582851015033955713, guid: 35bc4a4b87a716d439a6e7fe1e17befc,
     type: 3}
@@ -571,7 +573,10 @@ MonoBehaviour:
   minObjectPosY: {fileID: 2260529482301169941}
   maxObjectPosY: {fileID: 3261691211986061022}
   EndPosition: {fileID: 2107078861489857888}
+  shredding: 0
   canShred: 0
+  particleSystemPrefab: {fileID: 708527499607132980, guid: c874fd641e6ae2c4fa8b0ce0adf3efcf,
+    type: 3}
 --- !u!50 &2107078863057795960
 Rigidbody2D:
   serializedVersion: 4
@@ -661,7 +666,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1379220235
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 1
   m_Sprite: {fileID: 1060995805656046448, guid: abc762ac204baa54a89861684106af5e,
     type: 3}

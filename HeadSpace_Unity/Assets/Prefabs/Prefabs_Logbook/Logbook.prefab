@@ -1409,7 +1409,7 @@ MonoBehaviour:
   objectType: 4
   dropZoneLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 270336
   leftCorner: {fileID: 1218995809469678817}
   rightCorner: {fileID: 1218995809329567380}
   logbookPages:
