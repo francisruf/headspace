@@ -16,7 +16,7 @@ public class EndOfDemoController : MonoBehaviour
 
     public void OnMainMenuButtonPressed()
     {
-        if (mainMenuPressed != null)
-            mainMenuPressed(false);
+        //if (mainMenuPressed != null)
+        //    mainMenuPressed(false);
     }
 }
