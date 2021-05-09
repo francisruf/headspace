@@ -21,7 +21,17 @@ public class Employee : ScriptableObject
         get
         {
             if (employeeName == CharacterName.Player)
-                return "You";
+                return "Trainee #3007";
+
+            if (employeeName == CharacterName.Billy)
+                return "Trainee #1040";
+
+            if (employeeName == CharacterName.Julie)
+                return "Trainee #6845";
+
+            if (employeeName == CharacterName.Henry)
+                return "Trainee #5021";
+
             else
                 return employeeName.ToString();
         }
