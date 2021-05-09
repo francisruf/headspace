@@ -11,9 +11,11 @@ public class LeaderboardController : MonoBehaviour
     public static Action dayFinish;
 
     [Header("Dynamic Info")]
-    public List<LeaderboardDayInfo> customDayInformation;
+    public List<Sprite> leaderboardDayPosters;
     public SpriteRenderer posterRenderer;
     public TextMeshProUGUI messageBoard;
+    public Sprite winPoster;
+    public Sprite losePoster;
 
     [Header("EmployeeSlots")]
     public Transform[] employeePos;
@@ -24,6 +26,8 @@ public class LeaderboardController : MonoBehaviour
     public GameObject nightLights;
     public GameObject debugLights;
 
+    private List<Employee> _employees = new List<Employee>();
+    private Employee _player;
     private DayInfo _currentInfo = default;
 
     private void OnEnable()
@@ -52,6 +56,7 @@ public class LeaderboardController : MonoBehaviour
         }
 
         AssignLeaderboard();
+        AssignCustomInformation();
     }
 
     private void AssignDayInfo()
@@ -74,14 +79,15 @@ public class LeaderboardController : MonoBehaviour
         if (EmployeeManager.instance == null)
             return;
 
-        List<Employee> employees = EmployeeManager.instance.SortedEmployees;
-        int count = employees.Count;
+        _employees = EmployeeManager.instance.SortedEmployees;
+        _player = EmployeeManager.instance.player;
+        int count = _employees.Count;
 
         for (int i = 0; i < 4 && i < count; i++)
         {
             EmployeeSlot slot = Instantiate(characterPrefab, employeePos[i]).GetComponent<EmployeeSlot>();
             slot.transform.localPosition = Vector2.zero;
-            slot.InitializeSlot(GameManager.instance.CurrentDayInfo.time, employees[i]);
+            slot.InitializeSlot(GameManager.instance.CurrentDayInfo.time, _employees[i]);
         }
 
         if (leaderboardLoaded != null)
@@ -91,17 +97,20 @@ public class LeaderboardController : MonoBehaviour
     private void AssignCustomInformation()
     {
         int day = _currentInfo.day;
-        if (day < customDayInformation.Count)
+        if (day < leaderboardDayPosters.Count)
         {
-            if (_currentInfo.time == LevelTime.DayStart)
+            posterRenderer.sprite = leaderboardDayPosters[day];
+        }
+
+        if (day == 1 && _currentInfo.time == LevelTime.NightEnd)
+        {
+            if (_employees[_employees.Count - 1] == _player)
             {
-                posterRenderer.sprite = customDayInformation[day].dayPoster;
-                messageBoard.text = customDayInformation[day].dayMessage;
+                posterRenderer.sprite = losePoster;
             }
-            else
+            else if (_employees[0] == _player)
             {
-                posterRenderer.sprite = customDayInformation[day].nightPoster;
-                messageBoard.text = customDayInformation[day].nightMessage;
+                posterRenderer.sprite = winPoster;
             }
         }
     }
@@ -133,14 +142,4 @@ public enum leaderboardSceneType
 {
     Day,
     Night
-}
-
-[System.Serializable]
-public struct LeaderboardDayInfo
-{
-    public string dayMessage;
-    public string nightMessage;
-
-    public Sprite dayPoster;
-    public Sprite nightPoster;
 }

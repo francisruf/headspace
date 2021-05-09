@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -239,7 +239,7 @@ MonoBehaviour:
   m_Color: {r: 0.91305834, g: 1, b: 0.9009434, a: 1}
   m_Intensity: 0.4
   m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 000000005f1ff305031b351ffb968e2a8958d6853be9eb6bdb819150dfb7adb76f551c45e7d9bbfaadb6fe8751201f46670f7f1bf1f2ceac918d08def5c4caade3fa6b86
+  m_ApplyToSortingLayers: 000000005f1ff305031b351ffb968e2a8958d6853be9eb6bdb819150dfb7adb76f551c45e7d9bbfaadb6fe8751201f46670f7f1bf1f2ceac918d08def5c4caade3fa6b865f0401e545708325bd71143b
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0
@@ -1240,7 +1240,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 000000005f1ff305031b351ffb968e2a8958d6853be9eb6bdb819150dfb7adb76f551c45e7d9bbfa51201f46670f7f1bf1f2ceac918d08def5c4caade3fa6b86
+  m_ApplyToSortingLayers: 000000005f1ff305031b351ffb968e2a8958d6853be9eb6bdb819150dfb7adb76f551c45e7d9bbfa51201f46670f7f1bf1f2ceac918d08def5c4caade3fa6b865f0401e5
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0

@@ -208,6 +208,11 @@ public class CutsceneController : MonoBehaviour
 
         _currentFrameRoutine = null;
     }
+
+    public void SkipCutscene()
+    {
+        EndCutscene();
+    }
 }
 
 [System.Serializable]

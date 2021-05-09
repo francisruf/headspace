@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -182,17 +182,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b25f300b4b778514ba9baac9c905fbb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  customDayInformation:
-  - dayMessage: 'Tuto: Day Message'
-    nightMessage: 'Tuto: Night Message'
-    dayPoster: {fileID: 0}
-    nightPoster: {fileID: 0}
-  - dayMessage: 'Level 1: Day Message'
-    nightMessage: 'Level 1: Night Message'
-    dayPoster: {fileID: 0}
-    nightPoster: {fileID: 0}
+  leaderboardDayPosters:
+  - {fileID: 8903573964160450992, guid: c3de11f89869fac42977e8210272bb70, type: 3}
+  - {fileID: 1095556983787700065, guid: c3de11f89869fac42977e8210272bb70, type: 3}
   posterRenderer: {fileID: 907889923}
   messageBoard: {fileID: 270248259}
+  winPoster: {fileID: 1062584426360381348, guid: c3de11f89869fac42977e8210272bb70,
+    type: 3}
+  losePoster: {fileID: -393490448451057732, guid: c3de11f89869fac42977e8210272bb70,
+    type: 3}
   employeePos:
   - {fileID: 1699728325}
   - {fileID: 130671857}
@@ -2130,7 +2128,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1663006523}
-  - component: {fileID: 1663006526}
   - component: {fileID: 1663006525}
   - component: {fileID: 1663006524}
   m_Layer: 0
@@ -2173,7 +2170,7 @@ MonoBehaviour:
   - {fileID: 2586197042871337867, guid: 539f83b8eae88164bac90ffcac30489c, type: 3}
   - {fileID: 5105275210266713325, guid: 539f83b8eae88164bac90ffcac30489c, type: 3}
   - {fileID: 3298322791440297827, guid: 539f83b8eae88164bac90ffcac30489c, type: 3}
-  startRemainingDays: 2
+  startRemainingDays: 1
 --- !u!212 &1663006525
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2225,20 +2222,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1663006526
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1663006522}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3207daa60f4166d45bdb1c2212fe2d7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  daySprites: []
-  startRemainingDays: 0
 --- !u!1 &1699728324
 GameObject:
   m_ObjectHideFlags: 0
