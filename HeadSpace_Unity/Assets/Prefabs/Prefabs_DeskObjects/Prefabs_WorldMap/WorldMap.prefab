@@ -195,8 +195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aa1fe685fa275d4683c3f5fd4205915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  letterColor: {r: 0.745283, g: 0.45874056, b: 0.31287822, a: 1}
-  numberColor: {r: 0.8352941, g: 0.7647059, b: 0.47843137, a: 1}
+  letterColor: {r: 0.8196079, g: 0.5764706, b: 0.2784314, a: 1}
+  numberColor: {r: 0.18039216, g: 0.1254902, b: 0.0627451, a: 1}
   topXCoordinates: 1
   bottomXCoordinates: 1
   leftYCoordinates: 1
