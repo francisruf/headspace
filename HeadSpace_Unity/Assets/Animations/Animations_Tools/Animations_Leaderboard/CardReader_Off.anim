@@ -20,7 +20,7 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 2577857126148836741, guid: 481d8904baa9fd3499a7735cd837c187,
+      value: {fileID: -5329602625265843268, guid: 481d8904baa9fd3499a7735cd837c187,
         type: 3}
     attribute: m_Sprite
     path: CardReader_Lights_PA_0
@@ -41,7 +41,7 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 2577857126148836741, guid: 481d8904baa9fd3499a7735cd837c187, type: 3}
+    - {fileID: -5329602625265843268, guid: 481d8904baa9fd3499a7735cd837c187, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
