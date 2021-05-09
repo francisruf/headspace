@@ -308,13 +308,6 @@ public class SlidableTool : InteractableObject
         {
             StopCoroutine(_movementRoutine);
             _movementRoutine = null;
-
-            if (_isPlayingLoop)
-            {
-                AudioManager.instance.StopSoundLoop(_moveSound.name);
-                _moveSound = null;
-                _isPlayingLoop = false;
-            }
         }
     }
 

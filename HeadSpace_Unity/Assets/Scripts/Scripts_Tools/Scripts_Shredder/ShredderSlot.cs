@@ -18,8 +18,8 @@ public class ShredderSlot : MonoBehaviour
 
     private int _topSortOrder;
 
-    private List<ShreddingRoutine> currentShreddingRoutines = new List<ShreddingRoutine>();
-    private int currentRoutineIndex = 0;
+    private List<MovableObject> _shreddingObjects = new List<MovableObject>();
+    private IEnumerator _currentStopDelay;
 
     private void Awake()
     {
@@ -52,11 +52,7 @@ public class ShredderSlot : MonoBehaviour
                     objToShred.SetSortingLayer(parent.ObjSpriteRenderer.sortingLayerID);
                     objToShred.SetOrderInLayer(_topSortOrder + 1);
                     _topSortOrder = objToShred.GetHighestOrder();
-
-                    IEnumerator newShreddingRoutine = Shred(objToShred, currentRoutineIndex);
-                    currentShreddingRoutines.Add(new ShreddingRoutine(currentRoutineIndex, newShreddingRoutine));
-                    currentRoutineIndex++;
-                    StartCoroutine(newShreddingRoutine);
+                    StartCoroutine(Shred(objToShred));
                 }
             }
             else
@@ -106,42 +102,41 @@ public class ShredderSlot : MonoBehaviour
     {
         if (shredding)
         {
-            bool stillShredding = false;
-            for (int i = 0; i < currentShreddingRoutines.Count; i++)
-            {
-                if (currentShreddingRoutines[i].routine != null)
-                {
-                    stillShredding = true;
-                    break;
-                }
-            }
+            bool stillShredding = _shreddingObjects.Count > 0;
 
             if (!stillShredding)
             {
-                shredding = false;
+                if (_currentStopDelay != null)
+                    StopCoroutine(_currentStopDelay);
 
-                if (shredderStopped != null)
-                    shredderStopped();
+                _currentStopDelay = ShredStopDelay();
+                StartCoroutine(_currentStopDelay);
             }
         }
         UpdateLightState();
     }
 
-    private IEnumerator Shred(MovableObject obj, int instanceID)
+    private IEnumerator ShredStopDelay()
     {
+        yield return new WaitForSeconds(0.02f);
+
+        shredding = false;
+
+        UpdateLightState();
+
+        if (shredderStopped != null)
+            shredderStopped();
+
+        Debug.Log("STOP");
+        _currentStopDelay = null;
+    }
+
+    private IEnumerator Shred(MovableObject obj)
+    {
+        _shreddingObjects.Add(obj);
         ShredStart();
-
         yield return StartCoroutine(LerpToPosition(obj));
-
-        for (int i = 0; i < currentShreddingRoutines.Count; i++)
-        {
-            if (currentShreddingRoutines[i].instanceID == instanceID)
-            {
-                currentShreddingRoutines.Remove(currentShreddingRoutines[i]);
-                break;
-            }
-        }
-
+        _shreddingObjects.Remove(obj);
         obj.DisableObject();
         ShredEnd();
     }
