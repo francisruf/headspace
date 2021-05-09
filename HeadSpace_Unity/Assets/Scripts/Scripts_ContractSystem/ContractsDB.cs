@@ -18,6 +18,16 @@ public class ContractsDB : MonoBehaviour
     public List<Sprite> clientFaceSprites = new List<Sprite>();
     private List<Sprite> remainingFaceSprites = new List<Sprite>();
 
+    private void OnEnable()
+    {
+        LevelManager.resetGame += OnGameReset;
+    }
+
+    private void OnDisable()
+    {
+        LevelManager.resetGame -= OnGameReset;
+    }
+
     private void Awake()
     {
         foreach (var n in clientFirstNames)
@@ -28,6 +38,11 @@ public class ContractsDB : MonoBehaviour
 
         foreach (var s in clientFaceSprites)
             remainingFaceSprites.Add(s);
+    }
+
+    private void OnGameReset()
+    {
+        ResetDB();
     }
 
     public string GetRandomClientFirstName()

@@ -60,6 +60,15 @@ public class GameManager : MonoBehaviour
         CurrentDayInfo = new DayInfo();
         CurrentDayInfo.day = 0;
         CurrentDayInfo.time = LevelTime.DayStart;
+        _lastSectorInfo = null;
+    }
+
+    private void OnGameReset()
+    {
+        CurrentDayInfo = new DayInfo();
+        CurrentDayInfo.day = 0;
+        CurrentDayInfo.time = LevelTime.DayStart;
+        GameStarted = false;
     }
 
     private void Update()

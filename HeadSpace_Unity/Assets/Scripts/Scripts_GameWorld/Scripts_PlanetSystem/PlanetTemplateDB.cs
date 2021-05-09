@@ -16,6 +16,21 @@ public class PlanetTemplateDB : MonoBehaviour
     public List<PlanetSpriteMatch> planetSprites = new List<PlanetSpriteMatch>();
     private List<PlanetSpriteMatch> remainingSprites = new List<PlanetSpriteMatch>();
 
+    private void OnEnable()
+    {
+        LevelManager.resetGame += OnGameReset;
+    }
+
+    private void OnDisable()
+    {
+        LevelManager.resetGame -= OnGameReset;
+    }
+
+    private void OnGameReset()
+    {
+        ResetDB();
+    }
+
     private void Awake()
     {
         foreach (var n in planetNames)

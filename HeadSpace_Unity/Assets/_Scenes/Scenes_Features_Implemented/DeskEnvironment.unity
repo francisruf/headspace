@@ -2011,21 +2011,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3667028011446943221, guid: bb0116cf8dd246b41826efdb0dbe83c2,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3667028011446943221, guid: bb0116cf8dd246b41826efdb0dbe83c2,
-        type: 3}
-      propertyPath: m_PointLightInnerRadius
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 3667028011446943221, guid: bb0116cf8dd246b41826efdb0dbe83c2,
-        type: 3}
-      propertyPath: m_PointLightOuterRadius
-      value: 0.34
-      objectReference: {fileID: 0}
     - target: {fileID: 9183321123995383738, guid: bb0116cf8dd246b41826efdb0dbe83c2,
         type: 3}
       propertyPath: m_Name

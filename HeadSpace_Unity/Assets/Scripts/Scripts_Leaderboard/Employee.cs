@@ -16,6 +16,12 @@ public class Employee : ScriptableObject
         LastSectorCredits = credits;
     }
 
+    public void ClearCredits()
+    {
+        TotalCredits = 0;
+        LastSectorCredits = 0;
+    }
+
     public string EmployeeName
     {
         get

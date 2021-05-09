@@ -40,8 +40,19 @@ public class DropZone_CompletedContracts : DropZone
 
         obj.DisableInteractions();
 
-        _lightStickAnimator.SetBool("PointsCalculation", true);
-        _lightStickAnimator.SetTrigger("NewContract");
+        Contract contract = obj.GetComponent<MovableContract>().ContractInfo;
+
+        if (contract.GetFinalPoints() >= 6)
+        {
+            _lightStickAnimator.SetBool("PointsCalculation", true);
+            _lightStickAnimator.SetTrigger("NewContract");
+        }
+        else
+        {
+            _lightStickAnimator.SetTrigger("NewContractFail");
+        }
+
+
         _objectCount++;
     }
 

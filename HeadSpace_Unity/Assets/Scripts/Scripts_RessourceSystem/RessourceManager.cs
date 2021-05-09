@@ -37,6 +37,7 @@ public class RessourceManager : MonoBehaviour
         //Ship.soulsUnloaded += OnShipUnload;
         Contract.contractComplete += OnContractComplete;
         LeaderboardController.dayFinish += OnDayFinish;
+        LevelManager.resetGame += OnGameReset;
     }
 
     private void OnDisable()
@@ -44,6 +45,15 @@ public class RessourceManager : MonoBehaviour
         //Ship.soulsUnloaded -= OnShipUnload;
         Contract.contractComplete -= OnContractComplete;
         LeaderboardController.dayFinish -= OnDayFinish;
+        LevelManager.resetGame -= OnGameReset;
+    }
+
+    private void OnGameReset()
+    {
+        TotalCredits = 0;
+        TotalContractsCompleted = 0;
+        _contractsCompleted = 0;
+        _currentCredits = 0;
     }
 
     private void Start()

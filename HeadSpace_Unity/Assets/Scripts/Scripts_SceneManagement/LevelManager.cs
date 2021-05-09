@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour
     public static Action preLoadDone;
     public static Action loadingDone;
     public static Action unloadingDone;
+    public static Action resetGame;
 
     // Singleton
     public static LevelManager instance;
@@ -74,6 +75,8 @@ public class LevelManager : MonoBehaviour
         TutorialPromptController.tutorialPrompt += OnTutorialPrompt;
         Command_NewGame.newGameRequest += OnNewGameRequest;
         Command_QuitGame.quitGameRequest += OnQuitRequest;
+        EndOfDemoController.quitPressed += OnQuitRequest;
+        EndOfDemoController.mainMenuPressed += OnBackToMenuRequest;
     }
 
     private void OnDisable()
@@ -92,6 +95,8 @@ public class LevelManager : MonoBehaviour
         TutorialPromptController.tutorialPrompt -= OnTutorialPrompt;
         Command_NewGame.newGameRequest -= OnNewGameRequest;
         Command_QuitGame.quitGameRequest -= OnQuitRequest;
+        EndOfDemoController.quitPressed -= OnQuitRequest;
+        EndOfDemoController.mainMenuPressed -= OnBackToMenuRequest;
     }
 
     private void Start()
@@ -448,6 +453,19 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    private void OnBackToMenuRequest(bool loadFromGame)
+    {
+        if (loadFromGame)
+            StartCoroutine(LoadMenuSceneFromGame("DeskEnvironment_Menu", 0.3f, 1f));
+        else
+            StartCoroutine(LoadSingleScene("DeskEnvironment_Menu", 0.3f, 1f));
+
+        _allSectorInfo.Clear();
+        _previousSectorInfo = null;
+
+        if (resetGame != null)
+            resetGame();
+    }
 }
 
 public enum SceneLoadType

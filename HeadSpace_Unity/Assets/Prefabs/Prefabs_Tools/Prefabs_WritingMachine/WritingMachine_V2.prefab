@@ -1806,6 +1806,7 @@ MonoBehaviour:
   slidingAmount: 5.375
   drawerHandleSize: 0.5
   toolType: 2
+  closeDistanceBuffer: 0
   smoothTime: 0.15
   slidingSoundName: 
   openDistanceBuffer: 3.156
@@ -3550,7 +3551,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1634827573994293943
 Transform:
   m_ObjectHideFlags: 0
@@ -3622,7 +3623,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4092087684211802471
 Transform:
   m_ObjectHideFlags: 0

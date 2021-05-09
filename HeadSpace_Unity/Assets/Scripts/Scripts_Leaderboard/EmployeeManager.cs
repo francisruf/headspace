@@ -18,11 +18,13 @@ public class EmployeeManager : MonoBehaviour
     private void OnEnable()
     {
         GameManager.levelEnded += AssignPoints;
+        LevelManager.resetGame += OnGameReset;
     }
 
     private void OnDisable()
     {
         GameManager.levelEnded -= AssignPoints;
+        LevelManager.resetGame -= OnGameReset;
     }
 
     private void Awake()
@@ -41,6 +43,21 @@ public class EmployeeManager : MonoBehaviour
         SortedEmployees.Add(employees.second);
         SortedEmployees.Add(employees.third);
         SortedEmployees.Add(player);
+    }
+
+    private void OnGameReset()
+    {
+        SortedEmployees.Clear();
+        SortedEmployees = new List<Employee>();
+        SortedEmployees.Add(employees.first);
+        SortedEmployees.Add(employees.second);
+        SortedEmployees.Add(employees.third);
+        SortedEmployees.Add(player);
+
+        foreach (var emp in SortedEmployees)
+        {
+            emp.ClearCredits();
+        }
     }
 
     private void AssignPoints()
