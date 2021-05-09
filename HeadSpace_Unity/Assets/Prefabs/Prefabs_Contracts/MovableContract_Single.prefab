@@ -1362,9 +1362,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetClientCount: 1
-  chillColor: {r: 0.20784315, g: 0.32941177, b: 0.121568635, a: 1}
-  hurryColor: {r: 0.7735849, g: 0.69513017, b: 0.25907797, a: 1}
-  dangerColor: {r: 0.5568628, g: 0.3613472, b: 0.11372547, a: 1}
+  chillColor: {r: 0.21176472, g: 0.32941177, b: 0.1254902, a: 1}
+  hurryColor: {r: 0.7607844, g: 0.5647059, b: 0.16470589, a: 1}
+  dangerColor: {r: 0.6431373, g: 0.30980393, b: 0.098039225, a: 1}
   failColor: {r: 0.41960788, g: 0.1137255, b: 0.07450981, a: 1}
   startPlanetSpriteRenderer: {fileID: 5990496607734664773}
   startPlanetText: {fileID: 760342120384286831}
