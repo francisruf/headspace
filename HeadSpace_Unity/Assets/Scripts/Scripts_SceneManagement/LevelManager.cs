@@ -32,6 +32,8 @@ public class LevelManager : MonoBehaviour
     // Sector info
     private SectorInfo _previousSectorInfo;
     public SectorInfo PreviousSectorInfo { get { return _previousSectorInfo; } }
+    private List<SectorInfo> _allSectorInfo = new List<SectorInfo>();
+    public List<SectorInfo> AllSectorInfo { get { return _allSectorInfo; } }
 
     private IEnumerator _currentLoadingRoutine;
 
@@ -191,7 +193,10 @@ public class LevelManager : MonoBehaviour
     private void OnDayFinish()
     {
         Debug.Log("On day finish!");
-        StartCoroutine(LoadSingleScene("DayMenu", 0f, 1f));
+        if (GameManager.instance.CurrentDayInfo.day == 0)
+            StartCoroutine(LoadSingleScene("DayMenu", 0f, 1f));
+        else
+            StartCoroutine(LoadSingleScene("EndOfDemo", 0f, 1f));
     }
 
     private IEnumerator LoadLevelScenes(string targetLevelName, float timeBeforeFadeOut, float timeBeforeFadeIn)
@@ -376,6 +381,9 @@ public class LevelManager : MonoBehaviour
 
     private void OnSectorInfoUpdate(SectorInfo sectorInfo)
     {
+        if (!_allSectorInfo.Contains(sectorInfo))
+            _allSectorInfo.Add(sectorInfo);
+
         _previousSectorInfo = sectorInfo;
     }
 

@@ -6,7 +6,7 @@ using TMPro;
 
 public abstract class Contract : MonoBehaviour
 {
-    public static Action<int> contractComplete;
+    public static Action<int, float> contractComplete;
 
     [Header("Client settings")]
     public int targetClientCount;
@@ -32,6 +32,7 @@ public abstract class Contract : MonoBehaviour
     private int _completionTime;
     private int _currentTime;
     private bool _timedContract;
+    private float _startTime;
     private IEnumerator _currentTimer;
     private IEnumerator _currentSliderfail;
 
@@ -218,7 +219,7 @@ public abstract class Contract : MonoBehaviour
         }
 
         if (contractComplete != null)
-            contractComplete(GetFinalPoints());
+            contractComplete(GetFinalPoints(), Time.time - _startTime);
 
         _complete = true;
     }
@@ -363,6 +364,8 @@ public abstract class Contract : MonoBehaviour
 
     public void OnContractBeltExit()
     {
+        _startTime = Time.time;
+
         if (_timedContract)
         {
             _currentTimer = ContractTimer();

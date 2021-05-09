@@ -68,4 +68,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/Scenes_Menus/TutorialPrompt.unity
     guid: 12fcced7478cf6e46a600e275f007027
+  - enabled: 1
+    path: Assets/_Scenes/Scenes_Menus/EndOfDemo.unity
+    guid: 85b452d9e4cd6ef408af39ed69c85680
   m_configObjects: {}

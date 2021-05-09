@@ -186,7 +186,7 @@ public class TutorialController : MonoBehaviour
         NewMessage("MSG_Markers");
     }
 
-    private void OnContractComplete(int mySuperInteger)
+    private void OnContractComplete(int mySuperInteger, float myFloat)
     {
         if (_step_contractComplete)
             return;

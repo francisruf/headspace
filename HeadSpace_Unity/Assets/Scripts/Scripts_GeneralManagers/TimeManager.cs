@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
+    public static Action timeStarted;
     public static Action levelTimerEnded;
     public static Action levelTimerEndPreTrigger;
     public static Action halfWarning;
@@ -99,6 +100,9 @@ public class TimeManager : MonoBehaviour
                 _halfTrigger = _levelEndTimer - (4f * 60f * 60f);
                 _threeQuarterTrigger = _levelEndTimer - (2f * 60f * 60f);
                 _timeStarted = true;
+
+                if (timeStarted != null)
+                    timeStarted();
             }
         }
 
