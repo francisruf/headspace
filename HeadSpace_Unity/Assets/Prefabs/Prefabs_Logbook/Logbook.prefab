@@ -680,8 +680,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 222588366835702130}
   - {fileID: 6084685384324591771}
+  - {fileID: 222588366835702130}
   - {fileID: 2956251238291431829}
   m_Father: {fileID: 1161171804131551674}
   m_RootOrder: 0
@@ -903,9 +903,9 @@ RectTransform:
   m_Father: {fileID: 1082352264150836527}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1.1, y: -0.375}
   m_SizeDelta: {x: 2.2, y: 0.75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1148287357953175494
@@ -4114,12 +4114,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3314669390340144665}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.615}
-  m_SizeDelta: {x: 2.0068634, y: 0.41474366}
+  m_AnchoredPosition: {x: -0, y: -1.139}
+  m_SizeDelta: {x: 2.0068634, y: 0.60625005}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &8015622360561399721
 CanvasRenderer:
@@ -4148,7 +4148,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: When you start your Work Day, you will start to receive WORK ORDERS.
+  m_text: "To pickup or drop a passenger, the WORK ORDER must be assigned to a ship
+    on the BOARD \u2013 and the ship must touch the tile of the planet."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 65f5390c33509744787d60f7afdbb980, type: 2}
   m_sharedMaterial: {fileID: 5554252403587247314, guid: 65f5390c33509744787d60f7afdbb980,
@@ -4287,12 +4288,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3314669390340144665}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -1.133}
-  m_SizeDelta: {x: 2.0068634, y: 0.41474366}
+  m_AnchoredPosition: {x: -0, y: -0.494}
+  m_SizeDelta: {x: 2.0068634, y: 0.63816786}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &5420787842101298203
 CanvasRenderer:
@@ -4321,8 +4322,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: To complete a WORK ORDER, you must pickup a passenger on a specified planet
-    and drop it on another specified planet.
+  m_text: Complete WORK ORDERS by picking and dropping passengers on the specified
+    planets.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 65f5390c33509744787d60f7afdbb980, type: 2}
   m_sharedMaterial: {fileID: 5554252403587247314, guid: 65f5390c33509744787d60f7afdbb980,
@@ -5824,8 +5825,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.716}
-  m_SizeDelta: {x: 2.0068634, y: 0.41474366}
+  m_AnchoredPosition: {x: -0, y: -0.716}
+  m_SizeDelta: {x: 2.0068634, y: 0.5697727}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &2468600009824339260
 CanvasRenderer:
@@ -5854,8 +5855,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: To complete a WORK ORDER, you must pickup a passenger on a specified planet
-    and drop it on another specified planet.
+  m_text: WORK ORDERS will expire after a certain time. You must hurry and complete
+    the more you possibly can.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 65f5390c33509744787d60f7afdbb980, type: 2}
   m_sharedMaterial: {fileID: 5554252403587247314, guid: 65f5390c33509744787d60f7afdbb980,
@@ -5919,7 +5920,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 1
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -0.19212079, w: 0.0029788613}
+  m_margin: {x: 0, y: 0, z: -0.19212079, w: -0.0015808046}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -6233,8 +6234,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.116, y: 0.265}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -0.096568, y: 0.309}
+  m_SizeDelta: {x: 86.32077, y: 86.32077}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3386435883980049347
 CanvasRenderer:
@@ -8044,7 +8045,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: When you start your Work Day, you will start to receive WORK ORDERS.
+  m_text: The faster you complete an ORDER, the more MERIT POINTS you will gain.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 65f5390c33509744787d60f7afdbb980, type: 2}
   m_sharedMaterial: {fileID: 5554252403587247314, guid: 65f5390c33509744787d60f7afdbb980,
@@ -8447,7 +8448,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7717721864928689819
 RectTransform:
   m_ObjectHideFlags: 0
