@@ -7,6 +7,8 @@ public class TutorialController : MonoBehaviour
 {
     public static Action shredderEnableRequest;
     public static Action openDrawerRequest;
+    public static Action openBoardRequest;
+    public static Action openMachineRequest;
 
     public GameObject endTrainingPrefab;
     public Transform endTrainingSpawnPos;
@@ -165,13 +167,13 @@ public class TutorialController : MonoBehaviour
             return;
 
         _step_contractAssigned = true;
-        NewMessage("MSG_ShipMovement");
     }
 
     private void OnMoveReceived()
     {
         NewMessage("MSG_MoveReceived");
-        StartCoroutine(EnableShredderTimer());
+        NewMessage("MSG_WorkOrderBoard1");
+        //StartCoroutine(EnableShredderTimer());
     }
 
     private void OnClientEmbarked()
@@ -198,6 +200,12 @@ public class TutorialController : MonoBehaviour
 
     private void OnSpecialMessagePrint(string messageName)
     {
+        if (messageName == "MSG_ShipStatus")
+        {
+            if (openMachineRequest != null)
+                openMachineRequest();
+        }
+
         if (messageName == "MSG_Shredder" && !_step_shredder)
         {
             _step_shredder = true;
@@ -211,6 +219,13 @@ public class TutorialController : MonoBehaviour
 
             if (ContractManager.instance != null)
                 ContractManager.instance.TriggerNextContract();
+        }
+
+        if (messageName == "MSG_WorkOrderBoard0")
+        {
+            if (openBoardRequest != null)
+                openBoardRequest();
+            NewMessage("MSG_ShipMovement");
         }
 
         if (messageName == "MSG_Journal" && !_step_journalTear)
@@ -250,9 +265,8 @@ public class TutorialController : MonoBehaviour
 
     private IEnumerator WorkOrderBoardTimer()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.2f);
         NewMessage("MSG_WorkOrderBoard0");
-        NewMessage("MSG_WorkOrderBoard1");
     }
 
     private IEnumerator EndTrainingMessageTimer()
@@ -262,11 +276,11 @@ public class TutorialController : MonoBehaviour
         NewMessage("MSG_EndTraining1");
     }
 
-    private IEnumerator EnableShredderTimer()
-    {
-        yield return new WaitForSeconds(4f);
-        NewMessage("MSG_Shredder");
-    }
+    //private IEnumerator EnableShredderTimer()
+    //{
+    //    yield return new WaitForSeconds(4f);
+    //    NewMessage("MSG_Shredder");
+    //}
 
     private IEnumerator EnableJournalTimer()
     {
@@ -284,14 +298,32 @@ public class TutorialController : MonoBehaviour
                 {
                     if (!_step_shipMoveReceived)
                     {
-                        _step_shipMoveReceived = true;
-                        OnMoveReceived();
+                        Ship ship = null;
+                        ShipManager.instance.FindShipByCallsign(cmd.ShipCallsign, out ship);
+
+                        if (ship != null)
+                        {
+                            if (ship.CurrentShipState == ShipState.Busy)
+                            {
+                                _step_shipMoveReceived = true;
+                                OnMoveReceived();
+                            }
+                        }
                     }
 
                     if (_step_clientEmbarked && !_step_journalTrigger)
                     {
-                        StartCoroutine(EnableJournalTimer());
-                        _step_journalTrigger = true;
+                        Ship ship = null;
+                        ShipManager.instance.FindShipByCallsign(cmd.ShipCallsign, out ship);
+
+                        if (ship != null)
+                        {
+                            if (ship.CurrentShipState == ShipState.Busy)
+                            {
+                                StartCoroutine(EnableJournalTimer());
+                                _step_journalTrigger = true;
+                            }
+                        }
                     }
                 }
             else if (cmd.CommandName.ToLower() == "stat")
@@ -315,13 +347,15 @@ public class TutorialController : MonoBehaviour
                 controller.PrintText(instructions, true, false);
                 instructions = "- Compu-Typer<sup>tm</sup> USER GUIDE -";
                 controller.PrintText(instructions, true, false);
-                instructions = "1- Type in ship 3-letter CODE.";
+                instructions = "1- Open/Close with LSHIFT.";
                 controller.PrintText(instructions, true, false);
-                instructions = "2- Press ENTER to confirm.";
+                instructions = "2- TYPE in ship 3-letter CODE.";
                 controller.PrintText(instructions, true, false);
-                instructions = "3- Type in command keyword.";
+                instructions = "3- Press ENTER to confirm.";
                 controller.PrintText(instructions, true, false);
-                instructions = "4- Confirm and tear when ready.";
+                instructions = "4- TYPE in command keyword.";
+                controller.PrintText(instructions, true, false);
+                instructions = "5- Confirm and tear when ready.";
                 controller.PrintText(instructions, true, false);
 
                 _step_writingMachineOpen = true;

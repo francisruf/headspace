@@ -75,12 +75,20 @@ public class TimeManager : MonoBehaviour
         _currentTime = (startHours * 60f * 60f) + startMinutes * 60f;
         GameManager.levelStarted += StartTime;
         GameManager.levelEndConditionChange += OnLevelConditionChange;
+        LevelManager.resetGame += OnGameReset;
     }
 
     private void OnDisable()
     {
         GameManager.levelStarted -= StartTime;
         GameManager.levelEndConditionChange -= OnLevelConditionChange;
+        LevelManager.resetGame -= OnGameReset;
+    }
+
+    private void OnGameReset()
+    {
+        instance = null;
+        Destroy(this);
     }
 
     private void OnLevelConditionChange(LevelEndCondition condition)

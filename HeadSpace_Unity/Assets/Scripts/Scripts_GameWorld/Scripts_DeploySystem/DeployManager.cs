@@ -19,14 +19,22 @@ public class DeployManager : MonoBehaviour
         DeployPoint.newDeployPoint += OnNewDeployPoint;
         GridTile_DeployPoint.newDeployTile += OnNewDeployTile;
         GridManager.gridDataDestroyed += OnGridDataDestroyed;
+        LevelManager.resetGame += OnGameReset;
     }
 
     // Unsubscription
     private void OnDisable()
     {
         DeployPoint.newDeployPoint -= OnNewDeployPoint;
-        GridTile_DeployPoint.newDeployTile += OnNewDeployTile;
+        GridTile_DeployPoint.newDeployTile -= OnNewDeployTile;
         GridManager.gridDataDestroyed -= OnGridDataDestroyed;
+        LevelManager.resetGame -= OnGameReset;
+    }
+
+    private void OnGameReset()
+    {
+        instance = null;
+        Destroy(this);
     }
 
     private void Awake()

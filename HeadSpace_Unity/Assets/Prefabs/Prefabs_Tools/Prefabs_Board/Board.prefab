@@ -6776,7 +6776,7 @@ MonoBehaviour:
   drawerHandleSize: 1
   toolType: 3
   closeDistanceBuffer: 0
-  smoothTime: 0
+  smoothTime: 0.15
   slidingSoundName: 
   openDistanceBuffer: 0.25
   singleContractSlotPrefab: {fileID: 1772819684645737121, guid: 75f304aaa3e163d4194df051e6c06f96,

@@ -79,12 +79,20 @@ public class GridManager : MonoBehaviour
     private void OnEnable()
     {
         GridStaticObject.gridObjectPositionAdded += OnGridObjectPositionAdded;
+        LevelManager.resetGame += OnGameReset;
     }
 
     // Unsubscription
     private void OnDisable()
     {
         GridStaticObject.gridObjectPositionAdded -= OnGridObjectPositionAdded;
+        LevelManager.resetGame -= OnGameReset;
+    }
+
+    private void OnGameReset()
+    {
+        instance = null;
+        Destroy(this);
     }
 
     private void Awake()

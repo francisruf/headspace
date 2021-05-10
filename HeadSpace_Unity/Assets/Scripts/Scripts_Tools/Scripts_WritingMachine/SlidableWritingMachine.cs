@@ -20,12 +20,14 @@ public class SlidableWritingMachine : SlidableTool
 
         openCloseInteractionZone0.interactRequest += TriggerOpenClose;
         openCloseInteractionZone1.interactRequest += TriggerOpenClose;
+        TutorialController.openMachineRequest += TriggerAutoOpen;
     }
 
     private void OnDisable()
     {
         openCloseInteractionZone0.interactRequest -= TriggerOpenClose;
         openCloseInteractionZone1.interactRequest -= TriggerOpenClose;
+        TutorialController.openMachineRequest -= TriggerAutoOpen;
     }
 
     protected override void Update()

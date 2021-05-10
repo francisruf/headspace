@@ -20,6 +20,15 @@ public class StatsTracker : MonoBehaviour
             TextMeshProUGUI text = Instantiate(statsTextPrefab, layoutParent).GetComponent<TextMeshProUGUI>();
             SetText(info, text);
         }
+        layoutParent.gameObject.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            layoutParent.gameObject.SetActive(!layoutParent.gameObject.activeSelf);
+        }
     }
 
     private void SetText(SectorInfo info, TextMeshProUGUI text)

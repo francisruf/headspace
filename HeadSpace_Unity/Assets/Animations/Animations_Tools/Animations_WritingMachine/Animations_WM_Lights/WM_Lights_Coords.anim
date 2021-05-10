@@ -22,25 +22,6 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_Enabled
-    path: RouteScreen/ScreenBody/Light_Coords/TW_2DLight_Yellow
-    classID: 114
-    script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
         value: 0
         inSlope: Infinity
         outSlope: Infinity
@@ -96,14 +77,6 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 2980320612679865459, guid: 11793a6e80ae9874e93d5cd894ef8645,
-        type: 3}
-    attribute: m_Sprite
-    path: RouteScreen/ScreenBody/Light_Coords
-    classID: 212
-    script: {fileID: 0}
-  - curve:
-    - time: 0
       value: {fileID: 2915506657484848846, guid: 11793a6e80ae9874e93d5cd894ef8645,
         type: 3}
     attribute: m_Sprite
@@ -134,13 +107,6 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 2232498209
-      attribute: 3305885265
-      script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
-      typeID: 114
-      customType: 24
-      isPPtrCurve: 0
-    - serializedVersion: 2
       path: 1168245303
       attribute: 3305885265
       script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
@@ -161,13 +127,6 @@ AnimationClip:
       typeID: 114
       customType: 24
       isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 290379296
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
     - serializedVersion: 2
       path: 3857632468
       attribute: 0
@@ -190,7 +149,6 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 2980320612679865459, guid: 11793a6e80ae9874e93d5cd894ef8645, type: 3}
     - {fileID: 2915506657484848846, guid: 11793a6e80ae9874e93d5cd894ef8645, type: 3}
     - {fileID: 2915506657484848846, guid: 11793a6e80ae9874e93d5cd894ef8645, type: 3}
     - {fileID: 2915506657484848846, guid: 11793a6e80ae9874e93d5cd894ef8645, type: 3}
@@ -215,25 +173,6 @@ AnimationClip:
     m_HeightFromFeet: 0
     m_Mirror: 0
   m_EditorCurves:
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_Enabled
-    path: RouteScreen/ScreenBody/Light_Coords/TW_2DLight_Yellow
-    classID: 114
-    script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   - curve:
       serializedVersion: 2
       m_Curve:

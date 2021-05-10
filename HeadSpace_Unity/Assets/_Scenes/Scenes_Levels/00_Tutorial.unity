@@ -845,54 +845,53 @@ MonoBehaviour:
       Tear this message
       to continue.'
   - messageName: MSG_Objectives
-    messageText: On a typical work day, your job is simple. Pick up UFGG officials
-      with your drone ships and take them to their destinations.
+    messageText: On a typical day, your job is simple. Pick up government officials
+      with your ships and take them to their destinations.
   - messageName: MSG_ShipInfo
-    messageText: 'Ships are displayed on your assignment board.
-
-      Use provided
-      ship markers to track their positions.'
+    messageText: Ships are displayed on the <b><color=#7E7363></b>assignment board</color>
+      (upper part of your workspace), and can be tracked using the provided <color=#5A6F8B>ship
+      markers </color>
   - messageName: MSG_ShipStatus
-    messageText: 'Last trainee forgot to mark final positions.
+    messageText: '<color=red>TRAINING ASSIGNMENT</color>
 
-      Find lost ships
-      by using the STAT command on your Compu-Typer<sup>tm</sup>.'
+      Find your ships by
+      using the STAT command on your Compu-Typer<sup>tm</sup>.'
   - messageName: MSG_WorkOrderBase
     messageText: 'You have received your first WORK ORDER!
 
       Read it to find
       your first PICK-UP PLANET and DESTINATION PLANET.'
   - messageName: MSG_ShipMovement
-    messageText: 'Use the MOVE command to assign HORIZONTAL or VERTICAL travel routes.
+    messageText: '<color=red>TRAINING ASSIGNMENT</color>
 
-      Enter
-      multiple waypoints if required.'
+      Use the MOVE command
+      to assign one or more HORIZONTAL or VERTICAL travel coordinates.'
   - messageName: MSG_WorkOrderBoard0
-    messageText: Assign an order to a ship by placing it on its cargo slot on the
-      assignment board.
+    messageText: Assign an order to a ship by placing it on its ORDER SLOT on the
+      <b><color=#7E7363></b>assignment board</color>.
   - messageName: MSG_MoveReceived
     messageText: 'Your ship has received your MOVE command.
 
-      You can track
-      its state on the assignment board.'
+      You can now track
+      its state on the <b><color=#7E7363></b>assignment board</color>.'
   - messageName: MSG_ClientPickedUp
-    messageText: 'UFGG official embarked! Verify order for status updates.
+    messageText: '<color=red>TRAINING ASSIGNMENT</color>
 
-      To
-      complete, travel to the DESTINATION planet.'
+      Official embarked!
+      Complete your WORK ORDER by sending your ship to the DESTINATION planet.'
   - messageName: MSG_Markers
     messageText: 'Tip: Avoid eyeballing complex movements.
 
       Use waypoint markers
       stored in your drawer to mark travel routes.'
   - messageName: MSG_WorkOrderComplete
-    messageText: 'UFGG official debarked!
+    messageText: 'Official disembarked!
 
       Store the completed order on the
       designated space to calculate your total Merit Points (optional).'
   - messageName: MSG_WorkOrderDay
-    messageText: On a regular work day, complete the most orders you can and fight
-      for your place among the higher ranks!
+    messageText: On a regular day, complete the most orders you can and fight for
+      your place among the higher ranks!
   - messageName: MSG_EndTraining0
     messageText: '<color=red>Free practice unlocked</color>
 
@@ -905,8 +904,8 @@ MonoBehaviour:
     messageText: While you wait, take a look at the provided STM USER GUIDE for ship
       information and reminders.
   - messageName: MSG_WorkOrderBoard1
-    messageText: Upon arrival on the PICK-UP PLANET, the UFGG official will be embarked
-      if your ship has enough space.
+    messageText: When a ship reaches a PLANET, any official on an ORDER assigned
+      to it will be automatically embarked.
   - messageName: MSG_EndTraining1
     messageText: 'When you feel ready, send the "END TRAINING" document to finish.
 

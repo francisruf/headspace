@@ -45,6 +45,7 @@ public class SectorManager : MonoBehaviour
         ContractManager.newContractReceived += OnNewContractReceived;
         TimeManager.timeStarted += OnTimeStart;
         TimeManager.levelTimerEnded += OnLevelEnd;
+        LevelManager.resetGame += OnGameReset;
     }
 
     private void OnDisable()
@@ -54,6 +55,13 @@ public class SectorManager : MonoBehaviour
         ContractManager.newContractReceived -= OnNewContractReceived;
         TimeManager.timeStarted -= OnTimeStart;
         TimeManager.levelTimerEnded -= OnLevelEnd;
+        LevelManager.resetGame -= OnGameReset;
+    }
+
+    private void OnGameReset()
+    {
+        instance = null;
+        Destroy(this);
     }
 
     private void OnNewContractReceived()

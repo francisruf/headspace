@@ -19,10 +19,14 @@ public class RouteScreenController : MonoBehaviour
     public GameObject coordTextPrefab;
     private WritingMachineSpriteDB _spriteDB;
     private List<SpriteRenderer> _allCoordsRenderers = new List<SpriteRenderer>();
+    private List<SpriteRenderer> _templateRenders = new List<SpriteRenderer>();
     public List<Transform> _allTextPositions;
 
     private bool _isOpen;
+    private bool _hasValues;
+    private bool _templatesVisible;
     private IEnumerator _currentAnimRoutine;
+    private IEnumerator _currentTemplateRoutine;
 
     private void Awake()
     {
@@ -35,7 +39,9 @@ public class RouteScreenController : MonoBehaviour
             for (int i = 0; i < 3; i++)
             {
                 SpriteRenderer sr = Instantiate(coordTextPrefab, spawnPos, Quaternion.identity, pos).GetComponent<SpriteRenderer>();
+                SpriteRenderer sr2 = Instantiate(coordTextPrefab, spawnPos, Quaternion.identity, pos).GetComponent<SpriteRenderer>();
                 _allCoordsRenderers.Add(sr);
+                _templateRenders.Add(sr2);
                 spawnPos.x += 0.21875f;
             }
         }
@@ -53,6 +59,7 @@ public class RouteScreenController : MonoBehaviour
             _allTextValues[i] = "";
         }
         UpdateTexts();
+        InitializeTemplates();
     }
 
     public void OnCharInput(char c)
@@ -144,6 +151,8 @@ public class RouteScreenController : MonoBehaviour
 
     private void UpdateTexts()
     {
+        int textCount = 0;
+
         for (int i = 0; i < _allTextValues.Count; i++)
         {
             int count = 0;
@@ -151,6 +160,7 @@ public class RouteScreenController : MonoBehaviour
             {
                 _allCoordsRenderers[(i * 3) + j].sprite = _spriteDB.GetCoordChar(_allTextValues[i][j]);
                 count++;
+                textCount++;
             }
             if (count < 3)
             {
@@ -173,6 +183,19 @@ public class RouteScreenController : MonoBehaviour
             caretAnimator.SetBool("Complete", true);
         else
             caretAnimator.SetBool("Complete", false);
+
+        _hasValues = textCount > 0;
+
+        if (_currentTemplateRoutine != null)
+        {
+            StopCoroutine(_currentTemplateRoutine);
+            _currentTemplateRoutine = null;
+        }
+        foreach (var sr in _templateRenders)
+        {
+            sr.enabled = false;
+        }
+        _templatesVisible = false;
     }
 
     public void ResetTexts()
@@ -186,8 +209,91 @@ public class RouteScreenController : MonoBehaviour
             _allTextValues[i] = "";
         }
 
+        _hasValues = false;
         _currentScreenIndex = 0;
         UpdateTexts();
+        UpdateTemplates();
+    }
+
+    private void InitializeTemplates()
+    {
+        int currentNumber = 1;
+        for (int i = 0; i < _templateRenders.Count; i++)
+        {
+            if (i % 3 == 0)
+            {
+                _templateRenders[i].sprite = _spriteDB.GetCoordChar('A');
+            }
+            else if ((i-1) % 3 == 0)
+            {
+                _templateRenders[i].sprite = _spriteDB.GetCoordChar('0');
+            }
+            else
+            {
+                _templateRenders[i].sprite = _spriteDB.GetCoordChar(currentNumber.ToString()[0]);
+                currentNumber++;
+            }
+        }
+        foreach (var sr in _templateRenders)
+        {
+            sr.enabled = false;
+        }
+    }
+
+    private void UpdateTemplates()
+    {
+        if (!_templatesVisible && !_hasValues)
+        {
+            if (_currentTemplateRoutine == null)
+            {
+                _currentTemplateRoutine = TemplatesFlashing();
+                StartCoroutine(_currentTemplateRoutine);
+            }
+        }
+
+        else if (_templatesVisible && _hasValues)
+        {
+            if (_currentTemplateRoutine != null)
+            {
+                StopCoroutine(_currentTemplateRoutine);
+                _currentTemplateRoutine = null;
+            }
+            foreach (var sr in _templateRenders)
+            {
+                sr.enabled = false;
+            }
+            _templatesVisible = false;
+        }
+    }
+
+    private IEnumerator TemplatesFlashing()
+    {
+        _templatesVisible = true;
+        int count = 0;
+
+        yield return new WaitForSeconds(0.3f);
+
+        while (count < 3)
+        {
+            foreach (var sr in _templateRenders)
+            {
+                sr.enabled = true;
+            }
+            yield return new WaitForSeconds(0.3f);
+
+            foreach (var sr in _templateRenders)
+            {
+                sr.enabled = false;
+            }
+            yield return new WaitForSeconds(0.1f);
+            count++;
+        }
+        foreach (var sr in _templateRenders)
+        {
+            sr.enabled = false;
+        }
+        _templatesVisible = false;
+        _currentTemplateRoutine = null;
     }
 
     public void OnDirectionInput(KeyCode input)
@@ -229,6 +335,7 @@ public class RouteScreenController : MonoBehaviour
                 StartCoroutine(_currentAnimRoutine);
             }
         }
+        UpdateTemplates();
     }
 
 
@@ -238,11 +345,12 @@ public class RouteScreenController : MonoBehaviour
             routeScreenOpen();
 
         animator.SetBool("IsOpen", true);
+        UpdateTemplates();
         yield return new WaitForSeconds(0.15f);
-
         yield return new WaitForSeconds(0.15f);
 
         _isOpen = true;
+        
         //_currentScreenIndex = 0;
         //ResetTexts();
 

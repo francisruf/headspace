@@ -56,6 +56,7 @@ public class PlanetManager : MonoBehaviour
         //GridManager.firstAnomalyTile += OnFirstAnomalyTile;
         Ship.soulsFromPlanetSaved += TrackSavedSouls;
         GridTile_Planet.newPlanetTile += OnNewPlanetTileSpawned;
+        LevelManager.resetGame += OnGameReset;
 
         _planetTemplateDB = FindObjectOfType<PlanetTemplateDB>();
     }
@@ -68,6 +69,13 @@ public class PlanetManager : MonoBehaviour
         //GridManager.firstAnomalyTile -= OnFirstAnomalyTile;
         Ship.soulsFromPlanetSaved -= TrackSavedSouls;
         GridTile_Planet.newPlanetTile -= OnNewPlanetTileSpawned;
+        LevelManager.resetGame -= OnGameReset;
+    }
+
+    private void OnGameReset()
+    {
+        instance = null;
+        Destroy(this);
     }
 
     // Fonction appelée lorsqu'une nouvelle grille est générée qui stock les informations de cette grille
@@ -118,6 +126,7 @@ public class PlanetManager : MonoBehaviour
             return;
 
         int planetCount = 0;
+        float tileSize = _currentGridInfo.gameGridWorldBounds.size.x / _currentGridInfo.gameGridSize.x;
 
         // Get all empty tiles
         List<GridTile> allowedSpawnTiles = new List<GridTile>();
@@ -132,23 +141,22 @@ public class PlanetManager : MonoBehaviour
             }
         }
 
-        // Remove tiles too close to deploy point
-        float tileSize = _currentGridInfo.gameGridWorldBounds.size.x / _currentGridInfo.gameGridSize.x;
-        float castRadius = tileSize * minTilesBetweenDeployPoint;
+        //// Remove tiles too close to deploy point
+        //float castRadius = tileSize * minTilesBetweenDeployPoint;
 
-        foreach (var tile in DeployManager.instance.GetAllDeployTiles())
-        {
-            Collider2D[] allHits = Physics2D.OverlapCircleAll(tile.TileCenter, castRadius, tileLayerMask);
-            foreach (var hit in allHits)
-            {
-                GridTile candidate = hit.GetComponent<GridTile>();
-                if (hit != null)
-                {
-                    allowedSpawnTiles.Remove(candidate);
-                    //Debug.DrawLine(candidate.TileCenter, candidate.TileCenter + Vector2.up * 0.2f, Color.red, 5f);
-                }
-            }
-        }
+        //foreach (var tile in DeployManager.instance.GetAllDeployTiles())
+        //{
+        //    Collider2D[] allHits = Physics2D.OverlapCircleAll(tile.TileCenter, castRadius, tileLayerMask);
+        //    foreach (var hit in allHits)
+        //    {
+        //        GridTile candidate = hit.GetComponent<GridTile>();
+        //        if (hit != null)
+        //        {
+        //            allowedSpawnTiles.Remove(candidate);
+        //            //Debug.DrawLine(candidate.TileCenter, candidate.TileCenter + Vector2.up * 0.2f, Color.red, 5f);
+        //        }
+        //    }
+        //}
 
         // Add heat to tiles near map edge
         foreach (var tile in allowedSpawnTiles)

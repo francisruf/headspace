@@ -74,16 +74,24 @@ public class DebugManager : MonoBehaviour
         }
     }
 
+    private void OnGameReset()
+    {
+        instance = null;
+        Destroy(this);
+    }
+
     private void OnEnable()
     {
         GameManager.levelStarted += StartGameTimer;
         GridManager.totalGridAnomaly += StopGameTimer;
+        LevelManager.resetGame += OnGameReset;
     }
 
     private void OnDisable()
     {
         GameManager.levelStarted -= StartGameTimer;
         GridManager.totalGridAnomaly -= StopGameTimer;
+        LevelManager.resetGame -= OnGameReset;
     }
 
     private void Start()

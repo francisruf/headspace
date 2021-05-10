@@ -51,8 +51,12 @@ public class ContractManager : MonoBehaviour
         {
             instance = this;
         }
+    }
 
-        
+    private void OnGameReset()
+    {
+        instance = null;
+        Destroy(this);
     }
 
     private void Start()
@@ -64,6 +68,8 @@ public class ContractManager : MonoBehaviour
     {
         GameManager.levelStarted += OnGameStarted;
         TimeManager.thirtyMinsWarning += StopSpawning;
+        LevelManager.resetGame += OnGameReset;
+
 
         _contractsDB = FindObjectOfType<ContractsDB>();
     }
@@ -72,6 +78,8 @@ public class ContractManager : MonoBehaviour
     {
         GameManager.levelStarted -= OnGameStarted;
         TimeManager.thirtyMinsWarning -= StopSpawning;
+        LevelManager.resetGame -= OnGameReset;
+
     }
 
     private void StopSpawning()

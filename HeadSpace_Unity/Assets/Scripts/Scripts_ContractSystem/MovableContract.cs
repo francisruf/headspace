@@ -44,7 +44,7 @@ public class MovableContract : MovableObject
             SetSortingLayer(SortingLayer.NameToID("DeskObjects"));
             ObjectsManager.instance.ForceTopRenderingOrder(this);
 
-            ContractExitBelt();
+            ContractExitBelt(false);
         }
         base.Select(fireEvent);
 
@@ -65,14 +65,49 @@ public class MovableContract : MovableObject
         transform.position = animationEndPos;
 
         Deselect();
-        ContractExitBelt();
+        ContractExitBelt(true);
 
         _currentMovingRoutine = null;
     }
 
-    private void ContractExitBelt()
+    private void ContractExitBelt(bool checkForContracts)
     {
+        if (!checkForContracts)
+            return;
+
         _contractInfo.OnContractBeltExit();
+        bool placed = false;
+        int count = 0;
+
+        while (!placed)
+        {
+            placed = true;
+            Collider2D[] colliders = Physics2D.OverlapPointAll(_collider.bounds.center, documentsLayerMask);
+            foreach (var col in colliders)
+            {
+                MovableContract contract = col.GetComponent<MovableContract>();
+                if (contract != null && contract != this)
+                {
+                    if (Vector2.Distance(contract.transform.position, transform.position) < 0.001f)
+                    {
+                        Vector2 newPos = contract.transform.position;
+                        newPos.y += 0.03125f;
+                        transform.position = newPos;
+                        placed = false;
+                        count++;
+                        break;
+                    }
+                }
+            }
+            if (count > 400)
+            {
+                Debug.Log("OUCH");
+
+                break;
+            }
+
+        }
+
 
         if (contractExitBelt != null)
             contractExitBelt(this);

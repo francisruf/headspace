@@ -18,6 +18,7 @@ public class Receiver : StaticTool
     public TextMeshProUGUI timeText;
     private MovableMessage _messageInSlot;
 
+    public List<string> indestructableMessageNames;
 
     protected override void Awake()
     {
@@ -95,6 +96,8 @@ public class Receiver : StaticTool
         _printerAnimator.SetBool("MessageInSlot", true);
         _messageInSlot.messageTeared += ClearSlot;
 
+        if (indestructableMessageNames.Contains(messageName))
+            _messageInSlot.tag = "Indestruc";
 
         if (specialMessagePrint != null)
             specialMessagePrint(messageName);

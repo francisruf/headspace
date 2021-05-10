@@ -30,6 +30,22 @@ public class ShopManager : MonoBehaviour
         _buyablesDB = GetComponentInChildren<BuyablesDatabase>();
     }
 
+    private void OnEnable()
+    {
+        LevelManager.resetGame += OnGameReset;
+    }
+
+    private void OnDisable()
+    {
+        LevelManager.resetGame -= OnGameReset;
+    }
+
+    private void OnGameReset()
+    {
+        instance = null;
+        Destroy(this);
+    }
+
     public bool TryBuyRequest(int objectCode)
     {
         if (_buyablesDB == null)

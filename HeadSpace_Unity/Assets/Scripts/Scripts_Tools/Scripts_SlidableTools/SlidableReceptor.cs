@@ -70,7 +70,6 @@ public class SlidableReceptor : SlidableTool
         _messageInSlot = Instantiate(messagePrefab, printPoint).GetComponent<MovableMessage>();
         _messageInSlot.transform.localPosition = Vector2.zero;
         _messageInSlot.SetText(messageText, messageColor);
-
         _printerAnimator.SetBool("MessageInSlot", true);
         _messageInSlot.messageTeared += ClearSlot;
     }

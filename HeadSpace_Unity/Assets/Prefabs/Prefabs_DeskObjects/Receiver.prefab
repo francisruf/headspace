@@ -560,6 +560,10 @@ MonoBehaviour:
     type: 3}
   printPoint: {fileID: 7386924865294376313}
   timeText: {fileID: 442499450496654991}
+  indestructableMessageNames:
+  - MSG_ShipStatus
+  - MSG_ShipMovement
+  - MSG_ClientPickedUp
 --- !u!114 &4944744860310436396
 MonoBehaviour:
   m_ObjectHideFlags: 0
