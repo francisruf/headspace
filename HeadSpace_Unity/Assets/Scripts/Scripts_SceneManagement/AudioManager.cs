@@ -158,6 +158,8 @@ public class AudioManager : MonoBehaviour
         GridTile_StaticAnomaly.firstAnomalySpawned += OnFirstAnomaly;
         WritingMachineClock.clockTick += OnClockTick;
         GameManager.levelStarted += OnLevelStart;
+
+        LevelManager.unloadingDone += OnUnloading;
     }
 
     private void OnDisable()
@@ -227,6 +229,8 @@ public class AudioManager : MonoBehaviour
         GridTile_StaticAnomaly.firstAnomalySpawned -= OnFirstAnomaly;
         WritingMachineClock.clockTick -= OnClockTick;
         GameManager.levelStarted -= OnLevelStart;
+
+        LevelManager.unloadingDone -= OnUnloading;
     }
 
     //Update function only to test feature. Remove when necessary.
@@ -1433,6 +1437,11 @@ public class AudioManager : MonoBehaviour
         //    PlaySound("Timer_LastHour_One");
         //    _oddClockTick = true;
         //}
+    }
+
+    private void OnUnloading()
+    {
+        ShredderStopped();
     }
 
     #endregion

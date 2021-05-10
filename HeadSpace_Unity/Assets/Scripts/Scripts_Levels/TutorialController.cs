@@ -9,6 +9,7 @@ public class TutorialController : MonoBehaviour
     public static Action openDrawerRequest;
     public static Action openBoardRequest;
     public static Action openMachineRequest;
+    public static Action openOutboxRequest;
     public static Action<string> messageShredEnable;
 
     public GameObject endTrainingPrefab;
@@ -24,6 +25,7 @@ public class TutorialController : MonoBehaviour
     private MovableLogbook _logbook;
 
     // MILESTONES
+    private bool _step_startCommand;
     private bool _step_statusInit;
     private bool _step_statusComplete;
     private bool _step_statusTear;
@@ -48,6 +50,7 @@ public class TutorialController : MonoBehaviour
         WritingMachineController.writingMachineOpen += OnMachineOpen;
         Receiver.specialMessagePrint += OnSpecialMessagePrint;
         MovableLogbook.logbookInitialized += OnLogbookInit;
+        MovableCommand.commandTearTrigger += OnCommandTeared;
     }
 
     private void OnDisable()
@@ -61,6 +64,7 @@ public class TutorialController : MonoBehaviour
         WritingMachineController.writingMachineOpen -= OnMachineOpen;
         Receiver.specialMessagePrint -= OnSpecialMessagePrint;
         MovableLogbook.logbookInitialized -= OnLogbookInit;
+        MovableCommand.commandTearTrigger -= OnCommandTeared;
     }
 
     private void Awake()
@@ -366,6 +370,22 @@ public class TutorialController : MonoBehaviour
 
                 _step_writingMachineOpen = true;
             }
+    }
+
+    private void OnCommandTeared(MovableCommand command)
+    {
+        if (_step_startCommand)
+            return;
+
+        Debug.Log("COmmand tear");
+
+        if (command.CommandName == "StartLevel")
+        {
+            if (openOutboxRequest != null)
+                openOutboxRequest();
+            Debug.Log("Open request");
+            _step_startCommand = true;
+        }
     }
 
     private void EndTutorial()

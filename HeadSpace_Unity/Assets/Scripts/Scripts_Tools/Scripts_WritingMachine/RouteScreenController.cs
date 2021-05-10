@@ -186,16 +186,19 @@ public class RouteScreenController : MonoBehaviour
 
         _hasValues = textCount > 0;
 
-        if (_currentTemplateRoutine != null)
+        if (_hasValues)
         {
-            StopCoroutine(_currentTemplateRoutine);
-            _currentTemplateRoutine = null;
+            if (_currentTemplateRoutine != null)
+            {
+                StopCoroutine(_currentTemplateRoutine);
+                _currentTemplateRoutine = null;
+            }
+            foreach (var sr in _templateRenders)
+            {
+                sr.enabled = false;
+            }
+            _templatesVisible = false;
         }
-        foreach (var sr in _templateRenders)
-        {
-            sr.enabled = false;
-        }
-        _templatesVisible = false;
     }
 
     public void ResetTexts()
@@ -230,8 +233,9 @@ public class RouteScreenController : MonoBehaviour
             }
             else
             {
-                _templateRenders[i].sprite = _spriteDB.GetCoordChar(currentNumber.ToString()[0]);
-                currentNumber++;
+                _templateRenders[i].sprite = _spriteDB.GetCoordChar('0');
+                //_templateRenders[i].sprite = _spriteDB.GetCoordChar(currentNumber.ToString()[0]);
+                //currentNumber++;
             }
         }
         foreach (var sr in _templateRenders)
@@ -274,7 +278,11 @@ public class RouteScreenController : MonoBehaviour
         {
             sr.enabled = true;
         }
-        yield return new WaitForSeconds(0.6f);
+
+        while (!_hasValues)
+        {
+            yield return new WaitForEndOfFrame();
+        }
         foreach (var sr in _templateRenders)
         {
             sr.enabled = false;

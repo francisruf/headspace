@@ -60,6 +60,7 @@ public class DebugManager : MonoBehaviour
     private bool _mouseTooltipVisible;
 
     public bool DebugObjectsVisible { get; private set; } = false;
+    private bool _input;
 
     private void Awake()
     {
@@ -118,14 +119,22 @@ public class DebugManager : MonoBehaviour
             UpdateGameTimer();
         }
 
-        if (Input.GetKeyDown(KeyCode.F3))
+        if (Input.GetKey(KeyCode.F1) && Input.GetKey(KeyCode.LeftAlt) && Input.GetKey(KeyCode.LeftShift))
         {
+            if (_input)
+                return;
+
+            _input = true;
             buttonsPanel.SetActive(!buttonsPanel.activeSelf);
             timePanel.SetActive(!timePanel.activeSelf);
             objectsPanel.SetActive(!objectsPanel.activeSelf);
             //debugText.enabled = !buttonsPanel.activeSelf;
             gameTimeText.enabled = !gameTimeText.enabled;
             //ressourcePanel.SetActive(!ressourcePanel.activeSelf);
+        }
+        if (!Input.GetKey(KeyCode.F1) || !Input.GetKey(KeyCode.LeftAlt) || !Input.GetKey(KeyCode.LeftShift))
+        {
+            _input = false;
         }
 
         //if (Input.GetKeyDown(KeyCode.Space) && !commandDebugWindow.activeSelf)

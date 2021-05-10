@@ -20,12 +20,14 @@ public class SlidableOutbox : SlidableTool
     {
         WritingMachineController.commandReadyToTear += OnCommandReadyToTear;
         MovableCommand_Keyword.openOutboxRequest += OnOpenRequest;
+        TutorialController.openOutboxRequest += OnOpenRequest;
     }
 
     private void OnDisable()
     {
         WritingMachineController.commandReadyToTear -= OnCommandReadyToTear;
         MovableCommand_Keyword.openOutboxRequest -= OnOpenRequest;
+        TutorialController.openOutboxRequest -= OnOpenRequest;
     }
 
     protected override void Awake()

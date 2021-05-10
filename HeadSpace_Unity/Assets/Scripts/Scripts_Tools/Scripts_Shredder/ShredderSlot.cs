@@ -36,6 +36,21 @@ public class ShredderSlot : MonoBehaviour
         _allParticleSystems.Add(ps);
     }
 
+    private void OnEnable()
+    {
+        GameManager.levelEnded += OnLevelEnd;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.levelEnded -= OnLevelEnd;
+    }
+
+    private void OnLevelEnd()
+    {
+        canShred = false;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == 14)
