@@ -269,25 +269,12 @@ public class RouteScreenController : MonoBehaviour
     private IEnumerator TemplatesFlashing()
     {
         _templatesVisible = true;
-        int count = 0;
-
-        yield return new WaitForSeconds(0.3f);
-
-        while (count < 3)
+        yield return new WaitForSeconds(0.25f);
+        foreach (var sr in _templateRenders)
         {
-            foreach (var sr in _templateRenders)
-            {
-                sr.enabled = true;
-            }
-            yield return new WaitForSeconds(0.3f);
-
-            foreach (var sr in _templateRenders)
-            {
-                sr.enabled = false;
-            }
-            yield return new WaitForSeconds(0.1f);
-            count++;
+            sr.enabled = true;
         }
+        yield return new WaitForSeconds(0.6f);
         foreach (var sr in _templateRenders)
         {
             sr.enabled = false;

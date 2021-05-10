@@ -798,9 +798,9 @@ MonoBehaviour:
     source1: {fileID: 0}
   - name: Timer_LastHour_New
     clip: {fileID: 8300000, guid: 6c5373d254a04ac47aa2b7472121f385, type: 3}
-    volume: 0.1
+    volume: 0.04
     pitch: 1
-    stereoPan: 0.1
+    stereoPan: 0.15
     loopVolume: 0
     loop: 0
     activeSource: 0
@@ -839,7 +839,7 @@ MonoBehaviour:
     source1: {fileID: 0}
   - name: HS_STM_Theme
     clip: {fileID: 8300000, guid: 70b8aca77c68b18439e9eaa17bfdb070, type: 3}
-    volume: 0.25
+    volume: 0.18
     pitch: 1
     stereoPan: 0
     loopVolume: 0

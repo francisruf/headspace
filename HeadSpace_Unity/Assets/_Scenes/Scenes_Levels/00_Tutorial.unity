@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -850,17 +850,17 @@ MonoBehaviour:
   - messageName: MSG_ShipInfo
     messageText: Ships are displayed on the <b><color=blue></b>assignment board</color>
       (upper part of your workspace), and can be tracked using the provided <color=blue>ship
-      markers </color>
+      markers</color>.
   - messageName: MSG_ShipStatus
     messageText: '<color=red>TRAINING ASSIGNMENT</color>
 
       Find your ships by
-      using the STAT command on your Compu-Typer<sup>tm</sup>.'
+      using the STAT command on your <color=blue>Compu-Typer<sup>tm</sup></color>.'
   - messageName: MSG_WorkOrderBase
-    messageText: 'You have received your first WORK ORDER!
+    messageText: 'You have received your first <color=blue>WORK ORDER</color>!
 
-      Read it to find
-      your first PICK-UP PLANET and DESTINATION PLANET.'
+      Read
+      it to find your first PICK-UP PLANET and DESTINATION PLANET.'
   - messageName: MSG_ShipMovement
     messageText: '<color=red>TRAINING ASSIGNMENT</color>
 
@@ -868,30 +868,32 @@ MonoBehaviour:
       to assign one or more HORIZONTAL or VERTICAL travel coordinates.'
   - messageName: MSG_WorkOrderBoard0
     messageText: Assign an order to a ship by placing it on its ORDER SLOT on the
-      <b><color=#7E7363></b>assignment board</color>.
+      <b><color=blue></b>assignment board</color>.
   - messageName: MSG_MoveReceived
     messageText: 'Your ship has received your MOVE command.
 
       You can now track
-      its state on the <b><color=#7E7363></b>assignment board</color>.'
+      its state on the <b><color=blue></b>assignment board</color>.'
   - messageName: MSG_ClientPickedUp
     messageText: '<color=red>TRAINING ASSIGNMENT</color>
 
       Official embarked!
-      Complete your WORK ORDER by sending your ship to the DESTINATION planet.'
+      Complete your <color=blue>WORK ORDER</color> by sending your ship to the DESTINATION
+      planet.'
   - messageName: MSG_Markers
     messageText: 'Tip: Avoid eyeballing complex movements.
 
-      Use waypoint markers
-      stored in your drawer to mark travel routes.'
+      Use <color=red>coordinate
+      markers</color> stored in your drawer to mark travel routes.'
   - messageName: MSG_WorkOrderComplete
     messageText: 'Official disembarked!
 
-      Store the completed order on the designated
-      space to calculate your total Merit Points (optional).'
+      Store the completed <color=blue>WORK
+      ORDER</color> on the <color=#43937F>DONE</color> space to calculate your total
+      Merit Points (optional).'
   - messageName: MSG_WorkOrderDay
-    messageText: On a regular day, complete the most orders you can and fight for
-      your place among the higher ranks!
+    messageText: During a regular day, complete the most <color=blue>WORK ORDERS</color>
+      you can and fight for your place among the higher ranks!
   - messageName: MSG_EndTraining0
     messageText: '<color=red>Free practice unlocked</color>
 
@@ -899,19 +901,19 @@ MonoBehaviour:
       Merit Points on training day will not be counted on the leaderboard.)'
   - messageName: MSG_Shredder
     messageText: Your desk space is probably getting cluttered by now. Discard unused
-      documents with your SECU-SHREDDER<sup>tm</sup>.
+      documents with your <color=blue>SECU-SHREDDER<sup>tm</sup></color>.
   - messageName: MSG_Journal
-    messageText: While you wait, take a look at the provided STM USER GUIDE for ship
-      information and reminders.
+    messageText: While you wait, take a look at the provided <color=red>STM USER
+      GUIDE</color> for ship information and reminders.
   - messageName: MSG_WorkOrderBoard1
-    messageText: When a ship reaches a PLANET, any official on an ORDER assigned
-      to it will be automatically embarked.
+    messageText: When a ship reaches a PLANET, any official on an <color=blue>WORK
+      ORDER</color> assigned to it will be automatically embarked.
   - messageName: MSG_EndTraining1
-    messageText: 'When you feel ready, send the "END TRAINING" document to finish.
+    messageText: 'When you feel ready, send the <color=red>END TRAINING</color> document
+      to finish.
 
 
-      Be
-      here tomorrow at 9:00!'
+      Be here tomorrow at 9:00!'
 --- !u!1 &1726143132
 GameObject:
   m_ObjectHideFlags: 0

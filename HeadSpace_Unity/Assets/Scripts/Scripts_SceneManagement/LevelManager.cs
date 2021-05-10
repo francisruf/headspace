@@ -166,7 +166,11 @@ public class LevelManager : MonoBehaviour
 
     private void OnLevelTimerEnded()
     {
-        StartCoroutine(LoadSingleSceneFromGame("Leaderboard", 2.5f, 1.5f));
+        float time = 2.5f;
+        if (GameManager.instance.CurrentDayInfo.day == 0)
+            time = 1.5f;
+
+        StartCoroutine(LoadSingleSceneFromGame("Leaderboard", time, 1.5f));
     }
 
     private void OnGameOver()

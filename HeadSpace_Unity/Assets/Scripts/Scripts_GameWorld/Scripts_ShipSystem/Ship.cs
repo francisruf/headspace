@@ -241,7 +241,7 @@ public class Ship : MonoBehaviour
         {
             if (routeFinished != null)
                 routeFinished(this);
-            Debug.Log("NOTIF");
+            //Debug.Log("NOTIF");
         }
 
 

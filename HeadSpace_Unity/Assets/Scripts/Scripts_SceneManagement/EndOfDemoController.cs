@@ -7,6 +7,13 @@ public class EndOfDemoController : MonoBehaviour
 {
     public static Action quitPressed;
     public static Action<bool> mainMenuPressed;
+    public static Action endOfDemoLoaded;
+
+    private void Awake()
+    {
+        if (endOfDemoLoaded != null)
+            endOfDemoLoaded();
+    }
 
     public void OnQuitButtonPressed()
     {

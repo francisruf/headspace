@@ -97,6 +97,8 @@ public class AudioManager : MonoBehaviour
         LeaderboardController.leaderboardLoaded += PlayGameplaySoundscape;
         GameManager.levelStarted += PlayGameplayTheme;
         GameManager.levelEnded += StopGameplayTheme;
+        GameManager.levelEnded += StopGamePlaySoundscape;
+        EndOfDemoController.endOfDemoLoaded += PlayGameplayTheme;
         CutsceneController.cutsceneStarted += PlaySTMTheme;
         CutsceneController.cutsceneOver += StopSTMTheme;
         CutsceneController.cutsceneLoaded += StopMenuSoundscape;
@@ -167,6 +169,8 @@ public class AudioManager : MonoBehaviour
         CutsceneController.cutsceneOver -= StopSTMTheme;
         GameManager.levelStarted -= PlayGameplayTheme;
         GameManager.levelEnded -= StopGameplayTheme;
+        GameManager.levelEnded -= StopGamePlaySoundscape;
+        EndOfDemoController.endOfDemoLoaded -= PlayGameplayTheme;
 
         ShredderSlot.shredderStarted -= ShredderStarted;
         ShredderSlot.shredderStopped -= ShredderStopped;
@@ -294,30 +298,36 @@ public class AudioManager : MonoBehaviour
 
     private void PlayGameplaySoundscape()
     {
-        PlaySoundscapeLoop("HS_Bgd_Gameplay");
+        if (GameManager.instance.CurrentDayInfo.time == LevelTime.DayStart)
+            PlaySoundscapeLoop("HS_Bgd_Gameplay");
+    }
+
+    private void StopGamePlaySoundscape()
+    {
+        StopSoundscapeLoop("HS_Bgd_Gameplay");
     }
 
     private void PlayGameplayTheme()
     {
-        SimpleLoop("HS_Music_Gameplay");
+        SimpleLoop("HS_Music_Gameplay", true);
     }
 
     private void StopGameplayTheme()
     {
-        StopSimpleLoop("HS_Music_Gameplay");
+        StopSimpleLoop("HS_Music_Gameplay", 3f);
     }
 
     private void PlaySTMTheme()
     {
-        SimpleLoop("HS_STM_Theme");
+        SimpleLoop("HS_STM_Theme", false);
     }
 
     private void StopSTMTheme(string str, SceneLoadType sceneLoadType)
     {
-        StopSimpleLoop("HS_STM_Theme");
+        StopSimpleLoop("HS_STM_Theme", musicFadeSpeed);
     }
 
-    private void SimpleLoop(string name)
+    private void SimpleLoop(string name, bool fadeIn)
     {
         Sound s = Array.Find(music, sound => sound.name == name);
         if (s == null)
@@ -327,10 +337,17 @@ public class AudioManager : MonoBehaviour
         }
         s.source0.loop = true;
         s.source0.time = 0f;
-        s.source0.Play();
+
+        if (fadeIn)
+            StartCoroutine(FadeIn(s.volume, s.source0, 1f));
+        else
+        {
+            s.source0.volume = s.volume;
+            s.source0.Play();
+        }
     }
 
-    private void StopSimpleLoop(string name)
+    private void StopSimpleLoop(string name, float fadeSpeed)
     {
         Sound s = Array.Find(music, sound => sound.name == name);
         if (s == null)
@@ -338,7 +355,7 @@ public class AudioManager : MonoBehaviour
             Debug.LogWarning("Sound: " + name + " not found!");
             return;
         }
-        StartCoroutine(FadeOut(s.source0, musicFadeSpeed));
+        StartCoroutine(FadeOut(s.source0, fadeSpeed));
     }
 
     public void PlayTheme(string name, bool fadeOut)
@@ -1397,11 +1414,8 @@ public class AudioManager : MonoBehaviour
     
     private void OnClockTick()
     {
-        if (_endDay)
-            return;
-
         Sound s = FindSound("Timer_LastHour_New");
-        s.volume += 0.008333f;
+        s.source0.volume += 0.022f;
 
         PlaySound("Timer_LastHour_New");
 

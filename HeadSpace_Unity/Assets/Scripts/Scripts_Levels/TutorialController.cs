@@ -9,6 +9,7 @@ public class TutorialController : MonoBehaviour
     public static Action openDrawerRequest;
     public static Action openBoardRequest;
     public static Action openMachineRequest;
+    public static Action<string> messageShredEnable;
 
     public GameObject endTrainingPrefab;
     public Transform endTrainingSpawnPos;
@@ -158,6 +159,9 @@ public class TutorialController : MonoBehaviour
         {
             NewMessage("MSG_WorkOrderBase");
             _step_statusComplete = true;
+
+            if (messageShredEnable != null)
+                messageShredEnable("MSG_ShipStatus");
         }
     }
 
@@ -173,6 +177,9 @@ public class TutorialController : MonoBehaviour
     {
         NewMessage("MSG_MoveReceived");
         NewMessage("MSG_WorkOrderBoard1");
+
+        if (messageShredEnable != null)
+            messageShredEnable("MSG_ShipMovement");
         //StartCoroutine(EnableShredderTimer());
     }
 
@@ -185,6 +192,7 @@ public class TutorialController : MonoBehaviour
 
         NewMessage("MSG_ClientPickedUp");
         NewMessage("MSG_Markers");
+
     }
 
     private void OnContractComplete(int mySuperInteger, float myFloat)
@@ -196,6 +204,9 @@ public class TutorialController : MonoBehaviour
 
         NewMessage("MSG_WorkOrderComplete");
         NewMessage("MSG_WorkOrderDay");
+
+        if (messageShredEnable != null)
+            messageShredEnable("MSG_ClientPickedUp");
     }
 
     private void OnSpecialMessagePrint(string messageName)
@@ -326,11 +337,6 @@ public class TutorialController : MonoBehaviour
                         }
                     }
                 }
-            else if (cmd.CommandName.ToLower() == "stat")
-                if (cmd.CurrentCommandState == CommandState.Sucess)
-                {
-                    _step_statusComplete = true;
-                }
         }
     }
 
@@ -349,7 +355,7 @@ public class TutorialController : MonoBehaviour
                 controller.PrintText(instructions, true, false);
                 instructions = "1- Open/Close with LSHIFT.";
                 controller.PrintText(instructions, true, false);
-                instructions = "2- TYPE in ship 3-letter CODE.";
+                instructions = "2- TYPE in 3-letter SHIP CODE.";
                 controller.PrintText(instructions, true, false);
                 instructions = "3- Press ENTER to confirm.";
                 controller.PrintText(instructions, true, false);

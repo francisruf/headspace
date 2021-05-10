@@ -375,7 +375,7 @@ public class MessageManager : MonoBehaviour
     {
         TileCoordinates shipTile = GridCoords.FromWorldToTilePosition(ship.transform.position);
         string tileName = GridCoords.GetTileName(shipTile);
-        string newMessageText = ship.shipName + " auto-reinitialization complete.";
+        string newMessageText = ship.shipName + " auto-reinitialization complete. ";
         newMessageText += "Current position : " + tileName + ".";
         newMessageText += "\nAwaiting instructions.";
 
@@ -395,7 +395,7 @@ public class MessageManager : MonoBehaviour
         string newMessageText = ship.shipName + " has debarked " + client.clientFirstName + " "
             + client.clientLastName + " on planet " + planet.PlanetName + ".";
 
-        newMessageText += "\nWORK ORDER COMPLETE!";
+        newMessageText += "\n\nWORK ORDER COMPLETE!";
 
         QueueMessage(newMessageText, contractMessageColor, true);
     }
