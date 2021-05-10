@@ -77,6 +77,7 @@ public class LevelManager : MonoBehaviour
         Command_QuitGame.quitGameRequest += OnQuitRequest;
         EndOfDemoController.quitPressed += OnQuitRequest;
         EndOfDemoController.mainMenuPressed += OnBackToMenuRequest;
+        LevelLoader.activeSceneRequest += OnActiveSceneRequest;
     }
 
     private void OnDisable()
@@ -97,24 +98,32 @@ public class LevelManager : MonoBehaviour
         Command_QuitGame.quitGameRequest -= OnQuitRequest;
         EndOfDemoController.quitPressed -= OnQuitRequest;
         EndOfDemoController.mainMenuPressed -= OnBackToMenuRequest;
+        LevelLoader.activeSceneRequest -= OnActiveSceneRequest;
     }
 
     private void Start()
     {
         if (GameManager.instance == null)
         {
-            StartCoroutine(LoadStartScenes());
+            StartCoroutine(LoadStartScenes(true));
         }
     }
 
-    private IEnumerator LoadStartScenes()
+    private void OnActiveSceneRequest(Scene scene)
+    {
+        SceneManager.SetActiveScene(scene);
+    }
+
+    private IEnumerator LoadStartScenes(bool loadBase)
     {
         blackSolid.enabled = true;
         transitionCanvas.enabled = true;
 
+        
         _currentMenuScenes = mainMenuDeskScenes;
 
-        yield return LoadScenes(baseScenes);
+        if (loadBase)
+            yield return LoadScenes(baseScenes);
         yield return LoadScenes(_currentMenuScenes);
 
         //SceneManager.SetActiveScene(SceneManager.GetSceneByName(mainMenuScenes[0]));
@@ -157,7 +166,7 @@ public class LevelManager : MonoBehaviour
 
     private void OnLevelTimerEnded()
     {
-        StartCoroutine(LoadSingleSceneFromGame("Leaderboard", 4f, 1.5f));
+        StartCoroutine(LoadSingleSceneFromGame("Leaderboard", 2.5f, 1.5f));
     }
 
     private void OnGameOver()
@@ -240,7 +249,7 @@ public class LevelManager : MonoBehaviour
         yield return LoadScenes(_currentEnvironment);
         yield return LoadScenes(_currentLevelScene);
 
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(targetLevelName));
+        //SceneManager.SetActiveScene(SceneManager.GetSceneByName(targetLevelName));
 
         if (preLoadDone != null)
             preLoadDone();
@@ -455,16 +464,13 @@ public class LevelManager : MonoBehaviour
 
     private void OnBackToMenuRequest(bool loadFromGame)
     {
-        if (loadFromGame)
-            StartCoroutine(LoadMenuSceneFromGame("DeskEnvironment_Menu", 0.3f, 1f));
-        else
-            StartCoroutine(LoadSingleScene("DeskEnvironment_Menu", 0.3f, 1f));
+        if (resetGame != null)
+            resetGame();
+
+         StartCoroutine(LoadStartScenes(false));
 
         _allSectorInfo.Clear();
         _previousSectorInfo = null;
-
-        if (resetGame != null)
-            resetGame();
     }
 }
 

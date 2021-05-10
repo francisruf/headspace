@@ -7,6 +7,7 @@ using TMPro;
 public class CutsceneController : MonoBehaviour
 {
     public static Action cutsceneLoaded;
+    public static Action cutsceneStarted;
     public static Action<string, SceneLoadType> cutsceneOver;
 
     [Header("Cutscene contents")]
@@ -64,6 +65,9 @@ public class CutsceneController : MonoBehaviour
     {
         _currentFrameRoutine = DisplayNextFrame();
         StartCoroutine(_currentFrameRoutine);
+
+        if (cutsceneStarted != null)
+            cutsceneStarted();
     }
 
     private void Update()

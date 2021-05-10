@@ -3126,7 +3126,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Anomaly manifestations have been reported in employee workspaces. '
+  m_text: 'Abnormal manifestations have been reported in employee workspaces. '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 65f5390c33509744787d60f7afdbb980, type: 2}
   m_sharedMaterial: {fileID: 5554252403587247314, guid: 65f5390c33509744787d60f7afdbb980,
@@ -7446,8 +7446,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: On your free time, use the provided Transdimensional-Cutters<sup>tm</sup>
-    to clear them and protect your passengers.
+  m_text: Use the provided Transdimensional-Cutters<sup>tm</sup> to clear the danger
+    and protect your passengers.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 65f5390c33509744787d60f7afdbb980, type: 2}
   m_sharedMaterial: {fileID: 5554252403587247314, guid: 65f5390c33509744787d60f7afdbb980,

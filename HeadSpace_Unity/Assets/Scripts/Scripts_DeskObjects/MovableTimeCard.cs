@@ -35,13 +35,13 @@ public class MovableTimeCard : MovableObject
 
     public override void Select(bool fireEvent = true)
     {
-        _rb.isKinematic = false;
+        //_rb.isKinematic = false;
         base.Select(fireEvent);
     }
 
     public override void Deselect(bool fireEvent = true)
     {
-        _rb.isKinematic = true;
+        //_rb.isKinematic = true;
         base.Deselect(fireEvent);
     }
 

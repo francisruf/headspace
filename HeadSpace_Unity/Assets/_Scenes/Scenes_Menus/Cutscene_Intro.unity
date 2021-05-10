@@ -160,9 +160,9 @@ MonoBehaviour:
   - frame: {fileID: 3261840738970259679, guid: d32063a5a24c6be449b0ae8dbba88427, type: 3}
     allLines:
     - 'You will thus join thousands of men and women of all known galaxies in doing
-      one of the most important job there is: Space Transport Dispatch.'
+      one of the most important job there is: Space Transport Dispatcher.'
     - You will be the lifeline between our space fleet and the many government officials
-      who are in need to get where they want to go.
+      who are in need of transport services.
   - frame: {fileID: 3549399559826818699, guid: d32063a5a24c6be449b0ae8dbba88427, type: 3}
     allLines:
     - As such, your job is simple. You will receive WORK ORDERS from our partners

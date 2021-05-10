@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sfxFadeSpeed: 0.2
-  musicFadeSpeed: 2
+  musicFadeSpeed: 1.5
   sounds:
   - name: Yes.
     clip: {fileID: 8300000, guid: 9503c640d002ccf4f836a104acd8a7c7, type: 3}
@@ -347,12 +347,12 @@ MonoBehaviour:
     source0: {fileID: 0}
     source1: {fileID: 0}
   - name: Shredder_Loop
-    clip: {fileID: 8300000, guid: fb477d4ec6d7efa4da4b57274349b618, type: 3}
+    clip: {fileID: 8300000, guid: 9f581979e2568284fbbb2a41a44f947a, type: 3}
     volume: 0.83
     pitch: 1
-    stereoPan: 0
+    stereoPan: -0.21
     loopVolume: 0
-    loop: 0
+    loop: 1
     activeSource: 0
     source0: {fileID: 0}
     source1: {fileID: 0}
@@ -676,10 +676,29 @@ MonoBehaviour:
     activeSource: 0
     source0: {fileID: 0}
     source1: {fileID: 0}
-  music:
-  - name: HS_Menu
-    clip: {fileID: 8300000, guid: 99cb0c877d73ed34d9f746c6c3234d45, type: 3}
-    volume: 0.75
+  - name: Coin_Received_One
+    clip: {fileID: 8300000, guid: 2ffe8a263bc7b254ba89ad7283fd9542, type: 3}
+    volume: 0.83
+    pitch: 1
+    stereoPan: 0.1
+    loopVolume: 0
+    loop: 0
+    activeSource: 0
+    source0: {fileID: 0}
+    source1: {fileID: 0}
+  - name: Coin_Received_Two
+    clip: {fileID: 8300000, guid: 5880ea8002b2b4e4eb3960548c159821, type: 3}
+    volume: 0.83
+    pitch: 1
+    stereoPan: 0.1
+    loopVolume: 0
+    loop: 0
+    activeSource: 0
+    source0: {fileID: 0}
+    source1: {fileID: 0}
+  - name: Alert_Anomalie
+    clip: {fileID: 8300000, guid: 50149e54573cf2a41b04a2c7f6b739f3, type: 3}
+    volume: 0.7
     pitch: 1
     stereoPan: 0
     loopVolume: 0
@@ -687,13 +706,144 @@ MonoBehaviour:
     activeSource: 0
     source0: {fileID: 0}
     source1: {fileID: 0}
+  - name: Scissor_One
+    clip: {fileID: 8300000, guid: 31fcaf87ddcba284ba19485354f80445, type: 3}
+    volume: 0.2
+    pitch: 1
+    stereoPan: 0
+    loopVolume: 0
+    loop: 0
+    activeSource: 0
+    source0: {fileID: 0}
+    source1: {fileID: 0}
+  - name: Scissor_Two
+    clip: {fileID: 8300000, guid: 5c4716419c911fe429132e6886b1fe34, type: 3}
+    volume: 0.2
+    pitch: 1
+    stereoPan: 0
+    loopVolume: 0
+    loop: 0
+    activeSource: 0
+    source0: {fileID: 0}
+    source1: {fileID: 0}
+  - name: Scissor_Three
+    clip: {fileID: 8300000, guid: e635abc580bd35d4bbf5adb4cf96f323, type: 3}
+    volume: 0.2
+    pitch: 1
+    stereoPan: 0
+    loopVolume: 0
+    loop: 0
+    activeSource: 0
+    source0: {fileID: 0}
+    source1: {fileID: 0}
+  - name: Anomalie_Spawn
+    clip: {fileID: 8300000, guid: d83c298414334ec49909fe871c3fe8d5, type: 3}
+    volume: 0.876
+    pitch: 1
+    stereoPan: 0
+    loopVolume: 0
+    loop: 0
+    activeSource: 0
+    source0: {fileID: 0}
+    source1: {fileID: 0}
+  - name: Timer_LastHour_One
+    clip: {fileID: 8300000, guid: 96f9f74d529e0e54f9e667fb503543d7, type: 3}
+    volume: 0.1
+    pitch: 1
+    stereoPan: 0
+    loopVolume: 0
+    loop: 0
+    activeSource: 0
+    source0: {fileID: 0}
+    source1: {fileID: 0}
+  - name: Timer_LastHour_Two
+    clip: {fileID: 8300000, guid: 44c3511f9c369d5409514b81f239e0ed, type: 3}
+    volume: 0.1
+    pitch: 1
+    stereoPan: 0
+    loopVolume: 0
+    loop: 0
+    activeSource: 0
+    source0: {fileID: 0}
+    source1: {fileID: 0}
+  - name: ConveyorBelt_Contract_Print
+    clip: {fileID: 8300000, guid: ad9b2aa660f74b641a06c83251c83bb3, type: 3}
+    volume: 0.6
+    pitch: 1
+    stereoPan: 0.35
+    loopVolume: 0
+    loop: 0
+    activeSource: 0
+    source0: {fileID: 0}
+    source1: {fileID: 0}
+  - name: Coin_Received_One2
+    clip: {fileID: 8300000, guid: 2ffe8a263bc7b254ba89ad7283fd9542, type: 3}
+    volume: 0.83
+    pitch: 1
+    stereoPan: 0.1
+    loopVolume: 0
+    loop: 0
+    activeSource: 0
+    source0: {fileID: 0}
+    source1: {fileID: 0}
+  - name: Coin_Received_Two2
+    clip: {fileID: 8300000, guid: 5880ea8002b2b4e4eb3960548c159821, type: 3}
+    volume: 0.83
+    pitch: 1
+    stereoPan: 0.1
+    loopVolume: 0
+    loop: 0
+    activeSource: 0
+    source0: {fileID: 0}
+    source1: {fileID: 0}
+  - name: Timer_LastHour_New
+    clip: {fileID: 8300000, guid: 6c5373d254a04ac47aa2b7472121f385, type: 3}
+    volume: 0.1
+    pitch: 1
+    stereoPan: 0.1
+    loopVolume: 0
+    loop: 0
+    activeSource: 0
+    source0: {fileID: 0}
+    source1: {fileID: 0}
+  music:
+  - name: HS_Menu
+    clip: {fileID: 8300000, guid: 99cb0c877d73ed34d9f746c6c3234d45, type: 3}
+    volume: 0.75
+    pitch: 1
+    stereoPan: 0
+    loopVolume: 0
+    loop: 1
+    activeSource: 0
+    source0: {fileID: 0}
+    source1: {fileID: 0}
   - name: HS_Bgd_Gameplay
-    clip: {fileID: 8300000, guid: b3a050c9bdf79404382d92fe33c93d56, type: 3}
+    clip: {fileID: 8300000, guid: b027e409b1bf30646894eac0372c386b, type: 3}
     volume: 0.7
     pitch: 0.75
     stereoPan: 0
     loopVolume: 0
-    loop: 0
+    loop: 1
+    activeSource: 0
+    source0: {fileID: 0}
+    source1: {fileID: 0}
+  - name: HS_Music_Gameplay
+    clip: {fileID: 8300000, guid: f0783bda9c52c59408c61aa162714c7d, type: 3}
+    volume: 0.05
+    pitch: 1
+    stereoPan: 0
+    loopVolume: 0
+    loop: 1
+    activeSource: 0
+    source0: {fileID: 0}
+    source1: {fileID: 0}
+  - name: HS_STM_Theme
+    clip: {fileID: 8300000, guid: 70b8aca77c68b18439e9eaa17bfdb070, type: 3}
+    volume: 0.25
+    pitch: 1
+    stereoPan: 0
+    loopVolume: 0
+    loop: 1
     activeSource: 0
     source0: {fileID: 0}
     source1: {fileID: 0}

@@ -10,6 +10,7 @@ public class DropZone_CardReader : DropZone
     public Transform cardLocation;
     public float animSpeed;
     private Animator _cardReaderAnimator;
+    private bool _cardInCollider;
 
     private bool _processed;
     private IEnumerator _currentCardRoutine;
@@ -20,21 +21,30 @@ public class DropZone_CardReader : DropZone
         _cardReaderAnimator = GetComponentInParent<Animator>();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("COLLISION NORMAL : " + collision.GetContact(0).normal);
-        if (collision.GetContact(0).normal.y < -0.5f)
+        if (_cardInCollider)
+            return;
+
+        MovableTimeCard card = collider.GetComponent<MovableTimeCard>();
+        if (card != null)
         {
-            MovableTimeCard card = collision.collider.GetComponent<MovableTimeCard>();
-            if (card != null)
+            card.Deselect(false);
+            if (!_processed)
             {
-                card.Deselect(false);
-                if (!_processed)
-                {
-                    _currentCardRoutine = MoveAndProcessCard(card);
-                    StartCoroutine(_currentCardRoutine);
-                }
+                _currentCardRoutine = MoveAndProcessCard(card);
+                StartCoroutine(_currentCardRoutine);
             }
+            _cardInCollider = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collider)
+    {
+        MovableTimeCard card = collider.GetComponent<MovableTimeCard>();
+        if (card != null)
+        {
+            _cardInCollider = false;
         }
     }
 
@@ -63,7 +73,7 @@ public class DropZone_CardReader : DropZone
     {
         obj.transform.parent = null;
         _cardReaderAnimator.SetBool("CardIn", false);
-        _collider.enabled = true;
+        //_collider.enabled = true;
 
         if (_currentCardRoutine != null)
         {
@@ -84,7 +94,7 @@ public class DropZone_CardReader : DropZone
         float minX = colBounds.min.x + (objBounds.size.x / 2f) - centerOffset.x;
         float maxX = colBounds.max.x - (objBounds.size.x / 2f) - centerOffset.x;
 
-        _collider.enabled = false;
+        //_collider.enabled = false;
 
         Vector2 newPos = obj.transform.position;
         //newPos.x = Mathf.Clamp(newPos.x, minX, maxX);
@@ -117,7 +127,7 @@ public class DropZone_CardReader : DropZone
         _processed = true;
         obj.DisableInteractions();
 
-        Debug.Log("Card process");
+
 
         if (cardProcessed != null)
             cardProcessed();

@@ -339,8 +339,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseScenes:
-  - AudioManager
   - Utilities
+  - AudioManager
   mainMenuScenes:
   - MainMenu
   mainMenuDeskScenes:

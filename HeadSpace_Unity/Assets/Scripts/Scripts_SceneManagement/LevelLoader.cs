@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class LevelLoader : MonoBehaviour
 {
     public static Action<int> levelLoaded;
+    public static Action<Scene> activeSceneRequest;
 
     private PlayerInventory _inventory;
     private LevelSettings _levelSettings;
@@ -36,6 +37,9 @@ public class LevelLoader : MonoBehaviour
 
     private void OnLoadingComplete()
     {
+        if (activeSceneRequest != null)
+            activeSceneRequest(gameObject.scene);
+
         LevelEndCondition condition = LevelEndCondition.Time;
         if (_levelSettings != null)
             condition = _levelSettings.levelEndCondition;

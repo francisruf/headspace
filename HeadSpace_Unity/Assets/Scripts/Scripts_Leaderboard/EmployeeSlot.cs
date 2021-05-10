@@ -25,7 +25,7 @@ public class EmployeeSlot : MonoBehaviour
         switch (time)
         {
             case LevelTime.DayStart:
-                Debug.Log("HI");
+
                 morningTotalScoreText.enabled = true;
                 nightTotalScoreText.enabled = false;
                 lastSectorScoreText.enabled = false;

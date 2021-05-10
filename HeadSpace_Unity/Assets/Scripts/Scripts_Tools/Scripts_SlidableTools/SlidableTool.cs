@@ -68,6 +68,7 @@ public class SlidableTool : InteractableObject
         }
         fullyOpenPos = transform.position;
         fullyClosedPos = transform.position;
+        IsFullyClosed = true;
         AssignStartingValues();
         CheckOpenState();
         transform.position = fullyClosedPos;
