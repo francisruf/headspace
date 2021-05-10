@@ -24,62 +24,68 @@ MonoBehaviour:
     specialEndCondition: 1
     storedDistanceRating: 0
   - spawnTime: 30
-    startDistanceRating: 2
-    travelDistanceRating: 2
-    specialStartCondition: 0
-    specialEndCondition: 1
-    storedDistanceRating: 0
-  - spawnTime: 120
     startDistanceRating: 3
-    travelDistanceRating: 3
+    travelDistanceRating: 2
     specialStartCondition: 0
     specialEndCondition: 1
-    storedDistanceRating: 0
-  - spawnTime: 100
-    startDistanceRating: 1
-    travelDistanceRating: 2
-    specialStartCondition: 0
-    specialEndCondition: 0
-    storedDistanceRating: 0
-  - spawnTime: 100
-    startDistanceRating: 3
-    travelDistanceRating: 1
-    specialStartCondition: 1
-    specialEndCondition: 1
-    storedDistanceRating: 0
-  - spawnTime: 90
-    startDistanceRating: 1
-    travelDistanceRating: 3
-    specialStartCondition: 0
-    specialEndCondition: 0
-    storedDistanceRating: 0
-  - spawnTime: 80
-    startDistanceRating: 1
-    travelDistanceRating: 1
-    specialStartCondition: 0
-    specialEndCondition: 1
-    storedDistanceRating: 0
-  - spawnTime: 80
-    startDistanceRating: 2
-    travelDistanceRating: 2
-    specialStartCondition: 1
-    specialEndCondition: 0
-    storedDistanceRating: 0
-  - spawnTime: 70
-    startDistanceRating: 2
-    travelDistanceRating: 2
-    specialStartCondition: 1
-    specialEndCondition: 0
-    storedDistanceRating: 0
-  - spawnTime: 70
-    startDistanceRating: 2
-    travelDistanceRating: 2
-    specialStartCondition: 1
-    specialEndCondition: 0
     storedDistanceRating: 0
   - spawnTime: 60
+    startDistanceRating: 3
+    travelDistanceRating: 3
+    specialStartCondition: 0
+    specialEndCondition: 0
+    storedDistanceRating: 0
+  - spawnTime: 80
+    startDistanceRating: 1
+    travelDistanceRating: 2
+    specialStartCondition: 0
+    specialEndCondition: 0
+    storedDistanceRating: 0
+  - spawnTime: 75
+    startDistanceRating: 3
+    travelDistanceRating: 2
+    specialStartCondition: 0
+    specialEndCondition: 0
+    storedDistanceRating: 0
+  - spawnTime: 75
+    startDistanceRating: 1
+    travelDistanceRating: 3
+    specialStartCondition: 0
+    specialEndCondition: 0
+    storedDistanceRating: 0
+  - spawnTime: 65
+    startDistanceRating: 2
+    travelDistanceRating: 1
+    specialStartCondition: 0
+    specialEndCondition: 1
+    storedDistanceRating: 0
+  - spawnTime: 65
     startDistanceRating: 2
     travelDistanceRating: 2
+    specialStartCondition: 0
+    specialEndCondition: 0
+    storedDistanceRating: 0
+  - spawnTime: 55
+    startDistanceRating: 1
+    travelDistanceRating: 2
+    specialStartCondition: 0
+    specialEndCondition: 0
+    storedDistanceRating: 0
+  - spawnTime: 55
+    startDistanceRating: 2
+    travelDistanceRating: 3
+    specialStartCondition: 0
+    specialEndCondition: 0
+    storedDistanceRating: 0
+  - spawnTime: 80
+    startDistanceRating: 1
+    travelDistanceRating: 2
+    specialStartCondition: 0
+    specialEndCondition: 1
+    storedDistanceRating: 0
+  - spawnTime: 35
+    startDistanceRating: 1
+    travelDistanceRating: 1
     specialStartCondition: 1
     specialEndCondition: 0
     storedDistanceRating: 0
