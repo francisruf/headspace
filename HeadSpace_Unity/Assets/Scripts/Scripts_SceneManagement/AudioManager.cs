@@ -218,10 +218,10 @@ public class AudioManager : MonoBehaviour
     //Update function only to test feature. Remove when necessary.
     private void Update()
    {
-       // if (Input.GetKeyDown(KeyCode.S))
-        //{
-        //   PlaySound("Contract_Spark_One");
-       // }
+       //if (Input.GetKeyDown(KeyCode.S))
+       // {
+        //   PlaySound("Timer_LastHour_New");
+      // }
 
         //    if (Input.GetKeyDown(KeyCode.D))
         //    {
