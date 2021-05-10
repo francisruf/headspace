@@ -1280,21 +1280,25 @@ public class AudioManager : MonoBehaviour
         if (_endDay)
             return;
 
-        Sound s = FindSound("Timer_LastHour_One");
+        Sound s = FindSound("Timer_LastHour_New");
         s.volume += 0.008333f;
-        Sound s2 = FindSound("Timer_LastHour_Two");
-        s2.volume += 0.08333f;
 
-        if (_oddClockTick)
-        {
-            PlaySound("Timer_LastHour_Two");
-            _oddClockTick = false;
-        }
-        else
-        {
-            PlaySound("Timer_LastHour_One");
-            _oddClockTick = true;
-        }
+        PlaySound("Timer_LastHour_New");
+
+
+        //Sound s2 = FindSound("Timer_LastHour_Two");
+        //s2.volume += 0.08333f;
+
+        //if (_oddClockTick)
+        //{
+        //    PlaySound("Timer_LastHour_Two");
+        //    _oddClockTick = false;
+        //}
+        //else
+        //{
+        //    PlaySound("Timer_LastHour_One");
+        //    _oddClockTick = true;
+        //}
     }
 
     #endregion
