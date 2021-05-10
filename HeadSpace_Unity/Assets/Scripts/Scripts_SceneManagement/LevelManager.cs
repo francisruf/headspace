@@ -179,7 +179,7 @@ public class LevelManager : MonoBehaviour
 
     private void OnDayStart()
     {
-        Debug.Log("On day start!");
+        //Debug.Log("On day start!");
         int currentDay = GameManager.instance.CurrentDayInfo.day;
 
         switch (currentDay)
@@ -197,7 +197,7 @@ public class LevelManager : MonoBehaviour
 
     private void OnDayFinish()
     {
-        Debug.Log("On day finish!");
+        //Debug.Log("On day finish!");
         if (GameManager.instance.CurrentDayInfo.day == 0)
             StartCoroutine(LoadSingleScene("DayMenu", 0f, 1f));
         else
@@ -359,7 +359,7 @@ public class LevelManager : MonoBehaviour
         {
             // LoadScene retourne une AsyncOperation
             AsyncOperation op = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
-            Debug.Log("Loading : " + scene);
+            //Debug.Log("Loading : " + scene);
 
             // N'active pas la scene avant qu'elle load
             op.allowSceneActivation = false;

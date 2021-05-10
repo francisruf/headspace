@@ -133,7 +133,6 @@ public class ShredderSlot : MonoBehaviour
         if (shredderStopped != null)
             shredderStopped();
 
-        Debug.Log("STOP");
         _currentStopDelay = null;
     }
 

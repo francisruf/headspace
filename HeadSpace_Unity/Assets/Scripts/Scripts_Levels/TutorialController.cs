@@ -124,7 +124,6 @@ public class TutorialController : MonoBehaviour
         yield return new WaitForSeconds(2f);
         MovableCommand_Keyword cmd = Instantiate(endTrainingPrefab, endTrainingSpawnPos.position, Quaternion.identity).GetComponent<MovableCommand_Keyword>();
         yield return AnimateNewObject(cmd, endTrainingSpawnPos.position, endTrainingFinalPos.position, true);
-        Debug.Log("YO");
     }
 
     private void OnSpecialMessageTear(string messageName)
@@ -220,13 +219,14 @@ public class TutorialController : MonoBehaviour
             {
                 _step_journalTear = true;
                 StartCoroutine(AnimateNewObject(_logbook, logbookSpawnPos.position, logbookFinalPos.position, false));
+                ObjectsManager.instance.ForceTopRenderingOrder(_logbook);
             }
         }
 
         if (messageName == "MSG_EndTraining0")
         {
             if (ContractManager.instance != null)
-                ContractManager.instance.ChangeContractConditions(ContractSpawnCondition.Timed, true);
+                ContractManager.instance.ChangeContractConditions(ContractSpawnCondition.Timed, false);
         }
 
         if (messageName == "MSG_Markers")

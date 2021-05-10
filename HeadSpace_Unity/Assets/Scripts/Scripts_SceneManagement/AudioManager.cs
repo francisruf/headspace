@@ -466,7 +466,6 @@ public class AudioManager : MonoBehaviour
                         source1.volume = Mathf.Clamp(source1.volume - (Time.deltaTime * fadeSpeed), 0f, targetVolume);
                         yield return new WaitForEndOfFrame();
                     }
-                    Debug.Log("6");
                     source0.volume = targetVolume;
                     source1.volume = 0f;
                 }
@@ -701,10 +700,8 @@ public class AudioManager : MonoBehaviour
         {
             if (activeSource == 0)
             {
-                Debug.Log("1");
                 if (clipLength - source0.time < fadeSpeed)
                 {
-                    Debug.Log("2");
                     activeSource = 1;
                     source1.volume = 0f;
                     source1.Play();
@@ -721,17 +718,14 @@ public class AudioManager : MonoBehaviour
                         time += Time.deltaTime;
                         yield return new WaitForEndOfFrame();
                     }
-                    Debug.Log("3");
                     source1.volume = targetVolume;
                     source0.volume = 0f;
                 }
             }
             else if (activeSource == 1)
             {
-                Debug.Log("4");
                 if (clipLength - source1.time < fadeSpeed)
                 {
-                    Debug.Log("5");
                     activeSource = 0;
                     source0.volume = 0f;
                     source0.Play();
@@ -748,7 +742,6 @@ public class AudioManager : MonoBehaviour
                         time += Time.deltaTime;
                         yield return new WaitForEndOfFrame();
                     }
-                    Debug.Log("6");
                     source0.volume = targetVolume;
                     source1.volume = 0f;
                 }
@@ -769,14 +762,11 @@ public class AudioManager : MonoBehaviour
 
         if (targetInfo.loopingRoutine != null)
         {
-            Debug.Log("ASDKJAS");
             StopCoroutine(targetInfo.loopingRoutine);
             targetInfo.playing = false;
             targetInfo.loopingRoutine = StopSFXLoop(name, targetInfo, fadeOut);
             StartCoroutine(targetInfo.loopingRoutine);
         }
-        else
-            Debug.Log("FAIL");
     }
 
 

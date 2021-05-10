@@ -60,8 +60,6 @@ public class LightingController : MonoBehaviour
         if (anomalyFocusLight == null)
             return;
 
-        Debug.Log("YO");
-
         if (_currentDisabledRoutine == null)
         {
             _currentDisabledRoutine = ShipDisableRoutine(ship);
@@ -122,7 +120,6 @@ public class LightingController : MonoBehaviour
 
     private IEnumerator DimLights(float targetRatio, float dimTime)
     {
-        Debug.Log("START");
         float time = 0f;
         float timeStep = 1f / 60f;
         int lightCount = _allLights.Count;

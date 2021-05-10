@@ -48,10 +48,10 @@ public class DaySceneController : MonoBehaviour
 
     private IEnumerator SceneTimer()
     {
-        Debug.Log("Scene start");
+        //Debug.Log("Scene start");
         yield return new WaitForSeconds(sceneTimer);
 
-        Debug.Log("Scene end");
+        //Debug.Log("Scene end");
         if (daySceneOver != null)
             daySceneOver();
     }

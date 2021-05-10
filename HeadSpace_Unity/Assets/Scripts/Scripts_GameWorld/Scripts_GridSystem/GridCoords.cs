@@ -324,7 +324,6 @@ public class GridCoords : MonoBehaviour
         tileCoordinates = new TileCoordinates(0, 0);
         if (lenght < 2)
         {
-            Debug.Log("INVALID TILE NAME");
             return false;
         }
 
@@ -387,19 +386,19 @@ public class GridCoords : MonoBehaviour
     {
         if (_currentGridInfo == null)
         {
-            Debug.Log("GridCoords error : No current grid could be found");
+            //Debug.Log("GridCoords error : No current grid could be found");
             return Vector2.zero;
         }
 
         if (tilePosition.tileX >= _currentGridInfo.gameGridSize.x || tilePosition.tileX < 0)
         {
-            Debug.Log("GridCoords error : TileCoords outside of range");
+            //Debug.Log("GridCoords error : TileCoords outside of range");
             return Vector2.zero;
         }
 
         if (tilePosition.tileY >= _currentGridInfo.gameGridSize.y || tilePosition.tileY < 0)
         {
-            Debug.Log("GridCoords error : TileCoords outside of range");
+            //Debug.Log("GridCoords error : TileCoords outside of range");
             return Vector2.zero;
         }
 
@@ -416,7 +415,7 @@ public class GridCoords : MonoBehaviour
     {
         if (_currentGridInfo == null)
         {
-            Debug.Log("GridCoords error : No current grid could be found");
+            //Debug.Log("GridCoords error : No current grid could be found");
             return new TileCoordinates(0,0);
         }
 

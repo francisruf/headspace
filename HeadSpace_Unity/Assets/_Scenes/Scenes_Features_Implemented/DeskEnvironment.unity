@@ -558,11 +558,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Outbox
       objectReference: {fileID: 0}
-    - target: {fileID: 3109835221133976821, guid: 918550841980eda46878f2c70edefbe3,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 918550841980eda46878f2c70edefbe3, type: 3}
 --- !u!1001 &919231020
@@ -1955,12 +1950,12 @@ PrefabInstance:
     - target: {fileID: 8594481426907723686, guid: d9d4bba1791a4d8408cb8951ea95917c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.06
+      value: -2.4
       objectReference: {fileID: 0}
     - target: {fileID: 8594481426907723686, guid: d9d4bba1791a4d8408cb8951ea95917c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.06
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8594481426907723686, guid: d9d4bba1791a4d8408cb8951ea95917c,
         type: 3}

@@ -71,7 +71,7 @@ public class LeaderboardController : MonoBehaviour
         debugLights.SetActive(false);
         dayLights.SetActive(false);
         nightLights.SetActive(true);
-        Debug.Log("TOTAL CREDITS : " + RessourceManager.instance.TotalCredits + " (+" + GameManager.instance.LastSectorInfo.CreditsGained);
+        //Debug.Log("TOTAL CREDITS : " + RessourceManager.instance.TotalCredits + " (+" + GameManager.instance.LastSectorInfo.CreditsGained);
     }
 
     private void AssignLeaderboard()

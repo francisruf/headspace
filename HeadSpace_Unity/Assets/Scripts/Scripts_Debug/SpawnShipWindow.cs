@@ -20,13 +20,11 @@ public class SpawnShipWindow : MonoBehaviour
 
         if (shipName.Length <= 0)
         {
-            Debug.Log("INVALID SHIP NAME");
             this.gameObject.SetActive(false);
             return;
         }
         else if (shipCallsign.Length != 3)
         {
-            Debug.Log("INVALID CALLSIGN");
             this.gameObject.SetActive(false);
             return;
         }

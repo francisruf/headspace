@@ -143,7 +143,7 @@ public class GridManager : MonoBehaviour
         _currentSpreadingRoutine = AnomalySpreadingTimer();
         StartCoroutine(_currentSpreadingRoutine);
 
-        Debug.Log("New grid generated");
+        //Debug.Log("New grid generated");
     }
 
     // Fonction qui détruit l'ancienne grille, si elle existe
@@ -466,7 +466,7 @@ public class GridManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("ERROR : No candidate tiles found for DeployTile");
+            //Debug.Log("ERROR : No candidate tiles found for DeployTile");
         }
     }
 
@@ -512,7 +512,7 @@ public class GridManager : MonoBehaviour
             else
             {
                 foundPosition = true;
-                Debug.Log("NO MORE POSSIBLE TILES TO SPAWN ANOMALY");
+                //Debug.Log("NO MORE POSSIBLE TILES TO SPAWN ANOMALY");
                 return;
             }
 

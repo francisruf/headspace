@@ -356,6 +356,11 @@ PrefabInstance:
       propertyPath: commandName
       value: QuitGame
       objectReference: {fileID: 0}
+    - target: {fileID: 6253526718171900308, guid: d60a623f469b63142b1e82fc9111c103,
+        type: 3}
+      propertyPath: openOutboxOnSelect
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d60a623f469b63142b1e82fc9111c103, type: 3}
 --- !u!1001 &343874489
@@ -744,6 +749,11 @@ PrefabInstance:
         type: 3}
       propertyPath: commandName
       value: NewGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 6253526718171900308, guid: d60a623f469b63142b1e82fc9111c103,
+        type: 3}
+      propertyPath: openOutboxOnSelect
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d60a623f469b63142b1e82fc9111c103, type: 3}

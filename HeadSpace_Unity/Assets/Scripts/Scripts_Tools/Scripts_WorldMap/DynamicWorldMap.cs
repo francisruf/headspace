@@ -60,8 +60,6 @@ public class DynamicWorldMap : MonoBehaviour
         size.x = _currentGridInfo.tileWidth * _currentGridInfo.gameGridSize.x;
         size.y = _currentGridInfo.tileWidth * _currentGridInfo.gameGridSize.y;
         _spriteRenderer.size = size + (margins * 2f);
-        Debug.Log("WORLD BOUNDS : " + _currentGridInfo.gameGridWorldBounds);
-        Debug.Log("WORLD BOUNDS SIZE : " + _currentGridInfo.gameGridWorldBounds.size);
         Vector2 pos = Vector2.zero;
         pos.x += 0.03125f;
         pos.y -= 0.03125f;

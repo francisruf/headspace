@@ -31,10 +31,7 @@ public class Command_Route : Command
         {
             validShip = ShipManager.instance.FindShipByCallsign(shipName, out targetShip);
         }
-        else
-        {
-            Debug.Log("Error : Could not find ShipManager.");
-        }
+
 
         foreach (var pos in route)
         {

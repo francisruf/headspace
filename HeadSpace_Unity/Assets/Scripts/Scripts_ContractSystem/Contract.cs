@@ -403,7 +403,6 @@ public abstract class Contract : MonoBehaviour
     {
         float width = 0.14f - ((float)_currentTime / _completionTime * 0.14f);
         float roundedWidth = (Mathf.CeilToInt(width * 100)) / 100f;
-        Debug.Log("Rounded witdth " + roundedWidth);
         
         Vector2 size = timeSlider.size;
         size.x = roundedWidth;

@@ -79,6 +79,5 @@ public class Shredder : StaticTool
     public override void DisableObject()
     {
         base.DisableObject();
-        Debug.Log("AS:DLK");
     }
 }

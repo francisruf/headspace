@@ -31,10 +31,7 @@ public class Command_Send : Command
         {
             validShip = ShipManager.instance.FindShipByCallsign(shipName, out targetShip);
         }
-        else
-        {
-            Debug.Log("Error : Could not find ShipManager.");
-        }
+
 
         // Validation 2 : Vérifier si les coordonnées sont valides, si oui les assigner à parsedCoords
         Vector2 parsedCoords;
@@ -49,7 +46,6 @@ public class Command_Send : Command
             }
             else
             {
-                Debug.Log("Warning : No DeployManager could be found");
                 coordsInDeployPoint = false;
             }
         }

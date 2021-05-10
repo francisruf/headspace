@@ -265,7 +265,6 @@ public class DebugManager : MonoBehaviour
 
     private void StopGameTimer()
     {
-        Debug.Log("TIMER STOP");
         _gameTimerStarted = false;
     }
 

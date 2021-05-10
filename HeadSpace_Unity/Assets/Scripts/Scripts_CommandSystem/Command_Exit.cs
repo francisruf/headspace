@@ -28,10 +28,7 @@ public class Command_Exit : Command
         {
             validShip = ShipManager.instance.FindShipByCallsign(shipName, out targetShip);
         }
-        else
-        {
-            Debug.Log("Error : Could not find ShipManager.");
-        }
+
 
         // Validation 2 : Vérifier avec deploymanager si les coordonnées du vaisseaux sont dans un point de déploiement.
         if (targetShip != null)
@@ -44,7 +41,6 @@ public class Command_Exit : Command
             }
             else
             {
-                Debug.Log("Warning : No DeployManager could be found");
                 coordsInDeployPoint = false;
             }
         }
@@ -75,7 +71,6 @@ public class Command_Exit : Command
 
     protected override void ExecuteCommand(Ship targetShip)
     {
-        Debug.Log("LEAVE CALLED");
         targetShip.Leave();
     }
 }

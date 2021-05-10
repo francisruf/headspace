@@ -21,7 +21,6 @@ public abstract class ButtonController : MonoBehaviour
         set
         {
             _temp = value;
-            Debug.Log("SETTING : " + value);
         }
     }
 
@@ -106,9 +105,6 @@ public abstract class ButtonController : MonoBehaviour
         {
             _buttonTextMesh.text = BaseButtonText;
         }
-
-        if (BaseButtonText == "S01")
-            Debug.Log("CLEAR");
 
         _highlightedCharCount = 0;
         _highlightedText = BaseButtonText;

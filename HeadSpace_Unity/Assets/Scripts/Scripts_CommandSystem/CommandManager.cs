@@ -40,7 +40,6 @@ public class CommandManager : MonoBehaviour
 
             if (foundCommand == null)
             {
-                Debug.Log("COMMAND MANAGER - Invalid command name : " + command.CommandName);
                 commandIsValid = false;
             }
 
@@ -74,7 +73,6 @@ public class CommandManager : MonoBehaviour
 
             if (foundCommand == null)
             {
-                Debug.Log("COMMAND MANAGER - Invalid command name : " + cmd.CommandName);
                 commandIsValid = false;
             }
 
@@ -103,7 +101,6 @@ public class CommandManager : MonoBehaviour
 
         if (foundCommand == null)
         {
-            Debug.Log("COMMAND MANAGER - Invalid command name : " + commandName);
             return;
         }
 
@@ -111,13 +108,7 @@ public class CommandManager : MonoBehaviour
         {
             string errorMessage = "";
             bool commandIsValid = foundCommand.TryExecution(shipName, coordinates, productCode, out errorMessage);
-
-            if (!commandIsValid)
-            {
-                Debug.Log("COMMAND MANAGER - " + errorMessage);
-            }
         }
-        Debug.Log("3");
     }
 
     private Command FindCommand(string candidateKeyword)

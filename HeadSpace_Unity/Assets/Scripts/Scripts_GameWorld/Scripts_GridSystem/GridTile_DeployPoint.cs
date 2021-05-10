@@ -16,6 +16,5 @@ public class GridTile_DeployPoint : GridTile
     protected override void Awake()
     {
         base.Awake();
-        Debug.Log("DEPLOY POINT TYPE : " + tileType);
     }
 }

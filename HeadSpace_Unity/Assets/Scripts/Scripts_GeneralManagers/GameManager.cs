@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
         if (levelStarted != null)
             levelStarted();
 
-        Debug.Log("GAME STARTED");
+        //Debug.Log("GAME STARTED");
     }
 
     private void EndLevel()

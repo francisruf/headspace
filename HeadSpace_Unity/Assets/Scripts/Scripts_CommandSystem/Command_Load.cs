@@ -35,10 +35,6 @@ public class Command_Load : Command
         {
             validShip = ShipManager.instance.FindShipByCallsign(shipName, out targetShip);
         }
-        else
-        {
-            Debug.Log("Error : Could not find ShipManager.");
-        }
 
         //TODO: Confirmation finale 1 : Le vaisseau est valide?
         if (!validShip)

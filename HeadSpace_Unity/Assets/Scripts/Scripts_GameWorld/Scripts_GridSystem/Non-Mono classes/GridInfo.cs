@@ -176,7 +176,6 @@ public class GridQuadrants
 
             // Default case (ne sera pas utilisé)
             default:
-                Debug.Log("DEFAULT");
                 negativeQuadrant = BottomLeft;
                 break;
         }

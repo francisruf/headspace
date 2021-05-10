@@ -36,10 +36,6 @@ public class Command_Move : Command
         {
             validShip = ShipManager.instance.FindShipByCallsign(shipName, out targetShip);
         }
-        else
-        {
-            Debug.Log("Error : Could not find ShipManager.");
-        }
 
         //Validation 2 : Vérifier si les coordonnées sont valides, si oui les assigner à parsedCoords
         Vector2 parsedCoords;

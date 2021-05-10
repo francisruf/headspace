@@ -81,7 +81,6 @@ public class AnomalySegment
                     }
                     else
                     {
-                        Debug.Log("ENDEUH GAMEUH");
                         return;
                         // END GAME
                     }

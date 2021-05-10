@@ -15,7 +15,7 @@ MonoBehaviour:
   contractSpawnConditions: 1
   timedContracts: 0
   defaultContractSpawnInterval: 50
-  completionTimeInSeconds: 180
+  completionTimeInSeconds: 210
   allClientRules:
   - spawnTime: 1
     startDistanceRating: 0
@@ -29,39 +29,63 @@ MonoBehaviour:
     specialStartCondition: 1
     specialEndCondition: 0
     storedDistanceRating: 0
-  - spawnTime: 15
+  - spawnTime: 70
     startDistanceRating: 2
     travelDistanceRating: 2
     specialStartCondition: 0
     specialEndCondition: 1
     storedDistanceRating: 0
-  - spawnTime: 60
-    startDistanceRating: 1
+  - spawnTime: 120
+    startDistanceRating: 2
     travelDistanceRating: 2
     specialStartCondition: 0
     specialEndCondition: 0
     storedDistanceRating: 0
-  - spawnTime: 45
+  - spawnTime: 120
     startDistanceRating: 2
     travelDistanceRating: 1
     specialStartCondition: 0
     specialEndCondition: 0
     storedDistanceRating: 0
-  - spawnTime: 60
+  - spawnTime: 120
     startDistanceRating: 1
     travelDistanceRating: 3
     specialStartCondition: 1
     specialEndCondition: 1
     storedDistanceRating: 0
-  - spawnTime: 60
+  - spawnTime: 110
     startDistanceRating: 2
     travelDistanceRating: 3
     specialStartCondition: 0
     specialEndCondition: 1
     storedDistanceRating: 0
-  - spawnTime: 30
-    startDistanceRating: 1
+  - spawnTime: 110
+    startDistanceRating: 3
     travelDistanceRating: 1
     specialStartCondition: 0
     specialEndCondition: 0
+    storedDistanceRating: 0
+  - spawnTime: 100
+    startDistanceRating: 2
+    travelDistanceRating: 2
+    specialStartCondition: 1
+    specialEndCondition: 0
+    storedDistanceRating: 0
+  - spawnTime: 100
+    startDistanceRating: 2
+    travelDistanceRating: 3
+    specialStartCondition: 0
+    specialEndCondition: 1
+    storedDistanceRating: 0
+  - spawnTime: 100
+    startDistanceRating: 1
+    travelDistanceRating: 2
+    specialStartCondition: 1
+    specialEndCondition: 0
+    storedDistanceRating: 0
+  - spawnTime: 100
+    startDistanceRating: 2
+    travelDistanceRating: 1
+    specialStartCondition: 1
+    specialEndCondition: 1
     storedDistanceRating: 0
