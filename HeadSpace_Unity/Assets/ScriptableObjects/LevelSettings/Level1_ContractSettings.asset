@@ -35,7 +35,7 @@ MonoBehaviour:
     specialStartCondition: 0
     specialEndCondition: 0
     storedDistanceRating: 0
-  - spawnTime: 80
+  - spawnTime: 75
     startDistanceRating: 1
     travelDistanceRating: 2
     specialStartCondition: 0
@@ -43,14 +43,14 @@ MonoBehaviour:
     storedDistanceRating: 0
   - spawnTime: 75
     startDistanceRating: 2
-    travelDistanceRating: 2
+    travelDistanceRating: 1
     specialStartCondition: 0
     specialEndCondition: 0
     storedDistanceRating: 0
-  - spawnTime: 75
-    startDistanceRating: 1
+  - spawnTime: 70
+    startDistanceRating: 2
     travelDistanceRating: 3
-    specialStartCondition: 1
+    specialStartCondition: 0
     specialEndCondition: 0
     storedDistanceRating: 0
   - spawnTime: 65
@@ -65,33 +65,33 @@ MonoBehaviour:
     specialStartCondition: 0
     specialEndCondition: 0
     storedDistanceRating: 0
-  - spawnTime: 55
+  - spawnTime: 40
     startDistanceRating: 1
     travelDistanceRating: 2
-    specialStartCondition: 1
+    specialStartCondition: 0
+    specialEndCondition: 0
+    storedDistanceRating: 0
+  - spawnTime: 20
+    startDistanceRating: 1
+    travelDistanceRating: 1
+    specialStartCondition: 0
+    specialEndCondition: 0
+    storedDistanceRating: 0
+  - spawnTime: 30
+    startDistanceRating: 1
+    travelDistanceRating: 1
+    specialStartCondition: 0
     specialEndCondition: 1
     storedDistanceRating: 0
-  - spawnTime: 45
-    startDistanceRating: 2
-    travelDistanceRating: 3
-    specialStartCondition: 0
-    specialEndCondition: 0
-    storedDistanceRating: 0
-  - spawnTime: 80
-    startDistanceRating: 1
-    travelDistanceRating: 2
-    specialStartCondition: 0
-    specialEndCondition: 0
-    storedDistanceRating: 0
-  - spawnTime: 35
+  - spawnTime: 30
     startDistanceRating: 1
     travelDistanceRating: 1
     specialStartCondition: 1
     specialEndCondition: 0
     storedDistanceRating: 0
-  - spawnTime: 60
-    startDistanceRating: 2
-    travelDistanceRating: 2
+  - spawnTime: 30
+    startDistanceRating: 1
+    travelDistanceRating: 1
     specialStartCondition: 1
     specialEndCondition: 0
     storedDistanceRating: 0
