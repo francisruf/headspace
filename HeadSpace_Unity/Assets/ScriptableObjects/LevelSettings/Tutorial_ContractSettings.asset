@@ -29,7 +29,7 @@ MonoBehaviour:
     specialStartCondition: 1
     specialEndCondition: 0
     storedDistanceRating: 0
-  - spawnTime: 60
+  - spawnTime: 50
     startDistanceRating: 2
     travelDistanceRating: 2
     specialStartCondition: 0
@@ -53,7 +53,7 @@ MonoBehaviour:
     specialStartCondition: 1
     specialEndCondition: 1
     storedDistanceRating: 0
-  - spawnTime: 50
+  - spawnTime: 40
     startDistanceRating: 2
     travelDistanceRating: 3
     specialStartCondition: 0

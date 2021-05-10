@@ -72,10 +72,13 @@ public class MovableContract : MovableObject
 
     private void ContractExitBelt(bool checkForContracts)
     {
+        _contractInfo.OnContractBeltExit();
+
+        if (contractExitBelt != null)
+            contractExitBelt(this);
+
         if (!checkForContracts)
             return;
-
-        _contractInfo.OnContractBeltExit();
         bool placed = false;
         int count = 0;
 
@@ -105,12 +108,7 @@ public class MovableContract : MovableObject
 
                 break;
             }
-
         }
-
-
-        if (contractExitBelt != null)
-            contractExitBelt(this);
     }
 
     protected override bool CheckForDropZone(out DropZone dropZone)

@@ -19,12 +19,12 @@ MonoBehaviour:
   allClientRules:
   - spawnTime: 1
     startDistanceRating: 1
-    travelDistanceRating: 1
+    travelDistanceRating: 3
     specialStartCondition: 1
-    specialEndCondition: 1
+    specialEndCondition: 0
     storedDistanceRating: 0
   - spawnTime: 30
-    startDistanceRating: 3
+    startDistanceRating: 2
     travelDistanceRating: 2
     specialStartCondition: 0
     specialEndCondition: 1
@@ -42,7 +42,7 @@ MonoBehaviour:
     specialEndCondition: 0
     storedDistanceRating: 0
   - spawnTime: 75
-    startDistanceRating: 3
+    startDistanceRating: 2
     travelDistanceRating: 2
     specialStartCondition: 0
     specialEndCondition: 0
@@ -50,7 +50,7 @@ MonoBehaviour:
   - spawnTime: 75
     startDistanceRating: 1
     travelDistanceRating: 3
-    specialStartCondition: 0
+    specialStartCondition: 1
     specialEndCondition: 0
     storedDistanceRating: 0
   - spawnTime: 65
@@ -68,10 +68,10 @@ MonoBehaviour:
   - spawnTime: 55
     startDistanceRating: 1
     travelDistanceRating: 2
-    specialStartCondition: 0
-    specialEndCondition: 0
+    specialStartCondition: 1
+    specialEndCondition: 1
     storedDistanceRating: 0
-  - spawnTime: 55
+  - spawnTime: 45
     startDistanceRating: 2
     travelDistanceRating: 3
     specialStartCondition: 0
@@ -81,7 +81,7 @@ MonoBehaviour:
     startDistanceRating: 1
     travelDistanceRating: 2
     specialStartCondition: 0
-    specialEndCondition: 1
+    specialEndCondition: 0
     storedDistanceRating: 0
   - spawnTime: 35
     startDistanceRating: 1
